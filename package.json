@@ -25,6 +25,16 @@
       "import": "./dist/primitives/index.js",
       "require": "./dist/primitives/index.js"
     },
+    "./motion": {
+      "types": "./dist/motion/index.d.ts",
+      "import": "./dist/motion/index.js",
+      "require": "./dist/motion/index.js"
+    },
+    "./marketing": {
+      "types": "./dist/marketing/index.d.ts",
+      "import": "./dist/marketing/index.js",
+      "require": "./dist/marketing/index.js"
+    },
     "./native/theme": {
       "types": "./dist/native/theme/index.d.ts",
       "import": "./dist/native/theme/index.js",
@@ -72,11 +82,15 @@
     "react": ">=18"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.3.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.0",
     "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.7",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.0"
   }

@@ -1,0 +1,1 @@
+{"version":3,"file":"Marquee.d.ts","sourceRoot":"","sources":["../../src/motion/Marquee.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAI/B,MAAM,WAAW,YAAa,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IACxE,0EAA0E;IAC1E,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,oCAAoC;IACpC,YAAY,CAAC,EAAE,OAAO,CAAC;CACxB;AAsBD;;;;;GAKG;AACH,eAAO,MAAM,OAAO,qFAuClB,CAAC"}

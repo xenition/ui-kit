@@ -6,11 +6,15 @@
  * - `@xenition/ui/theme`           — seed-token theme compiler + outputs
  * - `@xenition/ui/tailwind-preset` — Tailwind preset bound to the CSS vars
  * - `@xenition/ui/primitives`      — Button / Card / Input / Stack (web)
+ * - `@xenition/ui/motion`          — dependency-free scroll/pointer motion
+ * - `@xenition/ui/marketing`       — composed marketing sections (hero, FAQ, …)
  * - `@xenition/ui/native/theme`    — resolved token provider for React Native
  *
  * (React Native components land in a later version; v0 ships web primitives
  * and the native token layer only. The native subpath is intentionally NOT
- * re-exported here so web bundles never pull it in by accident.)
+ * re-exported here so web bundles never pull it in by accident. The motion
+ * and marketing subpaths are likewise not re-exported: app-shell bundles
+ * should not pay for marketing sections they don't use.)
  */
 
 export * from './theme';
