@@ -1,0 +1,83 @@
+{
+  "name": "@xenition/ui",
+  "version": "0.1.0",
+  "description": "Official UI kit for Xenition-generated apps \u2014 seed-token theme compiler with WCAG auto-contrast, Tailwind preset, themed React primitives (web), and React Native theme tokens.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme/index.js",
+      "require": "./dist/theme/index.js"
+    },
+    "./tailwind-preset": {
+      "types": "./dist/tailwind-preset/index.d.ts",
+      "import": "./dist/tailwind-preset/index.js",
+      "require": "./dist/tailwind-preset/index.js"
+    },
+    "./primitives": {
+      "types": "./dist/primitives/index.d.ts",
+      "import": "./dist/primitives/index.js",
+      "require": "./dist/primitives/index.js"
+    },
+    "./native/theme": {
+      "types": "./dist/native/theme/index.d.ts",
+      "import": "./dist/native/theme/index.js",
+      "require": "./dist/native/theme/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "xenition",
+    "ui-kit",
+    "design-tokens",
+    "theme",
+    "tailwind-preset",
+    "react",
+    "react-native",
+    "components",
+    "wcag",
+    "no-code"
+  ],
+  "author": "Xenition",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xenition/ui-kit.git"
+  },
+  "homepage": "https://github.com/xenition/ui-kit",
+  "bugs": {
+    "url": "https://github.com/xenition/ui-kit/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.0",
+    "@types/react": "^18.3.0",
+    "jest": "^29.7.0",
+    "react": "^18.3.1",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.0"
+  }
+}
