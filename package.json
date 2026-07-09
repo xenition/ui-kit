@@ -30,6 +30,11 @@
       "import": "./dist/motion/index.js",
       "require": "./dist/motion/index.js"
     },
+    "./data": {
+      "types": "./dist/data/index.d.ts",
+      "import": "./dist/data/index.js",
+      "require": "./dist/data/index.js"
+    },
     "./marketing": {
       "types": "./dist/marketing/index.d.ts",
       "import": "./dist/marketing/index.js",

@@ -278,6 +278,7 @@ land under `@xenition/ui/native/*` in a later version.
 | `@xenition/ui/tailwind-preset` | `toTailwindPreset` (also the default export) |
 | `@xenition/ui/primitives` | `Button`, `Card`, `Input`, `Stack`, `GradientText`, `Eyebrow`, `GlassPanel`, `StatusDot` |
 | `@xenition/ui/motion` | `Reveal`, `Stagger`, `Parallax`, `AnimatedCounter`, `Marquee`, `TiltCard` |
+| `@xenition/ui/data` | `useResource` hook + headless `Resource` (loading/error/empty branching) — pairs with `@xenition/sdk/client` |
 | `@xenition/ui/marketing` | `GradientHero`, `AuroraBackground`, `Navbar`, `FeatureGrid`, `PricingTable`, `FAQ`, `ProductMock`, `BentoGrid`, `ParticleField`, `GenerativeCover`, `EditorialGrid`, `PointerHalo`, … |
 | `@xenition/ui/native/theme` | `XenitionNativeThemeProvider`, `useXenitionTheme` |
 
