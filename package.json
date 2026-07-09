@@ -79,6 +79,11 @@
       "types": "./dist/native/media/index.d.ts",
       "import": "./dist/native/media/index.js",
       "require": "./dist/native/media/index.js"
+    },
+    "./native/motion": {
+      "types": "./dist/native/motion/index.d.ts",
+      "import": "./dist/native/motion/index.js",
+      "require": "./dist/native/motion/index.js"
     }
   },
   "scripts": {

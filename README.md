@@ -381,8 +381,7 @@ image placeholder — all matching the web `@xenition/ui/commerce` prop APIs.
 Money is integer **cents** throughout.
 
 `react-native` is a peer dependency; `expo-linear-gradient` is an optional peer
-(used for gradient cover placeholders). Further native families
-(motion) follow.
+(used for gradient cover placeholders).
 
 ### `@xenition/ui/native/booking`
 
@@ -407,6 +406,17 @@ for a `null`/out-of-range `index`), and `MediaFigure` (single image + caption) �
 all matching the web `@xenition/ui/media` prop APIs (`onOpen`/`onActivate`/
 `onClose`/`onPrev`/`onNext` are the native event idioms).
 
+### `@xenition/ui/native/motion`
+
+`Reveal` (`{children, effect: 'fade' | 'fade-up' | 'zoom', delay?, duration?}`) and
+`Stagger` (sequences child `Reveal` delays), built on the RN `Animated` API only
+(no animation library). On mobile the norm is a **mount** entrance, so `Reveal`
+animates in on mount rather than on scroll; under the OS "Reduce Motion" setting
+content renders immediately with animations off. The scroll/pointer-driven web
+pieces — `Parallax`, `Marquee`, `TiltCard`, `AnimatedCounter` — are **web-only**
+(they depend on scroll position / pointer events / `IntersectionObserver` with no
+React Native analogue); use them from `@xenition/ui/motion` in web templates.
+
 ## Subpath layout
 
 | Subpath | Contents |
@@ -426,6 +436,7 @@ all matching the web `@xenition/ui/media` prop APIs (`onOpen`/`onActivate`/
 | `@xenition/ui/native/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState`, `GenerativeCover` (React Native) |
 | `@xenition/ui/native/booking` | `BookingCalendar`, `SlotPicker`, `BookingSummary` (React Native; shares the web date helpers) |
 | `@xenition/ui/native/media` | `Gallery` (`FlatList`), `Lightbox` (RN `Modal` + `PanResponder` swipe), `MediaFigure` (React Native) |
+| `@xenition/ui/native/motion` | `Reveal` (mount entrance via `Animated`, reduced-motion-safe), `Stagger` (React Native) |
 
 The `booking` / `media` / `commerce` families ship these as **presentational**
 components (data-as-props, no fetching); the SDK-backed headless hooks that
