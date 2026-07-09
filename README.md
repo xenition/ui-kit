@@ -382,7 +382,18 @@ Money is integer **cents** throughout.
 
 `react-native` is a peer dependency; `expo-linear-gradient` is an optional peer
 (used for gradient cover placeholders). Further native families
-(booking / media / motion) follow.
+(media / motion) follow.
+
+### `@xenition/ui/native/booking`
+
+`BookingCalendar` (`View`/`Pressable` month/week grid — availability dots,
+selected/disabled cells, `accessibilityState`; header chevrons change month),
+`SlotPicker` (`FlatList` of time chips — full slots disabled with a `Full`
+label, low-stock "{n} left" hint, `onPick`), and `BookingSummary` (resource +
+slot recap card) — all matching the web `@xenition/ui/booking` prop APIs
+(`onSelectDate`/`onPick` are the native event idioms). The pure date helpers
+(`toDayKey`/`dayKeyInTz`/`monthMatrix`/`weekRow`/…) are re-exported from the
+single web home, never duplicated.
 
 ## Subpath layout
 
@@ -401,6 +412,7 @@ Money is integer **cents** throughout.
 | `@xenition/ui/native/theme` | `XenitionNativeThemeProvider`, `useXenitionTheme` |
 | `@xenition/ui/native/primitives` | `XenitionUIProvider`, `Button`, `Card`, `Stack`, `Input`, `Eyebrow`, `StatusDot`, `GlassPanel`, `GradientText`, `EmptyState`, `PriceTag`, `formatMoney` (React Native) |
 | `@xenition/ui/native/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState`, `GenerativeCover` (React Native) |
+| `@xenition/ui/native/booking` | `BookingCalendar`, `SlotPicker`, `BookingSummary` (React Native; shares the web date helpers) |
 
 The `booking` / `media` / `commerce` families ship these as **presentational**
 components (data-as-props, no fetching); the SDK-backed headless hooks that
