@@ -11,6 +11,7 @@ import * as React from 'react';
 import type { NativeThemeTokens } from '../../theme/outputs';
 import type { CompiledTheme, SemanticColors, ThemeSeed } from '../../theme/types';
 export type { NativeThemeTokens };
+export type { CompiledTheme, SemanticColors, ThemeSeed };
 export type NativeColorScheme = 'light' | 'dark';
 export interface XenitionNativeTheme {
     /** The full resolved token object (both color schemes). */

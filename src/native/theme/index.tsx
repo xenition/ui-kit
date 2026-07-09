@@ -15,6 +15,9 @@ import type { NativeThemeTokens } from '../../theme/outputs';
 import type { CompiledTheme, SemanticColors, ThemeSeed } from '../../theme/types';
 
 export type { NativeThemeTokens };
+// Re-exported for RN ergonomics — mobile apps shouldn't need a second import
+// from '@xenition/ui/theme' just to type their seed (v2-reference finding).
+export type { CompiledTheme, SemanticColors, ThemeSeed };
 
 function isCompiledTheme(theme: ThemeSeed | CompiledTheme): theme is CompiledTheme {
   return typeof theme === 'object' && theme !== null && 'ramps' in theme && 'light' in theme;
