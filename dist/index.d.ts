@@ -8,13 +8,16 @@
  * - `@xenition/ui/primitives`      — Button / Card / Input / Stack (web)
  * - `@xenition/ui/motion`          — dependency-free scroll/pointer motion
  * - `@xenition/ui/marketing`       — composed marketing sections (hero, FAQ, …)
+ * - `@xenition/ui/booking`         — presentational scheduling blocks
+ * - `@xenition/ui/media`           — presentational gallery / lightbox blocks
+ * - `@xenition/ui/commerce`        — presentational catalog / cart / order blocks
  * - `@xenition/ui/native/theme`    — resolved token provider for React Native
  *
  * (React Native components land in a later version; v0 ships web primitives
  * and the native token layer only. The native subpath is intentionally NOT
- * re-exported here so web bundles never pull it in by accident. The motion
- * and marketing subpaths are likewise not re-exported: app-shell bundles
- * should not pay for marketing sections they don't use.)
+ * re-exported here so web bundles never pull it in by accident. The motion,
+ * marketing, and domain-block subpaths (booking/media/commerce) are likewise
+ * not re-exported: app-shell bundles should not pay for blocks they don't use.)
  */
 export * from './theme';
 export * from './primitives';

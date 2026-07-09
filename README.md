@@ -166,6 +166,60 @@ The display primitives that keep recurring across templates live in
 `AuroraBackground` is exported directly so templates can build custom
 striking sections from the same machinery.
 
+## Domain blocks — booking / media / commerce
+
+Presentational components for the module-backed template families. Like the
+marketing sections they are **token-only** (no literal colors — unit-enforced,
+both modes verified) and **motion/reduced-motion safe**, but they carry no
+data layer: every component takes its **data as props** (the shapes below
+mirror the SDK module DTOs) and never fetches or imports an SDK. A template
+wires them to `@xenition/ui/data` + `@xenition/sdk`; the kit just renders.
+
+### Booking (`@xenition/ui/booking`)
+
+Prop shapes mirror the booking module — a resource is
+`{ name, timezone, slotMinutes }` and a slot is
+`{ startsAt, endsAt, spotsLeft }` (instants are ISO-8601 strings).
+
+| Component | What it does |
+| --- | --- |
+| `BookingCalendar` | month or `week` view highlighting days with availability (derived from `slots`, or a per-day `availability` summary, bucketed in `timezone`); ARIA `grid` with roving-tabindex cells and full keyboard nav (arrows/Home/End/PageUp-Down/Enter), availability shown as a dot **and** in the `aria-label`; `selectedDate`, `onSelectDate` |
+| `SlotPicker` | grid of bookable times for a day; `slots`, `onPick(slot)`, `selected`, a `formatTime` override (default timezone-aware), remaining-spots hint, and disabled/`Full` when `spotsLeft === 0` |
+| `BookingSummary` | read-only recap of the chosen resource + slot (date, time range, duration, timezone), optional `action` slot |
+
+### Media (`@xenition/ui/media`)
+
+Prop shapes mirror the media module — an album `{ title }` and items
+`{ url, kind, caption, alt, width, height }`.
+
+| Component | What it does |
+| --- | --- |
+| `Gallery` | responsive grid (+ `masonry` variant) of media items; `columns`, `onOpen(index)`, `loading="lazy"` images, aspect-ratio boxes reserved from `width`/`height` |
+| `Lightbox` | fullscreen overlay viewer; `items`, `index` (`null` = closed), `onClose`/`onPrev`/`onNext`, `loop`; `role="dialog" aria-modal`, focus trap (enter on open, cycle on Tab, restore on close), keyboard (Esc/←/→), token-styled backdrop, opacity-only fade dropped under reduced motion |
+| `MediaFigure` | a single item with its `<figcaption>`, in a reserved aspect-ratio box |
+
+### Commerce (`@xenition/ui/commerce`)
+
+Prop shapes mirror the catalog/cart/order module — Product `{ slug, title,
+imageUrl }`, Variant `{ title, priceCents, currency, compareAtCents }`,
+CartItem `{ title, variantTitle, quantity, unitPriceCents, imageUrl }`. **Money
+is always integer cents**, formatted through the single exported
+`formatMoney(cents, currency)` home (overridable per component via a
+`formatMoney` prop).
+
+| Component | What it does |
+| --- | --- |
+| `formatMoney` | the one cents → localized currency string util (`1200` → `"$12.00"`) |
+| `PriceTag` | formatted price with an optional struck-through `compareAt` |
+| `ProductCard` | media (image, or a seeded `GenerativeCover` fallback when no `imageUrl`), title, `PriceTag`, optional `onAdd`/`href` |
+| `ProductGrid` | responsive grid of `ProductCard`s (`columns`) |
+| `QuantityStepper` | −/n/+ control with `min`/`max` clamping (boundary button self-disables), `onChange` |
+| `CartLineItem` | thumbnail, title + variant, `QuantityStepper`, line total (unit × qty), remove |
+| `CartSummary` | subtotal / shipping (`Free` at 0) / tax / discount / total rows (all cents), `onCheckout` |
+| `OrderSummary` / `CheckoutSummary` | read-only order recap — line items + totals + `StatusBadge` |
+| `StatusBadge` | order-status pill using contrast-checked `X`/`on-X` semantic pairs |
+| `EmptyState` | generic empty / no-results (empty cart, no matches) — icon slot, title, description, action |
+
 ### Composition, not creation
 
 The kit owns the design; apps only compose. Every "bespoke" visual trick the
@@ -173,6 +227,12 @@ flagship templates shipped — the fake dashboard product shot, the bento
 grid's hover wash, the ember sky, brass rules and dotted price leaders, the
 generative cover plates, the studio cursor, the overlapping editorial grid —
 now lives here as a configurable, token-pure, reduced-motion-safe component.
+The same rule extends to the **domain blocks**: a booking flow, a photo
+gallery + lightbox, a storefront grid, a cart drawer, or an order recap is
+composed from `@xenition/ui/booking` · `/media` · `/commerce`, never
+hand-written per template. Those components take data as props (no fetching,
+no SDK import) and are styled by tokens alone, so the same booking calendar or
+product grid restyles — light and dark — from the theme seed.
 Templates and the no-code builder must compose these components (and the
 `/motion` layer) rather than writing their own motion or color CSS.
 **Bespoke visual code in a generated app is an anti-pattern:** it can't be
@@ -280,11 +340,16 @@ land under `@xenition/ui/native/*` in a later version.
 | `@xenition/ui/motion` | `Reveal`, `Stagger`, `Parallax`, `AnimatedCounter`, `Marquee`, `TiltCard` |
 | `@xenition/ui/data` | `useResource` hook + headless `Resource` (loading/error/empty branching) — pairs with `@xenition/sdk/client` |
 | `@xenition/ui/marketing` | `GradientHero`, `AuroraBackground`, `Navbar`, `FeatureGrid`, `PricingTable`, `FAQ`, `ProductMock`, `BentoGrid`, `ParticleField`, `GenerativeCover`, `EditorialGrid`, `PointerHalo`, … |
+| `@xenition/ui/booking` | `BookingCalendar`, `SlotPicker`, `BookingSummary` (+ `toDayKey` / `dayKeyInTz` / `formatTimeInTz` date helpers) |
+| `@xenition/ui/media` | `Gallery`, `Lightbox`, `MediaFigure` |
+| `@xenition/ui/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState` |
 | `@xenition/ui/native/theme` | `XenitionNativeThemeProvider`, `useXenitionTheme` |
 
-Module component families (`@xenition/ui/cart`, `@xenition/ui/catalog`,
-`@xenition/ui/booking`, …) will be added as their SDK modules land —
-SDK-backed via one root provider, each with a headless hook.
+The `booking` / `media` / `commerce` families ship these as **presentational**
+components (data-as-props, no fetching); the SDK-backed headless hooks that
+feed them — wired through one root provider, à la `@xenition/ui/data` — land
+alongside their SDK modules. Further families (`@xenition/ui/catalog`, …)
+follow the same pattern as their modules land.
 
 ## Relation to @xenition/sdk
 

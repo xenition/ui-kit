@@ -1,0 +1,1 @@
+{"version":3,"file":"aspect.js","sourceRoot":"","sources":["../../src/media/aspect.ts"],"names":[],"mappings":";;AAQA,kCASC;AAfD;;;;;GAKG;AACH,SAAgB,WAAW,CACzB,KAAc,EACd,MAAe;IAEf,IAAI,CAAC,KAAK,IAAI,CAAC,MAAM;QAAE,OAAO,SAAS,CAAC;IACxC,OAAO;QACL,CAAC,cAAwB,CAAC,EAAE,GAAG,KAAK,MAAM,MAAM,EAAE;QAClD,WAAW,EAAE,mBAAmB;KACV,CAAC;AAC3B,CAAC"}
