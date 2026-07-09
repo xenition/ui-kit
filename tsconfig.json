@@ -24,6 +24,7 @@
     "dist",
     "src/**/*.spec.ts",
     "src/**/*.spec.tsx",
-    "src/spec-support/**"
+    "src/spec-support/**",
+    "src/native/spec-support/**"
   ]
 }

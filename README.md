@@ -300,7 +300,11 @@ export function LandingPage() {
 Swap the seed, and the aurora, buttons, rings, and patterns all follow —
 "restyle by prompt" now covers the marketing site, not just the app shell.
 
-## Usage (React Native — tokens only in v0)
+## Usage (React Native)
+
+The token layer alone is still available for bespoke styling —
+`useXenitionTheme()` returns resolved hex/px values (RN cannot read CSS
+variables):
 
 ```tsx
 import {
@@ -324,10 +328,61 @@ function BuyButton() {
 }
 ```
 
-**v0 ships no React Native components** — only the theme token layer
-(`useXenitionTheme()` returns resolved hex/px values; RN cannot read CSS
-variables). Native components mirroring the web names and prop contracts
-land under `@xenition/ui/native/*` in a later version.
+But the kit now ships **genuine React Native components** under
+`@xenition/ui/native/*` that mirror the web prop contracts exactly — a
+template's mobile screen composes them 1:1 like the web page, swapping
+web→native by import path only (`onClick` → `onPress` is the one idiomatic
+change). They are real RN components (`View` / `Text` / `Pressable` /
+`TextInput` / `Image` / `FlatList` / `Animated` — no DOM), styled **only**
+from the compiled theme tokens (light + dark, restyle-by-seed), and
+reduced-motion-safe via `AccessibilityInfo`.
+
+```tsx
+import { XenitionUIProvider, Button, Card, Stack } from '@xenition/ui/native/primitives';
+import { ProductGrid, ProductCard, CartSummary } from '@xenition/ui/native/commerce';
+import seed from './theme.seed.json';
+
+export function Storefront() {
+  return (
+    <XenitionUIProvider theme={seed}>
+      <ProductGrid columns={2}>
+        <ProductCard title="Ceramic Mug" priceCents={2400} compareAtCents={3200} onAdd={add} />
+        <ProductCard title="Linen Napkin" priceCents={1800} imageUrl={url} />
+      </ProductGrid>
+      <CartSummary subtotalCents={4200} shippingCents={0} taxCents={336} totalCents={4536} onCheckout={checkout} />
+    </XenitionUIProvider>
+  );
+}
+```
+
+### `@xenition/ui/native/primitives`
+
+`XenitionUIProvider` (native root), `Button` (`variant` primary/secondary/ghost,
+`size` sm/md/lg, `onPress`, `disabled`, `loading`), `Card`, `Stack`
+(`direction`/`gap`/`align`, plus an additive `justify`), `Input`
+(`invalid` + optional `label`), `Eyebrow`, `StatusDot` (`Animated` pulse,
+reduced-motion-safe), `GlassPanel` (translucent `rgba` derived from the
+`surface` token), `GradientText`, `EmptyState`, `PriceTag`, and `formatMoney`
+(re-exported from the single commerce home).
+
+> **Gradients on native.** RN has no `background-clip: text`, so `GradientText`
+> uses a tasteful **solid-token fallback** (the ramp's mid step) rather than
+> pulling in a masked-view dependency; the `angle` prop is accepted for parity
+> but inert. Real gradient *surfaces* (the commerce cover placeholder) use
+> `expo-linear-gradient` — an **optional** peer that every Expo consumer already
+> has; absent it, those surfaces degrade to a solid token fill.
+
+### `@xenition/ui/native/commerce`
+
+`formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid` (`FlatList`-backed),
+`QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` /
+`CheckoutSummary`, `StatusBadge`, `EmptyState`, and a native `GenerativeCover`
+image placeholder — all matching the web `@xenition/ui/commerce` prop APIs.
+Money is integer **cents** throughout.
+
+`react-native` is a peer dependency; `expo-linear-gradient` is an optional peer
+(used for gradient cover placeholders). Further native families
+(booking / media / motion) follow.
 
 ## Subpath layout
 
@@ -344,6 +399,8 @@ land under `@xenition/ui/native/*` in a later version.
 | `@xenition/ui/media` | `Gallery`, `Lightbox`, `MediaFigure` |
 | `@xenition/ui/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState` |
 | `@xenition/ui/native/theme` | `XenitionNativeThemeProvider`, `useXenitionTheme` |
+| `@xenition/ui/native/primitives` | `XenitionUIProvider`, `Button`, `Card`, `Stack`, `Input`, `Eyebrow`, `StatusDot`, `GlassPanel`, `GradientText`, `EmptyState`, `PriceTag`, `formatMoney` (React Native) |
+| `@xenition/ui/native/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState`, `GenerativeCover` (React Native) |
 
 The `booking` / `media` / `commerce` families ship these as **presentational**
 components (data-as-props, no fetching); the SDK-backed headless hooks that
