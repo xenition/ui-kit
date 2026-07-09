@@ -74,6 +74,11 @@
       "types": "./dist/native/booking/index.d.ts",
       "import": "./dist/native/booking/index.js",
       "require": "./dist/native/booking/index.js"
+    },
+    "./native/media": {
+      "types": "./dist/native/media/index.d.ts",
+      "import": "./dist/native/media/index.js",
+      "require": "./dist/native/media/index.js"
     }
   },
   "scripts": {

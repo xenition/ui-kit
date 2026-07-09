@@ -382,7 +382,7 @@ Money is integer **cents** throughout.
 
 `react-native` is a peer dependency; `expo-linear-gradient` is an optional peer
 (used for gradient cover placeholders). Further native families
-(media / motion) follow.
+(motion) follow.
 
 ### `@xenition/ui/native/booking`
 
@@ -394,6 +394,18 @@ slot recap card) — all matching the web `@xenition/ui/booking` prop APIs
 (`onSelectDate`/`onPick` are the native event idioms). The pure date helpers
 (`toDayKey`/`dayKeyInTz`/`monthMatrix`/`weekRow`/…) are re-exported from the
 single web home, never duplicated.
+
+### `@xenition/ui/native/media`
+
+`Gallery` (`FlatList` grid — `numColumns`, `grid`/`masonry` from
+`width`/`height` via the RN `aspectRatio` style, windowing gives the web's lazy
+loading; `onOpen(index)`), `Lightbox` (a reduced-motion-safe transparent RN
+`Modal` — token-styled backdrop, prev/next `Pressable` controls, and horizontal
+swipe via `PanResponder` from RN core with **no** extra gesture dependency; the
+Android back button routes through `onRequestClose` → `onClose`; renders nothing
+for a `null`/out-of-range `index`), and `MediaFigure` (single image + caption) —
+all matching the web `@xenition/ui/media` prop APIs (`onOpen`/`onActivate`/
+`onClose`/`onPrev`/`onNext` are the native event idioms).
 
 ## Subpath layout
 
@@ -413,6 +425,7 @@ single web home, never duplicated.
 | `@xenition/ui/native/primitives` | `XenitionUIProvider`, `Button`, `Card`, `Stack`, `Input`, `Eyebrow`, `StatusDot`, `GlassPanel`, `GradientText`, `EmptyState`, `PriceTag`, `formatMoney` (React Native) |
 | `@xenition/ui/native/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState`, `GenerativeCover` (React Native) |
 | `@xenition/ui/native/booking` | `BookingCalendar`, `SlotPicker`, `BookingSummary` (React Native; shares the web date helpers) |
+| `@xenition/ui/native/media` | `Gallery` (`FlatList`), `Lightbox` (RN `Modal` + `PanResponder` swipe), `MediaFigure` (React Native) |
 
 The `booking` / `media` / `commerce` families ship these as **presentational**
 components (data-as-props, no fetching); the SDK-backed headless hooks that
