@@ -11,5 +11,13 @@ export { Input } from './Input';
 export type { InputProps } from './Input';
 export { Stack } from './Stack';
 export type { StackProps, StackDirection, StackGap } from './Stack';
+export { GradientText } from './GradientText';
+export type { GradientTextProps, GradientTextRamp } from './GradientText';
+export { Eyebrow } from './Eyebrow';
+export type { EyebrowProps, EyebrowTone } from './Eyebrow';
+export { GlassPanel } from './GlassPanel';
+export type { GlassPanelProps, GlassIntensity } from './GlassPanel';
+export { StatusDot } from './StatusDot';
+export type { StatusDotProps, StatusDotTone } from './StatusDot';
 export { cn } from './cn';
 //# sourceMappingURL=index.d.ts.map

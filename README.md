@@ -143,9 +143,42 @@ theme seed alone, dark mode included.
 | `CTABanner` | compact gradient band reusing the aurora machinery |
 | `Footer` / `FooterColumn` | multi-column link groups + bottom bar |
 | `LogoCloud` | dimmed logo slots that restore on hover |
+| `ProductMock` | configurable fake-product hero panel (`variant`: `analytics` \| `chat` \| `commerce` \| `calendar`; KPI tiles, `chart`: `bars` \| `sparkline` \| `rings` \| `scene`, live event feed, pulsing badge, 3D entrance tilt); CSS-only animation, deterministic, `aria-hidden` |
+| `BentoGrid` / `BentoCard` | asymmetric span-config feature grid (per-card `span`/`rowSpan`, icon tile, metric chip, micro-`visual` slot, token hover energy wash) |
+| `ParticleField` | ambient particles (`mood`: `ember` \| `snow` \| `fireflies` \| `sparks`; `density`, `seed`); deterministic golden-ratio layout, static scatter under reduced motion; `computeParticles()` exported |
+| `OrnamentRule` | editorial divider — fading gradient rule with `diamond` \| `dot` \| `line` ornament, `tone`: `accent` \| `primary` \| `border` |
+| `PriceList` / `PriceRow` | dotted-leader price rows with ornamented group headings (menus, service lists, rate cards) |
+| `GenerativeCover` | deterministic SVG cover art from `{ seed, form: arc \| bands \| orbit \| grid \| wave \| stack, ink, paper }` — two token color roles, seeded PRNG geometry, no stock imagery |
+| `PointerHalo` | optional custom-cursor affordance — accent halo trailing the pointer, tightens over links, swells with a label over `[data-halo="grow"]`; fine-pointer only, reduced-motion/touch → renders nothing |
+| `EditorialGrid` / `EditorialItem` | 12-column asymmetric overlap layout (`span`/`start`/`offset` per item, surface-backed `caption` slot, automatic z-order so overlaps slide under captions) |
+| `SectionDivider` | section separator (`hairline` \| `ornament` \| `fade`), optionally parallax-capable via `parallax` speed |
+
+The display primitives that keep recurring across templates live in
+`@xenition/ui/primitives` (also re-exported from the root):
+
+| Component | What it does |
+| --- | --- |
+| `GradientText` | ramp-driven clipped gradient text (`ramp`: `primary` \| `accent` \| `primary-accent` \| `accent-primary`, `angle`) |
+| `Eyebrow` | tracked small-caps kicker label (`tone`, optional flanking rules, `align`) |
+| `GlassPanel` | `color-mix` translucent blurred surface over the `surface`/`border` tokens (`intensity`: `soft` \| `regular` \| `strong`) |
+| `StatusDot` | pulsing semantic status dot (`tone`: `success` \| `warn` \| `danger` \| `primary` \| `accent`; echo disabled under reduced motion; optional accessible `label`) |
 
 `AuroraBackground` is exported directly so templates can build custom
 striking sections from the same machinery.
+
+### Composition, not creation
+
+The kit owns the design; apps only compose. Every "bespoke" visual trick the
+flagship templates shipped — the fake dashboard product shot, the bento
+grid's hover wash, the ember sky, brass rules and dotted price leaders, the
+generative cover plates, the studio cursor, the overlapping editorial grid —
+now lives here as a configurable, token-pure, reduced-motion-safe component.
+Templates and the no-code builder must compose these components (and the
+`/motion` layer) rather than writing their own motion or color CSS.
+**Bespoke visual code in a generated app is an anti-pattern:** it can't be
+restyled by seed, isn't contrast-checked, and won't respect reduced motion.
+If a design needs something the kit can't express, the fix is a new prop or
+component *in the kit* — never a one-off in the app.
 
 ## Building a beautiful template
 
@@ -243,9 +276,9 @@ land under `@xenition/ui/native/*` in a later version.
 | `@xenition/ui` | everything web: theme + primitives + `XenitionUIProvider` |
 | `@xenition/ui/theme` | `compileTheme`, color/WCAG utilities, output functions |
 | `@xenition/ui/tailwind-preset` | `toTailwindPreset` (also the default export) |
-| `@xenition/ui/primitives` | `Button`, `Card`, `Input`, `Stack` |
+| `@xenition/ui/primitives` | `Button`, `Card`, `Input`, `Stack`, `GradientText`, `Eyebrow`, `GlassPanel`, `StatusDot` |
 | `@xenition/ui/motion` | `Reveal`, `Stagger`, `Parallax`, `AnimatedCounter`, `Marquee`, `TiltCard` |
-| `@xenition/ui/marketing` | `GradientHero`, `AuroraBackground`, `Navbar`, `FeatureGrid`, `PricingTable`, `FAQ`, … |
+| `@xenition/ui/marketing` | `GradientHero`, `AuroraBackground`, `Navbar`, `FeatureGrid`, `PricingTable`, `FAQ`, `ProductMock`, `BentoGrid`, `ParticleField`, `GenerativeCover`, `EditorialGrid`, `PointerHalo`, … |
 | `@xenition/ui/native/theme` | `XenitionNativeThemeProvider`, `useXenitionTheme` |
 
 Module component families (`@xenition/ui/cart`, `@xenition/ui/catalog`,
