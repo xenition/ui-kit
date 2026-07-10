@@ -22,6 +22,20 @@ import { StatusMessage } from './StatusMessage';
 import { GlassPanel } from './GlassPanel';
 import { GradientText } from './GradientText';
 import { EmptyState } from '../commerce/EmptyState';
+import { Textarea } from './Textarea';
+import { Checkbox } from './Checkbox';
+import { Select } from './Select';
+import { Label } from './Label';
+import { Field } from './Field';
+import { Badge } from './Badge';
+import { Avatar } from './Avatar';
+import { Switch } from './Switch';
+import { Spinner } from './Spinner';
+import { Tabs } from './Tabs';
+import { ChatBubble } from './ChatBubble';
+import { MessageList } from './MessageList';
+import { Table } from './Table';
+import { Modal } from './Modal';
 
 describe('XenitionUIProvider (native)', () => {
   it('compiles a seed and exposes resolved tokens via useXenitionTheme', () => {
@@ -333,6 +347,187 @@ describe('token purity (native, both seeds)', () => {
       expect(found.length).toBeGreaterThan(0);
       found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
     });
+  });
+});
+
+describe('form primitives (native)', () => {
+  it('Textarea is multiline and reflects invalid on its border token', () => {
+    const { getByDisplayValue } = renderThemed(
+      <Textarea value="hi" invalid onChangeText={() => undefined} />,
+      SEED_DARK
+    );
+    const input = getByDisplayValue('hi');
+    expect(input.props.multiline).toBe(true);
+    const danger = require('../../theme/compile').compileTheme(SEED_DARK).dark.danger.toLowerCase();
+    expect(String(flatten(input.props.style).borderColor).toLowerCase()).toBe(danger);
+  });
+
+  it('Checkbox toggles via onCheckedChange and exposes the checkbox role/state', () => {
+    const onCheckedChange = jest.fn();
+    const { getByRole } = renderThemed(
+      <Checkbox checked={false} onCheckedChange={onCheckedChange} accessibilityLabel="Agree" />,
+      SEED_LIGHT
+    );
+    const box = getByRole('checkbox');
+    expect(box.props.accessibilityState.checked).toBe(false);
+    fireEvent.press(box);
+    expect(onCheckedChange).toHaveBeenCalledWith(true);
+  });
+
+  it('Select opens an option sheet and reports the chosen value', () => {
+    const onValueChange = jest.fn();
+    const { getByText, queryByText } = renderThemed(
+      <Select
+        options={[
+          { label: 'One', value: '1' },
+          { label: 'Two', value: '2' },
+        ]}
+        placeholder="Pick"
+        onValueChange={onValueChange}
+      />,
+      SEED_LIGHT
+    );
+    expect(getByText('Pick')).toBeTruthy();
+    expect(queryByText('One')).toBeNull(); // closed
+    fireEvent.press(getByText('Pick'));
+    fireEvent.press(getByText('Two'));
+    expect(onValueChange).toHaveBeenCalledWith('2');
+  });
+
+  it('Label appends a required marker; Field surfaces error over hint', () => {
+    const label = renderThemed(<Label required>Email</Label>, SEED_LIGHT);
+    expect(label.getByText(/Email/)).toBeTruthy();
+    expect(label.getByText('*')).toBeTruthy();
+
+    const { getByText, queryByText } = renderThemed(
+      <Field label="Name" error="Required" hint="Your name">
+        <Text>control</Text>
+      </Field>,
+      SEED_LIGHT
+    );
+    expect(getByText('Name')).toBeTruthy();
+    expect(getByText('Required')).toBeTruthy();
+    expect(queryByText('Your name')).toBeNull(); // error wins
+  });
+});
+
+describe('app-UI primitives (native)', () => {
+  it('Badge renders its label; Avatar falls back to initials', () => {
+    const badge = renderThemed(<Badge tone="success">New</Badge>, SEED_LIGHT);
+    expect(badge.getByText('New')).toBeTruthy();
+    const avatar = renderThemed(<Avatar name="Ada Lovelace" />, SEED_LIGHT);
+    expect(avatar.getByText('AL')).toBeTruthy();
+  });
+
+  it('Switch toggles and reports its checked state', () => {
+    const onCheckedChange = jest.fn();
+    const { getByRole } = renderThemed(
+      <Switch checked={false} onCheckedChange={onCheckedChange} accessibilityLabel="Notify" />,
+      SEED_LIGHT
+    );
+    const sw = getByRole('switch');
+    expect(sw.props.accessibilityState.checked).toBe(false);
+    fireEvent.press(sw);
+    expect(onCheckedChange).toHaveBeenCalledWith(true);
+  });
+
+  it('Spinner renders a labelled ActivityIndicator', () => {
+    const { getByLabelText } = renderThemed(<Spinner size="lg" />, SEED_LIGHT);
+    expect(getByLabelText('Loading')).toBeTruthy();
+  });
+
+  it('Tabs marks the active tab selected and reports changes', () => {
+    const onValueChange = jest.fn();
+    const { getByText } = renderThemed(
+      <Tabs
+        items={[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]}
+        value="a"
+        onValueChange={onValueChange}
+      />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByText('B'));
+    expect(onValueChange).toHaveBeenCalledWith('b');
+  });
+
+  it('ChatBubble + MessageList render message content', () => {
+    const { getByText } = renderThemed(
+      <MessageList>
+        <ChatBubble side="them" meta="Ada">
+          hello
+        </ChatBubble>
+        <ChatBubble side="me">hi back</ChatBubble>
+      </MessageList>,
+      SEED_LIGHT
+    );
+    expect(getByText('hello')).toBeTruthy();
+    expect(getByText('hi back')).toBeTruthy();
+    expect(getByText('Ada')).toBeTruthy();
+  });
+});
+
+describe('new primitives token purity (native, both seeds)', () => {
+  it('every rendered hex traces to a compiled token', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      const { root } = renderThemed(
+        <Stack gap="md">
+          <Field label="Name" required hint="help">
+            <Textarea value="x" onChangeText={() => undefined} />
+          </Field>
+          <Checkbox checked onCheckedChange={() => undefined} accessibilityLabel="c" />
+          <Select options={[{ label: 'One', value: '1' }]} value="1" onValueChange={() => undefined} />
+          <Badge tone="primary">B</Badge>
+          <Avatar name="Ada" />
+          <Switch checked onCheckedChange={() => undefined} />
+          <Spinner />
+          <Tabs items={[{ value: 'a', label: 'A' }]} value="a" onValueChange={() => undefined} />
+          <ChatBubble side="me" meta="now">
+            hi
+          </ChatBubble>
+        </Stack>,
+        seed
+      );
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+});
+
+describe('Table / Modal (native)', () => {
+  it('Table renders headers and cell content', () => {
+    const { getByText } = renderThemed(
+      <Table
+        columns={[
+          { key: 'name', header: 'Name' },
+          { key: 'age', header: 'Age', render: (r: { age: number }) => <Text>{`${r.age}y`}</Text> },
+        ]}
+        rows={[{ name: 'Ada', age: 30 }]}
+      />,
+      SEED_LIGHT
+    );
+    expect(getByText('Name')).toBeTruthy();
+    expect(getByText('Ada')).toBeTruthy();
+    expect(getByText('30y')).toBeTruthy();
+  });
+
+  it('Modal renders content only when open, and every hex is a token', () => {
+    const closed = renderThemed(<Modal open={false} onClose={() => {}} title="T">body</Modal>, SEED_DARK);
+    expect(closed.queryByText('body')).toBeNull();
+    const { getByText, root } = renderThemed(
+      <Modal open onClose={() => {}} title="Confirm">
+        <Text>body</Text>
+      </Modal>,
+      SEED_DARK
+    );
+    expect(getByText('Confirm')).toBeTruthy();
+    expect(getByText('body')).toBeTruthy();
+    const allowed = tokenHexSet(SEED_DARK);
+    renderedStyleHexes(root).forEach((hex) => expect(allowed.has(hex)).toBe(true));
   });
 });
 

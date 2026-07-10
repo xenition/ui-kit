@@ -88,6 +88,11 @@ function toTailwindPreset(_theme) {
         neutral: rampVarObject('neutral'),
         surface: 'var(--xen-surface)',
         'on-surface': 'var(--xen-on-surface)',
+        // Aliases for the most common Tailwind naming (shadcn-style). Generated code and hand authors
+        // reach for `bg-background`/`text-foreground`; map them to the kit's surface/on-surface so those
+        // classes resolve instead of rendering unstyled.
+        background: 'var(--xen-surface)',
+        foreground: 'var(--xen-on-surface)',
         muted: 'var(--xen-muted)',
         border: 'var(--xen-border)',
         success: 'var(--xen-success)',
