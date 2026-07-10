@@ -67,7 +67,12 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(func
   const heading = (
     <h3 className="font-heading text-lg font-semibold leading-snug text-on-surface">
       {href ? (
-        <a href={href} className="hover:text-primary">
+        // Stretched link: the ::after overlay spans the whole (relative) Card,
+        // so a click anywhere on the card navigates — not just on the title.
+        <a
+          href={href}
+          className="hover:text-primary after:absolute after:inset-0 after:content-['']"
+        >
           {title}
         </a>
       ) : (
