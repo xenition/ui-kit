@@ -6,6 +6,8 @@ export interface ResourceState<T> {
   loading: boolean;
   /** A friendly, user-safe message — never a raw error internal. */
   error: string | null;
+  /** Re-run the fetcher — call after a mutation (create/update/delete) to reload. */
+  refetch: () => void;
 }
 
 /**
@@ -31,11 +33,13 @@ export function useResource<T>(
   fetcher: () => Promise<T>,
   deps: unknown[] = []
 ): ResourceState<T> {
-  const [state, setState] = React.useState<ResourceState<T>>({
+  const [state, setState] = React.useState<Omit<ResourceState<T>, 'refetch'>>({
     data: null,
     loading: true,
     error: null,
   });
+  const [tick, setTick] = React.useState(0);
+  const refetch = React.useCallback(() => setTick((t) => t + 1), []);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -52,9 +56,10 @@ export function useResource<T>(
       cancelled = true;
     };
     // The fetcher identity is intentionally NOT a dep — callers pass an inline
-    // closure and control re-runs through `deps`, matching useEffect ergonomics.
+    // closure and control re-runs through `deps` (+ `tick` from refetch()),
+    // matching useEffect ergonomics.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+  }, [...deps, tick]);
 
-  return state;
+  return { ...state, refetch };
 }

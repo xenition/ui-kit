@@ -59,6 +59,8 @@ function useResource(fetcher, deps = []) {
         loading: true,
         error: null,
     });
+    const [tick, setTick] = React.useState(0);
+    const refetch = React.useCallback(() => setTick((t) => t + 1), []);
     React.useEffect(() => {
         let cancelled = false;
         setState({ data: null, loading: true, error: null });
@@ -73,9 +75,10 @@ function useResource(fetcher, deps = []) {
             cancelled = true;
         };
         // The fetcher identity is intentionally NOT a dep — callers pass an inline
-        // closure and control re-runs through `deps`, matching useEffect ergonomics.
+        // closure and control re-runs through `deps` (+ `tick` from refetch()),
+        // matching useEffect ergonomics.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, deps);
-    return state;
+    }, [...deps, tick]);
+    return { ...state, refetch };
 }
 //# sourceMappingURL=use-resource.js.map

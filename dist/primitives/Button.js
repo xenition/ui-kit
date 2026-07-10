@@ -41,6 +41,8 @@ const VARIANT_CLASSES = {
     primary: 'bg-primary text-on-primary hover:opacity-90 focus-visible:ring-primary-300',
     secondary: 'border border-primary bg-transparent text-primary hover:bg-primary-50 focus-visible:ring-primary-300',
     ghost: 'bg-transparent text-on-surface hover:bg-neutral-100 focus-visible:ring-neutral-300',
+    outline: 'border border-border bg-transparent text-on-surface hover:bg-neutral-100 focus-visible:ring-neutral-300',
+    danger: 'bg-danger text-on-danger hover:opacity-90 focus-visible:ring-danger',
 };
 const SIZE_CLASSES = {
     sm: 'px-3 py-1.5 text-sm',

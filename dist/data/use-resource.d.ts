@@ -4,6 +4,8 @@ export interface ResourceState<T> {
     loading: boolean;
     /** A friendly, user-safe message — never a raw error internal. */
     error: string | null;
+    /** Re-run the fetcher — call after a mutation (create/update/delete) to reload. */
+    refetch: () => void;
 }
 /**
  * The single message shown for ANY load failure. Data-layer errors (network,

@@ -17,13 +17,13 @@ function deferred<T>() {
 describe('useResource', () => {
   it('starts in the loading state', () => {
     const { result } = renderHook(() => useResource(() => new Promise<number>(() => {}), []));
-    expect(result.current).toEqual({ data: null, loading: true, error: null });
+    expect(result.current).toEqual({ data: null, loading: true, error: null, refetch: expect.any(Function) });
   });
 
   it('resolves to data and clears loading', async () => {
     const { result } = renderHook(() => useResource(() => Promise.resolve('hi'), []));
     await waitFor(() => expect(result.current.loading).toBe(false));
-    expect(result.current).toEqual({ data: 'hi', loading: false, error: null });
+    expect(result.current).toEqual({ data: 'hi', loading: false, error: null, refetch: expect.any(Function) });
   });
 
   it('runs the fetcher once on mount', async () => {
@@ -53,7 +53,7 @@ describe('useResource', () => {
 
     rerender({ id: 2 });
     // Immediately back to loading with data cleared…
-    expect(result.current).toEqual({ data: null, loading: true, error: null });
+    expect(result.current).toEqual({ data: null, loading: true, error: null, refetch: expect.any(Function) });
     await waitFor(() => expect(result.current.data).toBe(2));
     expect(fetcher).toHaveBeenCalledTimes(2);
   });
@@ -102,11 +102,11 @@ describe('useResource', () => {
 });
 
 describe('Resource', () => {
-  const ready = <T,>(data: T) => ({ data, loading: false, error: null });
+  const ready = <T,>(data: T) => ({ data, loading: false, error: null, refetch: () => {} });
 
   it('renders the loading branch while loading', () => {
     const { getByText } = render(
-      <Resource state={{ data: null, loading: true, error: null }} loading={<span>Loading…</span>}>
+      <Resource state={{ data: null, loading: true, error: null, refetch: () => {} }} loading={<span>Loading…</span>}>
         {() => <span>never</span>}
       </Resource>
     );
@@ -116,7 +116,7 @@ describe('Resource', () => {
   it('renders the error branch with the message', () => {
     const { getByText } = render(
       <Resource
-        state={{ data: null, loading: false, error: 'boom' }}
+        state={{ data: null, loading: false, error: 'boom', refetch: () => {} }}
         error={(m) => <span>err:{m}</span>}
       >
         {() => <span>never</span>}

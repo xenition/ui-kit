@@ -51,8 +51,16 @@ const ALIGN_CLASSES = {
     end: 'items-end',
     stretch: 'items-stretch',
 };
+const JUSTIFY_CLASSES = {
+    start: 'justify-start',
+    center: 'justify-center',
+    end: 'justify-end',
+    between: 'justify-between',
+    around: 'justify-around',
+    evenly: 'justify-evenly',
+};
 /** Flex layout helper with token-bound gaps. */
-exports.Stack = React.forwardRef(function Stack({ direction = 'column', gap = 'md', align = 'stretch', className, ...rest }, ref) {
-    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: (0, cn_1.cn)('flex', direction === 'column' ? 'flex-col' : 'flex-row', GAP_CLASSES[gap], ALIGN_CLASSES[align], className), ...rest }));
+exports.Stack = React.forwardRef(function Stack({ direction = 'column', gap = 'md', align = 'stretch', justify, className, ...rest }, ref) {
+    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: (0, cn_1.cn)('flex', direction === 'column' ? 'flex-col' : 'flex-row', GAP_CLASSES[gap], ALIGN_CLASSES[align], justify ? JUSTIFY_CLASSES[justify] : undefined, className), ...rest }));
 });
 //# sourceMappingURL=Stack.js.map
