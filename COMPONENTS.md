@@ -21,7 +21,9 @@ The prioritized gaps have been built (web, theme-token-bound, with specs; 399 te
 - **Native parity backfill:** Table, Modal (native)
 - **Codegen:** cortex frontend prompt now steers generation to these (esp. DataTable/CrudTable/LoginForm)
 
-Remaining lower-priority items (native parity for the new web components, TimePicker/ColorPicker/Cascader/Tree/Carousel/QRCode/Tour) are still open.
+**React Native parity — DONE (2026-07-11).** Every expanded web component now ships a native version on `@xenition/ui/native/primitives` (~35 added): forms (RadioGroup, Slider, NumberInput, PinInput, Form+useForm), feedback (Alert, Toast, Progress, Skeleton), overlays (Drawer, Popover, Menu, Accordion, Popconfirm, Tooltip), data display (Tag, List, Pagination, Timeline, Descriptions, AvatarGroup, Segmented, Steps, Breadcrumb), heavy data (DataTable, CrudTable, Combobox, DatePicker, Upload), and composed auth (AuthCard, LoginForm, SignupForm, ForgotPasswordForm). **New:** `AppShell` + `Sidebar` dashboard layout for BOTH web and native. All token-bound, prop-parity with web; 467 tests green.
+
+Remaining lower-priority items (TimePicker/ColorPicker/Cascader/Tree/Carousel/QRCode/Tour; native marketing sections beyond EntityCard) are still open.
 
 ---
 
