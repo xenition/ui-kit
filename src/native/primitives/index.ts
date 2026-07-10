@@ -83,3 +83,75 @@ export { EmptyState } from '../commerce/EmptyState';
 export type { EmptyStateProps } from '../commerce/EmptyState';
 export { formatMoney } from '../commerce/money';
 export type { MoneyFormatter } from '../commerce/money';
+
+// ── native parity: forms ──────────────────────────────────────────────
+export { RadioGroup } from './RadioGroup';
+export type { RadioGroupProps, RadioOption } from './RadioGroup';
+export { Slider } from './Slider';
+export type { SliderProps } from './Slider';
+export { NumberInput } from './NumberInput';
+export type { NumberInputProps } from './NumberInput';
+export { PinInput } from './PinInput';
+export type { PinInputProps } from './PinInput';
+export { Form, useForm } from './Form';
+export type { FormProps, UseFormOptions, UseFormReturn } from './Form';
+
+// ── native parity: feedback ───────────────────────────────────────────
+export { Alert } from './Alert';
+export type { AlertProps, AlertTone } from './Alert';
+export { Progress } from './Progress';
+export type { ProgressProps, ProgressTone } from './Progress';
+export { Skeleton } from './Skeleton';
+export type { SkeletonProps } from './Skeleton';
+export { ToastProvider, useToast } from './Toast';
+export type { ToastOptions, ToastTone, ToastContextValue } from './Toast';
+
+// ── native parity: overlays ───────────────────────────────────────────
+export { Drawer } from './Drawer';
+export type { DrawerProps, DrawerSide } from './Drawer';
+export { Popover } from './Popover';
+export type { PopoverProps } from './Popover';
+export { Menu } from './Menu';
+export type { MenuProps, MenuItem } from './Menu';
+export { Accordion } from './Accordion';
+export type { AccordionProps, AccordionItemData } from './Accordion';
+export { Popconfirm } from './Popconfirm';
+export type { PopconfirmProps } from './Popconfirm';
+export { Tooltip } from './Tooltip';
+export type { TooltipProps, TooltipSide } from './Tooltip';
+
+// ── native parity: data display ───────────────────────────────────────
+export { Tag } from './Tag';
+export type { TagProps, TagTone } from './Tag';
+export { List } from './List';
+export type { ListProps, ListItemData } from './List';
+export { Pagination } from './Pagination';
+export type { PaginationProps } from './Pagination';
+export { Timeline } from './Timeline';
+export type { TimelineProps, TimelineItemData, TimelineTone } from './Timeline';
+export { Descriptions } from './Descriptions';
+export type { DescriptionsProps, DescriptionItem } from './Descriptions';
+export { AvatarGroup } from './AvatarGroup';
+export type { AvatarGroupProps } from './AvatarGroup';
+export { Segmented } from './Segmented';
+export type { SegmentedProps, SegmentedOption } from './Segmented';
+export { Steps } from './Steps';
+export type { StepsProps, StepItem } from './Steps';
+export { Breadcrumb } from './Breadcrumb';
+export type { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb';
+
+// ── native parity: composed auth ──────────────────────────────────────
+export { AuthCard } from './AuthCard';
+export type { AuthCardProps } from './AuthCard';
+export { LoginForm } from './LoginForm';
+export type { LoginFormProps, LoginValues } from './LoginForm';
+export { SignupForm } from './SignupForm';
+export type { SignupFormProps, SignupValues } from './SignupForm';
+export { ForgotPasswordForm } from './ForgotPasswordForm';
+export type { ForgotPasswordFormProps } from './ForgotPasswordForm';
+
+// ── app shell (dashboard layout) ──────────────────────────────────────
+export { AppShell } from './AppShell';
+export type { AppShellProps } from './AppShell';
+export { Sidebar } from './Sidebar';
+export type { SidebarProps, SidebarItem, SidebarGroup } from './Sidebar';

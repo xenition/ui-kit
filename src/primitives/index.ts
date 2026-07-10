@@ -121,3 +121,9 @@ export type { UploadProps } from './Upload';
 export { DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
 export { cn } from './cn';
+
+// ── app shell (dashboard layout) ──────────────────────────────────────
+export { AppShell } from './AppShell';
+export type { AppShellProps } from './AppShell';
+export { Sidebar } from './Sidebar';
+export type { SidebarProps, SidebarItem, SidebarGroup } from './Sidebar';

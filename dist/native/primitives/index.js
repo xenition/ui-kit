@@ -7,7 +7,8 @@
  * `useXenitionTheme()` — no literal colors, no DOM.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatMoney = exports.EmptyState = exports.PriceTag = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
+exports.List = exports.Tag = exports.Tooltip = exports.Popconfirm = exports.Accordion = exports.Menu = exports.Popover = exports.Drawer = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.formatMoney = exports.EmptyState = exports.PriceTag = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
+exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = void 0;
 var XenitionUIProvider_1 = require("./XenitionUIProvider");
 Object.defineProperty(exports, "XenitionUIProvider", { enumerable: true, get: function () { return XenitionUIProvider_1.XenitionUIProvider; } });
 // Re-export the theme access hook so a mobile app can `useXenitionTheme()`
@@ -74,4 +75,72 @@ var EmptyState_1 = require("../commerce/EmptyState");
 Object.defineProperty(exports, "EmptyState", { enumerable: true, get: function () { return EmptyState_1.EmptyState; } });
 var money_1 = require("../commerce/money");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return money_1.formatMoney; } });
+// ── native parity: forms ──────────────────────────────────────────────
+var RadioGroup_1 = require("./RadioGroup");
+Object.defineProperty(exports, "RadioGroup", { enumerable: true, get: function () { return RadioGroup_1.RadioGroup; } });
+var Slider_1 = require("./Slider");
+Object.defineProperty(exports, "Slider", { enumerable: true, get: function () { return Slider_1.Slider; } });
+var NumberInput_1 = require("./NumberInput");
+Object.defineProperty(exports, "NumberInput", { enumerable: true, get: function () { return NumberInput_1.NumberInput; } });
+var PinInput_1 = require("./PinInput");
+Object.defineProperty(exports, "PinInput", { enumerable: true, get: function () { return PinInput_1.PinInput; } });
+var Form_1 = require("./Form");
+Object.defineProperty(exports, "Form", { enumerable: true, get: function () { return Form_1.Form; } });
+Object.defineProperty(exports, "useForm", { enumerable: true, get: function () { return Form_1.useForm; } });
+// ── native parity: feedback ───────────────────────────────────────────
+var Alert_1 = require("./Alert");
+Object.defineProperty(exports, "Alert", { enumerable: true, get: function () { return Alert_1.Alert; } });
+var Progress_1 = require("./Progress");
+Object.defineProperty(exports, "Progress", { enumerable: true, get: function () { return Progress_1.Progress; } });
+var Skeleton_1 = require("./Skeleton");
+Object.defineProperty(exports, "Skeleton", { enumerable: true, get: function () { return Skeleton_1.Skeleton; } });
+var Toast_1 = require("./Toast");
+Object.defineProperty(exports, "ToastProvider", { enumerable: true, get: function () { return Toast_1.ToastProvider; } });
+Object.defineProperty(exports, "useToast", { enumerable: true, get: function () { return Toast_1.useToast; } });
+// ── native parity: overlays ───────────────────────────────────────────
+var Drawer_1 = require("./Drawer");
+Object.defineProperty(exports, "Drawer", { enumerable: true, get: function () { return Drawer_1.Drawer; } });
+var Popover_1 = require("./Popover");
+Object.defineProperty(exports, "Popover", { enumerable: true, get: function () { return Popover_1.Popover; } });
+var Menu_1 = require("./Menu");
+Object.defineProperty(exports, "Menu", { enumerable: true, get: function () { return Menu_1.Menu; } });
+var Accordion_1 = require("./Accordion");
+Object.defineProperty(exports, "Accordion", { enumerable: true, get: function () { return Accordion_1.Accordion; } });
+var Popconfirm_1 = require("./Popconfirm");
+Object.defineProperty(exports, "Popconfirm", { enumerable: true, get: function () { return Popconfirm_1.Popconfirm; } });
+var Tooltip_1 = require("./Tooltip");
+Object.defineProperty(exports, "Tooltip", { enumerable: true, get: function () { return Tooltip_1.Tooltip; } });
+// ── native parity: data display ───────────────────────────────────────
+var Tag_1 = require("./Tag");
+Object.defineProperty(exports, "Tag", { enumerable: true, get: function () { return Tag_1.Tag; } });
+var List_1 = require("./List");
+Object.defineProperty(exports, "List", { enumerable: true, get: function () { return List_1.List; } });
+var Pagination_1 = require("./Pagination");
+Object.defineProperty(exports, "Pagination", { enumerable: true, get: function () { return Pagination_1.Pagination; } });
+var Timeline_1 = require("./Timeline");
+Object.defineProperty(exports, "Timeline", { enumerable: true, get: function () { return Timeline_1.Timeline; } });
+var Descriptions_1 = require("./Descriptions");
+Object.defineProperty(exports, "Descriptions", { enumerable: true, get: function () { return Descriptions_1.Descriptions; } });
+var AvatarGroup_1 = require("./AvatarGroup");
+Object.defineProperty(exports, "AvatarGroup", { enumerable: true, get: function () { return AvatarGroup_1.AvatarGroup; } });
+var Segmented_1 = require("./Segmented");
+Object.defineProperty(exports, "Segmented", { enumerable: true, get: function () { return Segmented_1.Segmented; } });
+var Steps_1 = require("./Steps");
+Object.defineProperty(exports, "Steps", { enumerable: true, get: function () { return Steps_1.Steps; } });
+var Breadcrumb_1 = require("./Breadcrumb");
+Object.defineProperty(exports, "Breadcrumb", { enumerable: true, get: function () { return Breadcrumb_1.Breadcrumb; } });
+// ── native parity: composed auth ──────────────────────────────────────
+var AuthCard_1 = require("./AuthCard");
+Object.defineProperty(exports, "AuthCard", { enumerable: true, get: function () { return AuthCard_1.AuthCard; } });
+var LoginForm_1 = require("./LoginForm");
+Object.defineProperty(exports, "LoginForm", { enumerable: true, get: function () { return LoginForm_1.LoginForm; } });
+var SignupForm_1 = require("./SignupForm");
+Object.defineProperty(exports, "SignupForm", { enumerable: true, get: function () { return SignupForm_1.SignupForm; } });
+var ForgotPasswordForm_1 = require("./ForgotPasswordForm");
+Object.defineProperty(exports, "ForgotPasswordForm", { enumerable: true, get: function () { return ForgotPasswordForm_1.ForgotPasswordForm; } });
+// ── app shell (dashboard layout) ──────────────────────────────────────
+var AppShell_1 = require("./AppShell");
+Object.defineProperty(exports, "AppShell", { enumerable: true, get: function () { return AppShell_1.AppShell; } });
+var Sidebar_1 = require("./Sidebar");
+Object.defineProperty(exports, "Sidebar", { enumerable: true, get: function () { return Sidebar_1.Sidebar; } });
 //# sourceMappingURL=index.js.map

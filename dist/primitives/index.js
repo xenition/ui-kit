@@ -6,7 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Breadcrumb = exports.List = exports.Pagination = exports.Tag = exports.Popconfirm = exports.Drawer = exports.Accordion = exports.Menu = exports.Popover = exports.Tooltip = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.MessageList = exports.ChatBubble = exports.Table = exports.Modal = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.GlassPanel = exports.Eyebrow = exports.GradientText = exports.Stack = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Card = exports.Button = void 0;
-exports.cn = exports.DatePicker = exports.Upload = exports.Combobox = exports.CrudTable = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = void 0;
+exports.Sidebar = exports.AppShell = exports.cn = exports.DatePicker = exports.Upload = exports.Combobox = exports.CrudTable = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = void 0;
 var Button_1 = require("./Button");
 Object.defineProperty(exports, "Button", { enumerable: true, get: function () { return Button_1.Button; } });
 var Card_1 = require("./Card");
@@ -126,4 +126,9 @@ var DatePicker_1 = require("./DatePicker");
 Object.defineProperty(exports, "DatePicker", { enumerable: true, get: function () { return DatePicker_1.DatePicker; } });
 var cn_1 = require("./cn");
 Object.defineProperty(exports, "cn", { enumerable: true, get: function () { return cn_1.cn; } });
+// ── app shell (dashboard layout) ──────────────────────────────────────
+var AppShell_1 = require("./AppShell");
+Object.defineProperty(exports, "AppShell", { enumerable: true, get: function () { return AppShell_1.AppShell; } });
+var Sidebar_1 = require("./Sidebar");
+Object.defineProperty(exports, "Sidebar", { enumerable: true, get: function () { return Sidebar_1.Sidebar; } });
 //# sourceMappingURL=index.js.map
