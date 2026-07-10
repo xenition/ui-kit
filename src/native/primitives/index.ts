@@ -155,3 +155,15 @@ export { AppShell } from './AppShell';
 export type { AppShellProps } from './AppShell';
 export { Sidebar } from './Sidebar';
 export type { SidebarProps, SidebarItem, SidebarGroup } from './Sidebar';
+
+// ── native parity: heavy data (tables + rich inputs) ──────────────────
+export { DataTable } from './DataTable';
+export type { DataTableProps, DataTableColumn } from './DataTable';
+export { CrudTable } from './CrudTable';
+export type { CrudTableProps, CrudField, CrudFieldType } from './CrudTable';
+export { Combobox } from './Combobox';
+export type { ComboboxProps, ComboboxOption } from './Combobox';
+export { DatePicker } from './DatePicker';
+export type { DatePickerProps } from './DatePicker';
+export { Upload } from './Upload';
+export type { UploadProps, UploadFile } from './Upload';

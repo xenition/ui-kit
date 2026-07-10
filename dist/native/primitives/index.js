@@ -8,7 +8,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.List = exports.Tag = exports.Tooltip = exports.Popconfirm = exports.Accordion = exports.Menu = exports.Popover = exports.Drawer = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.formatMoney = exports.EmptyState = exports.PriceTag = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
-exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = void 0;
+exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = void 0;
 var XenitionUIProvider_1 = require("./XenitionUIProvider");
 Object.defineProperty(exports, "XenitionUIProvider", { enumerable: true, get: function () { return XenitionUIProvider_1.XenitionUIProvider; } });
 // Re-export the theme access hook so a mobile app can `useXenitionTheme()`
@@ -143,4 +143,15 @@ var AppShell_1 = require("./AppShell");
 Object.defineProperty(exports, "AppShell", { enumerable: true, get: function () { return AppShell_1.AppShell; } });
 var Sidebar_1 = require("./Sidebar");
 Object.defineProperty(exports, "Sidebar", { enumerable: true, get: function () { return Sidebar_1.Sidebar; } });
+// ── native parity: heavy data (tables + rich inputs) ──────────────────
+var DataTable_1 = require("./DataTable");
+Object.defineProperty(exports, "DataTable", { enumerable: true, get: function () { return DataTable_1.DataTable; } });
+var CrudTable_1 = require("./CrudTable");
+Object.defineProperty(exports, "CrudTable", { enumerable: true, get: function () { return CrudTable_1.CrudTable; } });
+var Combobox_1 = require("./Combobox");
+Object.defineProperty(exports, "Combobox", { enumerable: true, get: function () { return Combobox_1.Combobox; } });
+var DatePicker_1 = require("./DatePicker");
+Object.defineProperty(exports, "DatePicker", { enumerable: true, get: function () { return DatePicker_1.DatePicker; } });
+var Upload_1 = require("./Upload");
+Object.defineProperty(exports, "Upload", { enumerable: true, get: function () { return Upload_1.Upload; } });
 //# sourceMappingURL=index.js.map
