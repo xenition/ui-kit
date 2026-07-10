@@ -21,5 +21,7 @@ export { StatusDot } from './StatusDot';
 export type { StatusDotProps, StatusDotTone } from './StatusDot';
 export { Rating } from './Rating';
 export type { RatingProps, RatingSize } from './Rating';
+export { StatusMessage } from './StatusMessage';
+export type { StatusMessageProps, StatusMessageState } from './StatusMessage';
 export { cn } from './cn';
 //# sourceMappingURL=index.d.ts.map

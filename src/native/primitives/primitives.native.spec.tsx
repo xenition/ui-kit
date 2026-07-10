@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, AccessibilityInfo } from 'react-native';
+import { Text, AccessibilityInfo, ActivityIndicator } from 'react-native';
 import { fireEvent, waitFor } from '@testing-library/react-native';
 import {
   SEED_LIGHT,
@@ -18,6 +18,7 @@ import { Input } from './Input';
 import { Eyebrow } from './Eyebrow';
 import { StatusDot } from './StatusDot';
 import { Rating } from './Rating';
+import { StatusMessage } from './StatusMessage';
 import { GlassPanel } from './GlassPanel';
 import { GradientText } from './GradientText';
 import { EmptyState } from '../commerce/EmptyState';
@@ -255,6 +256,57 @@ describe('Rating (native)', () => {
     expect(withValue.queryByText('4.2')).toBeTruthy();
     const without = renderThemed(<Rating value={4.2} />, SEED_LIGHT);
     expect(without.queryByText('4.2')).toBeNull();
+  });
+});
+
+describe('StatusMessage (native)', () => {
+  it('loading: an ActivityIndicator + polite live region + optional message', () => {
+    const { root, queryByText } = renderThemed(
+      <StatusMessage state="loading" message="Fetching…" />,
+      SEED_LIGHT
+    );
+    expect(root.findAllByType(ActivityIndicator)).toHaveLength(1);
+    expect(queryByText('Fetching…')).toBeTruthy();
+    const live = root.findAll(
+      (n) => n.props?.accessibilityLiveRegion === 'polite'
+    );
+    expect(live.length).toBeGreaterThan(0);
+  });
+
+  it('loading: message is optional (spinner alone)', () => {
+    const { root } = renderThemed(<StatusMessage state="loading" />, SEED_LIGHT);
+    expect(root.findAllByType(ActivityIndicator)).toHaveLength(1);
+  });
+
+  it('empty: a muted message and no spinner', () => {
+    const { root, getByText } = renderThemed(
+      <StatusMessage state="empty" message="No results" />,
+      SEED_LIGHT
+    );
+    expect(getByText('No results')).toBeTruthy();
+    expect(root.findAllByType(ActivityIndicator)).toHaveLength(0);
+  });
+
+  it('error: an alert-role danger message', () => {
+    const { root, getByText } = renderThemed(<StatusMessage state="error" message="Boom" />, SEED_LIGHT);
+    expect(getByText('Boom')).toBeTruthy();
+    const alerts = root.findAll((n) => n.props?.accessibilityRole === 'alert');
+    expect(alerts.length).toBeGreaterThan(0);
+  });
+
+  it('falls back to default copy for empty and error', () => {
+    expect(renderThemed(<StatusMessage state="empty" />, SEED_LIGHT).getByText('Nothing here yet.')).toBeTruthy();
+    expect(renderThemed(<StatusMessage state="error" />, SEED_LIGHT).getByText('Something went wrong.')).toBeTruthy();
+  });
+
+  it('every rendered hex traces to a compiled token (all states, both seeds)', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      (['loading', 'empty', 'error'] as const).forEach((state) => {
+        const { root } = renderThemed(<StatusMessage state={state} message="msg" />, seed);
+        const allowed = tokenHexSet(seed);
+        renderedStyleHexes(root).forEach((hex) => expect(allowed.has(hex)).toBe(true));
+      });
+    });
   });
 });
 

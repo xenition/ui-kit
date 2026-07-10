@@ -5,6 +5,7 @@ import { GlassPanel } from './GlassPanel';
 import { GradientText } from './GradientText';
 import { StatusDot } from './StatusDot';
 import { Rating } from './Rating';
+import { StatusMessage } from './StatusMessage';
 
 const HEX_LITERAL = /#[0-9a-fA-F]{3,8}\b/;
 
@@ -174,5 +175,63 @@ describe('Rating', () => {
     expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
     const el = container.querySelector('[data-xen-rating]');
     expect(el?.getAttribute('data-xen-rating')).toBe('lg');
+  });
+});
+
+describe('StatusMessage', () => {
+  it('loading: a role=status spinner with a token-only rotate rule', () => {
+    const { getByRole, container } = render(<StatusMessage state="loading" message="Fetching…" />);
+    const el = getByRole('status');
+    expect(el.getAttribute('aria-live')).toBe('polite');
+    expect(el.getAttribute('aria-busy')).toBe('true');
+    expect(el.getAttribute('data-xen-status-message')).toBe('loading');
+    expect(container.querySelector('[data-xen-spinner]')).not.toBeNull();
+    expect(el.textContent).toContain('Fetching…');
+    const css = sheet('xen-status-message-styles');
+    expect(css).toContain('@keyframes xen-spin');
+    expect(css).toContain('var(--xen-border)');
+    expect(css).toContain('var(--xen-primary)');
+    expect(css).toContain('prefers-reduced-motion');
+    expect(css).not.toMatch(HEX_LITERAL);
+  });
+
+  it('loading: message is optional (spinner alone)', () => {
+    const { getByRole, container } = render(<StatusMessage state="loading" />);
+    expect(container.querySelector('[data-xen-spinner]')).not.toBeNull();
+    expect(getByRole('status').querySelector('span:not([data-xen-spinner])')).toBeNull();
+  });
+
+  it('empty: a muted message, no live region', () => {
+    const { container, getByText, queryByRole } = render(<StatusMessage state="empty" message="No results" />);
+    expect(getByText('No results')).toBeTruthy();
+    expect(container.querySelector('[data-xen-status-message]')?.className).toContain('text-muted');
+    expect(queryByRole('status')).toBeNull();
+    expect(queryByRole('alert')).toBeNull();
+  });
+
+  it('error: a role=alert danger-token message', () => {
+    const { getByRole } = render(<StatusMessage state="error" message="Boom" />);
+    const el = getByRole('alert');
+    expect(el.getAttribute('data-xen-status-message')).toBe('error');
+    expect(el.className).toContain('text-danger');
+    expect(el.textContent).toContain('Boom');
+  });
+
+  it('falls back to a default message for empty and error', () => {
+    const empty = render(<StatusMessage state="empty" />);
+    expect(empty.getByText('Nothing here yet.')).toBeTruthy();
+    const err = render(<StatusMessage state="error" />);
+    expect(err.getByText('Something went wrong.')).toBeTruthy();
+  });
+
+  it('emits no hex literals across states', () => {
+    const { container } = render(
+      <div>
+        <StatusMessage state="loading" message="l" />
+        <StatusMessage state="empty" message="e" />
+        <StatusMessage state="error" message="x" />
+      </div>
+    );
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
   });
 });

@@ -38,6 +38,8 @@ export { StatusDot } from './StatusDot';
 export type { StatusDotProps, StatusDotTone } from './StatusDot';
 export { Rating } from './Rating';
 export type { RatingProps, RatingSize } from './Rating';
+export { StatusMessage } from './StatusMessage';
+export type { StatusMessageProps, StatusMessageState } from './StatusMessage';
 export { GlassPanel } from './GlassPanel';
 export type { GlassPanelProps, GlassIntensity } from './GlassPanel';
 export { GradientText } from './GradientText';
