@@ -7,7 +7,7 @@
  * `prefers-reduced-motion`.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SectionDivider = exports.EditorialItem = exports.EditorialGrid = exports.PointerHalo = exports.COVER_FORMS = exports.hashSeed = exports.GenerativeCover = exports.PriceRow = exports.PriceList = exports.OrnamentRule = exports.computeParticles = exports.ParticleField = exports.BentoCard = exports.BentoGrid = exports.ProductMock = exports.LogoCloud = exports.FooterColumn = exports.Footer = exports.CTABanner = exports.FAQItem = exports.FAQ = exports.PricingTier = exports.PricingTable = exports.initialsFromName = exports.Testimonial = exports.Testimonials = exports.Stat = exports.StatBar = exports.FeatureCard = exports.FeatureGrid = exports.SectionHeading = exports.Navbar = exports.GradientHero = exports.AuroraBackground = void 0;
+exports.EntityCard = exports.SectionDivider = exports.EditorialItem = exports.EditorialGrid = exports.PointerHalo = exports.COVER_FORMS = exports.hashSeed = exports.GenerativeCover = exports.PriceRow = exports.PriceList = exports.OrnamentRule = exports.computeParticles = exports.ParticleField = exports.BentoCard = exports.BentoGrid = exports.ProductMock = exports.LogoCloud = exports.FooterColumn = exports.Footer = exports.CTABanner = exports.FAQItem = exports.FAQ = exports.PricingTier = exports.PricingTable = exports.initialsFromName = exports.Testimonial = exports.Testimonials = exports.Stat = exports.StatBar = exports.FeatureCard = exports.FeatureGrid = exports.SectionHeading = exports.Navbar = exports.GradientHero = exports.AuroraBackground = void 0;
 var AuroraBackground_1 = require("./AuroraBackground");
 Object.defineProperty(exports, "AuroraBackground", { enumerable: true, get: function () { return AuroraBackground_1.AuroraBackground; } });
 var GradientHero_1 = require("./GradientHero");
@@ -63,4 +63,6 @@ Object.defineProperty(exports, "EditorialGrid", { enumerable: true, get: functio
 Object.defineProperty(exports, "EditorialItem", { enumerable: true, get: function () { return EditorialGrid_1.EditorialItem; } });
 var SectionDivider_1 = require("./SectionDivider");
 Object.defineProperty(exports, "SectionDivider", { enumerable: true, get: function () { return SectionDivider_1.SectionDivider; } });
+var EntityCard_1 = require("./EntityCard");
+Object.defineProperty(exports, "EntityCard", { enumerable: true, get: function () { return EntityCard_1.EntityCard; } });
 //# sourceMappingURL=index.js.map

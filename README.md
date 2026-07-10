@@ -152,6 +152,7 @@ theme seed alone, dark mode included.
 | `PointerHalo` | optional custom-cursor affordance — accent halo trailing the pointer, tightens over links, swells with a label over `[data-halo="grow"]`; fine-pointer only, reduced-motion/touch → renders nothing |
 | `EditorialGrid` / `EditorialItem` | 12-column asymmetric overlap layout (`span`/`start`/`offset` per item, surface-backed `caption` slot, automatic z-order so overlaps slide under captions) |
 | `SectionDivider` | section separator (`hairline` \| `ornament` \| `fade`), optionally parallax-capable via `parallax` speed |
+| `EntityCard` | generic content/entity card that collapses the templates' bespoke `PostCard` / `ServiceCard` / `SpeakerCard` / `ListingCard` / `ProgramCard` — slots `{ title, eyebrow?, description?, meta?, media?: { imageUrl?, seed?, aspect? }, badge?, footer?, href? }`; composes `Card` + media (`<img>` or a seeded `GenerativeCover`) + `Eyebrow`; one card expresses a blog post, a service, a speaker, a listing, or a program by props alone |
 
 The display primitives that keep recurring across templates live in
 `@xenition/ui/primitives` (also re-exported from the root):
@@ -231,7 +232,12 @@ now lives here as a configurable, token-pure, reduced-motion-safe component.
 The same rule extends to the **domain blocks**: a booking flow, a photo
 gallery + lightbox, a storefront grid, a cart drawer, or an order recap is
 composed from `@xenition/ui/booking` · `/media` · `/commerce`, never
-hand-written per template. Those components take data as props (no fetching,
+hand-written per template. It also extends to the **per-template card zoo**:
+the bespoke `PostCard` / `ServiceCard` / `SpeakerCard` / `ListingCard` /
+`ProgramCard` each template used to hand-build now collapse into a single
+token-only `EntityCard` (marketing, web + native), the `Stars` widget into
+`Rating`, and hand-rolled loading/empty/error blocks into `StatusMessage` —
+one contract, restyled by seed, contrast-checked, reduced-motion-safe. Those components take data as props (no fetching,
 no SDK import) and are styled by tokens alone, so the same booking calendar or
 product grid restyles — light and dark — from the theme seed.
 Templates and the no-code builder must compose these components (and the
@@ -385,6 +391,14 @@ Money is integer **cents** throughout.
 `react-native` is a peer dependency; `expo-linear-gradient` is an optional peer
 (used for gradient cover placeholders).
 
+### `@xenition/ui/native/marketing`
+
+`EntityCard` — the native mirror of the web marketing `EntityCard`, with the
+same slot contract (`href`→`onPress` is the idiomatic swap). Composes the native
+`Card` + media (`Image`, or a seeded `GenerativeCover`) + `Eyebrow`, so one card
+expresses a blog post, a service, a speaker, a listing, or a program by props
+alone — mobile screens compose it 1:1 with the web page.
+
 ### `@xenition/ui/native/booking`
 
 `BookingCalendar` (`View`/`Pressable` month/week grid — availability dots,
@@ -429,13 +443,14 @@ React Native analogue); use them from `@xenition/ui/motion` in web templates.
 | `@xenition/ui/primitives` | `Button`, `Card`, `Input`, `Stack`, `GradientText`, `Eyebrow`, `GlassPanel`, `StatusDot`, `Rating` |
 | `@xenition/ui/motion` | `Reveal`, `Stagger`, `Parallax`, `AnimatedCounter`, `Marquee`, `TiltCard` |
 | `@xenition/ui/data` | `useResource` hook + headless `Resource` (loading/error/empty branching) — pairs with `@xenition/sdk/client` |
-| `@xenition/ui/marketing` | `GradientHero`, `AuroraBackground`, `Navbar`, `FeatureGrid`, `PricingTable`, `FAQ`, `ProductMock`, `BentoGrid`, `ParticleField`, `GenerativeCover`, `EditorialGrid`, `PointerHalo`, … |
+| `@xenition/ui/marketing` | `GradientHero`, `AuroraBackground`, `Navbar`, `FeatureGrid`, `PricingTable`, `FAQ`, `ProductMock`, `BentoGrid`, `ParticleField`, `GenerativeCover`, `EditorialGrid`, `PointerHalo`, `EntityCard`, … |
 | `@xenition/ui/booking` | `BookingCalendar`, `SlotPicker`, `BookingSummary` (+ `toDayKey` / `dayKeyInTz` / `formatTimeInTz` date helpers) |
 | `@xenition/ui/media` | `Gallery`, `Lightbox`, `MediaFigure` |
 | `@xenition/ui/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState` |
 | `@xenition/ui/native/theme` | `XenitionNativeThemeProvider`, `useXenitionTheme` |
 | `@xenition/ui/native/primitives` | `XenitionUIProvider`, `Button`, `Card`, `Stack`, `Input`, `Eyebrow`, `StatusDot`, `Rating`, `GlassPanel`, `GradientText`, `EmptyState`, `PriceTag`, `formatMoney` (React Native) |
 | `@xenition/ui/native/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState`, `GenerativeCover` (React Native) |
+| `@xenition/ui/native/marketing` | `EntityCard` (React Native; mirrors the web marketing `EntityCard`, `href`→`onPress`) |
 | `@xenition/ui/native/booking` | `BookingCalendar`, `SlotPicker`, `BookingSummary` (React Native; shares the web date helpers) |
 | `@xenition/ui/native/media` | `Gallery` (`FlatList`), `Lightbox` (RN `Modal` + `PanResponder` swipe), `MediaFigure` (React Native) |
 | `@xenition/ui/native/motion` | `Reveal` (mount entrance via `Animated`, reduced-motion-safe), `Stagger` (React Native) |

@@ -70,6 +70,11 @@
       "import": "./dist/native/commerce/index.js",
       "require": "./dist/native/commerce/index.js"
     },
+    "./native/marketing": {
+      "types": "./dist/native/marketing/index.d.ts",
+      "import": "./dist/native/marketing/index.js",
+      "require": "./dist/native/marketing/index.js"
+    },
     "./native/booking": {
       "types": "./dist/native/booking/index.d.ts",
       "import": "./dist/native/booking/index.js",

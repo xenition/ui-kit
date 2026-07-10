@@ -53,3 +53,5 @@ export { EditorialGrid, EditorialItem } from './EditorialGrid';
 export type { EditorialGridProps, EditorialItemProps } from './EditorialGrid';
 export { SectionDivider } from './SectionDivider';
 export type { SectionDividerProps, SectionDividerVariant } from './SectionDivider';
+export { EntityCard } from './EntityCard';
+export type { EntityCardProps, EntityCardMedia } from './EntityCard';
