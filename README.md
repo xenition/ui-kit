@@ -162,6 +162,7 @@ The display primitives that keep recurring across templates live in
 | `Eyebrow` | tracked small-caps kicker label (`tone`, optional flanking rules, `align`) |
 | `GlassPanel` | `color-mix` translucent blurred surface over the `surface`/`border` tokens (`intensity`: `soft` \| `regular` \| `strong`) |
 | `StatusDot` | pulsing semantic status dot (`tone`: `success` \| `warn` \| `danger` \| `primary` \| `accent`; echo disabled under reduced motion; optional accessible `label`) |
+| `Rating` | ★ rating row (`value`, `max`=5, `size`, `showValue`, `label`) — filled `accent` glyphs up to the rounded value, `muted` after; announced as one `role="img"` |
 
 `AuroraBackground` is exported directly so templates can build custom
 striking sections from the same machinery.
@@ -361,7 +362,8 @@ export function Storefront() {
 `size` sm/md/lg, `onPress`, `disabled`, `loading`), `Card`, `Stack`
 (`direction`/`gap`/`align`, plus an additive `justify`), `Input`
 (`invalid` + optional `label`), `Eyebrow`, `StatusDot` (`Animated` pulse,
-reduced-motion-safe), `GlassPanel` (translucent `rgba` derived from the
+reduced-motion-safe), `Rating` (★ row — same `value`/`max`/`size`/`showValue`/
+`label` contract as web), `GlassPanel` (translucent `rgba` derived from the
 `surface` token), `GradientText`, `EmptyState`, `PriceTag`, and `formatMoney`
 (re-exported from the single commerce home).
 
@@ -424,7 +426,7 @@ React Native analogue); use them from `@xenition/ui/motion` in web templates.
 | `@xenition/ui` | everything web: theme + primitives + `XenitionUIProvider` |
 | `@xenition/ui/theme` | `compileTheme`, color/WCAG utilities, output functions |
 | `@xenition/ui/tailwind-preset` | `toTailwindPreset` (also the default export) |
-| `@xenition/ui/primitives` | `Button`, `Card`, `Input`, `Stack`, `GradientText`, `Eyebrow`, `GlassPanel`, `StatusDot` |
+| `@xenition/ui/primitives` | `Button`, `Card`, `Input`, `Stack`, `GradientText`, `Eyebrow`, `GlassPanel`, `StatusDot`, `Rating` |
 | `@xenition/ui/motion` | `Reveal`, `Stagger`, `Parallax`, `AnimatedCounter`, `Marquee`, `TiltCard` |
 | `@xenition/ui/data` | `useResource` hook + headless `Resource` (loading/error/empty branching) — pairs with `@xenition/sdk/client` |
 | `@xenition/ui/marketing` | `GradientHero`, `AuroraBackground`, `Navbar`, `FeatureGrid`, `PricingTable`, `FAQ`, `ProductMock`, `BentoGrid`, `ParticleField`, `GenerativeCover`, `EditorialGrid`, `PointerHalo`, … |
@@ -432,7 +434,7 @@ React Native analogue); use them from `@xenition/ui/motion` in web templates.
 | `@xenition/ui/media` | `Gallery`, `Lightbox`, `MediaFigure` |
 | `@xenition/ui/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState` |
 | `@xenition/ui/native/theme` | `XenitionNativeThemeProvider`, `useXenitionTheme` |
-| `@xenition/ui/native/primitives` | `XenitionUIProvider`, `Button`, `Card`, `Stack`, `Input`, `Eyebrow`, `StatusDot`, `GlassPanel`, `GradientText`, `EmptyState`, `PriceTag`, `formatMoney` (React Native) |
+| `@xenition/ui/native/primitives` | `XenitionUIProvider`, `Button`, `Card`, `Stack`, `Input`, `Eyebrow`, `StatusDot`, `Rating`, `GlassPanel`, `GradientText`, `EmptyState`, `PriceTag`, `formatMoney` (React Native) |
 | `@xenition/ui/native/commerce` | `formatMoney`, `PriceTag`, `ProductCard`, `ProductGrid`, `QuantityStepper`, `CartLineItem`, `CartSummary`, `OrderSummary` / `CheckoutSummary`, `StatusBadge`, `EmptyState`, `GenerativeCover` (React Native) |
 | `@xenition/ui/native/booking` | `BookingCalendar`, `SlotPicker`, `BookingSummary` (React Native; shares the web date helpers) |
 | `@xenition/ui/native/media` | `Gallery` (`FlatList`), `Lightbox` (RN `Modal` + `PanResponder` swipe), `MediaFigure` (React Native) |

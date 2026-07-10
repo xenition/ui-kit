@@ -17,6 +17,7 @@ import { Stack } from './Stack';
 import { Input } from './Input';
 import { Eyebrow } from './Eyebrow';
 import { StatusDot } from './StatusDot';
+import { Rating } from './Rating';
 import { GlassPanel } from './GlassPanel';
 import { GradientText } from './GradientText';
 import { EmptyState } from '../commerce/EmptyState';
@@ -222,6 +223,41 @@ describe('EmptyState (native)', () => {
   });
 });
 
+describe('Rating (native)', () => {
+  it('renders max glyphs filled to the rounded value and is one image', () => {
+    const { getByLabelText } = renderThemed(<Rating value={3.6} />, SEED_LIGHT);
+    const row = getByLabelText('3.6 out of 5 stars');
+    expect(row.props.accessibilityRole).toBe('image');
+    const stars = row.findAllByType(Text).filter((t) => t.props.children === '★');
+    expect(stars).toHaveLength(5);
+    const accent = tokenHexSet(SEED_LIGHT); // sanity: colors resolve to tokens (checked below)
+    expect(accent.size).toBeGreaterThan(0);
+    const filled = stars.filter((s) => flatten(s.props.style).color !== flatten(stars[4]!.props.style).color);
+    // 3.6 → 4 filled, 1 empty; the 5th (index 4) is the empty reference.
+    expect(filled).toHaveLength(4);
+  });
+
+  it('clamps fill within max and honors a custom label', () => {
+    const { getByLabelText } = renderThemed(
+      <Rating value={12} max={10} label="Top rated" />,
+      SEED_LIGHT
+    );
+    const row = getByLabelText('Top rated');
+    const stars = row.findAllByType(Text).filter((t) => t.props.children === '★');
+    expect(stars).toHaveLength(10);
+    const colors = new Set(stars.map((s) => flatten(s.props.style).color));
+    // all filled → a single (accent) color.
+    expect(colors.size).toBe(1);
+  });
+
+  it('renders a trailing numeric value only with showValue', () => {
+    const withValue = renderThemed(<Rating value={4.2} showValue />, SEED_LIGHT);
+    expect(withValue.queryByText('4.2')).toBeTruthy();
+    const without = renderThemed(<Rating value={4.2} />, SEED_LIGHT);
+    expect(without.queryByText('4.2')).toBeNull();
+  });
+});
+
 describe('token purity (native, both seeds)', () => {
   it('every rendered hex traces to a compiled token', () => {
     [SEED_LIGHT, SEED_DARK].forEach((seed) => {
@@ -231,6 +267,7 @@ describe('token purity (native, both seeds)', () => {
             <Eyebrow>Kicker</Eyebrow>
             <Input label="Email" value="a" onChangeText={() => undefined} />
             <StatusDot pulse={false} label="Live" />
+            <Rating value={3} showValue />
             <GlassPanel>
               <Text>x</Text>
             </GlassPanel>

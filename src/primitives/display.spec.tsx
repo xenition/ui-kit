@@ -4,6 +4,7 @@ import { Eyebrow } from './Eyebrow';
 import { GlassPanel } from './GlassPanel';
 import { GradientText } from './GradientText';
 import { StatusDot } from './StatusDot';
+import { Rating } from './Rating';
 
 const HEX_LITERAL = /#[0-9a-fA-F]{3,8}\b/;
 
@@ -135,5 +136,43 @@ describe('StatusDot', () => {
       </div>
     );
     expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+  });
+});
+
+describe('Rating', () => {
+  it('renders max glyphs, filling accent up to the rounded value', () => {
+    const { getByRole } = render(<Rating value={3.6} />);
+    const el = getByRole('img', { name: '3.6 out of 5 stars' });
+    const stars = el.querySelectorAll('[aria-hidden="true"] > span');
+    expect(stars).toHaveLength(5);
+    // 3.6 rounds to 4 filled (accent), 1 empty (muted).
+    const filled = Array.from(stars).filter((s) => s.className.includes('text-accent'));
+    const empty = Array.from(stars).filter((s) => s.className.includes('text-muted'));
+    expect(filled).toHaveLength(4);
+    expect(empty).toHaveLength(1);
+  });
+
+  it('honors max, clamps fill, and a custom aria-label', () => {
+    const { getByRole } = render(<Rating value={12} max={10} label="Top rated" />);
+    const el = getByRole('img', { name: 'Top rated' });
+    const stars = el.querySelectorAll('[aria-hidden="true"] > span');
+    expect(stars).toHaveLength(10);
+    // value beyond max clamps to all filled.
+    expect(el.querySelectorAll('.text-muted')).toHaveLength(0);
+    expect(el.querySelectorAll('.text-accent')).toHaveLength(10);
+  });
+
+  it('renders a trailing numeric value only with showValue', () => {
+    const { rerender, getByRole, queryByText } = render(<Rating value={4.2} />);
+    expect(queryByText('4.2')).toBeNull();
+    rerender(<Rating value={4.2} showValue />);
+    expect(getByRole('img').textContent).toContain('4.2');
+  });
+
+  it('uses token color classes only (no hex)', () => {
+    const { container } = render(<Rating value={2} size="lg" showValue />);
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+    const el = container.querySelector('[data-xen-rating]');
+    expect(el?.getAttribute('data-xen-rating')).toBe('lg');
   });
 });

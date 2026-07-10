@@ -20,4 +20,6 @@ export { GlassPanel } from './GlassPanel';
 export type { GlassPanelProps, GlassIntensity } from './GlassPanel';
 export { StatusDot } from './StatusDot';
 export type { StatusDotProps, StatusDotTone } from './StatusDot';
+export { Rating } from './Rating';
+export type { RatingProps, RatingSize } from './Rating';
 export { cn } from './cn';

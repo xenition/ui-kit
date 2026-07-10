@@ -21,6 +21,8 @@ export { Eyebrow } from './Eyebrow';
 export type { EyebrowProps, EyebrowTone } from './Eyebrow';
 export { StatusDot } from './StatusDot';
 export type { StatusDotProps, StatusDotTone } from './StatusDot';
+export { Rating } from './Rating';
+export type { RatingProps, RatingSize } from './Rating';
 export { GlassPanel } from './GlassPanel';
 export type { GlassPanelProps, GlassIntensity } from './GlassPanel';
 export { GradientText } from './GradientText';
