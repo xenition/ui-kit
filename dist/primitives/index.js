@@ -6,7 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Breadcrumb = exports.List = exports.Pagination = exports.Tag = exports.Popconfirm = exports.Drawer = exports.Accordion = exports.Menu = exports.Popover = exports.Tooltip = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.MessageList = exports.ChatBubble = exports.Table = exports.Modal = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.GlassPanel = exports.Eyebrow = exports.GradientText = exports.Stack = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Card = exports.Button = void 0;
-exports.Sidebar = exports.AppShell = exports.cn = exports.DatePicker = exports.Upload = exports.Combobox = exports.CrudTable = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = void 0;
+exports.Wordmark = exports.Sidebar = exports.AppShell = exports.cn = exports.DatePicker = exports.Upload = exports.Combobox = exports.CrudTable = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = void 0;
 var Button_1 = require("./Button");
 Object.defineProperty(exports, "Button", { enumerable: true, get: function () { return Button_1.Button; } });
 var Card_1 = require("./Card");
@@ -131,4 +131,7 @@ var AppShell_1 = require("./AppShell");
 Object.defineProperty(exports, "AppShell", { enumerable: true, get: function () { return AppShell_1.AppShell; } });
 var Sidebar_1 = require("./Sidebar");
 Object.defineProperty(exports, "Sidebar", { enumerable: true, get: function () { return Sidebar_1.Sidebar; } });
+// brand wordmark/logomark (replaces hand-rolled per-app SVG marks)
+var Wordmark_1 = require("./Wordmark");
+Object.defineProperty(exports, "Wordmark", { enumerable: true, get: function () { return Wordmark_1.Wordmark; } });
 //# sourceMappingURL=index.js.map

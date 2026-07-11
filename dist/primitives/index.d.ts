@@ -124,4 +124,6 @@ export { AppShell } from './AppShell';
 export type { AppShellProps } from './AppShell';
 export { Sidebar } from './Sidebar';
 export type { SidebarProps, SidebarItem, SidebarGroup } from './Sidebar';
+export { Wordmark } from './Wordmark';
+export type { WordmarkProps, WordmarkSize } from './Wordmark';
 //# sourceMappingURL=index.d.ts.map

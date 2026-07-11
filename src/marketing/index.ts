@@ -75,3 +75,9 @@ export { VideoEmbed } from './VideoEmbed';
 export type { VideoEmbedProps } from './VideoEmbed';
 export { Countdown } from './Countdown';
 export type { CountdownProps } from './Countdown';
+
+// layout section blocks
+export { FeatureSplit } from './FeatureSplit';
+export type { FeatureSplitProps } from './FeatureSplit';
+export { LocationBlock } from './LocationBlock';
+export type { LocationBlockProps, LocationHour } from './LocationBlock';
