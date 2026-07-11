@@ -52,8 +52,18 @@ const SIZE_CLASSES = {
 /**
  * Themed button. All colors/radii come from the `--xen-*` tokens via the
  * Tailwind preset — no literal colors (kit lint rule).
+ *
+ * Pass `href` to render a styled `<a>` instead of a `<button>` (navigation
+ * CTAs); everything else — variants, sizes, ref forwarding — is identical.
  */
-exports.Button = React.forwardRef(function Button({ variant = 'primary', size = 'md', className, type = 'button', ...rest }, ref) {
-    return ((0, jsx_runtime_1.jsx)("button", { ref: ref, type: type, className: (0, cn_1.cn)('inline-flex items-center justify-center font-medium transition-colors', 'rounded-[var(--xen-radius-md)]', 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1', 'disabled:pointer-events-none disabled:opacity-50', VARIANT_CLASSES[variant], SIZE_CLASSES[size], className), ...rest }));
+exports.Button = React.forwardRef(function Button({ variant = 'primary', size = 'md', className, type = 'button', href, target, rel, ...rest }, ref) {
+    const classes = (0, cn_1.cn)('inline-flex items-center justify-center font-medium transition-colors', 'rounded-[var(--xen-radius-md)]', 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1', 'disabled:pointer-events-none disabled:opacity-50', VARIANT_CLASSES[variant], SIZE_CLASSES[size], className);
+    if (href !== undefined) {
+        // Anchor form. `rest` carries button-typed DOM props (event handlers keyed
+        // to HTMLButtonElement); the DOM shape is identical at runtime, so cast to
+        // the anchor attribute set for the spread. `type` is intentionally dropped.
+        return ((0, jsx_runtime_1.jsx)("a", { ref: ref, href: href, target: target, rel: rel, className: classes, ...rest }));
+    }
+    return (0, jsx_runtime_1.jsx)("button", { ref: ref, type: type, className: classes, ...rest });
 });
 //# sourceMappingURL=Button.js.map

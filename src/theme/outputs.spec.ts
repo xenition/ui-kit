@@ -50,6 +50,33 @@ describe('toCssVars', () => {
     const dark = toCssVars(compileTheme({ ...baseSeed, mode: 'dark' }));
     expect(dark).not.toBe(light);
   });
+
+  it('flips the neutral ramp for the dark scheme (50 ↔ 950)', () => {
+    const theme = compileTheme(baseSeed);
+    // `mode: 'dark'` root emits the inverted neutral ramp: neutral-50 -> the
+    // darkest compiled step, neutral-900 -> a light step.
+    const dark = toCssVars(compileTheme({ ...baseSeed, mode: 'dark' }));
+    expect(dark).toContain(`--xen-neutral-50: ${theme.ramps.neutral[950]};`);
+    expect(dark).toContain(`--xen-neutral-950: ${theme.ramps.neutral[50]};`);
+    expect(dark).toContain(`--xen-neutral-900: ${theme.ramps.neutral[100]};`);
+
+    // And the light scheme keeps the un-inverted orientation.
+    const light = toCssVars(compileTheme({ ...baseSeed, mode: 'light' }));
+    expect(light).toContain(`--xen-neutral-50: ${theme.ramps.neutral[50]};`);
+    expect(light).not.toContain(`--xen-neutral-50: ${theme.ramps.neutral[950]};`);
+  });
+
+  it('overrides the neutral ramp (not just semantics) in the dark block when mode is "both"', () => {
+    const theme = compileTheme(baseSeed);
+    const css = toCssVars(theme);
+    const darkBlock = css.slice(css.indexOf('[data-theme="dark"]'));
+    // The dark override re-emits the inverted ramps so utility classes flip too.
+    expect(darkBlock).toContain(`--xen-neutral-50: ${theme.ramps.neutral[950]};`);
+    expect(darkBlock).toContain(`--xen-primary-50: ${theme.ramps.primary[950]};`);
+    // Light :root above still carries the un-inverted value.
+    const rootBlock = css.slice(0, css.indexOf('[data-theme="dark"]'));
+    expect(rootBlock).toContain(`--xen-neutral-50: ${theme.ramps.neutral[50]};`);
+  });
 });
 
 describe('toTailwindPreset', () => {

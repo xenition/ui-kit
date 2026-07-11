@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from './cn';
 
-export type BadgeTone = 'neutral' | 'primary' | 'success' | 'warn' | 'danger';
+export type BadgeTone = 'neutral' | 'muted' | 'primary' | 'success' | 'warn' | 'danger';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   tone?: BadgeTone;
@@ -9,6 +9,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 const TONE: Record<BadgeTone, string> = {
   neutral: 'bg-neutral-100 text-on-surface',
+  muted: 'bg-neutral-100 text-muted',
   primary: 'bg-primary-50 text-primary',
   success: 'bg-success text-on-success',
   warn: 'bg-warn text-on-warn',

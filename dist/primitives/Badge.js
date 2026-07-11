@@ -39,6 +39,7 @@ const React = __importStar(require("react"));
 const cn_1 = require("./cn");
 const TONE = {
     neutral: 'bg-neutral-100 text-on-surface',
+    muted: 'bg-neutral-100 text-muted',
     primary: 'bg-primary-50 text-primary',
     success: 'bg-success text-on-success',
     warn: 'bg-warn text-on-warn',

@@ -9,7 +9,7 @@
  *    numeric values for React Native (RN cannot read CSS vars).
  */
 
-import { CompiledTheme, RAMP_STEPS, SemanticColors } from './types';
+import { ColorRamp, CompiledTheme, RAMP_STEPS, RampStep, SemanticColors } from './types';
 
 const camelToKebab = (key: string): string =>
   key.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
@@ -39,6 +39,31 @@ function rampVarLines(name: string, ramp: CompiledTheme['ramps']['primary']): st
   return RAMP_STEPS.map((step) => `--xen-${name}-${step}: ${ramp[step]};`);
 }
 
+/**
+ * Mirror a ramp end-for-end (50 ↔ 950, 100 ↔ 900, …) — the dark-scheme
+ * orientation. This is the same inversion the compiler applies before deriving
+ * the dark semantic slots, so emitting inverted ramps keeps utility classes
+ * (`bg-neutral-50`, `text-neutral-900`, …) in step with `surface`/`on-surface`
+ * under `[data-theme="dark"]` instead of leaving them at their light values.
+ */
+function invertRamp(ramp: ColorRamp): ColorRamp {
+  const inverted = {} as ColorRamp;
+  RAMP_STEPS.forEach((step, i) => {
+    const mirror = RAMP_STEPS[RAMP_STEPS.length - 1 - i] as RampStep;
+    inverted[step] = ramp[mirror];
+  });
+  return inverted;
+}
+
+/** The full ramp set in dark-scheme orientation (every ramp mirrored). */
+function invertRamps(ramps: CompiledTheme['ramps']): CompiledTheme['ramps'] {
+  return {
+    primary: invertRamp(ramps.primary),
+    accent: invertRamp(ramps.accent),
+    neutral: invertRamp(ramps.neutral),
+  };
+}
+
 const fontStack = (family: string): string =>
   `"${family}", ui-sans-serif, system-ui, sans-serif`;
 
@@ -48,15 +73,22 @@ const fontStack = (family: string): string =>
  * `:root` carries the base mode (dark when `seed.mode === 'dark'`, light
  * otherwise) plus ramps and scales. When `seed.mode === 'both'`, a
  * `[data-theme="dark"]` block overrides the semantic slots.
+ *
+ * Ramps are emitted in the scheme's orientation: light schemes use the ramps
+ * as compiled, dark schemes emit the inverted ramps (`neutral-50` → the darkest
+ * step, `neutral-900` → a light step) — matching how the dark semantic slots
+ * are derived, so utility classes like `bg-neutral-50` track the dark surface.
  */
 export function toCssVars(theme: CompiledTheme): string {
-  const rootColors = theme.seed.mode === 'dark' ? theme.dark : theme.light;
+  const darkRoot = theme.seed.mode === 'dark';
+  const rootColors = darkRoot ? theme.dark : theme.light;
+  const rootRamps = darkRoot ? invertRamps(theme.ramps) : theme.ramps;
 
   const rootLines = [
     ...semanticVarLines(rootColors),
-    ...rampVarLines('primary', theme.ramps.primary),
-    ...rampVarLines('accent', theme.ramps.accent),
-    ...rampVarLines('neutral', theme.ramps.neutral),
+    ...rampVarLines('primary', rootRamps.primary),
+    ...rampVarLines('accent', rootRamps.accent),
+    ...rampVarLines('neutral', rootRamps.neutral),
     ...Object.entries(theme.radius).map(([key, px]) => `--xen-radius-${key}: ${px}px;`),
     ...Object.entries(theme.spacing).map(([key, px]) => `--xen-space-${key}: ${px}px;`),
     ...Object.entries(theme.typography.scale).map(([key, px]) => `--xen-text-${key}: ${px}px;`),
@@ -67,7 +99,14 @@ export function toCssVars(theme: CompiledTheme): string {
   let css = `:root {\n  ${rootLines.join('\n  ')}\n}`;
 
   if (theme.seed.mode === 'both') {
-    css += `\n[data-theme="dark"] {\n  ${semanticVarLines(theme.dark).join('\n  ')}\n}`;
+    const darkRamps = invertRamps(theme.ramps);
+    const darkLines = [
+      ...semanticVarLines(theme.dark),
+      ...rampVarLines('primary', darkRamps.primary),
+      ...rampVarLines('accent', darkRamps.accent),
+      ...rampVarLines('neutral', darkRamps.neutral),
+    ];
+    css += `\n[data-theme="dark"] {\n  ${darkLines.join('\n  ')}\n}`;
   }
 
   return css;

@@ -15,6 +15,11 @@ import { CompiledTheme, SemanticColors } from './types';
  * `:root` carries the base mode (dark when `seed.mode === 'dark'`, light
  * otherwise) plus ramps and scales. When `seed.mode === 'both'`, a
  * `[data-theme="dark"]` block overrides the semantic slots.
+ *
+ * Ramps are emitted in the scheme's orientation: light schemes use the ramps
+ * as compiled, dark schemes emit the inverted ramps (`neutral-50` → the darkest
+ * step, `neutral-900` → a light step) — matching how the dark semantic slots
+ * are derived, so utility classes like `bg-neutral-50` track the dark surface.
  */
 export declare function toCssVars(theme: CompiledTheme): string;
 /** Shape of the object returned by {@link toTailwindPreset}. */
