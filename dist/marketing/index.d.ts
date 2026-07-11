@@ -49,6 +49,8 @@ export { SectionDivider } from './SectionDivider';
 export type { SectionDividerProps, SectionDividerVariant } from './SectionDivider';
 export { EntityCard } from './EntityCard';
 export type { EntityCardProps, EntityCardMedia } from './EntityCard';
+export { CoverGallery } from './CoverGallery';
+export type { CoverGalleryProps, CoverGalleryItem } from './CoverGallery';
 export { Carousel } from './Carousel';
 export type { CarouselProps } from './Carousel';
 export { ComparisonTable } from './ComparisonTable';

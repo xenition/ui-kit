@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { type CoverColorRole, type CoverForm } from './GenerativeCover';
 export interface EntityCardMedia {
     /** Image URL; when present an `<img>` is drawn. */
     imageUrl?: string;
@@ -6,6 +7,12 @@ export interface EntityCardMedia {
     seed?: string;
     /** width / height aspect ratio of the media box (default 1.6). */
     aspect?: number;
+    /** Composition of the seeded generative cover (ignored when `imageUrl` is set). */
+    form?: CoverForm;
+    /** Ink color role for the generative cover (token role, e.g. `primary-700`). */
+    ink?: CoverColorRole;
+    /** Paper color role for the generative cover (token role, e.g. `neutral-100`). */
+    paper?: CoverColorRole;
 }
 export interface EntityCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
     /** Primary heading. */

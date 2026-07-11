@@ -55,6 +55,8 @@ export { SectionDivider } from './SectionDivider';
 export type { SectionDividerProps, SectionDividerVariant } from './SectionDivider';
 export { EntityCard } from './EntityCard';
 export type { EntityCardProps, EntityCardMedia } from './EntityCard';
+export { CoverGallery } from './CoverGallery';
+export type { CoverGalleryProps, CoverGalleryItem } from './CoverGallery';
 
 // ── new section/block components (site-building coverage) ─────────────
 export { Carousel } from './Carousel';

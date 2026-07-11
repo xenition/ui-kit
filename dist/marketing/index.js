@@ -7,7 +7,7 @@
  * `prefers-reduced-motion`.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LocationBlock = exports.FeatureSplit = exports.Countdown = exports.VideoEmbed = exports.AnnouncementBar = exports.TeamGrid = exports.ProcessSteps = exports.NewsletterSignup = exports.PricingToggle = exports.ComparisonTable = exports.Carousel = exports.EntityCard = exports.SectionDivider = exports.EditorialItem = exports.EditorialGrid = exports.PointerHalo = exports.COVER_FORMS = exports.hashSeed = exports.GenerativeCover = exports.PriceRow = exports.PriceList = exports.OrnamentRule = exports.computeParticles = exports.ParticleField = exports.BentoCard = exports.BentoGrid = exports.ProductMock = exports.LogoCloud = exports.FooterColumn = exports.Footer = exports.CTABanner = exports.FAQItem = exports.FAQ = exports.PricingTier = exports.PricingTable = exports.initialsFromName = exports.Testimonial = exports.Testimonials = exports.Stat = exports.StatBar = exports.FeatureCard = exports.FeatureGrid = exports.SectionHeading = exports.Navbar = exports.GradientHero = exports.AuroraBackground = void 0;
+exports.LocationBlock = exports.FeatureSplit = exports.Countdown = exports.VideoEmbed = exports.AnnouncementBar = exports.TeamGrid = exports.ProcessSteps = exports.NewsletterSignup = exports.PricingToggle = exports.ComparisonTable = exports.Carousel = exports.CoverGallery = exports.EntityCard = exports.SectionDivider = exports.EditorialItem = exports.EditorialGrid = exports.PointerHalo = exports.COVER_FORMS = exports.hashSeed = exports.GenerativeCover = exports.PriceRow = exports.PriceList = exports.OrnamentRule = exports.computeParticles = exports.ParticleField = exports.BentoCard = exports.BentoGrid = exports.ProductMock = exports.LogoCloud = exports.FooterColumn = exports.Footer = exports.CTABanner = exports.FAQItem = exports.FAQ = exports.PricingTier = exports.PricingTable = exports.initialsFromName = exports.Testimonial = exports.Testimonials = exports.Stat = exports.StatBar = exports.FeatureCard = exports.FeatureGrid = exports.SectionHeading = exports.Navbar = exports.GradientHero = exports.AuroraBackground = void 0;
 var AuroraBackground_1 = require("./AuroraBackground");
 Object.defineProperty(exports, "AuroraBackground", { enumerable: true, get: function () { return AuroraBackground_1.AuroraBackground; } });
 var GradientHero_1 = require("./GradientHero");
@@ -65,6 +65,8 @@ var SectionDivider_1 = require("./SectionDivider");
 Object.defineProperty(exports, "SectionDivider", { enumerable: true, get: function () { return SectionDivider_1.SectionDivider; } });
 var EntityCard_1 = require("./EntityCard");
 Object.defineProperty(exports, "EntityCard", { enumerable: true, get: function () { return EntityCard_1.EntityCard; } });
+var CoverGallery_1 = require("./CoverGallery");
+Object.defineProperty(exports, "CoverGallery", { enumerable: true, get: function () { return CoverGallery_1.CoverGallery; } });
 // ── new section/block components (site-building coverage) ─────────────
 var Carousel_1 = require("./Carousel");
 Object.defineProperty(exports, "Carousel", { enumerable: true, get: function () { return Carousel_1.Carousel; } });

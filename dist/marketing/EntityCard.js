@@ -51,7 +51,7 @@ const GenerativeCover_1 = require("./GenerativeCover");
  * speaker, a listing, or a program by props alone.
  */
 exports.EntityCard = React.forwardRef(function EntityCard({ title, eyebrow, description, meta, media, badge, footer, href, className, ...rest }, ref) {
-    const mediaBox = media ? ((0, jsx_runtime_1.jsx)("div", { className: "aspect-[var(--xen-entity-aspect)] overflow-hidden rounded-[var(--xen-radius-md)] bg-neutral-100", style: { '--xen-entity-aspect': String(media.aspect ?? 1.6) }, children: media.imageUrl ? ((0, jsx_runtime_1.jsx)("img", { src: media.imageUrl, alt: title, loading: "lazy", className: "h-full w-full object-cover" })) : ((0, jsx_runtime_1.jsx)(GenerativeCover_1.GenerativeCover, { seed: media.seed ?? title, label: title, className: "h-full w-full" })) })) : null;
+    const mediaBox = media ? ((0, jsx_runtime_1.jsx)("div", { className: "aspect-[var(--xen-entity-aspect)] overflow-hidden rounded-[var(--xen-radius-md)] bg-neutral-100", style: { '--xen-entity-aspect': String(media.aspect ?? 1.6) }, children: media.imageUrl ? ((0, jsx_runtime_1.jsx)("img", { src: media.imageUrl, alt: title, loading: "lazy", className: "h-full w-full object-cover" })) : ((0, jsx_runtime_1.jsx)(GenerativeCover_1.GenerativeCover, { seed: media.seed ?? title, label: title, form: media.form, ink: media.ink, paper: media.paper, className: "h-full w-full" })) })) : null;
     const heading = ((0, jsx_runtime_1.jsx)("h3", { className: "font-heading text-lg font-semibold leading-snug text-on-surface", children: href ? (
         // Stretched link: the ::after overlay spans the whole (relative) Card,
         // so a click anywhere on the card navigates — not just on the title.

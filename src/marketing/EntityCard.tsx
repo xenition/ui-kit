@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cn } from '../primitives/cn';
 import { Card } from '../primitives/Card';
 import { Eyebrow } from '../primitives/Eyebrow';
-import { GenerativeCover } from './GenerativeCover';
+import { GenerativeCover, type CoverColorRole, type CoverForm } from './GenerativeCover';
 
 export interface EntityCardMedia {
   /** Image URL; when present an `<img>` is drawn. */
@@ -11,6 +11,12 @@ export interface EntityCardMedia {
   seed?: string;
   /** width / height aspect ratio of the media box (default 1.6). */
   aspect?: number;
+  /** Composition of the seeded generative cover (ignored when `imageUrl` is set). */
+  form?: CoverForm;
+  /** Ink color role for the generative cover (token role, e.g. `primary-700`). */
+  ink?: CoverColorRole;
+  /** Paper color role for the generative cover (token role, e.g. `neutral-100`). */
+  paper?: CoverColorRole;
 }
 
 export interface EntityCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -59,7 +65,14 @@ export const EntityCard = React.forwardRef<HTMLDivElement, EntityCardProps>(func
           className="h-full w-full object-cover"
         />
       ) : (
-        <GenerativeCover seed={media.seed ?? title} label={title} className="h-full w-full" />
+        <GenerativeCover
+          seed={media.seed ?? title}
+          label={title}
+          form={media.form}
+          ink={media.ink}
+          paper={media.paper}
+          className="h-full w-full"
+        />
       )}
     </div>
   ) : null;
