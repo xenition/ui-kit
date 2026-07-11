@@ -7,7 +7,7 @@
  * `prefers-reduced-motion`.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EntityCard = exports.SectionDivider = exports.EditorialItem = exports.EditorialGrid = exports.PointerHalo = exports.COVER_FORMS = exports.hashSeed = exports.GenerativeCover = exports.PriceRow = exports.PriceList = exports.OrnamentRule = exports.computeParticles = exports.ParticleField = exports.BentoCard = exports.BentoGrid = exports.ProductMock = exports.LogoCloud = exports.FooterColumn = exports.Footer = exports.CTABanner = exports.FAQItem = exports.FAQ = exports.PricingTier = exports.PricingTable = exports.initialsFromName = exports.Testimonial = exports.Testimonials = exports.Stat = exports.StatBar = exports.FeatureCard = exports.FeatureGrid = exports.SectionHeading = exports.Navbar = exports.GradientHero = exports.AuroraBackground = void 0;
+exports.Countdown = exports.VideoEmbed = exports.AnnouncementBar = exports.TeamGrid = exports.ProcessSteps = exports.NewsletterSignup = exports.PricingToggle = exports.ComparisonTable = exports.Carousel = exports.EntityCard = exports.SectionDivider = exports.EditorialItem = exports.EditorialGrid = exports.PointerHalo = exports.COVER_FORMS = exports.hashSeed = exports.GenerativeCover = exports.PriceRow = exports.PriceList = exports.OrnamentRule = exports.computeParticles = exports.ParticleField = exports.BentoCard = exports.BentoGrid = exports.ProductMock = exports.LogoCloud = exports.FooterColumn = exports.Footer = exports.CTABanner = exports.FAQItem = exports.FAQ = exports.PricingTier = exports.PricingTable = exports.initialsFromName = exports.Testimonial = exports.Testimonials = exports.Stat = exports.StatBar = exports.FeatureCard = exports.FeatureGrid = exports.SectionHeading = exports.Navbar = exports.GradientHero = exports.AuroraBackground = void 0;
 var AuroraBackground_1 = require("./AuroraBackground");
 Object.defineProperty(exports, "AuroraBackground", { enumerable: true, get: function () { return AuroraBackground_1.AuroraBackground; } });
 var GradientHero_1 = require("./GradientHero");
@@ -65,4 +65,23 @@ var SectionDivider_1 = require("./SectionDivider");
 Object.defineProperty(exports, "SectionDivider", { enumerable: true, get: function () { return SectionDivider_1.SectionDivider; } });
 var EntityCard_1 = require("./EntityCard");
 Object.defineProperty(exports, "EntityCard", { enumerable: true, get: function () { return EntityCard_1.EntityCard; } });
+// ── new section/block components (site-building coverage) ─────────────
+var Carousel_1 = require("./Carousel");
+Object.defineProperty(exports, "Carousel", { enumerable: true, get: function () { return Carousel_1.Carousel; } });
+var ComparisonTable_1 = require("./ComparisonTable");
+Object.defineProperty(exports, "ComparisonTable", { enumerable: true, get: function () { return ComparisonTable_1.ComparisonTable; } });
+var PricingToggle_1 = require("./PricingToggle");
+Object.defineProperty(exports, "PricingToggle", { enumerable: true, get: function () { return PricingToggle_1.PricingToggle; } });
+var NewsletterSignup_1 = require("./NewsletterSignup");
+Object.defineProperty(exports, "NewsletterSignup", { enumerable: true, get: function () { return NewsletterSignup_1.NewsletterSignup; } });
+var ProcessSteps_1 = require("./ProcessSteps");
+Object.defineProperty(exports, "ProcessSteps", { enumerable: true, get: function () { return ProcessSteps_1.ProcessSteps; } });
+var TeamGrid_1 = require("./TeamGrid");
+Object.defineProperty(exports, "TeamGrid", { enumerable: true, get: function () { return TeamGrid_1.TeamGrid; } });
+var AnnouncementBar_1 = require("./AnnouncementBar");
+Object.defineProperty(exports, "AnnouncementBar", { enumerable: true, get: function () { return AnnouncementBar_1.AnnouncementBar; } });
+var VideoEmbed_1 = require("./VideoEmbed");
+Object.defineProperty(exports, "VideoEmbed", { enumerable: true, get: function () { return VideoEmbed_1.VideoEmbed; } });
+var Countdown_1 = require("./Countdown");
+Object.defineProperty(exports, "Countdown", { enumerable: true, get: function () { return Countdown_1.Countdown; } });
 //# sourceMappingURL=index.js.map

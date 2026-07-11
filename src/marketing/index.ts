@@ -55,3 +55,23 @@ export { SectionDivider } from './SectionDivider';
 export type { SectionDividerProps, SectionDividerVariant } from './SectionDivider';
 export { EntityCard } from './EntityCard';
 export type { EntityCardProps, EntityCardMedia } from './EntityCard';
+
+// ── new section/block components (site-building coverage) ─────────────
+export { Carousel } from './Carousel';
+export type { CarouselProps } from './Carousel';
+export { ComparisonTable } from './ComparisonTable';
+export type { ComparisonTableProps, ComparisonColumn, ComparisonRow } from './ComparisonTable';
+export { PricingToggle } from './PricingToggle';
+export type { PricingToggleProps, PricingToggleOption } from './PricingToggle';
+export { NewsletterSignup } from './NewsletterSignup';
+export type { NewsletterSignupProps } from './NewsletterSignup';
+export { ProcessSteps } from './ProcessSteps';
+export type { ProcessStepsProps, ProcessStep } from './ProcessSteps';
+export { TeamGrid } from './TeamGrid';
+export type { TeamGridProps, TeamMember } from './TeamGrid';
+export { AnnouncementBar } from './AnnouncementBar';
+export type { AnnouncementBarProps, AnnouncementTone } from './AnnouncementBar';
+export { VideoEmbed } from './VideoEmbed';
+export type { VideoEmbedProps } from './VideoEmbed';
+export { Countdown } from './Countdown';
+export type { CountdownProps } from './Countdown';
