@@ -26,6 +26,8 @@ export type {
 
 export { Button } from './Button';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
+export { Wordmark } from './Wordmark';
+export type { WordmarkProps, WordmarkSize } from './Wordmark';
 export { Card } from './Card';
 export type { CardProps } from './Card';
 export { Stack } from './Stack';

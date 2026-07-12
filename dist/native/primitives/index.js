@@ -7,8 +7,8 @@
  * `useXenitionTheme()` — no literal colors, no DOM.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.List = exports.Tag = exports.Tooltip = exports.Popconfirm = exports.Accordion = exports.Menu = exports.Popover = exports.Drawer = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.formatMoney = exports.EmptyState = exports.PriceTag = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
-exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = void 0;
+exports.Tag = exports.Tooltip = exports.Popconfirm = exports.Accordion = exports.Menu = exports.Popover = exports.Drawer = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.formatMoney = exports.EmptyState = exports.PriceTag = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Wordmark = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
+exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = exports.List = void 0;
 var XenitionUIProvider_1 = require("./XenitionUIProvider");
 Object.defineProperty(exports, "XenitionUIProvider", { enumerable: true, get: function () { return XenitionUIProvider_1.XenitionUIProvider; } });
 // Re-export the theme access hook so a mobile app can `useXenitionTheme()`
@@ -18,6 +18,8 @@ Object.defineProperty(exports, "XenitionNativeThemeProvider", { enumerable: true
 Object.defineProperty(exports, "useXenitionTheme", { enumerable: true, get: function () { return theme_1.useXenitionTheme; } });
 var Button_1 = require("./Button");
 Object.defineProperty(exports, "Button", { enumerable: true, get: function () { return Button_1.Button; } });
+var Wordmark_1 = require("./Wordmark");
+Object.defineProperty(exports, "Wordmark", { enumerable: true, get: function () { return Wordmark_1.Wordmark; } });
 var Card_1 = require("./Card");
 Object.defineProperty(exports, "Card", { enumerable: true, get: function () { return Card_1.Card; } });
 var Stack_1 = require("./Stack");
