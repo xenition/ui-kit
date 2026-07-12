@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+/** Composition variants — accepted for parity with the web `GenerativeCover`. */
+export type CoverForm = 'arc' | 'bands' | 'orbit' | 'grid' | 'wave' | 'stack';
 export interface GenerativeCoverProps {
     /** Stable seed — same seed yields the same cover (product slug/title). */
-    seed: string;
+    seed: string | number;
     /** Optional label rendered over the art (product initials fallback). */
     label?: string;
+    /**
+     * Composition — accepted for parity with the web cover. Native renders a
+     * seeded gradient (no SVG), so `form` only varies the gradient direction
+     * rather than the full geometric composition.
+     */
+    form?: CoverForm;
+    /** Foreground color role (e.g. `primary-700`, `accent`) → the gradient's far stop. */
+    ink?: string;
+    /** Background color role (e.g. `neutral-100`, `surface`) → the gradient's near stop. */
+    paper?: string;
     style?: StyleProp<ViewStyle>;
 }
-/**
- * Native cover-art placeholder drawn when a product has no image — the native
- * counterpart of the web `GenerativeCover`. A deterministic two-token gradient
- * (seeded from the product slug) via `expo-linear-gradient`, with the product
- * initials overlaid. Token-only: both gradient stops are compiled ramp steps,
- * so it restyles from the seed and works in light + dark.
- */
-export declare function GenerativeCover({ seed, label, style, }: GenerativeCoverProps): React.ReactElement;
+export declare function GenerativeCover({ seed, label, form, ink, paper, style, }: GenerativeCoverProps): React.ReactElement;
 //# sourceMappingURL=GenerativeCover.d.ts.map
