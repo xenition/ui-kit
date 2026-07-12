@@ -7,7 +7,7 @@
  * no DOM.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GenerativeCover = exports.PointerHalo = exports.ParticleField = exports.AuroraBackground = exports.NewsletterSignup = exports.Countdown = exports.VideoEmbed = exports.CoverGallery = exports.Carousel = exports.LocationBlock = exports.FeatureSplit = exports.TeamGrid = exports.ProcessSteps = exports.ProductMock = exports.Navbar = exports.ComparisonTable = exports.PricingToggle = exports.PriceList = exports.AnnouncementBar = exports.SectionDivider = exports.OrnamentRule = exports.EditorialItem = exports.EditorialGrid = exports.BentoCard = exports.BentoGrid = exports.LogoCloud = exports.Stat = exports.StatBar = exports.PricingTable = exports.FAQ = exports.initialsFromName = exports.Testimonials = exports.FeatureGrid = exports.Footer = exports.CTABanner = exports.SectionHeading = exports.GradientHero = exports.EntityCard = void 0;
+exports.GenerativeCover = exports.PointerHalo = exports.ParticleField = exports.AuroraBackground = exports.NewsletterSignup = exports.Countdown = exports.VideoEmbed = exports.CoverGallery = exports.Carousel = exports.LocationBlock = exports.FeatureSplit = exports.TeamGrid = exports.ProcessSteps = exports.ProductMock = exports.Navbar = exports.ComparisonTable = exports.PricingToggle = exports.PriceList = exports.AnnouncementBar = exports.SectionDivider = exports.OrnamentRule = exports.EditorialItem = exports.EditorialGrid = exports.BentoCard = exports.BentoGrid = exports.LogoCloud = exports.Stat = exports.StatBar = exports.PricingTable = exports.FAQ = exports.initialsFromName = exports.Testimonials = exports.FeatureGrid = exports.Footer = exports.CTABanner = exports.parseRichText = exports.RichText = exports.SectionHeading = exports.GradientHero = exports.EntityCard = void 0;
 var EntityCard_1 = require("./EntityCard");
 Object.defineProperty(exports, "EntityCard", { enumerable: true, get: function () { return EntityCard_1.EntityCard; } });
 // ── native marketing sections (parity with @xenition/ui/marketing) ────
@@ -15,6 +15,9 @@ var GradientHero_1 = require("./GradientHero");
 Object.defineProperty(exports, "GradientHero", { enumerable: true, get: function () { return GradientHero_1.GradientHero; } });
 var SectionHeading_1 = require("./SectionHeading");
 Object.defineProperty(exports, "SectionHeading", { enumerable: true, get: function () { return SectionHeading_1.SectionHeading; } });
+var RichText_1 = require("./RichText");
+Object.defineProperty(exports, "RichText", { enumerable: true, get: function () { return RichText_1.RichText; } });
+Object.defineProperty(exports, "parseRichText", { enumerable: true, get: function () { return RichText_1.parseRichText; } });
 var CTABanner_1 = require("./CTABanner");
 Object.defineProperty(exports, "CTABanner", { enumerable: true, get: function () { return CTABanner_1.CTABanner; } });
 var Footer_1 = require("./Footer");

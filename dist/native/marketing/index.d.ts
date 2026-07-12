@@ -11,6 +11,8 @@ export { GradientHero } from './GradientHero';
 export type { GradientHeroProps } from './GradientHero';
 export { SectionHeading } from './SectionHeading';
 export type { SectionHeadingProps } from './SectionHeading';
+export { RichText, parseRichText } from './RichText';
+export type { RichTextProps } from './RichText';
 export { CTABanner } from './CTABanner';
 export type { CTABannerProps } from './CTABanner';
 export { Footer } from './Footer';
