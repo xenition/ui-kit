@@ -250,6 +250,28 @@ describe('GenerativeCover (native)', () => {
     const hexesB = renderedStyleHexes(b.root);
     expect(hexesA).toEqual(hexesB);
   });
+
+  it('never produces an undefined gradient stop for large-hash seeds', () => {
+    // 'ember-oak-hero' hashes above 2^31; a signed (>>) shift on the hash
+    // once made the ink-step index negative, the second gradient stop
+    // undefined, and the plate rendered black (caught live on
+    // tpl-restaurant's mobile hero).
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      const { root } = renderThemed(
+        <GenerativeCover seed="ember-oak-hero" label="Ember & Oak" />,
+        seed
+      );
+      const gradients = root.findAll(
+        (node) => Array.isArray((node.props as { colors?: unknown }).colors)
+      );
+      expect(gradients.length).toBeGreaterThan(0);
+      gradients.forEach((gradient) => {
+        const stops = (gradient.props as { colors: unknown[] }).colors;
+        expect(stops.length).toBeGreaterThanOrEqual(2);
+        stops.forEach((stop) => expect(typeof stop).toBe('string'));
+      });
+    });
+  });
 });
 
 describe('token purity (native commerce, both seeds)', () => {

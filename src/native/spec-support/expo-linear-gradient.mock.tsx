@@ -22,8 +22,10 @@ export function LinearGradient({
   children,
   ...rest
 }: LinearGradientProps): React.ReactElement {
+  // `colors` is intentionally forwarded as a plain prop (invisible to a real
+  // View, visible to the test renderer) so specs can assert on the stops.
   return (
-    <View accessibilityLabel="linear-gradient" {...rest}>
+    <View accessibilityLabel="linear-gradient" {...({ colors } as ViewProps)} {...rest}>
       {children}
     </View>
   );

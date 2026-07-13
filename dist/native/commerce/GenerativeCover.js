@@ -59,7 +59,11 @@ function GenerativeCover({ seed, label, form, ink, paper, style, }) {
     const from = resolveRole(paper, tokens, colors)
         ?? tokens.ramps.primary[primarySteps[h % primarySteps.length]];
     const to = resolveRole(ink, tokens, colors)
-        ?? tokens.ramps.accent[accentSteps[(h >> 3) % accentSteps.length]];
+        // >>> not >>: h is a full uint32, and a signed shift on h >= 2^31 goes
+        // negative, indexing accentSteps[-n] -> undefined -> an invalid gradient
+        // stop that renders as a black plate (caught live on tpl-restaurant's
+        // 'ember-oak-hero' seed).
+        ?? tokens.ramps.accent[accentSteps[(h >>> 3) % accentSteps.length]];
     const dir = FORM_DIRS[form ?? ['arc', 'bands', 'orbit', 'grid', 'wave', 'stack'][h % 6]];
     return ((0, jsx_runtime_1.jsx)(Gradient_1.Gradient, { colors: [from, to], start: dir.start, end: dir.end, style: [{ flex: 1, alignItems: 'center', justifyContent: 'center' }, style], children: label ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                 alignItems: 'center',

@@ -93,7 +93,11 @@ export function GenerativeCover({
   const from = resolveRole(paper, tokens, colors)
     ?? tokens.ramps.primary[primarySteps[h % primarySteps.length]!];
   const to = resolveRole(ink, tokens, colors)
-    ?? tokens.ramps.accent[accentSteps[(h >> 3) % accentSteps.length]!];
+    // >>> not >>: h is a full uint32, and a signed shift on h >= 2^31 goes
+    // negative, indexing accentSteps[-n] -> undefined -> an invalid gradient
+    // stop that renders as a black plate (caught live on tpl-restaurant's
+    // 'ember-oak-hero' seed).
+    ?? tokens.ramps.accent[accentSteps[(h >>> 3) % accentSteps.length]!];
   const dir = FORM_DIRS[form ?? (['arc', 'bands', 'orbit', 'grid', 'wave', 'stack'] as const)[h % 6]!];
 
   return (
