@@ -13,11 +13,27 @@
  * `../primitives` (Card, Button, Modal, Icon, Segmented).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resolveTone = exports.withAlpha = exports.weekdayHeader = exports.monthGrid = exports.timeRangeLabel = exports.hourLabel = exports.clockLabel = exports.minutesSinceMidnight = exports.weekDates = exports.startOfWeek = exports.addMonths = exports.addDays = exports.sameMonth = exports.sameDay = exports.monthLongLabel = exports.monthLabel = exports.weekdayLabel = exports.MONTHS_LONG = exports.MONTHS_SHORT = exports.WEEKDAYS_NARROW = exports.WEEKDAYS_SHORT = exports.TimezoneRow = exports.RecurrenceRow = exports.AllDayRow = exports.DateNavigator = exports.EventDetailSheet = exports.MiniCalendar = exports.AvailabilityPicker = exports.TimeGrid = exports.EventBlock = exports.DayAgenda = exports.WeekView = exports.MonthView = void 0;
+exports.resolveTone = exports.withAlpha = exports.weekdayHeader = exports.monthGrid = exports.timeRangeLabel = exports.hourLabel = exports.clockLabel = exports.minutesSinceMidnight = exports.weekDates = exports.startOfWeek = exports.addMonths = exports.addDays = exports.sameMonth = exports.sameDay = exports.monthLongLabel = exports.monthLabel = exports.weekdayLabel = exports.MONTHS_LONG = exports.MONTHS_SHORT = exports.WEEKDAYS_NARROW = exports.WEEKDAYS_SHORT = exports.TimezoneRow = exports.RecurrenceRow = exports.AllDayRow = exports.DateNavigator = exports.EventDetailSheet = exports.MiniCalendar = exports.AvailabilityPicker = exports.TimeGrid = exports.EventBlock = exports.DayAgenda = exports.AvailabilityPickerV3 = exports.AvailabilityPickerV2 = exports.EventBlockV3 = exports.EventBlockV2 = exports.DayAgendaV3 = exports.DayAgendaV2 = exports.MonthViewV3 = exports.MonthViewV2 = exports.WeekView = exports.MonthView = void 0;
 var MonthView_1 = require("./MonthView");
 Object.defineProperty(exports, "MonthView", { enumerable: true, get: function () { return MonthView_1.MonthView; } });
 var WeekView_1 = require("./WeekView");
 Object.defineProperty(exports, "WeekView", { enumerable: true, get: function () { return WeekView_1.WeekView; } });
+var MonthViewV2_1 = require("./MonthViewV2");
+Object.defineProperty(exports, "MonthViewV2", { enumerable: true, get: function () { return MonthViewV2_1.MonthViewV2; } });
+var MonthViewV3_1 = require("./MonthViewV3");
+Object.defineProperty(exports, "MonthViewV3", { enumerable: true, get: function () { return MonthViewV3_1.MonthViewV3; } });
+var DayAgendaV2_1 = require("./DayAgendaV2");
+Object.defineProperty(exports, "DayAgendaV2", { enumerable: true, get: function () { return DayAgendaV2_1.DayAgendaV2; } });
+var DayAgendaV3_1 = require("./DayAgendaV3");
+Object.defineProperty(exports, "DayAgendaV3", { enumerable: true, get: function () { return DayAgendaV3_1.DayAgendaV3; } });
+var EventBlockV2_1 = require("./EventBlockV2");
+Object.defineProperty(exports, "EventBlockV2", { enumerable: true, get: function () { return EventBlockV2_1.EventBlockV2; } });
+var EventBlockV3_1 = require("./EventBlockV3");
+Object.defineProperty(exports, "EventBlockV3", { enumerable: true, get: function () { return EventBlockV3_1.EventBlockV3; } });
+var AvailabilityPickerV2_1 = require("./AvailabilityPickerV2");
+Object.defineProperty(exports, "AvailabilityPickerV2", { enumerable: true, get: function () { return AvailabilityPickerV2_1.AvailabilityPickerV2; } });
+var AvailabilityPickerV3_1 = require("./AvailabilityPickerV3");
+Object.defineProperty(exports, "AvailabilityPickerV3", { enumerable: true, get: function () { return AvailabilityPickerV3_1.AvailabilityPickerV3; } });
 var DayAgenda_1 = require("./DayAgenda");
 Object.defineProperty(exports, "DayAgenda", { enumerable: true, get: function () { return DayAgenda_1.DayAgenda; } });
 var EventBlock_1 = require("./EventBlock");

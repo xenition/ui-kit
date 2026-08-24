@@ -9,7 +9,7 @@
  * native dependencies — `TripRoute` is a static styled placeholder.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ServiceReminder = exports.VehicleHealthRow = exports.TripHistoryEmpty = exports.TripHistoryRow = exports.DriverRatingRow = exports.FareEstimate = exports.RideStatusBar = exports.ParkingSpot = exports.FuelChargeGauge = exports.VehicleCard = exports.TripRoute = exports.DriverCard = exports.RideRequestCard = void 0;
+exports.RideStatusBarV3 = exports.RideStatusBarV2 = exports.VehicleCardV3 = exports.VehicleCardV2 = exports.DriverCardV3 = exports.DriverCardV2 = exports.RideRequestCardV3 = exports.RideRequestCardV2 = exports.ServiceReminder = exports.VehicleHealthRow = exports.TripHistoryEmpty = exports.TripHistoryRow = exports.DriverRatingRow = exports.FareEstimate = exports.RideStatusBar = exports.ParkingSpot = exports.FuelChargeGauge = exports.VehicleCard = exports.TripRoute = exports.DriverCard = exports.RideRequestCard = void 0;
 var RideRequestCard_1 = require("./RideRequestCard");
 Object.defineProperty(exports, "RideRequestCard", { enumerable: true, get: function () { return RideRequestCard_1.RideRequestCard; } });
 var DriverCard_1 = require("./DriverCard");
@@ -35,4 +35,23 @@ var VehicleHealthRow_1 = require("./VehicleHealthRow");
 Object.defineProperty(exports, "VehicleHealthRow", { enumerable: true, get: function () { return VehicleHealthRow_1.VehicleHealthRow; } });
 var ServiceReminder_1 = require("./ServiceReminder");
 Object.defineProperty(exports, "ServiceReminder", { enumerable: true, get: function () { return ServiceReminder_1.ServiceReminder; } });
+// ── Alternate designs (v2 / v3) — separate drop-in components sharing each
+// original's props (`<Name>V{2,3}Props = <Name>Props`). Pick a look at the
+// call site; no runtime variant prop.
+var RideRequestCardV2_1 = require("./RideRequestCardV2");
+Object.defineProperty(exports, "RideRequestCardV2", { enumerable: true, get: function () { return RideRequestCardV2_1.RideRequestCardV2; } });
+var RideRequestCardV3_1 = require("./RideRequestCardV3");
+Object.defineProperty(exports, "RideRequestCardV3", { enumerable: true, get: function () { return RideRequestCardV3_1.RideRequestCardV3; } });
+var DriverCardV2_1 = require("./DriverCardV2");
+Object.defineProperty(exports, "DriverCardV2", { enumerable: true, get: function () { return DriverCardV2_1.DriverCardV2; } });
+var DriverCardV3_1 = require("./DriverCardV3");
+Object.defineProperty(exports, "DriverCardV3", { enumerable: true, get: function () { return DriverCardV3_1.DriverCardV3; } });
+var VehicleCardV2_1 = require("./VehicleCardV2");
+Object.defineProperty(exports, "VehicleCardV2", { enumerable: true, get: function () { return VehicleCardV2_1.VehicleCardV2; } });
+var VehicleCardV3_1 = require("./VehicleCardV3");
+Object.defineProperty(exports, "VehicleCardV3", { enumerable: true, get: function () { return VehicleCardV3_1.VehicleCardV3; } });
+var RideStatusBarV2_1 = require("./RideStatusBarV2");
+Object.defineProperty(exports, "RideStatusBarV2", { enumerable: true, get: function () { return RideStatusBarV2_1.RideStatusBarV2; } });
+var RideStatusBarV3_1 = require("./RideStatusBarV3");
+Object.defineProperty(exports, "RideStatusBarV3", { enumerable: true, get: function () { return RideStatusBarV3_1.RideStatusBarV3; } });
 //# sourceMappingURL=index.js.map

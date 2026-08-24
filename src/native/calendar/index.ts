@@ -16,6 +16,26 @@ export { MonthView } from './MonthView';
 export type { MonthViewProps, MonthViewDensity } from './MonthView';
 
 export { WeekView } from './WeekView';
+export { MonthViewV2 } from './MonthViewV2';
+export type { MonthViewV2Props } from './MonthViewV2';
+export { MonthViewV3 } from './MonthViewV3';
+export type { MonthViewV3Props } from './MonthViewV3';
+
+export { DayAgendaV2 } from './DayAgendaV2';
+export type { DayAgendaV2Props } from './DayAgendaV2';
+export { DayAgendaV3 } from './DayAgendaV3';
+export type { DayAgendaV3Props } from './DayAgendaV3';
+
+export { EventBlockV2 } from './EventBlockV2';
+export type { EventBlockV2Props } from './EventBlockV2';
+export { EventBlockV3 } from './EventBlockV3';
+export type { EventBlockV3Props } from './EventBlockV3';
+
+export { AvailabilityPickerV2 } from './AvailabilityPickerV2';
+export type { AvailabilityPickerV2Props } from './AvailabilityPickerV2';
+export { AvailabilityPickerV3 } from './AvailabilityPickerV3';
+export type { AvailabilityPickerV3Props } from './AvailabilityPickerV3';
+
 export type { WeekViewProps } from './WeekView';
 
 export { DayAgenda } from './DayAgenda';

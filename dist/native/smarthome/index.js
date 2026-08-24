@@ -13,7 +13,7 @@
  * fetches or imports the SDK.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ScheduleRow = exports.DeviceToggleRow = exports.RoomGroup = exports.LockControl = exports.CameraTile = exports.EnergyUsage = exports.AutomationRule = exports.SensorReading = exports.SceneCard = exports.LightControl = exports.ThermostatDial = exports.DeviceTile = void 0;
+exports.LightControlV3 = exports.LightControlV2 = exports.SceneCardV3 = exports.SceneCardV2 = exports.ThermostatDialV3 = exports.ThermostatDialV2 = exports.DeviceTileV3 = exports.DeviceTileV2 = exports.ScheduleRow = exports.DeviceToggleRow = exports.RoomGroup = exports.LockControl = exports.CameraTile = exports.EnergyUsage = exports.AutomationRule = exports.SensorReading = exports.SceneCard = exports.LightControl = exports.ThermostatDial = exports.DeviceTile = void 0;
 var DeviceTile_1 = require("./DeviceTile");
 Object.defineProperty(exports, "DeviceTile", { enumerable: true, get: function () { return DeviceTile_1.DeviceTile; } });
 var ThermostatDial_1 = require("./ThermostatDial");
@@ -38,4 +38,24 @@ var DeviceToggleRow_1 = require("./DeviceToggleRow");
 Object.defineProperty(exports, "DeviceToggleRow", { enumerable: true, get: function () { return DeviceToggleRow_1.DeviceToggleRow; } });
 var ScheduleRow_1 = require("./ScheduleRow");
 Object.defineProperty(exports, "ScheduleRow", { enumerable: true, get: function () { return ScheduleRow_1.ScheduleRow; } });
+// ── alternate designs (drop-in, same Props) ───────────────────────────
+// V2/V3 are genuinely different presentations of the four most-used blocks,
+// each a separate component sharing the original prop contract (not a variant
+// prop) so they can be swapped in place. See design-variants.native.spec.tsx.
+var DeviceTileV2_1 = require("./DeviceTileV2");
+Object.defineProperty(exports, "DeviceTileV2", { enumerable: true, get: function () { return DeviceTileV2_1.DeviceTileV2; } });
+var DeviceTileV3_1 = require("./DeviceTileV3");
+Object.defineProperty(exports, "DeviceTileV3", { enumerable: true, get: function () { return DeviceTileV3_1.DeviceTileV3; } });
+var ThermostatDialV2_1 = require("./ThermostatDialV2");
+Object.defineProperty(exports, "ThermostatDialV2", { enumerable: true, get: function () { return ThermostatDialV2_1.ThermostatDialV2; } });
+var ThermostatDialV3_1 = require("./ThermostatDialV3");
+Object.defineProperty(exports, "ThermostatDialV3", { enumerable: true, get: function () { return ThermostatDialV3_1.ThermostatDialV3; } });
+var SceneCardV2_1 = require("./SceneCardV2");
+Object.defineProperty(exports, "SceneCardV2", { enumerable: true, get: function () { return SceneCardV2_1.SceneCardV2; } });
+var SceneCardV3_1 = require("./SceneCardV3");
+Object.defineProperty(exports, "SceneCardV3", { enumerable: true, get: function () { return SceneCardV3_1.SceneCardV3; } });
+var LightControlV2_1 = require("./LightControlV2");
+Object.defineProperty(exports, "LightControlV2", { enumerable: true, get: function () { return LightControlV2_1.LightControlV2; } });
+var LightControlV3_1 = require("./LightControlV3");
+Object.defineProperty(exports, "LightControlV3", { enumerable: true, get: function () { return LightControlV3_1.LightControlV3; } });
 //# sourceMappingURL=index.js.map
