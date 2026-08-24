@@ -434,6 +434,36 @@
       "types": "./dist/smarthome/index.d.ts",
       "import": "./dist/smarthome/index.js",
       "require": "./dist/smarthome/index.js"
+    },
+    "./weather": {
+      "types": "./dist/weather/index.d.ts",
+      "import": "./dist/weather/index.js",
+      "require": "./dist/weather/index.js"
+    },
+    "./sports": {
+      "types": "./dist/sports/index.d.ts",
+      "import": "./dist/sports/index.js",
+      "require": "./dist/sports/index.js"
+    },
+    "./marketplace": {
+      "types": "./dist/marketplace/index.d.ts",
+      "import": "./dist/marketplace/index.js",
+      "require": "./dist/marketplace/index.js"
+    },
+    "./medical": {
+      "types": "./dist/medical/index.d.ts",
+      "import": "./dist/medical/index.js",
+      "require": "./dist/medical/index.js"
+    },
+    "./crm": {
+      "types": "./dist/crm/index.d.ts",
+      "import": "./dist/crm/index.js",
+      "require": "./dist/crm/index.js"
+    },
+    "./support": {
+      "types": "./dist/support/index.d.ts",
+      "import": "./dist/support/index.js",
+      "require": "./dist/support/index.js"
     }
   },
   "scripts": {
