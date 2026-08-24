@@ -9,7 +9,7 @@
  * `../primitives` (Card, Button, Badge, Icon, Avatar, AvatarGroup, Rating).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MONTHS_SHORT = exports.WEEKDAYS_SHORT = exports.countdownParts = exports.sameDay = exports.monthLabel = exports.weekdayLabel = exports.SessionCard = exports.CalendarStrip = exports.CheckInRow = exports.TicketTypeRow = exports.CountdownBadge = exports.VenueCard = exports.ScheduleRow = exports.SpeakerCard = exports.AgendaList = exports.RSVPButton = exports.TicketStub = exports.EventCard = void 0;
+exports.MONTHS_SHORT = exports.WEEKDAYS_SHORT = exports.countdownParts = exports.sameDay = exports.monthLabel = exports.weekdayLabel = exports.SessionCardV3 = exports.SessionCardV2 = exports.SpeakerCardV3 = exports.SpeakerCardV2 = exports.TicketStubV3 = exports.TicketStubV2 = exports.EventCardV3 = exports.EventCardV2 = exports.SessionCard = exports.CalendarStrip = exports.CheckInRow = exports.TicketTypeRow = exports.CountdownBadge = exports.VenueCard = exports.ScheduleRow = exports.SpeakerCard = exports.AgendaList = exports.RSVPButton = exports.TicketStub = exports.EventCard = void 0;
 var EventCard_1 = require("./EventCard");
 Object.defineProperty(exports, "EventCard", { enumerable: true, get: function () { return EventCard_1.EventCard; } });
 var TicketStub_1 = require("./TicketStub");
@@ -34,6 +34,23 @@ var CalendarStrip_1 = require("./CalendarStrip");
 Object.defineProperty(exports, "CalendarStrip", { enumerable: true, get: function () { return CalendarStrip_1.CalendarStrip; } });
 var SessionCard_1 = require("./SessionCard");
 Object.defineProperty(exports, "SessionCard", { enumerable: true, get: function () { return SessionCard_1.SessionCard; } });
+// Alternate drop-in designs (v2 / v3) — same props as the base component.
+var EventCardV2_1 = require("./EventCardV2");
+Object.defineProperty(exports, "EventCardV2", { enumerable: true, get: function () { return EventCardV2_1.EventCardV2; } });
+var EventCardV3_1 = require("./EventCardV3");
+Object.defineProperty(exports, "EventCardV3", { enumerable: true, get: function () { return EventCardV3_1.EventCardV3; } });
+var TicketStubV2_1 = require("./TicketStubV2");
+Object.defineProperty(exports, "TicketStubV2", { enumerable: true, get: function () { return TicketStubV2_1.TicketStubV2; } });
+var TicketStubV3_1 = require("./TicketStubV3");
+Object.defineProperty(exports, "TicketStubV3", { enumerable: true, get: function () { return TicketStubV3_1.TicketStubV3; } });
+var SpeakerCardV2_1 = require("./SpeakerCardV2");
+Object.defineProperty(exports, "SpeakerCardV2", { enumerable: true, get: function () { return SpeakerCardV2_1.SpeakerCardV2; } });
+var SpeakerCardV3_1 = require("./SpeakerCardV3");
+Object.defineProperty(exports, "SpeakerCardV3", { enumerable: true, get: function () { return SpeakerCardV3_1.SpeakerCardV3; } });
+var SessionCardV2_1 = require("./SessionCardV2");
+Object.defineProperty(exports, "SessionCardV2", { enumerable: true, get: function () { return SessionCardV2_1.SessionCardV2; } });
+var SessionCardV3_1 = require("./SessionCardV3");
+Object.defineProperty(exports, "SessionCardV3", { enumerable: true, get: function () { return SessionCardV3_1.SessionCardV3; } });
 // Shared date/time helpers (no external deps).
 var format_1 = require("./format");
 Object.defineProperty(exports, "weekdayLabel", { enumerable: true, get: function () { return format_1.weekdayLabel; } });

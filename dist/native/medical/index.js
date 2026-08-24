@@ -13,7 +13,7 @@
  * not be used for diagnosis or treatment decisions.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HealthRecordRow = exports.TriageLevel = exports.VisitSummary = exports.DoctorCard = exports.MedicationSchedule = exports.VitalsPanel = exports.TelehealthCallBar = exports.PatientCard = exports.LabResultRow = exports.SymptomSelector = exports.PrescriptionRow = exports.AppointmentCard = void 0;
+exports.LabResultRowV3 = exports.LabResultRowV2 = exports.PrescriptionRowV3 = exports.PrescriptionRowV2 = exports.DoctorCardV3 = exports.DoctorCardV2 = exports.AppointmentCardV3 = exports.AppointmentCardV2 = exports.HealthRecordRow = exports.TriageLevel = exports.VisitSummary = exports.DoctorCard = exports.MedicationSchedule = exports.VitalsPanel = exports.TelehealthCallBar = exports.PatientCard = exports.LabResultRow = exports.SymptomSelector = exports.PrescriptionRow = exports.AppointmentCard = void 0;
 var AppointmentCard_1 = require("./AppointmentCard");
 Object.defineProperty(exports, "AppointmentCard", { enumerable: true, get: function () { return AppointmentCard_1.AppointmentCard; } });
 var PrescriptionRow_1 = require("./PrescriptionRow");
@@ -38,4 +38,21 @@ var TriageLevel_1 = require("./TriageLevel");
 Object.defineProperty(exports, "TriageLevel", { enumerable: true, get: function () { return TriageLevel_1.TriageLevel; } });
 var HealthRecordRow_1 = require("./HealthRecordRow");
 Object.defineProperty(exports, "HealthRecordRow", { enumerable: true, get: function () { return HealthRecordRow_1.HealthRecordRow; } });
+// Alternate designs (v2 / v3) — drop-in redesigns sharing each base's exact props.
+var AppointmentCardV2_1 = require("./AppointmentCardV2");
+Object.defineProperty(exports, "AppointmentCardV2", { enumerable: true, get: function () { return AppointmentCardV2_1.AppointmentCardV2; } });
+var AppointmentCardV3_1 = require("./AppointmentCardV3");
+Object.defineProperty(exports, "AppointmentCardV3", { enumerable: true, get: function () { return AppointmentCardV3_1.AppointmentCardV3; } });
+var DoctorCardV2_1 = require("./DoctorCardV2");
+Object.defineProperty(exports, "DoctorCardV2", { enumerable: true, get: function () { return DoctorCardV2_1.DoctorCardV2; } });
+var DoctorCardV3_1 = require("./DoctorCardV3");
+Object.defineProperty(exports, "DoctorCardV3", { enumerable: true, get: function () { return DoctorCardV3_1.DoctorCardV3; } });
+var PrescriptionRowV2_1 = require("./PrescriptionRowV2");
+Object.defineProperty(exports, "PrescriptionRowV2", { enumerable: true, get: function () { return PrescriptionRowV2_1.PrescriptionRowV2; } });
+var PrescriptionRowV3_1 = require("./PrescriptionRowV3");
+Object.defineProperty(exports, "PrescriptionRowV3", { enumerable: true, get: function () { return PrescriptionRowV3_1.PrescriptionRowV3; } });
+var LabResultRowV2_1 = require("./LabResultRowV2");
+Object.defineProperty(exports, "LabResultRowV2", { enumerable: true, get: function () { return LabResultRowV2_1.LabResultRowV2; } });
+var LabResultRowV3_1 = require("./LabResultRowV3");
+Object.defineProperty(exports, "LabResultRowV3", { enumerable: true, get: function () { return LabResultRowV3_1.LabResultRowV3; } });
 //# sourceMappingURL=index.js.map

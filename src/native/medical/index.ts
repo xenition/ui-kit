@@ -47,3 +47,24 @@ export type { TriageLevelProps, TriageLevelValue } from './TriageLevel';
 
 export { HealthRecordRow } from './HealthRecordRow';
 export type { HealthRecordRowProps, HealthRecordType } from './HealthRecordRow';
+
+// Alternate designs (v2 / v3) — drop-in redesigns sharing each base's exact props.
+export { AppointmentCardV2 } from './AppointmentCardV2';
+export type { AppointmentCardV2Props } from './AppointmentCardV2';
+export { AppointmentCardV3 } from './AppointmentCardV3';
+export type { AppointmentCardV3Props } from './AppointmentCardV3';
+
+export { DoctorCardV2 } from './DoctorCardV2';
+export type { DoctorCardV2Props } from './DoctorCardV2';
+export { DoctorCardV3 } from './DoctorCardV3';
+export type { DoctorCardV3Props } from './DoctorCardV3';
+
+export { PrescriptionRowV2 } from './PrescriptionRowV2';
+export type { PrescriptionRowV2Props } from './PrescriptionRowV2';
+export { PrescriptionRowV3 } from './PrescriptionRowV3';
+export type { PrescriptionRowV3Props } from './PrescriptionRowV3';
+
+export { LabResultRowV2 } from './LabResultRowV2';
+export type { LabResultRowV2Props } from './LabResultRowV2';
+export { LabResultRowV3 } from './LabResultRowV3';
+export type { LabResultRowV3Props } from './LabResultRowV3';
