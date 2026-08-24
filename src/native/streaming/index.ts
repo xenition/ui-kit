@@ -56,3 +56,25 @@ export { LiveBadge } from './LiveBadge';
 export type { LiveBadgeProps, LiveBadgeVariant } from './LiveBadge';
 export { CastButton } from './CastButton';
 export type { CastButtonProps, CastButtonVariant, CastButtonSize } from './CastButton';
+
+// ── alternate designs (V2 / V3) ───────────────────────────────────────
+// Drop-in redesigns of the most-used streaming shells. Each accepts the SAME
+// props as its v1 (`<Name>V2Props = <Name>Props`) but renders a genuinely
+// different layout, so an app can swap the visual language without touching
+// call sites. Token-pure, same a11y contract.
+export { PodcastCardV2 } from './PodcastCardV2';
+export type { PodcastCardV2Props } from './PodcastCardV2';
+export { PodcastCardV3 } from './PodcastCardV3';
+export type { PodcastCardV3Props } from './PodcastCardV3';
+export { EpisodeRowV2 } from './EpisodeRowV2';
+export type { EpisodeRowV2Props } from './EpisodeRowV2';
+export { EpisodeRowV3 } from './EpisodeRowV3';
+export type { EpisodeRowV3Props } from './EpisodeRowV3';
+export { NowPlayingV2 } from './NowPlayingV2';
+export type { NowPlayingV2Props } from './NowPlayingV2';
+export { NowPlayingV3 } from './NowPlayingV3';
+export type { NowPlayingV3Props } from './NowPlayingV3';
+export { MiniPlayerV2 } from './MiniPlayerV2';
+export type { MiniPlayerV2Props } from './MiniPlayerV2';
+export { MiniPlayerV3 } from './MiniPlayerV3';
+export type { MiniPlayerV3Props } from './MiniPlayerV3';

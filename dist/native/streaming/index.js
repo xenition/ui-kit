@@ -16,7 +16,7 @@
  * mobile-first.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CastButton = exports.LiveBadge = exports.ChannelCard = exports.EpisodeRow = exports.PodcastCard = exports.QueueList = exports.PlaylistRow = exports.WaveformScrubber = exports.NowPlaying = exports.MiniPlayer = exports.AudioPlayer = exports.VideoPlayer = exports.formatCount = exports.formatTime = void 0;
+exports.MiniPlayerV3 = exports.MiniPlayerV2 = exports.NowPlayingV3 = exports.NowPlayingV2 = exports.EpisodeRowV3 = exports.EpisodeRowV2 = exports.PodcastCardV3 = exports.PodcastCardV2 = exports.CastButton = exports.LiveBadge = exports.ChannelCard = exports.EpisodeRow = exports.PodcastCard = exports.QueueList = exports.PlaylistRow = exports.WaveformScrubber = exports.NowPlaying = exports.MiniPlayer = exports.AudioPlayer = exports.VideoPlayer = exports.formatCount = exports.formatTime = void 0;
 var types_1 = require("./types");
 Object.defineProperty(exports, "formatTime", { enumerable: true, get: function () { return types_1.formatTime; } });
 Object.defineProperty(exports, "formatCount", { enumerable: true, get: function () { return types_1.formatCount; } });
@@ -48,4 +48,25 @@ var LiveBadge_1 = require("./LiveBadge");
 Object.defineProperty(exports, "LiveBadge", { enumerable: true, get: function () { return LiveBadge_1.LiveBadge; } });
 var CastButton_1 = require("./CastButton");
 Object.defineProperty(exports, "CastButton", { enumerable: true, get: function () { return CastButton_1.CastButton; } });
+// ── alternate designs (V2 / V3) ───────────────────────────────────────
+// Drop-in redesigns of the most-used streaming shells. Each accepts the SAME
+// props as its v1 (`<Name>V2Props = <Name>Props`) but renders a genuinely
+// different layout, so an app can swap the visual language without touching
+// call sites. Token-pure, same a11y contract.
+var PodcastCardV2_1 = require("./PodcastCardV2");
+Object.defineProperty(exports, "PodcastCardV2", { enumerable: true, get: function () { return PodcastCardV2_1.PodcastCardV2; } });
+var PodcastCardV3_1 = require("./PodcastCardV3");
+Object.defineProperty(exports, "PodcastCardV3", { enumerable: true, get: function () { return PodcastCardV3_1.PodcastCardV3; } });
+var EpisodeRowV2_1 = require("./EpisodeRowV2");
+Object.defineProperty(exports, "EpisodeRowV2", { enumerable: true, get: function () { return EpisodeRowV2_1.EpisodeRowV2; } });
+var EpisodeRowV3_1 = require("./EpisodeRowV3");
+Object.defineProperty(exports, "EpisodeRowV3", { enumerable: true, get: function () { return EpisodeRowV3_1.EpisodeRowV3; } });
+var NowPlayingV2_1 = require("./NowPlayingV2");
+Object.defineProperty(exports, "NowPlayingV2", { enumerable: true, get: function () { return NowPlayingV2_1.NowPlayingV2; } });
+var NowPlayingV3_1 = require("./NowPlayingV3");
+Object.defineProperty(exports, "NowPlayingV3", { enumerable: true, get: function () { return NowPlayingV3_1.NowPlayingV3; } });
+var MiniPlayerV2_1 = require("./MiniPlayerV2");
+Object.defineProperty(exports, "MiniPlayerV2", { enumerable: true, get: function () { return MiniPlayerV2_1.MiniPlayerV2; } });
+var MiniPlayerV3_1 = require("./MiniPlayerV3");
+Object.defineProperty(exports, "MiniPlayerV3", { enumerable: true, get: function () { return MiniPlayerV3_1.MiniPlayerV3; } });
 //# sourceMappingURL=index.js.map
