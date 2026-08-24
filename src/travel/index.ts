@@ -9,18 +9,34 @@
 
 export { FlightCard } from './FlightCard';
 export type { FlightCardProps, FlightCardVariant, FlightLeg } from './FlightCard';
+export { FlightCardV2 } from './FlightCardV2';
+export type { FlightCardV2Props } from './FlightCardV2';
+export { FlightCardV3 } from './FlightCardV3';
+export type { FlightCardV3Props } from './FlightCardV3';
 
 export { HotelCard } from './HotelCard';
 export type { HotelCardProps, HotelCardVariant } from './HotelCard';
+export { HotelCardV2 } from './HotelCardV2';
+export type { HotelCardV2Props } from './HotelCardV2';
+export { HotelCardV3 } from './HotelCardV3';
+export type { HotelCardV3Props } from './HotelCardV3';
 
 export { ItineraryItem } from './ItineraryItem';
 export type { ItineraryItemProps, ItineraryKind, ItineraryStatus } from './ItineraryItem';
+export { ItineraryItemV2 } from './ItineraryItemV2';
+export type { ItineraryItemV2Props } from './ItineraryItemV2';
+export { ItineraryItemV3 } from './ItineraryItemV3';
+export type { ItineraryItemV3Props } from './ItineraryItemV3';
 
 export { SeatPicker } from './SeatPicker';
 export type { SeatPickerProps, Seat, SeatStatus } from './SeatPicker';
 
 export { DestinationCard } from './DestinationCard';
 export type { DestinationCardProps, DestinationCardVariant } from './DestinationCard';
+export { DestinationCardV2 } from './DestinationCardV2';
+export type { DestinationCardV2Props } from './DestinationCardV2';
+export { DestinationCardV3 } from './DestinationCardV3';
+export type { DestinationCardV3Props } from './DestinationCardV3';
 
 export { TripSummary } from './TripSummary';
 export type { TripSummaryProps, TripLineItem } from './TripSummary';
