@@ -6,7 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Breadcrumb = exports.List = exports.Pagination = exports.Tag = exports.Popconfirm = exports.Drawer = exports.Accordion = exports.Menu = exports.Popover = exports.Tooltip = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.MessageList = exports.ChatBubble = exports.Table = exports.Modal = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.GlassPanel = exports.Eyebrow = exports.GradientText = exports.Stack = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Card = exports.Button = void 0;
-exports.Wordmark = exports.Sidebar = exports.AppShell = exports.cn = exports.DatePicker = exports.Upload = exports.Combobox = exports.CrudTable = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = void 0;
+exports.ScrollableTabs = exports.SplitButton = exports.Toolbar = exports.JsonViewer = exports.CodeBlock = exports.VirtualList = exports.Kanban = exports.Calendar = exports.Statistic = exports.Tree = exports.Watermark = exports.ButtonGroup = exports.LoadingOverlay = exports.Result = exports.Callout = exports.Banner = exports.BottomSheet = exports.ActionSheet = exports.ContextMenu = exports.BottomNav = exports.FloatButton = exports.Icon = exports.ColorPicker = exports.CurrencyInput = exports.PhoneInput = exports.ToggleGroup = exports.RangeSlider = exports.AutoComplete = exports.TagInput = exports.MultiSelect = exports.DateRangePicker = exports.TimePicker = exports.PasswordInput = exports.SearchInput = exports.Wordmark = exports.Sidebar = exports.AppShell = exports.cn = exports.DatePicker = exports.Upload = exports.Combobox = exports.CrudTable = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = void 0;
 var Button_1 = require("./Button");
 Object.defineProperty(exports, "Button", { enumerable: true, get: function () { return Button_1.Button; } });
 var Card_1 = require("./Card");
@@ -134,4 +134,75 @@ Object.defineProperty(exports, "Sidebar", { enumerable: true, get: function () {
 // brand wordmark/logomark (replaces hand-rolled per-app SVG marks)
 var Wordmark_1 = require("./Wordmark");
 Object.defineProperty(exports, "Wordmark", { enumerable: true, get: function () { return Wordmark_1.Wordmark; } });
+// ── web parity: data-entry ────────────────────────────────────────────
+var SearchInput_1 = require("./SearchInput");
+Object.defineProperty(exports, "SearchInput", { enumerable: true, get: function () { return SearchInput_1.SearchInput; } });
+var PasswordInput_1 = require("./PasswordInput");
+Object.defineProperty(exports, "PasswordInput", { enumerable: true, get: function () { return PasswordInput_1.PasswordInput; } });
+var TimePicker_1 = require("./TimePicker");
+Object.defineProperty(exports, "TimePicker", { enumerable: true, get: function () { return TimePicker_1.TimePicker; } });
+var DateRangePicker_1 = require("./DateRangePicker");
+Object.defineProperty(exports, "DateRangePicker", { enumerable: true, get: function () { return DateRangePicker_1.DateRangePicker; } });
+var MultiSelect_1 = require("./MultiSelect");
+Object.defineProperty(exports, "MultiSelect", { enumerable: true, get: function () { return MultiSelect_1.MultiSelect; } });
+var TagInput_1 = require("./TagInput");
+Object.defineProperty(exports, "TagInput", { enumerable: true, get: function () { return TagInput_1.TagInput; } });
+var AutoComplete_1 = require("./AutoComplete");
+Object.defineProperty(exports, "AutoComplete", { enumerable: true, get: function () { return AutoComplete_1.AutoComplete; } });
+var RangeSlider_1 = require("./RangeSlider");
+Object.defineProperty(exports, "RangeSlider", { enumerable: true, get: function () { return RangeSlider_1.RangeSlider; } });
+var ToggleGroup_1 = require("./ToggleGroup");
+Object.defineProperty(exports, "ToggleGroup", { enumerable: true, get: function () { return ToggleGroup_1.ToggleGroup; } });
+var PhoneInput_1 = require("./PhoneInput");
+Object.defineProperty(exports, "PhoneInput", { enumerable: true, get: function () { return PhoneInput_1.PhoneInput; } });
+var CurrencyInput_1 = require("./CurrencyInput");
+Object.defineProperty(exports, "CurrencyInput", { enumerable: true, get: function () { return CurrencyInput_1.CurrencyInput; } });
+var ColorPicker_1 = require("./ColorPicker");
+Object.defineProperty(exports, "ColorPicker", { enumerable: true, get: function () { return ColorPicker_1.ColorPicker; } });
+// ── web parity: patterns + feedback ───────────────────────────────────
+var Icon_1 = require("./Icon");
+Object.defineProperty(exports, "Icon", { enumerable: true, get: function () { return Icon_1.Icon; } });
+var FloatButton_1 = require("./FloatButton");
+Object.defineProperty(exports, "FloatButton", { enumerable: true, get: function () { return FloatButton_1.FloatButton; } });
+var BottomNav_1 = require("./BottomNav");
+Object.defineProperty(exports, "BottomNav", { enumerable: true, get: function () { return BottomNav_1.BottomNav; } });
+var ContextMenu_1 = require("./ContextMenu");
+Object.defineProperty(exports, "ContextMenu", { enumerable: true, get: function () { return ContextMenu_1.ContextMenu; } });
+var ActionSheet_1 = require("./ActionSheet");
+Object.defineProperty(exports, "ActionSheet", { enumerable: true, get: function () { return ActionSheet_1.ActionSheet; } });
+var BottomSheet_1 = require("./BottomSheet");
+Object.defineProperty(exports, "BottomSheet", { enumerable: true, get: function () { return BottomSheet_1.BottomSheet; } });
+var Banner_1 = require("./Banner");
+Object.defineProperty(exports, "Banner", { enumerable: true, get: function () { return Banner_1.Banner; } });
+var Callout_1 = require("./Callout");
+Object.defineProperty(exports, "Callout", { enumerable: true, get: function () { return Callout_1.Callout; } });
+var Result_1 = require("./Result");
+Object.defineProperty(exports, "Result", { enumerable: true, get: function () { return Result_1.Result; } });
+var LoadingOverlay_1 = require("./LoadingOverlay");
+Object.defineProperty(exports, "LoadingOverlay", { enumerable: true, get: function () { return LoadingOverlay_1.LoadingOverlay; } });
+var ButtonGroup_1 = require("./ButtonGroup");
+Object.defineProperty(exports, "ButtonGroup", { enumerable: true, get: function () { return ButtonGroup_1.ButtonGroup; } });
+var Watermark_1 = require("./Watermark");
+Object.defineProperty(exports, "Watermark", { enumerable: true, get: function () { return Watermark_1.Watermark; } });
+// ── web parity: display + navigation ──────────────────────────────────
+var Tree_1 = require("./Tree");
+Object.defineProperty(exports, "Tree", { enumerable: true, get: function () { return Tree_1.Tree; } });
+var Statistic_1 = require("./Statistic");
+Object.defineProperty(exports, "Statistic", { enumerable: true, get: function () { return Statistic_1.Statistic; } });
+var Calendar_1 = require("./Calendar");
+Object.defineProperty(exports, "Calendar", { enumerable: true, get: function () { return Calendar_1.Calendar; } });
+var Kanban_1 = require("./Kanban");
+Object.defineProperty(exports, "Kanban", { enumerable: true, get: function () { return Kanban_1.Kanban; } });
+var VirtualList_1 = require("./VirtualList");
+Object.defineProperty(exports, "VirtualList", { enumerable: true, get: function () { return VirtualList_1.VirtualList; } });
+var CodeBlock_1 = require("./CodeBlock");
+Object.defineProperty(exports, "CodeBlock", { enumerable: true, get: function () { return CodeBlock_1.CodeBlock; } });
+var JsonViewer_1 = require("./JsonViewer");
+Object.defineProperty(exports, "JsonViewer", { enumerable: true, get: function () { return JsonViewer_1.JsonViewer; } });
+var Toolbar_1 = require("./Toolbar");
+Object.defineProperty(exports, "Toolbar", { enumerable: true, get: function () { return Toolbar_1.Toolbar; } });
+var SplitButton_1 = require("./SplitButton");
+Object.defineProperty(exports, "SplitButton", { enumerable: true, get: function () { return SplitButton_1.SplitButton; } });
+var ScrollableTabs_1 = require("./ScrollableTabs");
+Object.defineProperty(exports, "ScrollableTabs", { enumerable: true, get: function () { return ScrollableTabs_1.ScrollableTabs; } });
 //# sourceMappingURL=index.js.map

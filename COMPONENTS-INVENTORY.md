@@ -1,75 +1,30 @@
-# @xenition/ui — Full Component Inventory
+# @xenition/ui — Full Component Inventory (v0.2.0)
 
-Every component is theme-token-bound (colors/spacing/radius from the seed → no hard-coded colors).
+Every component is theme-token-bound (colors/spacing/radius from the seed → no hard-coded colors; CI-lint enforced). Web = React DOM + Tailwind `--xen-*` classes. Native = React Native + `useXenitionTheme()`.
 
-- **Frontend (web): 100 components** — import from `@xenition/ui` (+ module subpaths).
-- **Mobile (native / React Native): 44 components** — import from `@xenition/ui/native/*`.
+**Totals: ~196 web + ~200 native component files** across the modules below. Web imports from `@xenition/ui` (+ subpaths); native from `@xenition/ui/native/*`. Counts are source files (excluding specs/internal). Names live in each module's `index.ts` — that is the source of truth.
 
-Related: build/gap history in [COMPONENTS.md](./COMPONENTS.md).
+| Module | Web export | Web # | Native export | Native # |
+|---|---|---|---|---|
+| primitives | `@xenition/ui` (or `./primitives`) | 94 | `@xenition/ui/native/primitives` | 95 |
+| layout | `@xenition/ui/layout` | 15 | `@xenition/ui/native/layout` | 15 |
+| charts | `@xenition/ui/charts` | 16 | `@xenition/ui/native/charts` | 20 |
+| dashboard | `@xenition/ui/dashboard` | 16 | `@xenition/ui/native/dashboard` | 16 |
+| marketing | `@xenition/ui/marketing` | 34 | `@xenition/ui/native/marketing` | 34 |
+| commerce | `@xenition/ui/commerce` | 9 | `@xenition/ui/native/commerce` | 10 |
+| booking | `@xenition/ui/booking` | 3 | `@xenition/ui/native/booking` | 3 |
+| media | `@xenition/ui/media` | 3 | `@xenition/ui/native/media` | 3 |
+| motion | `@xenition/ui/motion` | 6 | `@xenition/ui/native/motion` | 4 |
+| data (hooks) | `@xenition/ui/data` | — | — | — |
+| i18n | `@xenition/ui/i18n` | — | — | — |
 
----
+## New in v0.2.0 (this expansion — mobile-first, then web parity)
+- **New modules (web + native):** `layout` (Container, Row, Column, Grid, Flex, Divider, ScrollArea, Section, PageHeader, Sticky, Inset, Bleed…), `charts` (Bar/Column/Line/Area/Pie/Donut/Radar/Gauge/ProgressRing/Scatter/Sparkline/StackedBar/Histogram/Heatmap/TrendCard/Legend — native has both View-based and `react-native-svg` families), `dashboard` (StatCard, KpiRow, ActivityFeed, ProfileHeader, SettingsRow/Section, PageContainer, FilterChips, SearchHeader, EmptyDashboard, MetricTile, QuickActions, OnboardingChecklist…).
+- **New primitives (web + native):** data-entry — SearchInput, PasswordInput, TimePicker, DateRangePicker, MultiSelect, TagInput, AutoComplete, RangeSlider, ToggleGroup, PhoneInput, CurrencyInput, ColorPicker; patterns/feedback — **Icon**, FloatButton, BottomNav, ContextMenu, ActionSheet, BottomSheet, Banner, Callout, Result, LoadingOverlay, ButtonGroup, Watermark; display/nav — Tree, Statistic, Calendar, Kanban, VirtualList, CodeBlock, JsonViewer, Toolbar, SplitButton, ScrollableTabs.
+- **New optional peer deps:** `react-native-svg` (native SVG charts), `react-native-safe-area-context` (native safe-area insets). Both optional; both mocked in tests.
+- **Existing-component corrections** (knowledge-doc audit): safe-area insets on all edge-anchored native components; Toast live region; chart accessibility labels; numeric `fontSize` → type scale; guiding empty states; LanguageSwitcher token/keyboard cleanup.
 
-## Frontend (web) — 100
+## Verified
+`tsc` clean · `npm run build` clean · **709/709 jest** (web + native projects) · dist emits every module.
 
-### primitives (`@xenition/ui`) — 58
-Accordion · Alert · AuthCard · Avatar · AvatarGroup · Badge · Breadcrumb · Button · Card ·
-ChatBubble · Checkbox · Combobox · CrudTable · DataTable · DatePicker · Descriptions · Drawer ·
-Eyebrow · Field · ForgotPasswordForm · Form · GlassPanel · GradientText · Input · Label · List ·
-LoginForm · Menu · MessageList · Modal · NumberInput · Pagination · PinInput · Popconfirm · Popover ·
-Progress · RadioGroup · Rating · Segmented · Select · SignupForm · Skeleton · Slider · Spinner ·
-Stack · StatusDot · StatusMessage · Steps · Switch · Table · Tabs · Tag · Textarea · Timeline ·
-ToastProvider · Tooltip · Upload
-*(+ hooks/helpers: `useForm`, `useToast`, `useDismiss`, `cn`; data: `useResource` from `@xenition/ui/data`)*
-
-### marketing (`@xenition/ui/marketing`) — 22
-AuroraBackground · BentoGrid · CTABanner · EditorialGrid · EntityCard · FAQ · FeatureGrid · Footer ·
-GenerativeCover · GradientHero · LogoCloud · Navbar · OrnamentRule · ParticleField · PointerHalo ·
-PriceList · PricingTable · ProductMock · SectionDivider · SectionHeading · StatBar · Testimonials
-
-### commerce (`@xenition/ui/commerce`) — 9
-CartLineItem · CartSummary · EmptyState · OrderSummary · PriceTag · ProductCard · ProductGrid ·
-QuantityStepper · StatusBadge
-
-### booking (`@xenition/ui/booking`) — 3
-BookingCalendar · BookingSummary · SlotPicker
-
-### media (`@xenition/ui/media`) — 3
-Gallery · Lightbox · MediaFigure
-
-### motion (`@xenition/ui/motion`) — 6
-AnimatedCounter · Marquee · Parallax · Reveal · Stagger · TiltCard
-
----
-
-## Mobile (native / React Native) — 44
-
-### native/primitives (`@xenition/ui/native/primitives`) — 27 (+ XenitionUIProvider)
-Avatar · Badge · Button · Card · ChatBubble · Checkbox · EmptyState · Eyebrow · Field · GlassPanel ·
-GradientText · Input · Label · MessageList · Modal · PriceTag · Rating · Select · Spinner · Stack ·
-StatusDot · StatusMessage · Switch · Table · Tabs · Textarea · XenitionUIProvider
-
-### native/commerce (`@xenition/ui/native/commerce`) — 10
-CartLineItem · CartSummary · EmptyState · GenerativeCover · OrderSummary · PriceTag · ProductCard ·
-ProductGrid · QuantityStepper · StatusBadge
-
-### native/booking (`@xenition/ui/native/booking`) — 3
-BookingCalendar · BookingSummary · SlotPicker
-
-### native/media (`@xenition/ui/native/media`) — 3
-Gallery · Lightbox · MediaFigure
-
-### native/marketing (`@xenition/ui/native/marketing`) — 1
-EntityCard
-
-### native/motion (`@xenition/ui/native/motion`) — 2
-Reveal · Stagger
-
----
-
-## Notes
-- **Composed, drop-in blocks** (the "just call it" ones): `LoginForm`, `SignupForm`, `ForgotPasswordForm`,
-  `AuthCard`, `DataTable`, `CrudTable`, plus all marketing/commerce/booking sections.
-- **Codegen (cortex):** the frontend generation prompt surfaces these so generated web apps compose them
-  (tested: `python3 -m ast` parse-verified; both `_APP_FRONTEND_SYS` variants updated).
-- **Verified:** `tsc` clean · `npm run build` clean · 399/399 tests pass.
-- **Live demo:** the new components render in the local demo at `http://localhost:5173/sdk-test`.
+> Full per-component lists: read each module's `src/**/index.ts`. Build/gap history in [COMPONENTS.md](./COMPONENTS.md); expansion log in [UI-EXPANSION-PLAN.md](./UI-EXPANSION-PLAN.md).

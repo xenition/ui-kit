@@ -58,11 +58,11 @@ Status legend: ⬜ not started · 🟨 in progress · 🟩 done · ⏭️ skippe
 ## 1. Release & integration (do once, then per-batch)
 
 - 🟩 **R1** (native) Added `./native/layout`, `./native/charts`, `./native/dashboard` export subpaths to `package.json` (barrels created by the module agents). Web `./layout`/`./charts`/`./dashboard` — ⬜ later pass.
-- ⬜ **R2** After each batch: update `COMPONENTS-INVENTORY.md` + `COMPONENTS.md` counts.
-- ⬜ **R3** Version bump `@xenition/ui` `0.1.3 → 0.2.0` (minor, additive) when the first batches land; keep bumping patch as batches ship.
-- ⬜ **R4** cortex: extend the web + native catalog text in `routes_assist.py` with the new component names (both/all `_APP_FRONTEND_SYS` variants); bump `_UI_VERSION` default to the published `^0.2.0`.
+- 🟩 **R2** `COMPONENTS-INVENTORY.md` rewritten for v0.2.0 (the old doc was stale). `COMPONENTS.md` gap-history left as-is.
+- 🟩 **R3** `@xenition/ui` bumped `0.1.3 → 0.2.0` (package.json). Publish to npm is the only remaining step — waits on the npm key (user provides).
+- ⬜ **R4 (STAGED — apply at publish, do NOT deploy before 0.2.0 is on npm or generation references unpublished components):** in `cortex/src/engine/nocode/scaffold.py` set `_UI_VERSION` default `^0.1.0 → ^0.2.0`, and add `"react-native-svg": "15.15.5"` + `"react-native-safe-area-context": "4.14.1"` to the generated MOBILE app deps (near the `@xenition/ui` native dep, ~L108). In `cortex/src/engine/api/routes_assist.py` extend the native prompt (~L1772-1834, both `_APP_FRONTEND_SYS` native variants) to mention the new native subpaths — "`@xenition/ui/native/layout` (Container/Row/Grid/Flex/ScrollArea/Section/PageHeader…), `@xenition/ui/native/charts` (Bar/Line/Pie/Donut/Gauge/ProgressRing…), `@xenition/ui/native/dashboard` (StatCard/KpiRow/ActivityFeed/EmptyDashboard…)" and the new native primitives (Icon/BottomNav/FloatButton/ActionSheet/BottomSheet/Banner/Callout/Result/SearchInput/PasswordInput/TimePicker/MultiSelect/TagInput/RangeSlider/Tree/Calendar/Kanban/Toolbar/SplitButton…) — and the web prompt (~L1866-1886) likewise for `@xenition/ui/layout`, `@xenition/ui/charts`, `@xenition/ui/dashboard` + the new web primitives. Keep cortex `develop`==`main`.
 - ⬜ **R5** SDK: only if a composed block needs it — add `@xenition/ui/data` hooks (in the kit, not the SDK) first; touch `@xenition/sdk` only for genuinely missing *read* helpers, additively, `develop`==`main`.
-- ⬜ **R6** Smoke test: build one template's `frontend/` against the linked kit (`npx vite build`) to prove no regression.
+- ⬜ **R6 (at publish)** Smoke test: `npm link` the 0.2.0 kit into one template `frontend/` (+ one `mobile/`) and build, to prove no regression before flipping `_UI_VERSION`.
 - ⬜ **R7** Commit per batch on `develop` (ui-kit) / `develop`==`main` (sdk); keep in sync per the standing rule.
 
 ---
@@ -138,5 +138,7 @@ Audit clean on the scary stuff: no invalid RN roles, no `localhost`, no hardcode
 
 - 2026-08-24 — **Audit fixes shipped** (commit 041ea3e): A1 safe-area insets (7 native components + react-native-safe-area-context), A2 LanguageSwitcher tokens+keyboard, A3 chart a11y (36 charts), A4 Toast live region, A5 fontSize→scale (6 files), A6 guiding empty states (4 tables), A7 DatePicker target + scrim. tsc clean, 667/667 green.
 
-## Running total: **134 new components + full audit-fix pass, this session** (wave 1: 44 modules; wave 2: 24 primitives). 
+- 2026-08-24 — **Web-parity wave shipped** (commit d487ed5): web versions of all 34 new native primitives (data-entry 12, patterns/feedback 12, display/nav 10). tsc clean, 709/709 jest green. **v0.2.0** bump + inventory rewrite.
+
+## Running total: **168 new components this session** (~196 web + ~200 native files ≈ 396 surfaces). + full audit-fix pass. v0.2.0 staged; publish + cortex R4 pending the npm key. (wave 1: 44 modules; wave 2: 24 primitives). 
 Native primitives now ~90, + 3 new native modules (layout/charts/dashboard). Next: (a) cortex `routes_assist.py` native prompt + `_UI_VERSION` bump + publish `@xenition/ui@0.2.0` so mobile generation uses them [needs npm publish — release action]; (b) native display/navigation remaining gaps; (c) web parity for the 3 new modules + the 24 primitives; (d) SVG charts if `react-native-svg` is approved.
