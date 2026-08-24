@@ -1,0 +1,1 @@
+{"version":3,"file":"UnreadDivider.d.ts","sourceRoot":"","sources":["../../src/chat/UnreadDivider.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAG/B,MAAM,WAAW,kBAAmB,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IAC9E,iDAAiD;IACjD,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,0EAA0E;IAC1E,KAAK,CAAC,EAAE,MAAM,CAAC;CAChB;AAED;;;;GAIG;AACH,eAAO,MAAM,aAAa,2FAiBzB,CAAC"}
