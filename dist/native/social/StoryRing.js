@@ -5,7 +5,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const Avatar_1 = require("../primitives/Avatar");
-const DIAMETER = { sm: 44, md: 56, lg: 76 };
+const DIAMETER = { xs: 32, sm: 44, md: 56, lg: 76, xl: 96 };
 /**
  * An avatar wrapped in a story ring. The ring color encodes state — unseen
  * (primary), seen (muted), live (danger with a LIVE badge) — and an `add`

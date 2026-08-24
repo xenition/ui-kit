@@ -135,14 +135,16 @@ The core kit is broad; Phase 2 adds domain composed blocks so a builder can make
 - 🟩 **native/productivity** — TaskRow, ChecklistItem, PriorityTag, ProjectCard, DueDatePill, AssigneeGroup, BoardColumn, SubtaskList, LabelChip, TimeTracker, MilestoneRow, NoteCard, ReminderRow
 - 🟩 **native/travel** — FlightCard, HotelCard, ItineraryItem, SeatPicker, DestinationCard, TripSummary, BaggageRow, BoardingPass, PriceCalendar, MapCard(dep-free), ReviewStars, AmenityRow, WeatherStrip
 - 🟩 **Domains wave 2 shipped:** learning, food, realestate, events, jobs, content (76 blocks, commit 12cdd92).
-- 🟨 **Domains wave 3 (building):** streaming/media-player, auth/onboarding/paywall.
-- 🟨 **Variant enrichment (building):** more variants/tones/sizes on core primitives.
+- 🟩 **Domains wave 3 shipped:** streaming, onboarding/paywall (24 blocks, commit d8702d6).
+- 🟩 **Variant enrichment shipped (native):** Button/Card/Badge/Avatar/Alert/Tag additively enriched (d8702d6). Web variant-enrichment ⬜.
 - ⬜ **Variant enrichment pass** on core primitives (Button/Card/Badge/Avatar/Alert/Tag/Input — more variants/tones/sizes/states) — careful edit of existing files.
 - ⬜ **Web parity** for all Phase-2 domain modules.
 
 - 2026-08-24 — **Phase 2 wave 1 shipped** (commit 328a9d9): 6 native domain modules (social/chat/finance/health/productivity/travel) = 79 composed blocks. tsc clean, 796/796 jest green. **Session total 247 new components.**
 
 - 2026-08-24 — **Phase 2 wave 2 shipped** (commit 12cdd92): learning/food/realestate/events/jobs/content = 76 blocks. **Session total 323 new components.** tsc clean, 889/889 jest green.
+
+- 2026-08-24 — **Phase 2 wave 3 shipped** (commit d8702d6): native streaming (12) + onboarding (12) + core-primitive variant enrichment. **Session total 347 new native components + variant pass.** 14 domain modules total. tsc clean, 927/927 jest green.
 
 ## 3. Progress log
 - 2026-08-24 — Plan created after deep research of knowledge/, ui-kit, sdk, templates, cortex integration.

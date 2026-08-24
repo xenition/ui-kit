@@ -11,8 +11,8 @@ export interface AvatarGroupProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const DIAMETER: Record<AvatarSize, number> = { sm: 32, md: 40, lg: 56 };
-const FONT: Record<AvatarSize, 'xs' | 'sm' | 'lg'> = { sm: 'xs', md: 'sm', lg: 'lg' };
+const DIAMETER: Record<AvatarSize, number> = { xs: 24, sm: 32, md: 40, lg: 56, xl: 72 };
+const FONT: Record<AvatarSize, 'xs' | 'sm' | 'lg'> = { xs: 'xs', sm: 'xs', md: 'sm', lg: 'lg', xl: 'lg' };
 
 /**
  * Overlapping avatar stack with a +N overflow chip — the native mirror of the

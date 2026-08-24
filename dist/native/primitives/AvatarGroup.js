@@ -5,8 +5,8 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const Avatar_1 = require("./Avatar");
-const DIAMETER = { sm: 32, md: 40, lg: 56 };
-const FONT = { sm: 'xs', md: 'sm', lg: 'lg' };
+const DIAMETER = { xs: 24, sm: 32, md: 40, lg: 56, xl: 72 };
+const FONT = { xs: 'xs', sm: 'xs', md: 'sm', lg: 'lg', xl: 'lg' };
 /**
  * Overlapping avatar stack with a +N overflow chip — the native mirror of the
  * web `AvatarGroup`. Each avatar carries a token-bound surface ring; overflow

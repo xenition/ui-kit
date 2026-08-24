@@ -29,6 +29,8 @@ import { Label } from './Label';
 import { Field } from './Field';
 import { Badge } from './Badge';
 import { Avatar } from './Avatar';
+import { Alert } from './Alert';
+import { Tag } from './Tag';
 import { Switch } from './Switch';
 import { Spinner } from './Spinner';
 import { Tabs } from './Tabs';
@@ -495,6 +497,117 @@ describe('new primitives token purity (native, both seeds)', () => {
       expect(found.length).toBeGreaterThan(0);
       found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
     });
+  });
+});
+
+describe('enriched primitive variants (native)', () => {
+  it('Button renders every additive variant + tone, staying token-pure', () => {
+    (['primary', 'secondary', 'ghost', 'outline', 'soft', 'link', 'elevated'] as const).forEach(
+      (variant) => {
+        (['default', 'danger', 'success'] as const).forEach((tone) => {
+          [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+            const { getByText, root } = renderThemed(
+              <Button variant={variant} tone={tone}>
+                Go
+              </Button>,
+              seed
+            );
+            expect(getByText('Go')).toBeTruthy();
+            const allowed = tokenHexSet(seed);
+            renderedStyleHexes(root).forEach((hex) => expect(allowed.has(hex)).toBe(true));
+          });
+        });
+      }
+    );
+  });
+
+  it('Button soft applies a tone-derived tint and a token text color', () => {
+    const { getByText } = renderThemed(
+      <Button variant="soft" tone="danger">
+        Delete
+      </Button>,
+      SEED_LIGHT
+    );
+    const danger = require('../../theme/compile').compileTheme(SEED_LIGHT).light.danger.toLowerCase();
+    expect(String(flatten(getByText('Delete').props.style).color).toLowerCase()).toBe(danger);
+  });
+
+  it('Card renders each variant with a token surface', () => {
+    (['elevated', 'outlined', 'flat', 'interactive'] as const).forEach((variant) => {
+      const { getByTestId } = renderThemed(
+        <Card testID="card" variant={variant} padding="sm" radius="md">
+          <Text>inside</Text>
+        </Card>,
+        SEED_LIGHT
+      );
+      const style = flatten(getByTestId('card').props.style);
+      const surface = require('../../theme/compile').compileTheme(SEED_LIGHT).light.surface.toLowerCase();
+      expect(String(style.backgroundColor).toLowerCase()).toBe(surface);
+      expect(typeof style.padding).toBe('number');
+    });
+  });
+
+  it('Badge supports accent tone, soft/outline variants, dot, and capped count', () => {
+    const { getByText } = renderThemed(
+      <Badge tone="accent" variant="soft" size="sm" count={150} max={99} />,
+      SEED_LIGHT
+    );
+    const accent = require('../../theme/compile').compileTheme(SEED_LIGHT).light.accent.toLowerCase();
+    const label = getByText('99+');
+    expect(String(flatten(label.props.style).color).toLowerCase()).toBe(accent);
+
+    const outline = renderThemed(<Badge tone="danger" variant="outline">3</Badge>, SEED_LIGHT);
+    const danger = require('../../theme/compile').compileTheme(SEED_LIGHT).light.danger.toLowerCase();
+    expect(String(flatten(outline.getByText('3').props.style).color).toLowerCase()).toBe(danger);
+  });
+
+  it('Avatar honors shape, extended sizes, status ring, and stays token-pure', () => {
+    (['circle', 'rounded', 'square'] as const).forEach((shape) => {
+      (['xs', 'xl'] as const).forEach((size) => {
+        const { getByText, root } = renderThemed(
+          <Avatar name="Ada Lovelace" shape={shape} size={size} status="online" ring />,
+          SEED_LIGHT
+        );
+        expect(getByText('AL')).toBeTruthy();
+        const allowed = tokenHexSet(SEED_LIGHT);
+        renderedStyleHexes(root).forEach((hex) => expect(allowed.has(hex)).toBe(true));
+      });
+    });
+  });
+
+  it('Alert renders subtle/solid/outline variants token-pure across tones', () => {
+    (['info', 'success', 'warn', 'danger'] as const).forEach((tone) => {
+      (['subtle', 'solid', 'outline'] as const).forEach((variant) => {
+        const { getByText, root } = renderThemed(
+          <Alert tone={tone} variant={variant} title="Heads up" action={<Text>Undo</Text>}>
+            Body copy
+          </Alert>,
+          SEED_DARK
+        );
+        expect(getByText('Body copy')).toBeTruthy();
+        expect(getByText('Undo')).toBeTruthy();
+        const allowed = tokenHexSet(SEED_DARK);
+        renderedStyleHexes(root).forEach((hex) => expect(allowed.has(hex)).toBe(true));
+      });
+    });
+  });
+
+  it('Tag supports accent tone, soft/outline, dot, and forced removable', () => {
+    const onRemove = jest.fn();
+    const { getByText, getByLabelText } = renderThemed(
+      <Tag tone="accent" variant="outline" size="sm" dot removable onRemove={onRemove}>
+        filter
+      </Tag>,
+      SEED_LIGHT
+    );
+    const accent = require('../../theme/compile').compileTheme(SEED_LIGHT).light.accent.toLowerCase();
+    expect(String(flatten(getByText('filter').props.style).color).toLowerCase()).toBe(accent);
+    fireEvent.press(getByLabelText('Remove'));
+    expect(onRemove).toHaveBeenCalledTimes(1);
+
+    // `removable` shows the × even without a handler.
+    const noHandler = renderThemed(<Tag removable>tag</Tag>, SEED_LIGHT);
+    expect(noHandler.getByLabelText('Remove')).toBeTruthy();
   });
 });
 

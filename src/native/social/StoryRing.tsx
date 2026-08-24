@@ -23,7 +23,7 @@ export interface StoryRingProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const DIAMETER: Record<AvatarSize, number> = { sm: 44, md: 56, lg: 76 };
+const DIAMETER: Record<AvatarSize, number> = { xs: 32, sm: 44, md: 56, lg: 76, xl: 96 };
 
 /**
  * An avatar wrapped in a story ring. The ring color encodes state — unseen
