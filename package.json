@@ -314,6 +314,36 @@
       "types": "./dist/native/music/index.d.ts",
       "import": "./dist/native/music/index.js",
       "require": "./dist/native/music/index.js"
+    },
+    "./native/photography": {
+      "types": "./dist/native/photography/index.d.ts",
+      "import": "./dist/native/photography/index.js",
+      "require": "./dist/native/photography/index.js"
+    },
+    "./native/kids": {
+      "types": "./dist/native/kids/index.d.ts",
+      "import": "./dist/native/kids/index.js",
+      "require": "./dist/native/kids/index.js"
+    },
+    "./native/wellness": {
+      "types": "./dist/native/wellness/index.d.ts",
+      "import": "./dist/native/wellness/index.js",
+      "require": "./dist/native/wellness/index.js"
+    },
+    "./native/legal": {
+      "types": "./dist/native/legal/index.d.ts",
+      "import": "./dist/native/legal/index.js",
+      "require": "./dist/native/legal/index.js"
+    },
+    "./native/nonprofit": {
+      "types": "./dist/native/nonprofit/index.d.ts",
+      "import": "./dist/native/nonprofit/index.js",
+      "require": "./dist/native/nonprofit/index.js"
+    },
+    "./native/pos": {
+      "types": "./dist/native/pos/index.d.ts",
+      "import": "./dist/native/pos/index.js",
+      "require": "./dist/native/pos/index.js"
     }
   },
   "scripts": {
