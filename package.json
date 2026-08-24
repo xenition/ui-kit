@@ -360,6 +360,16 @@
       "import": "./dist/finance/index.js",
       "require": "./dist/finance/index.js"
     },
+    "./logistics": {
+      "types": "./dist/logistics/index.d.ts",
+      "import": "./dist/logistics/index.js",
+      "require": "./dist/logistics/index.js"
+    },
+    "./utilities": {
+      "types": "./dist/utilities/index.d.ts",
+      "import": "./dist/utilities/index.js",
+      "require": "./dist/utilities/index.js"
+    },
     "./health": {
       "types": "./dist/health/index.d.ts",
       "import": "./dist/health/index.js",

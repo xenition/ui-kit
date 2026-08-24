@@ -20,18 +20,34 @@ export type { ConversationListProps, ConversationListItem } from './Conversation
 
 export { ConversationRow } from './ConversationRow';
 export type { ConversationRowProps } from './ConversationRow';
+export { ConversationRowV2 } from './ConversationRowV2';
+export type { ConversationRowV2Props } from './ConversationRowV2';
+export { ConversationRowV3 } from './ConversationRowV3';
+export type { ConversationRowV3Props } from './ConversationRowV3';
 
 export { ChatHeader } from './ChatHeader';
 export type { ChatHeaderProps, ChatHeaderAction } from './ChatHeader';
+export { ChatHeaderV2 } from './ChatHeaderV2';
+export type { ChatHeaderV2Props } from './ChatHeaderV2';
+export { ChatHeaderV3 } from './ChatHeaderV3';
+export type { ChatHeaderV3Props } from './ChatHeaderV3';
 
 export { MessageComposer } from './MessageComposer';
 export type { MessageComposerProps } from './MessageComposer';
+export { MessageComposerV2 } from './MessageComposerV2';
+export type { MessageComposerV2Props } from './MessageComposerV2';
+export { MessageComposerV3 } from './MessageComposerV3';
+export type { MessageComposerV3Props } from './MessageComposerV3';
 
 export { TypingIndicator } from './TypingIndicator';
 export type { TypingIndicatorProps } from './TypingIndicator';
 
 export { MessageGroup } from './MessageGroup';
 export type { MessageGroupProps, GroupMessage } from './MessageGroup';
+export { MessageGroupV2 } from './MessageGroupV2';
+export type { MessageGroupV2Props } from './MessageGroupV2';
+export { MessageGroupV3 } from './MessageGroupV3';
+export type { MessageGroupV3Props } from './MessageGroupV3';
 
 export { DateSeparator } from './DateSeparator';
 export type { DateSeparatorProps } from './DateSeparator';
