@@ -13,15 +13,27 @@
 
 export { WalletCard } from './WalletCard';
 export type { WalletCardProps, WalletKind, WalletCardVariant } from './WalletCard';
+export { WalletCardV2 } from './WalletCardV2';
+export type { WalletCardV2Props } from './WalletCardV2';
+export { WalletCardV3 } from './WalletCardV3';
+export type { WalletCardV3Props } from './WalletCardV3';
 
 export { TokenRow } from './TokenRow';
 export type { TokenRowProps } from './TokenRow';
+export { TokenRowV2 } from './TokenRowV2';
+export type { TokenRowV2Props } from './TokenRowV2';
+export { TokenRowV3 } from './TokenRowV3';
+export type { TokenRowV3Props } from './TokenRowV3';
 
 export { PriceTicker } from './PriceTicker';
 export type { PriceTickerProps, PriceTickerVariant } from './PriceTicker';
 
 export { NFTCard } from './NFTCard';
 export type { NFTCardProps, NFTCardVariant } from './NFTCard';
+export { NFTCardV2 } from './NFTCardV2';
+export type { NFTCardV2Props } from './NFTCardV2';
+export { NFTCardV3 } from './NFTCardV3';
+export type { NFTCardV3Props } from './NFTCardV3';
 
 export { SwapForm } from './SwapForm';
 export type { SwapFormProps, SwapValues, SwapToken } from './SwapForm';
@@ -31,6 +43,10 @@ export type { GasFeeRowProps, GasSpeed } from './GasFeeRow';
 
 export { PortfolioSummary } from './PortfolioSummary';
 export type { PortfolioSummaryProps, AllocationSlice } from './PortfolioSummary';
+export { PortfolioSummaryV2 } from './PortfolioSummaryV2';
+export type { PortfolioSummaryV2Props } from './PortfolioSummaryV2';
+export { PortfolioSummaryV3 } from './PortfolioSummaryV3';
+export type { PortfolioSummaryV3Props } from './PortfolioSummaryV3';
 
 export { TxRow, TxList } from './TxRow';
 export type { TxRowProps, TxListProps, TxStatus, TxDirection } from './TxRow';

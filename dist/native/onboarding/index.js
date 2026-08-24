@@ -13,7 +13,7 @@
  * dark mode included.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TrialBanner = exports.ProgressDots = exports.GetStartedButton = exports.InterestPicker = exports.ProfileSetup = exports.OtpVerify = exports.FeatureLockCard = exports.PaywallScreen = exports.PlanSelector = exports.PermissionPrompt = exports.WelcomeScreen = exports.OnboardingSlides = void 0;
+exports.PaywallScreenV3 = exports.PaywallScreenV2 = exports.PlanSelectorV3 = exports.PlanSelectorV2 = exports.WelcomeScreenV3 = exports.WelcomeScreenV2 = exports.OnboardingSlidesV3 = exports.OnboardingSlidesV2 = exports.TrialBanner = exports.ProgressDots = exports.GetStartedButton = exports.InterestPicker = exports.ProfileSetup = exports.OtpVerify = exports.FeatureLockCard = exports.PaywallScreen = exports.PlanSelector = exports.PermissionPrompt = exports.WelcomeScreen = exports.OnboardingSlides = void 0;
 var OnboardingSlides_1 = require("./OnboardingSlides");
 Object.defineProperty(exports, "OnboardingSlides", { enumerable: true, get: function () { return OnboardingSlides_1.OnboardingSlides; } });
 var WelcomeScreen_1 = require("./WelcomeScreen");
@@ -38,4 +38,21 @@ var ProgressDots_1 = require("./ProgressDots");
 Object.defineProperty(exports, "ProgressDots", { enumerable: true, get: function () { return ProgressDots_1.ProgressDots; } });
 var TrialBanner_1 = require("./TrialBanner");
 Object.defineProperty(exports, "TrialBanner", { enumerable: true, get: function () { return TrialBanner_1.TrialBanner; } });
+// Alternate designs — drop-in V2/V3 variants (same Props as the base component).
+var OnboardingSlidesV2_1 = require("./OnboardingSlidesV2");
+Object.defineProperty(exports, "OnboardingSlidesV2", { enumerable: true, get: function () { return OnboardingSlidesV2_1.OnboardingSlidesV2; } });
+var OnboardingSlidesV3_1 = require("./OnboardingSlidesV3");
+Object.defineProperty(exports, "OnboardingSlidesV3", { enumerable: true, get: function () { return OnboardingSlidesV3_1.OnboardingSlidesV3; } });
+var WelcomeScreenV2_1 = require("./WelcomeScreenV2");
+Object.defineProperty(exports, "WelcomeScreenV2", { enumerable: true, get: function () { return WelcomeScreenV2_1.WelcomeScreenV2; } });
+var WelcomeScreenV3_1 = require("./WelcomeScreenV3");
+Object.defineProperty(exports, "WelcomeScreenV3", { enumerable: true, get: function () { return WelcomeScreenV3_1.WelcomeScreenV3; } });
+var PlanSelectorV2_1 = require("./PlanSelectorV2");
+Object.defineProperty(exports, "PlanSelectorV2", { enumerable: true, get: function () { return PlanSelectorV2_1.PlanSelectorV2; } });
+var PlanSelectorV3_1 = require("./PlanSelectorV3");
+Object.defineProperty(exports, "PlanSelectorV3", { enumerable: true, get: function () { return PlanSelectorV3_1.PlanSelectorV3; } });
+var PaywallScreenV2_1 = require("./PaywallScreenV2");
+Object.defineProperty(exports, "PaywallScreenV2", { enumerable: true, get: function () { return PaywallScreenV2_1.PaywallScreenV2; } });
+var PaywallScreenV3_1 = require("./PaywallScreenV3");
+Object.defineProperty(exports, "PaywallScreenV3", { enumerable: true, get: function () { return PaywallScreenV3_1.PaywallScreenV3; } });
 //# sourceMappingURL=index.js.map
