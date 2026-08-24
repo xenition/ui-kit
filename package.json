@@ -344,6 +344,36 @@
       "types": "./dist/native/pos/index.d.ts",
       "import": "./dist/native/pos/index.js",
       "require": "./dist/native/pos/index.js"
+    },
+    "./social": {
+      "types": "./dist/social/index.d.ts",
+      "import": "./dist/social/index.js",
+      "require": "./dist/social/index.js"
+    },
+    "./chat": {
+      "types": "./dist/chat/index.d.ts",
+      "import": "./dist/chat/index.js",
+      "require": "./dist/chat/index.js"
+    },
+    "./finance": {
+      "types": "./dist/finance/index.d.ts",
+      "import": "./dist/finance/index.js",
+      "require": "./dist/finance/index.js"
+    },
+    "./health": {
+      "types": "./dist/health/index.d.ts",
+      "import": "./dist/health/index.js",
+      "require": "./dist/health/index.js"
+    },
+    "./productivity": {
+      "types": "./dist/productivity/index.d.ts",
+      "import": "./dist/productivity/index.js",
+      "require": "./dist/productivity/index.js"
+    },
+    "./travel": {
+      "types": "./dist/travel/index.d.ts",
+      "import": "./dist/travel/index.js",
+      "require": "./dist/travel/index.js"
     }
   },
   "scripts": {
