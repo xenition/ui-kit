@@ -16,7 +16,7 @@
  * only.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SetlistRow = exports.WaveformEditor = exports.VolumeFader = exports.Mixer = exports.RecordButton = exports.LoopControl = exports.MetronomeBar = exports.BPMControl = exports.ChordChip = exports.PianoKeys = exports.SamplePad = exports.TrackPad = exports.ACCENT_STRONG_BG_CLASS = exports.ACCENT_SOFT_BG_CLASS = exports.ACCENT_ICON_COLOR = exports.ACCENT_ON_TEXT_CLASS = exports.ACCENT_BG_CLASS = exports.ACCENT_BORDER_CLASS = exports.ACCENT_TEXT_CLASS = exports.formatDuration = exports.formatBpm = exports.clamp = exports.octaveNotes = exports.isBlackKey = exports.padAccentKey = exports.chordLabel = exports.NOTE_NAMES = void 0;
+exports.SetlistRowV3 = exports.SetlistRowV2 = exports.SetlistRow = exports.WaveformEditor = exports.VolumeFader = exports.MixerV3 = exports.MixerV2 = exports.Mixer = exports.RecordButton = exports.LoopControl = exports.MetronomeBar = exports.BPMControl = exports.ChordChip = exports.PianoKeysV3 = exports.PianoKeysV2 = exports.PianoKeys = exports.SamplePad = exports.TrackPadV3 = exports.TrackPadV2 = exports.TrackPad = exports.ACCENT_STRONG_BG_CLASS = exports.ACCENT_SOFT_BG_CLASS = exports.ACCENT_ICON_COLOR = exports.ACCENT_ON_TEXT_CLASS = exports.ACCENT_BG_CLASS = exports.ACCENT_BORDER_CLASS = exports.ACCENT_TEXT_CLASS = exports.formatDuration = exports.formatBpm = exports.clamp = exports.octaveNotes = exports.isBlackKey = exports.padAccentKey = exports.chordLabel = exports.NOTE_NAMES = void 0;
 // ── shared data shapes + helpers ──────────────────────────────────────
 var types_1 = require("./types");
 Object.defineProperty(exports, "NOTE_NAMES", { enumerable: true, get: function () { return types_1.NOTE_NAMES; } });
@@ -37,10 +37,18 @@ Object.defineProperty(exports, "ACCENT_STRONG_BG_CLASS", { enumerable: true, get
 // ── performance surfaces ──────────────────────────────────────────────
 var TrackPad_1 = require("./TrackPad");
 Object.defineProperty(exports, "TrackPad", { enumerable: true, get: function () { return TrackPad_1.TrackPad; } });
+var TrackPadV2_1 = require("./TrackPadV2");
+Object.defineProperty(exports, "TrackPadV2", { enumerable: true, get: function () { return TrackPadV2_1.TrackPadV2; } });
+var TrackPadV3_1 = require("./TrackPadV3");
+Object.defineProperty(exports, "TrackPadV3", { enumerable: true, get: function () { return TrackPadV3_1.TrackPadV3; } });
 var SamplePad_1 = require("./SamplePad");
 Object.defineProperty(exports, "SamplePad", { enumerable: true, get: function () { return SamplePad_1.SamplePad; } });
 var PianoKeys_1 = require("./PianoKeys");
 Object.defineProperty(exports, "PianoKeys", { enumerable: true, get: function () { return PianoKeys_1.PianoKeys; } });
+var PianoKeysV2_1 = require("./PianoKeysV2");
+Object.defineProperty(exports, "PianoKeysV2", { enumerable: true, get: function () { return PianoKeysV2_1.PianoKeysV2; } });
+var PianoKeysV3_1 = require("./PianoKeysV3");
+Object.defineProperty(exports, "PianoKeysV3", { enumerable: true, get: function () { return PianoKeysV3_1.PianoKeysV3; } });
 var ChordChip_1 = require("./ChordChip");
 Object.defineProperty(exports, "ChordChip", { enumerable: true, get: function () { return ChordChip_1.ChordChip; } });
 // ── transport + timing ────────────────────────────────────────────────
@@ -55,6 +63,10 @@ Object.defineProperty(exports, "RecordButton", { enumerable: true, get: function
 // ── mixing ────────────────────────────────────────────────────────────
 var Mixer_1 = require("./Mixer");
 Object.defineProperty(exports, "Mixer", { enumerable: true, get: function () { return Mixer_1.Mixer; } });
+var MixerV2_1 = require("./MixerV2");
+Object.defineProperty(exports, "MixerV2", { enumerable: true, get: function () { return MixerV2_1.MixerV2; } });
+var MixerV3_1 = require("./MixerV3");
+Object.defineProperty(exports, "MixerV3", { enumerable: true, get: function () { return MixerV3_1.MixerV3; } });
 var VolumeFader_1 = require("./VolumeFader");
 Object.defineProperty(exports, "VolumeFader", { enumerable: true, get: function () { return VolumeFader_1.VolumeFader; } });
 // ── editing ───────────────────────────────────────────────────────────
@@ -63,4 +75,8 @@ Object.defineProperty(exports, "WaveformEditor", { enumerable: true, get: functi
 // ── set management ────────────────────────────────────────────────────
 var SetlistRow_1 = require("./SetlistRow");
 Object.defineProperty(exports, "SetlistRow", { enumerable: true, get: function () { return SetlistRow_1.SetlistRow; } });
+var SetlistRowV2_1 = require("./SetlistRowV2");
+Object.defineProperty(exports, "SetlistRowV2", { enumerable: true, get: function () { return SetlistRowV2_1.SetlistRowV2; } });
+var SetlistRowV3_1 = require("./SetlistRowV3");
+Object.defineProperty(exports, "SetlistRowV3", { enumerable: true, get: function () { return SetlistRowV3_1.SetlistRowV3; } });
 //# sourceMappingURL=index.js.map
