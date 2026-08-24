@@ -67,5 +67,8 @@ building blocks each new design composes) + the in-flight Wave-1 motion/fill-as-
 Bump the patch/minor and push periodically so it publishes via the mirror pipeline (publish-ui.yml →
 public xenition/ui-kit → npm-publish). Generated apps pin `^0.3.0`/`^0.4.0` so minor/patch bumps flow.
 
+## COMPLETE (2026-08-24 night)
+**v2/v3 alternate designs shipped for ALL 45 native modules** — ~358 drop-in components (each `<Name>V2`/`<Name>V3` = a genuinely different layout, same Props). Published `@xenition/ui@0.6.0`. develop==main synced every wave. 2510 tests green. 8 waves (A–H): commerce/food/learning/content/marketplace/realestate · chat/social/finance/health/dating/streaming · travel/jobs/events/crm/medical/booking · onboarding/gaming/crypto/weather/sports/insurance · smarthome/automotive/pets/beauty/calendar/email · pos/support/hr/kids/wellness/music · government/survey/photography/legal/nonprofit/agriculture · fieldservice/logistics/utilities. Plus the shared appearance/elevation/motion vocabulary + the 0.4.0-audit contrast/motion fixes on 6 core modules.
+
 ## Log
 - 2026-08-24 night — synced develop→main (dev had left develop 16 behind at 0.4.0); Wave 0 vocabulary built + green (1984 tests).
