@@ -464,6 +464,36 @@
       "types": "./dist/support/index.d.ts",
       "import": "./dist/support/index.js",
       "require": "./dist/support/index.js"
+    },
+    "./automotive": {
+      "types": "./dist/automotive/index.d.ts",
+      "import": "./dist/automotive/index.js",
+      "require": "./dist/automotive/index.js"
+    },
+    "./insurance": {
+      "types": "./dist/insurance/index.d.ts",
+      "import": "./dist/insurance/index.js",
+      "require": "./dist/insurance/index.js"
+    },
+    "./pets": {
+      "types": "./dist/pets/index.d.ts",
+      "import": "./dist/pets/index.js",
+      "require": "./dist/pets/index.js"
+    },
+    "./beauty": {
+      "types": "./dist/beauty/index.d.ts",
+      "import": "./dist/beauty/index.js",
+      "require": "./dist/beauty/index.js"
+    },
+    "./fieldservice": {
+      "types": "./dist/fieldservice/index.d.ts",
+      "import": "./dist/fieldservice/index.js",
+      "require": "./dist/fieldservice/index.js"
+    },
+    "./agriculture": {
+      "types": "./dist/agriculture/index.d.ts",
+      "import": "./dist/agriculture/index.js",
+      "require": "./dist/agriculture/index.js"
     }
   },
   "scripts": {
