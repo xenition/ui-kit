@@ -48,3 +48,26 @@ export type { VehicleHealthRowProps, VehicleHealthVariant, HealthStatus } from '
 
 export { ServiceReminder } from './ServiceReminder';
 export type { ServiceReminderProps, ServiceReminderVariant, ServiceUrgency } from './ServiceReminder';
+
+// ── Alternate designs (v2 / v3) — separate drop-in components sharing each
+// original's props (`<Name>V{2,3}Props = <Name>Props`). Pick a look at the
+// call site; no runtime variant prop.
+export { RideRequestCardV2 } from './RideRequestCardV2';
+export type { RideRequestCardV2Props } from './RideRequestCardV2';
+export { RideRequestCardV3 } from './RideRequestCardV3';
+export type { RideRequestCardV3Props } from './RideRequestCardV3';
+
+export { DriverCardV2 } from './DriverCardV2';
+export type { DriverCardV2Props } from './DriverCardV2';
+export { DriverCardV3 } from './DriverCardV3';
+export type { DriverCardV3Props } from './DriverCardV3';
+
+export { VehicleCardV2 } from './VehicleCardV2';
+export type { VehicleCardV2Props } from './VehicleCardV2';
+export { VehicleCardV3 } from './VehicleCardV3';
+export type { VehicleCardV3Props } from './VehicleCardV3';
+
+export { RideStatusBarV2 } from './RideStatusBarV2';
+export type { RideStatusBarV2Props } from './RideStatusBarV2';
+export { RideStatusBarV3 } from './RideStatusBarV3';
+export type { RideStatusBarV3Props } from './RideStatusBarV3';

@@ -47,3 +47,27 @@ export type { DeviceToggleRowProps } from './DeviceToggleRow';
 
 export { ScheduleRow } from './ScheduleRow';
 export type { ScheduleRowProps } from './ScheduleRow';
+
+// ── alternate designs (drop-in, same Props) ───────────────────────────
+// V2/V3 are genuinely different presentations of the four most-used blocks,
+// each a separate component sharing the original prop contract (not a variant
+// prop) so they can be swapped in place. See design-variants.native.spec.tsx.
+export { DeviceTileV2 } from './DeviceTileV2';
+export type { DeviceTileV2Props } from './DeviceTileV2';
+export { DeviceTileV3 } from './DeviceTileV3';
+export type { DeviceTileV3Props } from './DeviceTileV3';
+
+export { ThermostatDialV2 } from './ThermostatDialV2';
+export type { ThermostatDialV2Props } from './ThermostatDialV2';
+export { ThermostatDialV3 } from './ThermostatDialV3';
+export type { ThermostatDialV3Props } from './ThermostatDialV3';
+
+export { SceneCardV2 } from './SceneCardV2';
+export type { SceneCardV2Props } from './SceneCardV2';
+export { SceneCardV3 } from './SceneCardV3';
+export type { SceneCardV3Props } from './SceneCardV3';
+
+export { LightControlV2 } from './LightControlV2';
+export type { LightControlV2Props } from './LightControlV2';
+export { LightControlV3 } from './LightControlV3';
+export type { LightControlV3Props } from './LightControlV3';
