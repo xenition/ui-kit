@@ -14,15 +14,31 @@
 
 export { DeviceTile } from './DeviceTile';
 export type { DeviceTileProps, DeviceState } from './DeviceTile';
+export { DeviceTileV2 } from './DeviceTileV2';
+export type { DeviceTileV2Props } from './DeviceTileV2';
+export { DeviceTileV3 } from './DeviceTileV3';
+export type { DeviceTileV3Props } from './DeviceTileV3';
 
 export { ThermostatDial } from './ThermostatDial';
 export type { ThermostatDialProps, ThermostatMode } from './ThermostatDial';
+export { ThermostatDialV2 } from './ThermostatDialV2';
+export type { ThermostatDialV2Props } from './ThermostatDialV2';
+export { ThermostatDialV3 } from './ThermostatDialV3';
+export type { ThermostatDialV3Props } from './ThermostatDialV3';
 
 export { LightControl } from './LightControl';
 export type { LightControlProps } from './LightControl';
+export { LightControlV2 } from './LightControlV2';
+export type { LightControlV2Props } from './LightControlV2';
+export { LightControlV3 } from './LightControlV3';
+export type { LightControlV3Props } from './LightControlV3';
 
 export { SceneCard } from './SceneCard';
 export type { SceneCardProps } from './SceneCard';
+export { SceneCardV2 } from './SceneCardV2';
+export type { SceneCardV2Props } from './SceneCardV2';
+export { SceneCardV3 } from './SceneCardV3';
+export type { SceneCardV3Props } from './SceneCardV3';
 
 export { SensorReading } from './SensorReading';
 export type { SensorReadingProps, SensorStatus } from './SensorReading';

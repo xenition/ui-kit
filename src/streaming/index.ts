@@ -32,8 +32,16 @@ export { AudioPlayer } from './AudioPlayer';
 export type { AudioPlayerProps, AudioPlayerVariant } from './AudioPlayer';
 export { MiniPlayer } from './MiniPlayer';
 export type { MiniPlayerProps, MiniPlayerVariant } from './MiniPlayer';
+export { MiniPlayerV2 } from './MiniPlayerV2';
+export type { MiniPlayerV2Props } from './MiniPlayerV2';
+export { MiniPlayerV3 } from './MiniPlayerV3';
+export type { MiniPlayerV3Props } from './MiniPlayerV3';
 export { NowPlaying } from './NowPlaying';
 export type { NowPlayingProps, NowPlayingVariant } from './NowPlaying';
+export { NowPlayingV2 } from './NowPlayingV2';
+export type { NowPlayingV2Props } from './NowPlayingV2';
+export { NowPlayingV3 } from './NowPlayingV3';
+export type { NowPlayingV3Props } from './NowPlayingV3';
 
 // ── scrubbing ─────────────────────────────────────────────────────────
 export { WaveformScrubber } from './WaveformScrubber';
@@ -46,8 +54,16 @@ export { QueueList } from './QueueList';
 export type { QueueListProps } from './QueueList';
 export { PodcastCard } from './PodcastCard';
 export type { PodcastCardProps, PodcastCardVariant } from './PodcastCard';
+export { PodcastCardV2 } from './PodcastCardV2';
+export type { PodcastCardV2Props } from './PodcastCardV2';
+export { PodcastCardV3 } from './PodcastCardV3';
+export type { PodcastCardV3Props } from './PodcastCardV3';
 export { EpisodeRow } from './EpisodeRow';
 export type { EpisodeRowProps, EpisodeRowVariant } from './EpisodeRow';
+export { EpisodeRowV2 } from './EpisodeRowV2';
+export type { EpisodeRowV2Props } from './EpisodeRowV2';
+export { EpisodeRowV3 } from './EpisodeRowV3';
+export type { EpisodeRowV3Props } from './EpisodeRowV3';
 export { ChannelCard } from './ChannelCard';
 export type { ChannelCardProps, ChannelCardVariant } from './ChannelCard';
 
