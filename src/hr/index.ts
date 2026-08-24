@@ -20,6 +20,10 @@ export type {
   EmployeeCardVariant,
   EmployeeContactAction,
 } from './EmployeeCard';
+export { EmployeeCardV2 } from './EmployeeCardV2';
+export type { EmployeeCardV2Props } from './EmployeeCardV2';
+export { EmployeeCardV3 } from './EmployeeCardV3';
+export type { EmployeeCardV3Props } from './EmployeeCardV3';
 
 export { OrgChartNode } from './OrgChartNode';
 export type { OrgChartNodeProps, OrgChartNodeVariant } from './OrgChartNode';
@@ -29,15 +33,27 @@ export type { DirectoryRowProps, DirectoryRowVariant } from './DirectoryRow';
 
 export { LeaveRequest } from './LeaveRequest';
 export type { LeaveRequestProps, LeaveRequestVariant } from './LeaveRequest';
+export { LeaveRequestV2 } from './LeaveRequestV2';
+export type { LeaveRequestV2Props } from './LeaveRequestV2';
+export { LeaveRequestV3 } from './LeaveRequestV3';
+export type { LeaveRequestV3Props } from './LeaveRequestV3';
 
 export { PayslipRow } from './PayslipRow';
 export type { PayslipRowProps, PayslipRowVariant } from './PayslipRow';
+export { PayslipRowV2 } from './PayslipRowV2';
+export type { PayslipRowV2Props } from './PayslipRowV2';
+export { PayslipRowV3 } from './PayslipRowV3';
+export type { PayslipRowV3Props } from './PayslipRowV3';
 
 export { TimesheetRow } from './TimesheetRow';
 export type { TimesheetRowProps, TimesheetRowVariant } from './TimesheetRow';
 
 export { PerformanceReview } from './PerformanceReview';
 export type { PerformanceReviewProps, PerformanceReviewVariant } from './PerformanceReview';
+export { PerformanceReviewV2 } from './PerformanceReviewV2';
+export type { PerformanceReviewV2Props } from './PerformanceReviewV2';
+export { PerformanceReviewV3 } from './PerformanceReviewV3';
+export type { PerformanceReviewV3Props } from './PerformanceReviewV3';
 
 export { OnboardingTask } from './OnboardingTask';
 export type { OnboardingTaskProps, OnboardingTaskVariant } from './OnboardingTask';

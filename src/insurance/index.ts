@@ -18,15 +18,31 @@ export type {
   PolicyStatus,
   PremiumCadence,
 } from './PolicyCard';
+export { PolicyCardV2 } from './PolicyCardV2';
+export type { PolicyCardV2Props } from './PolicyCardV2';
+export { PolicyCardV3 } from './PolicyCardV3';
+export type { PolicyCardV3Props } from './PolicyCardV3';
 
 export { ClaimRow } from './ClaimRow';
 export type { ClaimRowProps, ClaimStatus } from './ClaimRow';
+export { ClaimRowV2 } from './ClaimRowV2';
+export type { ClaimRowV2Props } from './ClaimRowV2';
+export { ClaimRowV3 } from './ClaimRowV3';
+export type { ClaimRowV3Props } from './ClaimRowV3';
 
 export { CoverageItem } from './CoverageItem';
 export type { CoverageItemProps } from './CoverageItem';
+export { CoverageItemV2 } from './CoverageItemV2';
+export type { CoverageItemV2Props } from './CoverageItemV2';
+export { CoverageItemV3 } from './CoverageItemV3';
+export type { CoverageItemV3Props } from './CoverageItemV3';
 
 export { PremiumSummary } from './PremiumSummary';
 export type { PremiumSummaryProps, PremiumLineItem } from './PremiumSummary';
+export { PremiumSummaryV2 } from './PremiumSummaryV2';
+export type { PremiumSummaryV2Props } from './PremiumSummaryV2';
+export { PremiumSummaryV3 } from './PremiumSummaryV3';
+export type { PremiumSummaryV3Props } from './PremiumSummaryV3';
 
 export { QuoteForm } from './QuoteForm';
 export type { QuoteFormProps, QuoteValues } from './QuoteForm';

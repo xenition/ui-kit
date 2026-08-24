@@ -11,13 +11,25 @@
  * never color alone.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AchievementBadge = exports.LeaderboardRow = exports.VideoLessonRow = exports.StreakBadge = exports.EnrollButton = exports.ModuleAccordion = exports.CertificateCard = exports.FlashCard = exports.ProgressTracker = exports.QuizOption = exports.QuizQuestion = exports.LessonRow = exports.CourseCard = void 0;
+exports.AchievementBadge = exports.LeaderboardRow = exports.VideoLessonRow = exports.StreakBadge = exports.EnrollButton = exports.ModuleAccordion = exports.CertificateCard = exports.FlashCard = exports.ProgressTracker = exports.QuizOption = exports.QuizQuestionV3 = exports.QuizQuestionV2 = exports.QuizQuestion = exports.LessonRowV3 = exports.LessonRowV2 = exports.LessonRow = exports.CourseCardV3 = exports.CourseCardV2 = exports.CourseCard = void 0;
 var CourseCard_1 = require("./CourseCard");
 Object.defineProperty(exports, "CourseCard", { enumerable: true, get: function () { return CourseCard_1.CourseCard; } });
+var CourseCardV2_1 = require("./CourseCardV2");
+Object.defineProperty(exports, "CourseCardV2", { enumerable: true, get: function () { return CourseCardV2_1.CourseCardV2; } });
+var CourseCardV3_1 = require("./CourseCardV3");
+Object.defineProperty(exports, "CourseCardV3", { enumerable: true, get: function () { return CourseCardV3_1.CourseCardV3; } });
 var LessonRow_1 = require("./LessonRow");
 Object.defineProperty(exports, "LessonRow", { enumerable: true, get: function () { return LessonRow_1.LessonRow; } });
+var LessonRowV2_1 = require("./LessonRowV2");
+Object.defineProperty(exports, "LessonRowV2", { enumerable: true, get: function () { return LessonRowV2_1.LessonRowV2; } });
+var LessonRowV3_1 = require("./LessonRowV3");
+Object.defineProperty(exports, "LessonRowV3", { enumerable: true, get: function () { return LessonRowV3_1.LessonRowV3; } });
 var QuizQuestion_1 = require("./QuizQuestion");
 Object.defineProperty(exports, "QuizQuestion", { enumerable: true, get: function () { return QuizQuestion_1.QuizQuestion; } });
+var QuizQuestionV2_1 = require("./QuizQuestionV2");
+Object.defineProperty(exports, "QuizQuestionV2", { enumerable: true, get: function () { return QuizQuestionV2_1.QuizQuestionV2; } });
+var QuizQuestionV3_1 = require("./QuizQuestionV3");
+Object.defineProperty(exports, "QuizQuestionV3", { enumerable: true, get: function () { return QuizQuestionV3_1.QuizQuestionV3; } });
 var QuizOption_1 = require("./QuizOption");
 Object.defineProperty(exports, "QuizOption", { enumerable: true, get: function () { return QuizOption_1.QuizOption; } });
 var ProgressTracker_1 = require("./ProgressTracker");
