@@ -17,12 +17,28 @@
  */
 export { MessageListRow } from './MessageListRow';
 export type { MessageListRowProps, MailLabelRef } from './MessageListRow';
+export { MessageListRowV2 } from './MessageListRowV2';
+export type { MessageListRowV2Props } from './MessageListRowV2';
+export { MessageListRowV3 } from './MessageListRowV3';
+export type { MessageListRowV3Props } from './MessageListRowV3';
 export { EmailThread } from './EmailThread';
 export type { EmailThreadProps, ThreadMessage, ThreadAttachment, ThreadLabelRef, } from './EmailThread';
+export { EmailThreadV2 } from './EmailThreadV2';
+export type { EmailThreadV2Props } from './EmailThreadV2';
+export { EmailThreadV3 } from './EmailThreadV3';
+export type { EmailThreadV3Props } from './EmailThreadV3';
 export { ComposeBar } from './ComposeBar';
 export type { ComposeBarProps, ComposeStagedAttachment } from './ComposeBar';
+export { ComposeBarV2 } from './ComposeBarV2';
+export type { ComposeBarV2Props } from './ComposeBarV2';
+export { ComposeBarV3 } from './ComposeBarV3';
+export type { ComposeBarV3Props } from './ComposeBarV3';
 export { FolderRow } from './FolderRow';
 export type { FolderRowProps } from './FolderRow';
+export { FolderRowV2 } from './FolderRowV2';
+export type { FolderRowV2Props } from './FolderRowV2';
+export { FolderRowV3 } from './FolderRowV3';
+export type { FolderRowV3Props } from './FolderRowV3';
 export { MailLabelChip } from './MailLabelChip';
 export type { MailLabelChipProps, MailLabelTone, MailLabelVariant } from './MailLabelChip';
 export { AttachmentChip } from './AttachmentChip';

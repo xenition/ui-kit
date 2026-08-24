@@ -14,15 +14,31 @@
 
 export { DealCard } from './DealCard';
 export type { DealCardProps, DealCardVariant, DealOwner } from './DealCard';
+export { DealCardV2 } from './DealCardV2';
+export type { DealCardV2Props } from './DealCardV2';
+export { DealCardV3 } from './DealCardV3';
+export type { DealCardV3Props } from './DealCardV3';
 
 export { PipelineBoard } from './PipelineBoard';
 export type { PipelineBoardProps, PipelineStage, PipelineDeal, MoveDirection } from './PipelineBoard';
+export { PipelineBoardV2 } from './PipelineBoardV2';
+export type { PipelineBoardV2Props } from './PipelineBoardV2';
+export { PipelineBoardV3 } from './PipelineBoardV3';
+export type { PipelineBoardV3Props } from './PipelineBoardV3';
 
 export { ContactCard } from './ContactCard';
 export type { ContactCardProps, ContactCardVariant, ContactAction } from './ContactCard';
+export { ContactCardV2 } from './ContactCardV2';
+export type { ContactCardV2Props } from './ContactCardV2';
+export { ContactCardV3 } from './ContactCardV3';
+export type { ContactCardV3Props } from './ContactCardV3';
 
 export { LeadRow } from './LeadRow';
 export type { LeadRowProps } from './LeadRow';
+export { LeadRowV2 } from './LeadRowV2';
+export type { LeadRowV2Props } from './LeadRowV2';
+export { LeadRowV3 } from './LeadRowV3';
+export type { LeadRowV3Props } from './LeadRowV3';
 
 export { ActivityLogRow } from './ActivityLogRow';
 export type { ActivityLogRowProps } from './ActivityLogRow';

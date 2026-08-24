@@ -70,5 +70,26 @@ public xenition/ui-kit → npm-publish). Generated apps pin `^0.3.0`/`^0.4.0` so
 ## COMPLETE (2026-08-24 night)
 **v2/v3 alternate designs shipped for ALL 45 native modules** — ~358 drop-in components (each `<Name>V2`/`<Name>V3` = a genuinely different layout, same Props). Published `@xenition/ui@0.6.0`. develop==main synced every wave. 2510 tests green. 8 waves (A–H): commerce/food/learning/content/marketplace/realestate · chat/social/finance/health/dating/streaming · travel/jobs/events/crm/medical/booking · onboarding/gaming/crypto/weather/sports/insurance · smarthome/automotive/pets/beauty/calendar/email · pos/support/hr/kids/wellness/music · government/survey/photography/legal/nonprofit/agriculture · fieldservice/logistics/utilities. Plus the shared appearance/elevation/motion vocabulary + the 0.4.0-audit contrast/motion fixes on 6 core modules.
 
+## PHASE 2 — WEB PARITY of v2/v3 + cortex wiring (user, 2026-08-25: "complete Honest scope notes fully; do NOT bump version per wave — publish ONE final version after everything")
+Native has ~358 v2/v3 designs; web has 0. Bring web to parity, then wire the generator to pick variants.
+Release discipline this phase: integrate+test+commit+push develop+sync main every wave, but **NO version bump until the very end** — one final 0.7.0 publish after ALL work lands.
+Brief: `$SP/web-variant-brief.md`.
+- Web v2/v3 for 43 existing web modules + legal (44 mods × 3–4 components × V2/V3). Waves W1–W8.
+- logistics + utilities: native-only, NO web module → build the FULL web module (12 base comps each) + v2/v3.
+- productivity: no v2/v3 on EITHER side → add native + web v2/v3 (completeness).
+- cortex `routes_assist.py`: tell web+native gen prompts to pick a V2/V3 for visual variety.
+- FINAL: bump package.json → 0.7.0, publish via pipeline, bump cortex `_UI_VERSION` → ^0.7.0.
+
+Wave assignments (web v2/v3, 1 agent/module):
+- W1: social chat commerce finance food content
+- W2: crm crypto dating email events fieldservice
+- W3: health hr insurance jobs kids learning
+- W4: marketplace medical music nonprofit onboarding pets
+- W5: photography pos realestate smarthome sports streaming
+- W6: support survey travel weather wellness gaming
+- W7: agriculture automotive beauty booking calendar government
+- W8: legal + logistics(full web) + utilities(full web) + productivity(native+web)
+
 ## Log
 - 2026-08-24 night — synced develop→main (dev had left develop 16 behind at 0.4.0); Wave 0 vocabulary built + green (1984 tests).
+- 2026-08-25 — Phase 2 web-parity started. develop==main==448d1bb, v0.6.0 live. No further version bump until final 0.7.0.

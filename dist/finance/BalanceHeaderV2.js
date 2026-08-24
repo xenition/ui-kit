@@ -1,0 +1,57 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BalanceHeaderV2 = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const React = __importStar(require("react"));
+const cn_1 = require("../primitives/cn");
+const Sparkline_1 = require("../charts/Sparkline");
+const money_1 = require("../commerce/money");
+/**
+ * BalanceHeader, redesigned (v2): a **big centered hero** over a full-width
+ * sparkline band. Everything is center-aligned — the caption, the oversized
+ * figure, and a pill-shaped change chip (tinted with the up/down slot) — then a
+ * {@link Sparkline} spans the full width beneath as a trend "floor". Distinct at
+ * a glance from the base's left-aligned stack. Same props, integer cents.
+ */
+exports.BalanceHeaderV2 = React.forwardRef(function BalanceHeaderV2({ label = 'Total balance', balanceCents, currency = 'USD', changeCents, changePct, trend, formatMoney: format = money_1.formatMoney, loading = false, className, ...rest }, ref) {
+    const hasChange = typeof changeCents === 'number' && Number.isFinite(changeCents);
+    const up = (changeCents ?? 0) >= 0;
+    const chipClass = up ? 'text-success bg-success/10' : 'text-danger bg-danger/10';
+    const arrow = up ? '▲' : '▼';
+    const hasTrend = Array.isArray(trend) && trend.length > 0;
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, role: "group", className: (0, cn_1.cn)('flex flex-col items-center gap-[var(--xen-space-sm)] text-center', className), ...rest, children: [(0, jsx_runtime_1.jsx)("span", { className: "text-sm text-muted", children: label }), loading ? ((0, jsx_runtime_1.jsx)("div", { "aria-label": "Loading balance", className: "h-12 w-52 rounded-[var(--xen-radius-sm)] bg-border" })) : ((0, jsx_runtime_1.jsx)("span", { className: "text-5xl font-bold tabular-nums text-on-surface", children: format(Number.isFinite(balanceCents) ? Math.trunc(balanceCents) : 0, currency) })), hasChange && !loading ? ((0, jsx_runtime_1.jsxs)("span", { className: (0, cn_1.cn)('inline-flex items-center gap-[var(--xen-space-xs)] rounded-[var(--xen-radius-full)] px-[var(--xen-space-sm)] py-0.5 text-sm font-semibold', chipClass), children: [(0, jsx_runtime_1.jsx)("span", { className: "text-xs", children: arrow }), (0, jsx_runtime_1.jsxs)("span", { children: [format(Math.abs(Math.trunc(changeCents)), currency), typeof changePct === 'number' ? ` (${changePct > 0 ? '+' : ''}${changePct}%)` : ''] })] })) : null, hasTrend && !loading ? ((0, jsx_runtime_1.jsx)(Sparkline_1.Sparkline, { data: trend, height: 48, color: up ? 'success' : 'danger', className: "mt-[var(--xen-space-xs)] w-full self-stretch" })) : null] }));
+});
+//# sourceMappingURL=BalanceHeaderV2.js.map

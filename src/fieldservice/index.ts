@@ -15,12 +15,24 @@
 
 export { WorkOrderCard } from './WorkOrderCard';
 export type { WorkOrderCardProps, WorkOrderStatus, WorkOrderPriority } from './WorkOrderCard';
+export { WorkOrderCardV2 } from './WorkOrderCardV2';
+export type { WorkOrderCardV2Props } from './WorkOrderCardV2';
+export { WorkOrderCardV3 } from './WorkOrderCardV3';
+export type { WorkOrderCardV3Props } from './WorkOrderCardV3';
 
 export { JobSiteCard } from './JobSiteCard';
 export type { JobSiteCardProps, JobSiteStatus } from './JobSiteCard';
+export { JobSiteCardV2 } from './JobSiteCardV2';
+export type { JobSiteCardV2Props } from './JobSiteCardV2';
+export { JobSiteCardV3 } from './JobSiteCardV3';
+export type { JobSiteCardV3Props } from './JobSiteCardV3';
 
 export { InspectionRow } from './InspectionRow';
 export type { InspectionRowProps, InspectionResult } from './InspectionRow';
+export { InspectionRowV2 } from './InspectionRowV2';
+export type { InspectionRowV2Props } from './InspectionRowV2';
+export { InspectionRowV3 } from './InspectionRowV3';
+export type { InspectionRowV3Props } from './InspectionRowV3';
 
 export { PunchListItem } from './PunchListItem';
 export type { PunchListItemProps, PunchSeverity } from './PunchListItem';
@@ -30,6 +42,10 @@ export type { EquipmentRowProps, EquipmentStatus } from './EquipmentRow';
 
 export { TechnicianCard } from './TechnicianCard';
 export type { TechnicianCardProps, TechnicianStatus } from './TechnicianCard';
+export { TechnicianCardV2 } from './TechnicianCardV2';
+export type { TechnicianCardV2Props } from './TechnicianCardV2';
+export { TechnicianCardV3 } from './TechnicianCardV3';
+export type { TechnicianCardV3Props } from './TechnicianCardV3';
 
 export { ServiceChecklist } from './ServiceChecklist';
 export type { ServiceChecklistProps, ServiceTask } from './ServiceChecklist';

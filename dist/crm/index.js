@@ -13,15 +13,31 @@
  * fetching, no SDK import.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.clampPct = exports.toneFillClass = exports.toneBadgeTone = exports.toneTextClass = exports.QUOTE_META = exports.ACTIVITY_META = exports.TEMPERATURE_META = exports.OUTCOME_META = exports.NextStepRow = exports.WinLossBadge = exports.TagFilterBar = exports.EmailThreadRow = exports.ContactTimeline = exports.DealForecast = exports.QuoteCard = exports.ActivityLogRow = exports.LeadRow = exports.ContactCard = exports.PipelineBoard = exports.DealCard = void 0;
+exports.clampPct = exports.toneFillClass = exports.toneBadgeTone = exports.toneTextClass = exports.QUOTE_META = exports.ACTIVITY_META = exports.TEMPERATURE_META = exports.OUTCOME_META = exports.NextStepRow = exports.WinLossBadge = exports.TagFilterBar = exports.EmailThreadRow = exports.ContactTimeline = exports.DealForecast = exports.QuoteCard = exports.ActivityLogRow = exports.LeadRowV3 = exports.LeadRowV2 = exports.LeadRow = exports.ContactCardV3 = exports.ContactCardV2 = exports.ContactCard = exports.PipelineBoardV3 = exports.PipelineBoardV2 = exports.PipelineBoard = exports.DealCardV3 = exports.DealCardV2 = exports.DealCard = void 0;
 var DealCard_1 = require("./DealCard");
 Object.defineProperty(exports, "DealCard", { enumerable: true, get: function () { return DealCard_1.DealCard; } });
+var DealCardV2_1 = require("./DealCardV2");
+Object.defineProperty(exports, "DealCardV2", { enumerable: true, get: function () { return DealCardV2_1.DealCardV2; } });
+var DealCardV3_1 = require("./DealCardV3");
+Object.defineProperty(exports, "DealCardV3", { enumerable: true, get: function () { return DealCardV3_1.DealCardV3; } });
 var PipelineBoard_1 = require("./PipelineBoard");
 Object.defineProperty(exports, "PipelineBoard", { enumerable: true, get: function () { return PipelineBoard_1.PipelineBoard; } });
+var PipelineBoardV2_1 = require("./PipelineBoardV2");
+Object.defineProperty(exports, "PipelineBoardV2", { enumerable: true, get: function () { return PipelineBoardV2_1.PipelineBoardV2; } });
+var PipelineBoardV3_1 = require("./PipelineBoardV3");
+Object.defineProperty(exports, "PipelineBoardV3", { enumerable: true, get: function () { return PipelineBoardV3_1.PipelineBoardV3; } });
 var ContactCard_1 = require("./ContactCard");
 Object.defineProperty(exports, "ContactCard", { enumerable: true, get: function () { return ContactCard_1.ContactCard; } });
+var ContactCardV2_1 = require("./ContactCardV2");
+Object.defineProperty(exports, "ContactCardV2", { enumerable: true, get: function () { return ContactCardV2_1.ContactCardV2; } });
+var ContactCardV3_1 = require("./ContactCardV3");
+Object.defineProperty(exports, "ContactCardV3", { enumerable: true, get: function () { return ContactCardV3_1.ContactCardV3; } });
 var LeadRow_1 = require("./LeadRow");
 Object.defineProperty(exports, "LeadRow", { enumerable: true, get: function () { return LeadRow_1.LeadRow; } });
+var LeadRowV2_1 = require("./LeadRowV2");
+Object.defineProperty(exports, "LeadRowV2", { enumerable: true, get: function () { return LeadRowV2_1.LeadRowV2; } });
+var LeadRowV3_1 = require("./LeadRowV3");
+Object.defineProperty(exports, "LeadRowV3", { enumerable: true, get: function () { return LeadRowV3_1.LeadRowV3; } });
 var ActivityLogRow_1 = require("./ActivityLogRow");
 Object.defineProperty(exports, "ActivityLogRow", { enumerable: true, get: function () { return ActivityLogRow_1.ActivityLogRow; } });
 var QuoteCard_1 = require("./QuoteCard");

@@ -16,12 +16,24 @@
 
 export { DishCard } from './DishCard';
 export type { DishCardProps, DishCardVariant } from './DishCard';
+export { DishCardV2 } from './DishCardV2';
+export type { DishCardV2Props } from './DishCardV2';
+export { DishCardV3 } from './DishCardV3';
+export type { DishCardV3Props } from './DishCardV3';
 
 export { MenuSection } from './MenuSection';
 export type { MenuSectionProps } from './MenuSection';
+export { MenuSectionV2 } from './MenuSectionV2';
+export type { MenuSectionV2Props } from './MenuSectionV2';
+export { MenuSectionV3 } from './MenuSectionV3';
+export type { MenuSectionV3Props } from './MenuSectionV3';
 
 export { CartBar } from './CartBar';
 export type { CartBarProps, CartBarVariant } from './CartBar';
+export { CartBarV2 } from './CartBarV2';
+export type { CartBarV2Props } from './CartBarV2';
+export { CartBarV3 } from './CartBarV3';
+export type { CartBarV3Props } from './CartBarV3';
 
 export { OrderStatusTracker } from './OrderStatusTracker';
 export type {
@@ -36,6 +48,10 @@ export type {
   RestaurantCardVariant,
   RestaurantOpenState,
 } from './RestaurantCard';
+export { RestaurantCardV2 } from './RestaurantCardV2';
+export type { RestaurantCardV2Props } from './RestaurantCardV2';
+export { RestaurantCardV3 } from './RestaurantCardV3';
+export type { RestaurantCardV3Props } from './RestaurantCardV3';
 
 export { ModifierList } from './ModifierList';
 export type {
