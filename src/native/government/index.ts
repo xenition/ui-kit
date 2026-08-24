@@ -56,6 +56,28 @@ export type {
 export { CivicAlert } from './CivicAlert';
 export type { CivicAlertProps, AlertSeverity } from './CivicAlert';
 
+// Alternate designs (V2 / V3) — drop-in replacements sharing each base
+// component's `Props` (`<Name>V2Props = <Name>Props`), distinct layouts.
+export { ServiceCardV2 } from './ServiceCardV2';
+export type { ServiceCardV2Props } from './ServiceCardV2';
+export { ServiceCardV3 } from './ServiceCardV3';
+export type { ServiceCardV3Props } from './ServiceCardV3';
+
+export { PermitStatusV2 } from './PermitStatusV2';
+export type { PermitStatusV2Props } from './PermitStatusV2';
+export { PermitStatusV3 } from './PermitStatusV3';
+export type { PermitStatusV3Props } from './PermitStatusV3';
+
+export { CivicAppointmentV2 } from './CivicAppointmentV2';
+export type { CivicAppointmentV2Props } from './CivicAppointmentV2';
+export { CivicAppointmentV3 } from './CivicAppointmentV3';
+export type { CivicAppointmentV3Props } from './CivicAppointmentV3';
+
+export { RepresentativeCardV2 } from './RepresentativeCardV2';
+export type { RepresentativeCardV2Props } from './RepresentativeCardV2';
+export { RepresentativeCardV3 } from './RepresentativeCardV3';
+export type { RepresentativeCardV3Props } from './RepresentativeCardV3';
+
 // Shared domain descriptors + the single money/format home (re-exported for
 // ergonomics; mirrors the insurance module).
 export { PERMIT_STATUS, FORM_STATUS, PERMIT_STAGES } from './internal/status';

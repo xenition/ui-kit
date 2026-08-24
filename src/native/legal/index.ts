@@ -49,6 +49,19 @@ export type { EvidenceRowProps, EvidenceRowVariant } from './EvidenceRow';
 export { SignatureRequest } from './SignatureRequest';
 export type { SignatureRequestProps, SignatureRequestVariant } from './SignatureRequest';
 
+// ── alternate designs (v2 / v3) — drop-in, identical Props ─────────────────
+export { CaseCardV2, CaseCardV3 } from './CaseCardVariants';
+export type { CaseCardV2Props, CaseCardV3Props } from './CaseCardVariants';
+
+export { DocumentRowV2, DocumentRowV3 } from './DocumentRowVariants';
+export type { DocumentRowV2Props, DocumentRowV3Props } from './DocumentRowVariants';
+
+export { LegalAppointmentV2, LegalAppointmentV3 } from './LegalAppointmentVariants';
+export type { LegalAppointmentV2Props, LegalAppointmentV3Props } from './LegalAppointmentVariants';
+
+export { RetainerBalanceV2, RetainerBalanceV3 } from './RetainerBalanceVariants';
+export type { RetainerBalanceV2Props, RetainerBalanceV3Props } from './RetainerBalanceVariants';
+
 // ── shared status vocabulary + reusable pill ──────────────────────────────
 export { StatusPill } from './StatusPill';
 export type { StatusPillProps, StatusPillVariant, StatusPillSize } from './StatusPill';

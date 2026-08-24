@@ -14,7 +14,7 @@
  * handling and a11y labels; no fetching, no SDK import.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DISCLAIMER_META = exports.EVIDENCE_STATUS_META = exports.EVIDENCE_KIND_META = exports.SIGNATURE_STATUS_META = exports.RETAINER_STATUS_META = exports.COURT_URGENCY_META = exports.COURT_EVENT_META = exports.CONFLICT_CHECK_META = exports.INTAKE_STATUS_META = exports.BILLABLE_STATUS_META = exports.APPOINTMENT_STATUS_META = exports.APPOINTMENT_TYPE_META = exports.CLAUSE_RISK_META = exports.CLAUSE_STATUS_META = exports.DOCUMENT_KIND_META = exports.DOCUMENT_STATUS_META = exports.MATTER_STAGE_ORDER = exports.MATTER_STAGE_META = exports.PRACTICE_AREA_META = exports.CASE_PRIORITY_META = exports.CASE_STATUS_META = exports.onToneSlot = exports.toneSlot = exports.toneColor = exports.clampPct = exports.billableCents = exports.formatHours = exports.formatMoney = exports.StatusPill = exports.SignatureRequest = exports.EvidenceRow = exports.DisclaimerBanner = exports.RetainerBalance = exports.CourtDateCard = exports.ClientIntakeRow = exports.MatterStatus = exports.BillableTimeRow = exports.LegalAppointment = exports.ContractClause = exports.DocumentRow = exports.CaseCard = void 0;
+exports.DISCLAIMER_META = exports.EVIDENCE_STATUS_META = exports.EVIDENCE_KIND_META = exports.SIGNATURE_STATUS_META = exports.RETAINER_STATUS_META = exports.COURT_URGENCY_META = exports.COURT_EVENT_META = exports.CONFLICT_CHECK_META = exports.INTAKE_STATUS_META = exports.BILLABLE_STATUS_META = exports.APPOINTMENT_STATUS_META = exports.APPOINTMENT_TYPE_META = exports.CLAUSE_RISK_META = exports.CLAUSE_STATUS_META = exports.DOCUMENT_KIND_META = exports.DOCUMENT_STATUS_META = exports.MATTER_STAGE_ORDER = exports.MATTER_STAGE_META = exports.PRACTICE_AREA_META = exports.CASE_PRIORITY_META = exports.CASE_STATUS_META = exports.onToneSlot = exports.toneSlot = exports.toneColor = exports.clampPct = exports.billableCents = exports.formatHours = exports.formatMoney = exports.StatusPill = exports.RetainerBalanceV3 = exports.RetainerBalanceV2 = exports.LegalAppointmentV3 = exports.LegalAppointmentV2 = exports.DocumentRowV3 = exports.DocumentRowV2 = exports.CaseCardV3 = exports.CaseCardV2 = exports.SignatureRequest = exports.EvidenceRow = exports.DisclaimerBanner = exports.RetainerBalance = exports.CourtDateCard = exports.ClientIntakeRow = exports.MatterStatus = exports.BillableTimeRow = exports.LegalAppointment = exports.ContractClause = exports.DocumentRow = exports.CaseCard = void 0;
 var CaseCard_1 = require("./CaseCard");
 Object.defineProperty(exports, "CaseCard", { enumerable: true, get: function () { return CaseCard_1.CaseCard; } });
 var DocumentRow_1 = require("./DocumentRow");
@@ -39,6 +39,19 @@ var EvidenceRow_1 = require("./EvidenceRow");
 Object.defineProperty(exports, "EvidenceRow", { enumerable: true, get: function () { return EvidenceRow_1.EvidenceRow; } });
 var SignatureRequest_1 = require("./SignatureRequest");
 Object.defineProperty(exports, "SignatureRequest", { enumerable: true, get: function () { return SignatureRequest_1.SignatureRequest; } });
+// ── alternate designs (v2 / v3) — drop-in, identical Props ─────────────────
+var CaseCardVariants_1 = require("./CaseCardVariants");
+Object.defineProperty(exports, "CaseCardV2", { enumerable: true, get: function () { return CaseCardVariants_1.CaseCardV2; } });
+Object.defineProperty(exports, "CaseCardV3", { enumerable: true, get: function () { return CaseCardVariants_1.CaseCardV3; } });
+var DocumentRowVariants_1 = require("./DocumentRowVariants");
+Object.defineProperty(exports, "DocumentRowV2", { enumerable: true, get: function () { return DocumentRowVariants_1.DocumentRowV2; } });
+Object.defineProperty(exports, "DocumentRowV3", { enumerable: true, get: function () { return DocumentRowVariants_1.DocumentRowV3; } });
+var LegalAppointmentVariants_1 = require("./LegalAppointmentVariants");
+Object.defineProperty(exports, "LegalAppointmentV2", { enumerable: true, get: function () { return LegalAppointmentVariants_1.LegalAppointmentV2; } });
+Object.defineProperty(exports, "LegalAppointmentV3", { enumerable: true, get: function () { return LegalAppointmentVariants_1.LegalAppointmentV3; } });
+var RetainerBalanceVariants_1 = require("./RetainerBalanceVariants");
+Object.defineProperty(exports, "RetainerBalanceV2", { enumerable: true, get: function () { return RetainerBalanceVariants_1.RetainerBalanceV2; } });
+Object.defineProperty(exports, "RetainerBalanceV3", { enumerable: true, get: function () { return RetainerBalanceVariants_1.RetainerBalanceV3; } });
 // ── shared status vocabulary + reusable pill ──────────────────────────────
 var StatusPill_1 = require("./StatusPill");
 Object.defineProperty(exports, "StatusPill", { enumerable: true, get: function () { return StatusPill_1.StatusPill; } });
