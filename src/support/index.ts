@@ -16,6 +16,10 @@
 
 export { TicketRow } from './TicketRow';
 export type { TicketRowProps, Ticket, TicketStatus } from './TicketRow';
+export { TicketRowV2 } from './TicketRowV2';
+export type { TicketRowV2Props } from './TicketRowV2';
+export { TicketRowV3 } from './TicketRowV3';
+export type { TicketRowV3Props } from './TicketRowV3';
 
 export { SLABadge } from './SLABadge';
 export type { SLABadgeProps, SLAState, SLABadgeSize } from './SLABadge';
@@ -25,8 +29,16 @@ export type { CannedResponseProps, CannedResponseData } from './CannedResponse';
 
 export { AgentStatus } from './AgentStatus';
 export type { AgentStatusProps, AgentPresence } from './AgentStatus';
+export { AgentStatusV2 } from './AgentStatusV2';
+export type { AgentStatusV2Props } from './AgentStatusV2';
+export { AgentStatusV3 } from './AgentStatusV3';
+export type { AgentStatusV3Props } from './AgentStatusV3';
 
 export { SatisfactionRating } from './SatisfactionRating';
+export { SatisfactionRatingV2 } from './SatisfactionRatingV2';
+export type { SatisfactionRatingV2Props } from './SatisfactionRatingV2';
+export { SatisfactionRatingV3 } from './SatisfactionRatingV3';
+export type { SatisfactionRatingV3Props } from './SatisfactionRatingV3';
 export type {
   SatisfactionRatingProps,
   SatisfactionVariant,
@@ -42,6 +54,10 @@ export type {
 } from './TicketPriority';
 
 export { ConversationPanel } from './ConversationPanel';
+export { ConversationPanelV2 } from './ConversationPanelV2';
+export type { ConversationPanelV2Props } from './ConversationPanelV2';
+export { ConversationPanelV3 } from './ConversationPanelV3';
+export type { ConversationPanelV3Props } from './ConversationPanelV3';
 export type {
   ConversationPanelProps,
   ConversationMessage,
