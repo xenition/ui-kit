@@ -14,15 +14,28 @@
  * the shared reduced-motion-aware hooks — both default to the historical look.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.maskAccountNumber = exports.maskCardNumber = exports.formatMoney = exports.ExchangeRateRow = exports.PaymentMethodRow = exports.SavingsGoalCard = exports.StatementList = exports.TransferForm = exports.InvoiceLine = exports.SpendCategoryRow = exports.CreditCardView = exports.BudgetBar = exports.BalanceHeader = exports.AccountCard = exports.TransactionRow = exports.MoneyAmount = void 0;
+exports.maskAccountNumber = exports.maskCardNumber = exports.formatMoney = exports.ExchangeRateRow = exports.PaymentMethodRow = exports.SavingsGoalCardV3 = exports.SavingsGoalCardV2 = exports.SavingsGoalCard = exports.StatementList = exports.TransferForm = exports.InvoiceLine = exports.SpendCategoryRow = exports.CreditCardView = exports.BudgetBar = exports.BalanceHeaderV3 = exports.BalanceHeaderV2 = exports.BalanceHeader = exports.AccountCardV3 = exports.AccountCardV2 = exports.AccountCard = exports.TransactionRowV3 = exports.TransactionRowV2 = exports.TransactionRow = exports.MoneyAmount = void 0;
 var MoneyAmount_1 = require("./MoneyAmount");
 Object.defineProperty(exports, "MoneyAmount", { enumerable: true, get: function () { return MoneyAmount_1.MoneyAmount; } });
 var TransactionRow_1 = require("./TransactionRow");
 Object.defineProperty(exports, "TransactionRow", { enumerable: true, get: function () { return TransactionRow_1.TransactionRow; } });
+// Alternate designs (drop-in — identical props to the base component).
+var TransactionRowV2_1 = require("./TransactionRowV2");
+Object.defineProperty(exports, "TransactionRowV2", { enumerable: true, get: function () { return TransactionRowV2_1.TransactionRowV2; } });
+var TransactionRowV3_1 = require("./TransactionRowV3");
+Object.defineProperty(exports, "TransactionRowV3", { enumerable: true, get: function () { return TransactionRowV3_1.TransactionRowV3; } });
 var AccountCard_1 = require("./AccountCard");
 Object.defineProperty(exports, "AccountCard", { enumerable: true, get: function () { return AccountCard_1.AccountCard; } });
+var AccountCardV2_1 = require("./AccountCardV2");
+Object.defineProperty(exports, "AccountCardV2", { enumerable: true, get: function () { return AccountCardV2_1.AccountCardV2; } });
+var AccountCardV3_1 = require("./AccountCardV3");
+Object.defineProperty(exports, "AccountCardV3", { enumerable: true, get: function () { return AccountCardV3_1.AccountCardV3; } });
 var BalanceHeader_1 = require("./BalanceHeader");
 Object.defineProperty(exports, "BalanceHeader", { enumerable: true, get: function () { return BalanceHeader_1.BalanceHeader; } });
+var BalanceHeaderV2_1 = require("./BalanceHeaderV2");
+Object.defineProperty(exports, "BalanceHeaderV2", { enumerable: true, get: function () { return BalanceHeaderV2_1.BalanceHeaderV2; } });
+var BalanceHeaderV3_1 = require("./BalanceHeaderV3");
+Object.defineProperty(exports, "BalanceHeaderV3", { enumerable: true, get: function () { return BalanceHeaderV3_1.BalanceHeaderV3; } });
 var BudgetBar_1 = require("./BudgetBar");
 Object.defineProperty(exports, "BudgetBar", { enumerable: true, get: function () { return BudgetBar_1.BudgetBar; } });
 var CreditCardView_1 = require("./CreditCardView");
@@ -37,6 +50,10 @@ var StatementList_1 = require("./StatementList");
 Object.defineProperty(exports, "StatementList", { enumerable: true, get: function () { return StatementList_1.StatementList; } });
 var SavingsGoalCard_1 = require("./SavingsGoalCard");
 Object.defineProperty(exports, "SavingsGoalCard", { enumerable: true, get: function () { return SavingsGoalCard_1.SavingsGoalCard; } });
+var SavingsGoalCardV2_1 = require("./SavingsGoalCardV2");
+Object.defineProperty(exports, "SavingsGoalCardV2", { enumerable: true, get: function () { return SavingsGoalCardV2_1.SavingsGoalCardV2; } });
+var SavingsGoalCardV3_1 = require("./SavingsGoalCardV3");
+Object.defineProperty(exports, "SavingsGoalCardV3", { enumerable: true, get: function () { return SavingsGoalCardV3_1.SavingsGoalCardV3; } });
 var PaymentMethodRow_1 = require("./PaymentMethodRow");
 Object.defineProperty(exports, "PaymentMethodRow", { enumerable: true, get: function () { return PaymentMethodRow_1.PaymentMethodRow; } });
 var ExchangeRateRow_1 = require("./ExchangeRateRow");

@@ -26,6 +26,30 @@ export type { ChatHeaderProps, ChatHeaderAction } from './ChatHeader';
 export { MessageComposer } from './MessageComposer';
 export type { MessageComposerProps } from './MessageComposer';
 
+// ── alternate designs (v2/v3) ─────────────────────────────────────────
+// Drop-in replacements for the frequently-used chat blocks: each accepts the
+// SAME props as its base component (a generator swaps only the import) but
+// renders a genuinely different design. See `design-variants.native.spec.tsx`.
+export { ConversationRowV2 } from './ConversationRowV2';
+export type { ConversationRowV2Props } from './ConversationRowV2';
+export { ConversationRowV3 } from './ConversationRowV3';
+export type { ConversationRowV3Props } from './ConversationRowV3';
+
+export { ChatHeaderV2 } from './ChatHeaderV2';
+export type { ChatHeaderV2Props } from './ChatHeaderV2';
+export { ChatHeaderV3 } from './ChatHeaderV3';
+export type { ChatHeaderV3Props } from './ChatHeaderV3';
+
+export { MessageComposerV2 } from './MessageComposerV2';
+export type { MessageComposerV2Props } from './MessageComposerV2';
+export { MessageComposerV3 } from './MessageComposerV3';
+export type { MessageComposerV3Props } from './MessageComposerV3';
+
+export { MessageGroupV2 } from './MessageGroupV2';
+export type { MessageGroupV2Props } from './MessageGroupV2';
+export { MessageGroupV3 } from './MessageGroupV3';
+export type { MessageGroupV3Props } from './MessageGroupV3';
+
 export { TypingIndicator } from './TypingIndicator';
 export type { TypingIndicatorProps } from './TypingIndicator';
 

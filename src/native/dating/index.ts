@@ -19,6 +19,12 @@ export type {
   ProfilePromptData,
 } from './ProfileCard';
 
+// Alternate designs (drop-in; same props as `ProfileCard`).
+export { ProfileCardV2 } from './ProfileCardV2';
+export type { ProfileCardV2Props } from './ProfileCardV2';
+export { ProfileCardV3 } from './ProfileCardV3';
+export type { ProfileCardV3Props } from './ProfileCardV3';
+
 export { SwipeCard } from './SwipeCard';
 export type {
   SwipeCardProps,
@@ -26,6 +32,12 @@ export type {
   SwipeCardVariant,
   SwipeOverlay,
 } from './SwipeCard';
+
+// Alternate designs (drop-in; same props as `SwipeCard`).
+export { SwipeCardV2 } from './SwipeCardV2';
+export type { SwipeCardV2Props } from './SwipeCardV2';
+export { SwipeCardV3 } from './SwipeCardV3';
+export type { SwipeCardV3Props } from './SwipeCardV3';
 
 export { SwipeDeck } from './SwipeDeck';
 export type { SwipeDeckProps, SwipeDecision } from './SwipeDeck';
@@ -40,12 +52,24 @@ export type {
   MatchCelebrationVariant,
 } from './MatchCelebration';
 
+// Alternate designs (drop-in; same props as `MatchCelebration`).
+export { MatchCelebrationV2 } from './MatchCelebrationV2';
+export type { MatchCelebrationV2Props } from './MatchCelebrationV2';
+export { MatchCelebrationV3 } from './MatchCelebrationV3';
+export type { MatchCelebrationV3Props } from './MatchCelebrationV3';
+
 export { CompatibilityMeter } from './CompatibilityMeter';
 export type {
   CompatibilityMeterProps,
   CompatibilityMeterVariant,
   CompatibilityMeterSize,
 } from './CompatibilityMeter';
+
+// Alternate designs (drop-in; same props as `CompatibilityMeter`).
+export { CompatibilityMeterV2 } from './CompatibilityMeterV2';
+export type { CompatibilityMeterV2Props } from './CompatibilityMeterV2';
+export { CompatibilityMeterV3 } from './CompatibilityMeterV3';
+export type { CompatibilityMeterV3Props } from './CompatibilityMeterV3';
 
 export { IcebreakerChip } from './IcebreakerChip';
 export type {
