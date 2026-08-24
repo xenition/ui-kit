@@ -25,7 +25,7 @@ export type {
 } from '../theme';
 
 export { Button } from './Button';
-export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
+export type { ButtonProps, ButtonVariant, ButtonSize, ButtonTone } from './Button';
 export { Wordmark } from './Wordmark';
 export type { WordmarkProps, WordmarkSize } from './Wordmark';
 export { Card } from './Card';
@@ -47,7 +47,7 @@ export type { FieldProps } from './Field';
 export { Badge } from './Badge';
 export type { BadgeProps, BadgeTone } from './Badge';
 export { Avatar } from './Avatar';
-export type { AvatarProps, AvatarSize } from './Avatar';
+export type { AvatarProps, AvatarSize, AvatarStatus, AvatarShape } from './Avatar';
 export { Switch } from './Switch';
 export type { SwitchProps } from './Switch';
 export { Spinner } from './Spinner';

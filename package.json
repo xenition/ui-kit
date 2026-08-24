@@ -254,6 +254,36 @@
       "types": "./dist/native/insurance/index.d.ts",
       "import": "./dist/native/insurance/index.js",
       "require": "./dist/native/insurance/index.js"
+    },
+    "./native/pets": {
+      "types": "./dist/native/pets/index.d.ts",
+      "import": "./dist/native/pets/index.js",
+      "require": "./dist/native/pets/index.js"
+    },
+    "./native/beauty": {
+      "types": "./dist/native/beauty/index.d.ts",
+      "import": "./dist/native/beauty/index.js",
+      "require": "./dist/native/beauty/index.js"
+    },
+    "./native/fieldservice": {
+      "types": "./dist/native/fieldservice/index.d.ts",
+      "import": "./dist/native/fieldservice/index.js",
+      "require": "./dist/native/fieldservice/index.js"
+    },
+    "./native/agriculture": {
+      "types": "./dist/native/agriculture/index.d.ts",
+      "import": "./dist/native/agriculture/index.js",
+      "require": "./dist/native/agriculture/index.js"
+    },
+    "./native/logistics": {
+      "types": "./dist/native/logistics/index.d.ts",
+      "import": "./dist/native/logistics/index.js",
+      "require": "./dist/native/logistics/index.js"
+    },
+    "./native/utilities": {
+      "types": "./dist/native/utilities/index.d.ts",
+      "import": "./dist/native/utilities/index.js",
+      "require": "./dist/native/utilities/index.js"
     }
   },
   "scripts": {
