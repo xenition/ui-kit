@@ -156,6 +156,8 @@ The core kit is broad; Phase 2 adds domain composed blocks so a builder can make
 
 - 2026-08-24 — **Phase 2 wave 8 shipped** (FINAL domain wave): photography/kids/wellness/legal/nonprofit/pos = 72 blocks. **44 domain modules, 707 native components.** Domain space exhausted. tsc clean, 1382/1382 jest green.
 
+- 2026-08-24 — **WEB PARITY COMPLETE: all 44 domain modules** (7 waves, ~528 web components) now have both native + web. Final: ~736 native + ~713 web (~1449 total .tsx), develop==main==6200d3d, 1963/1963 jest green, tsc+build clean. Only the release (npm publish 0.2.0 + cortex R4) remains — blocked on npm key.
+
 ## 3. Progress log
 - 2026-08-24 — Plan created after deep research of knowledge/, ui-kit, sdk, templates, cortex integration.
 - 2026-08-24 — **Wave 1 (native) shipped** (commit fd82ff7): native/layout (16) + native/charts (12) + native/dashboard (16) = **44 mobile components**. tsc clean, 565/565 jest green, dist emits all three. Built by 3 parallel subagents, integrated + verified together.
