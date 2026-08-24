@@ -13,12 +13,24 @@
 
 export { DonationCard } from './DonationCard';
 export type { DonationCardProps, DonationCardVariant } from './DonationCard';
+export { DonationCardV2 } from './DonationCardV2';
+export type { DonationCardV2Props } from './DonationCardV2';
+export { DonationCardV3 } from './DonationCardV3';
+export type { DonationCardV3Props } from './DonationCardV3';
 
 export { CampaignProgress } from './CampaignProgress';
 export type { CampaignProgressProps, CampaignProgressVariant, CampaignProgressTone } from './CampaignProgress';
+export { CampaignProgressV2 } from './CampaignProgressV2';
+export type { CampaignProgressV2Props } from './CampaignProgressV2';
+export { CampaignProgressV3 } from './CampaignProgressV3';
+export type { CampaignProgressV3Props } from './CampaignProgressV3';
 
 export { CauseCard } from './CauseCard';
 export type { CauseCardProps, CauseCardVariant } from './CauseCard';
+export { CauseCardV2 } from './CauseCardV2';
+export type { CauseCardV2Props } from './CauseCardV2';
+export { CauseCardV3 } from './CauseCardV3';
+export type { CauseCardV3Props } from './CauseCardV3';
 
 export { VolunteerShift } from './VolunteerShift';
 export type { VolunteerShiftProps } from './VolunteerShift';
@@ -34,6 +46,10 @@ export type { ImpactStatProps, ImpactStatVariant, ImpactStatTone } from './Impac
 
 export { FundraiserCard } from './FundraiserCard';
 export type { FundraiserCardProps, FundraiserCardVariant } from './FundraiserCard';
+export { FundraiserCardV2 } from './FundraiserCardV2';
+export type { FundraiserCardV2Props } from './FundraiserCardV2';
+export { FundraiserCardV3 } from './FundraiserCardV3';
+export type { FundraiserCardV3Props } from './FundraiserCardV3';
 
 export { RecurringGiftRow } from './RecurringGiftRow';
 export type { RecurringGiftRowProps, GiftFrequency, RecurringGiftStatus } from './RecurringGiftRow';
