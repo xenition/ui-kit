@@ -52,6 +52,27 @@ export type { ExpenseClaimProps, ExpenseClaimVariant } from './ExpenseClaim';
 export { PolicyAcknowledge } from './PolicyAcknowledge';
 export type { PolicyAcknowledgeProps, PolicyAcknowledgeVariant } from './PolicyAcknowledge';
 
+// ── alternate designs (V2 / V3) — drop-in, same Props ─────────────────────
+export { EmployeeCardV2 } from './EmployeeCardV2';
+export type { EmployeeCardV2Props } from './EmployeeCardV2';
+export { EmployeeCardV3 } from './EmployeeCardV3';
+export type { EmployeeCardV3Props } from './EmployeeCardV3';
+
+export { LeaveRequestV2 } from './LeaveRequestV2';
+export type { LeaveRequestV2Props } from './LeaveRequestV2';
+export { LeaveRequestV3 } from './LeaveRequestV3';
+export type { LeaveRequestV3Props } from './LeaveRequestV3';
+
+export { PayslipRowV2 } from './PayslipRowV2';
+export type { PayslipRowV2Props } from './PayslipRowV2';
+export { PayslipRowV3 } from './PayslipRowV3';
+export type { PayslipRowV3Props } from './PayslipRowV3';
+
+export { PerformanceReviewV2 } from './PerformanceReviewV2';
+export type { PerformanceReviewV2Props } from './PerformanceReviewV2';
+export { PerformanceReviewV3 } from './PerformanceReviewV3';
+export type { PerformanceReviewV3Props } from './PerformanceReviewV3';
+
 // ── shared status vocabulary + reusable pill ──────────────────────────────
 export { StatusPill } from './StatusPill';
 export type { StatusPillProps, StatusPillVariant, StatusPillSize } from './StatusPill';

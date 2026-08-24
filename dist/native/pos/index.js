@@ -15,13 +15,30 @@
  * SDK import, no printer/hardware dependency.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CASH_MOVEMENT_META = exports.REFUND_REASON_META = exports.REFUND_STATUS_META = exports.TICKET_STATUS_META = exports.PAYMENT_METHOD_META = exports.seedRampStep = exports.initials = exports.varianceMeta = exports.sumCents = exports.safeCents = exports.onToneSlot = exports.toneSlot = exports.toneColor = exports.withAlpha = exports.formatMoney = exports.StatusPill = exports.OrderTicket = exports.QuickChargeBar = exports.ShiftReport = exports.RefundRow = exports.SplitBillRow = exports.ProductGridTile = exports.CashDrawerRow = exports.DiscountRow = exports.PaymentMethodTile = exports.ReceiptView = exports.CartLine = exports.RegisterKeypad = void 0;
+exports.CASH_MOVEMENT_META = exports.REFUND_REASON_META = exports.REFUND_STATUS_META = exports.TICKET_STATUS_META = exports.PAYMENT_METHOD_META = exports.seedRampStep = exports.initials = exports.varianceMeta = exports.sumCents = exports.safeCents = exports.onToneSlot = exports.toneSlot = exports.toneColor = exports.withAlpha = exports.formatMoney = exports.StatusPill = exports.OrderTicket = exports.QuickChargeBar = exports.ShiftReport = exports.RefundRow = exports.SplitBillRow = exports.ProductGridTile = exports.CashDrawerRow = exports.DiscountRow = exports.PaymentMethodTile = exports.ProductGridTileV3 = exports.ProductGridTileV2 = exports.ReceiptViewV3 = exports.ReceiptViewV2 = exports.CartLineV3 = exports.CartLineV2 = exports.RegisterKeypadV3 = exports.RegisterKeypadV2 = exports.ReceiptView = exports.CartLine = exports.RegisterKeypad = void 0;
 var RegisterKeypad_1 = require("./RegisterKeypad");
 Object.defineProperty(exports, "RegisterKeypad", { enumerable: true, get: function () { return RegisterKeypad_1.RegisterKeypad; } });
 var CartLine_1 = require("./CartLine");
 Object.defineProperty(exports, "CartLine", { enumerable: true, get: function () { return CartLine_1.CartLine; } });
 var ReceiptView_1 = require("./ReceiptView");
 Object.defineProperty(exports, "ReceiptView", { enumerable: true, get: function () { return ReceiptView_1.ReceiptView; } });
+// ── design variants (V2 / V3): separate drop-in alternates, identical props ──
+var RegisterKeypadV2_1 = require("./RegisterKeypadV2");
+Object.defineProperty(exports, "RegisterKeypadV2", { enumerable: true, get: function () { return RegisterKeypadV2_1.RegisterKeypadV2; } });
+var RegisterKeypadV3_1 = require("./RegisterKeypadV3");
+Object.defineProperty(exports, "RegisterKeypadV3", { enumerable: true, get: function () { return RegisterKeypadV3_1.RegisterKeypadV3; } });
+var CartLineV2_1 = require("./CartLineV2");
+Object.defineProperty(exports, "CartLineV2", { enumerable: true, get: function () { return CartLineV2_1.CartLineV2; } });
+var CartLineV3_1 = require("./CartLineV3");
+Object.defineProperty(exports, "CartLineV3", { enumerable: true, get: function () { return CartLineV3_1.CartLineV3; } });
+var ReceiptViewV2_1 = require("./ReceiptViewV2");
+Object.defineProperty(exports, "ReceiptViewV2", { enumerable: true, get: function () { return ReceiptViewV2_1.ReceiptViewV2; } });
+var ReceiptViewV3_1 = require("./ReceiptViewV3");
+Object.defineProperty(exports, "ReceiptViewV3", { enumerable: true, get: function () { return ReceiptViewV3_1.ReceiptViewV3; } });
+var ProductGridTileV2_1 = require("./ProductGridTileV2");
+Object.defineProperty(exports, "ProductGridTileV2", { enumerable: true, get: function () { return ProductGridTileV2_1.ProductGridTileV2; } });
+var ProductGridTileV3_1 = require("./ProductGridTileV3");
+Object.defineProperty(exports, "ProductGridTileV3", { enumerable: true, get: function () { return ProductGridTileV3_1.ProductGridTileV3; } });
 var PaymentMethodTile_1 = require("./PaymentMethodTile");
 Object.defineProperty(exports, "PaymentMethodTile", { enumerable: true, get: function () { return PaymentMethodTile_1.PaymentMethodTile; } });
 var DiscountRow_1 = require("./DiscountRow");

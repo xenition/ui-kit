@@ -41,3 +41,25 @@ export type { FamilyMemberRowProps, FamilyRole } from './FamilyMemberRow';
 
 export { StickerReward } from './StickerReward';
 export type { StickerRewardProps, Sticker } from './StickerReward';
+
+// Alternate designs (v2 / v3) — drop-in redesigns that keep each base
+// component's exact props (`<Name>V2Props = <Name>Props`).
+export { ChildProfileCardV2 } from './ChildProfileCardV2';
+export type { ChildProfileCardV2Props } from './ChildProfileCardV2';
+export { ChildProfileCardV3 } from './ChildProfileCardV3';
+export type { ChildProfileCardV3Props } from './ChildProfileCardV3';
+
+export { ChoreCardV2 } from './ChoreCardV2';
+export type { ChoreCardV2Props } from './ChoreCardV2';
+export { ChoreCardV3 } from './ChoreCardV3';
+export type { ChoreCardV3Props } from './ChoreCardV3';
+
+export { RewardStarV2 } from './RewardStarV2';
+export type { RewardStarV2Props } from './RewardStarV2';
+export { RewardStarV3 } from './RewardStarV3';
+export type { RewardStarV3Props } from './RewardStarV3';
+
+export { AllowanceTrackerV2 } from './AllowanceTrackerV2';
+export type { AllowanceTrackerV2Props } from './AllowanceTrackerV2';
+export { AllowanceTrackerV3 } from './AllowanceTrackerV3';
+export type { AllowanceTrackerV3Props } from './AllowanceTrackerV3';

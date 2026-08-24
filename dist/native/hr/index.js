@@ -13,7 +13,7 @@
  * labels; no fetching, no SDK import.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.POLICY_STATUS_META = exports.EXPENSE_CATEGORY_META = exports.EXPENSE_STATUS_META = exports.SHIFT_STATUS_META = exports.BENEFIT_TYPE_META = exports.BENEFIT_STATUS_META = exports.TASK_STATUS_META = exports.REVIEW_STATUS_META = exports.TIMESHEET_STATUS_META = exports.PAYSLIP_STATUS_META = exports.LEAVE_TYPE_META = exports.LEAVE_STATUS_META = exports.PRESENCE_META = exports.EMPLOYEE_STATUS_META = exports.EMPLOYMENT_META = exports.toneSlot = exports.toneColor = exports.clampRating = exports.clampPct = exports.formatHours = exports.formatMoney = exports.StatusPill = exports.PolicyAcknowledge = exports.ExpenseClaim = exports.ShiftSchedule = exports.BenefitsEnrollment = exports.OnboardingTask = exports.PerformanceReview = exports.TimesheetRow = exports.PayslipRow = exports.LeaveRequest = exports.DirectoryRow = exports.OrgChartNode = exports.EmployeeCard = void 0;
+exports.POLICY_STATUS_META = exports.EXPENSE_CATEGORY_META = exports.EXPENSE_STATUS_META = exports.SHIFT_STATUS_META = exports.BENEFIT_TYPE_META = exports.BENEFIT_STATUS_META = exports.TASK_STATUS_META = exports.REVIEW_STATUS_META = exports.TIMESHEET_STATUS_META = exports.PAYSLIP_STATUS_META = exports.LEAVE_TYPE_META = exports.LEAVE_STATUS_META = exports.PRESENCE_META = exports.EMPLOYEE_STATUS_META = exports.EMPLOYMENT_META = exports.toneSlot = exports.toneColor = exports.clampRating = exports.clampPct = exports.formatHours = exports.formatMoney = exports.StatusPill = exports.PerformanceReviewV3 = exports.PerformanceReviewV2 = exports.PayslipRowV3 = exports.PayslipRowV2 = exports.LeaveRequestV3 = exports.LeaveRequestV2 = exports.EmployeeCardV3 = exports.EmployeeCardV2 = exports.PolicyAcknowledge = exports.ExpenseClaim = exports.ShiftSchedule = exports.BenefitsEnrollment = exports.OnboardingTask = exports.PerformanceReview = exports.TimesheetRow = exports.PayslipRow = exports.LeaveRequest = exports.DirectoryRow = exports.OrgChartNode = exports.EmployeeCard = void 0;
 var EmployeeCard_1 = require("./EmployeeCard");
 Object.defineProperty(exports, "EmployeeCard", { enumerable: true, get: function () { return EmployeeCard_1.EmployeeCard; } });
 var OrgChartNode_1 = require("./OrgChartNode");
@@ -38,6 +38,23 @@ var ExpenseClaim_1 = require("./ExpenseClaim");
 Object.defineProperty(exports, "ExpenseClaim", { enumerable: true, get: function () { return ExpenseClaim_1.ExpenseClaim; } });
 var PolicyAcknowledge_1 = require("./PolicyAcknowledge");
 Object.defineProperty(exports, "PolicyAcknowledge", { enumerable: true, get: function () { return PolicyAcknowledge_1.PolicyAcknowledge; } });
+// ── alternate designs (V2 / V3) — drop-in, same Props ─────────────────────
+var EmployeeCardV2_1 = require("./EmployeeCardV2");
+Object.defineProperty(exports, "EmployeeCardV2", { enumerable: true, get: function () { return EmployeeCardV2_1.EmployeeCardV2; } });
+var EmployeeCardV3_1 = require("./EmployeeCardV3");
+Object.defineProperty(exports, "EmployeeCardV3", { enumerable: true, get: function () { return EmployeeCardV3_1.EmployeeCardV3; } });
+var LeaveRequestV2_1 = require("./LeaveRequestV2");
+Object.defineProperty(exports, "LeaveRequestV2", { enumerable: true, get: function () { return LeaveRequestV2_1.LeaveRequestV2; } });
+var LeaveRequestV3_1 = require("./LeaveRequestV3");
+Object.defineProperty(exports, "LeaveRequestV3", { enumerable: true, get: function () { return LeaveRequestV3_1.LeaveRequestV3; } });
+var PayslipRowV2_1 = require("./PayslipRowV2");
+Object.defineProperty(exports, "PayslipRowV2", { enumerable: true, get: function () { return PayslipRowV2_1.PayslipRowV2; } });
+var PayslipRowV3_1 = require("./PayslipRowV3");
+Object.defineProperty(exports, "PayslipRowV3", { enumerable: true, get: function () { return PayslipRowV3_1.PayslipRowV3; } });
+var PerformanceReviewV2_1 = require("./PerformanceReviewV2");
+Object.defineProperty(exports, "PerformanceReviewV2", { enumerable: true, get: function () { return PerformanceReviewV2_1.PerformanceReviewV2; } });
+var PerformanceReviewV3_1 = require("./PerformanceReviewV3");
+Object.defineProperty(exports, "PerformanceReviewV3", { enumerable: true, get: function () { return PerformanceReviewV3_1.PerformanceReviewV3; } });
 // ── shared status vocabulary + reusable pill ──────────────────────────────
 var StatusPill_1 = require("./StatusPill");
 Object.defineProperty(exports, "StatusPill", { enumerable: true, get: function () { return StatusPill_1.StatusPill; } });

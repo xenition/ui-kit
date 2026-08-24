@@ -16,7 +16,7 @@
  * colors, no DOM. Native only, mobile-first.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SetlistRow = exports.WaveformEditor = exports.VolumeFader = exports.Mixer = exports.RecordButton = exports.LoopControl = exports.MetronomeBar = exports.BPMControl = exports.ChordChip = exports.PianoKeys = exports.SamplePad = exports.TrackPad = exports.withAlpha = exports.formatDuration = exports.formatBpm = exports.clamp = exports.octaveNotes = exports.isBlackKey = exports.padAccentKey = exports.chordLabel = exports.NOTE_NAMES = void 0;
+exports.SetlistRowV3 = exports.SetlistRowV2 = exports.PianoKeysV3 = exports.PianoKeysV2 = exports.MixerV3 = exports.MixerV2 = exports.TrackPadV3 = exports.TrackPadV2 = exports.SetlistRow = exports.WaveformEditor = exports.VolumeFader = exports.Mixer = exports.RecordButton = exports.LoopControl = exports.MetronomeBar = exports.BPMControl = exports.ChordChip = exports.PianoKeys = exports.SamplePad = exports.TrackPad = exports.withAlpha = exports.formatDuration = exports.formatBpm = exports.clamp = exports.octaveNotes = exports.isBlackKey = exports.padAccentKey = exports.chordLabel = exports.NOTE_NAMES = void 0;
 // ── shared data shapes + helpers ──────────────────────────────────────
 var types_1 = require("./types");
 Object.defineProperty(exports, "NOTE_NAMES", { enumerable: true, get: function () { return types_1.NOTE_NAMES; } });
@@ -57,4 +57,21 @@ Object.defineProperty(exports, "WaveformEditor", { enumerable: true, get: functi
 // ── set management ────────────────────────────────────────────────────
 var SetlistRow_1 = require("./SetlistRow");
 Object.defineProperty(exports, "SetlistRow", { enumerable: true, get: function () { return SetlistRow_1.SetlistRow; } });
+// ── alternate designs (v2 / v3) — drop-in redesigns, identical props ──────
+var TrackPadV2_1 = require("./TrackPadV2");
+Object.defineProperty(exports, "TrackPadV2", { enumerable: true, get: function () { return TrackPadV2_1.TrackPadV2; } });
+var TrackPadV3_1 = require("./TrackPadV3");
+Object.defineProperty(exports, "TrackPadV3", { enumerable: true, get: function () { return TrackPadV3_1.TrackPadV3; } });
+var MixerV2_1 = require("./MixerV2");
+Object.defineProperty(exports, "MixerV2", { enumerable: true, get: function () { return MixerV2_1.MixerV2; } });
+var MixerV3_1 = require("./MixerV3");
+Object.defineProperty(exports, "MixerV3", { enumerable: true, get: function () { return MixerV3_1.MixerV3; } });
+var PianoKeysV2_1 = require("./PianoKeysV2");
+Object.defineProperty(exports, "PianoKeysV2", { enumerable: true, get: function () { return PianoKeysV2_1.PianoKeysV2; } });
+var PianoKeysV3_1 = require("./PianoKeysV3");
+Object.defineProperty(exports, "PianoKeysV3", { enumerable: true, get: function () { return PianoKeysV3_1.PianoKeysV3; } });
+var SetlistRowV2_1 = require("./SetlistRowV2");
+Object.defineProperty(exports, "SetlistRowV2", { enumerable: true, get: function () { return SetlistRowV2_1.SetlistRowV2; } });
+var SetlistRowV3_1 = require("./SetlistRowV3");
+Object.defineProperty(exports, "SetlistRowV3", { enumerable: true, get: function () { return SetlistRowV3_1.SetlistRowV3; } });
 //# sourceMappingURL=index.js.map

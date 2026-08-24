@@ -7,7 +7,7 @@
  * (LineChart). No literal colors; mobile-first.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StickerReward = exports.FamilyMemberRow = exports.SchoolEventRow = exports.BehaviorBadge = exports.RoutineRow = exports.GrowthChart = exports.ScreenTimeBar = exports.RewardStar = exports.MilestoneCard = exports.AllowanceTracker = exports.ChoreCard = exports.ChildProfileCard = void 0;
+exports.AllowanceTrackerV3 = exports.AllowanceTrackerV2 = exports.RewardStarV3 = exports.RewardStarV2 = exports.ChoreCardV3 = exports.ChoreCardV2 = exports.ChildProfileCardV3 = exports.ChildProfileCardV2 = exports.StickerReward = exports.FamilyMemberRow = exports.SchoolEventRow = exports.BehaviorBadge = exports.RoutineRow = exports.GrowthChart = exports.ScreenTimeBar = exports.RewardStar = exports.MilestoneCard = exports.AllowanceTracker = exports.ChoreCard = exports.ChildProfileCard = void 0;
 var ChildProfileCard_1 = require("./ChildProfileCard");
 Object.defineProperty(exports, "ChildProfileCard", { enumerable: true, get: function () { return ChildProfileCard_1.ChildProfileCard; } });
 var ChoreCard_1 = require("./ChoreCard");
@@ -32,4 +32,22 @@ var FamilyMemberRow_1 = require("./FamilyMemberRow");
 Object.defineProperty(exports, "FamilyMemberRow", { enumerable: true, get: function () { return FamilyMemberRow_1.FamilyMemberRow; } });
 var StickerReward_1 = require("./StickerReward");
 Object.defineProperty(exports, "StickerReward", { enumerable: true, get: function () { return StickerReward_1.StickerReward; } });
+// Alternate designs (v2 / v3) — drop-in redesigns that keep each base
+// component's exact props (`<Name>V2Props = <Name>Props`).
+var ChildProfileCardV2_1 = require("./ChildProfileCardV2");
+Object.defineProperty(exports, "ChildProfileCardV2", { enumerable: true, get: function () { return ChildProfileCardV2_1.ChildProfileCardV2; } });
+var ChildProfileCardV3_1 = require("./ChildProfileCardV3");
+Object.defineProperty(exports, "ChildProfileCardV3", { enumerable: true, get: function () { return ChildProfileCardV3_1.ChildProfileCardV3; } });
+var ChoreCardV2_1 = require("./ChoreCardV2");
+Object.defineProperty(exports, "ChoreCardV2", { enumerable: true, get: function () { return ChoreCardV2_1.ChoreCardV2; } });
+var ChoreCardV3_1 = require("./ChoreCardV3");
+Object.defineProperty(exports, "ChoreCardV3", { enumerable: true, get: function () { return ChoreCardV3_1.ChoreCardV3; } });
+var RewardStarV2_1 = require("./RewardStarV2");
+Object.defineProperty(exports, "RewardStarV2", { enumerable: true, get: function () { return RewardStarV2_1.RewardStarV2; } });
+var RewardStarV3_1 = require("./RewardStarV3");
+Object.defineProperty(exports, "RewardStarV3", { enumerable: true, get: function () { return RewardStarV3_1.RewardStarV3; } });
+var AllowanceTrackerV2_1 = require("./AllowanceTrackerV2");
+Object.defineProperty(exports, "AllowanceTrackerV2", { enumerable: true, get: function () { return AllowanceTrackerV2_1.AllowanceTrackerV2; } });
+var AllowanceTrackerV3_1 = require("./AllowanceTrackerV3");
+Object.defineProperty(exports, "AllowanceTrackerV3", { enumerable: true, get: function () { return AllowanceTrackerV3_1.AllowanceTrackerV3; } });
 //# sourceMappingURL=index.js.map

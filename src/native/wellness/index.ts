@@ -54,3 +54,26 @@ export type {
   ProgressCalendarDay,
   ProgressCalendarTone,
 } from './ProgressCalendar';
+
+// ── Alternate designs (v2 / v3) ────────────────────────────────────────────
+// Drop-in redesigns that share each base component's prop contract exactly
+// (`<Name>V{2,3}Props = <Name>Props`) — pick one for visual variety.
+export { MeditationSessionCardV2 } from './MeditationSessionCardV2';
+export type { MeditationSessionCardV2Props } from './MeditationSessionCardV2';
+export { MeditationSessionCardV3 } from './MeditationSessionCardV3';
+export type { MeditationSessionCardV3Props } from './MeditationSessionCardV3';
+
+export { MoodCheckInV2 } from './MoodCheckInV2';
+export type { MoodCheckInV2Props } from './MoodCheckInV2';
+export { MoodCheckInV3 } from './MoodCheckInV3';
+export type { MoodCheckInV3Props } from './MoodCheckInV3';
+
+export { SleepStoryCardV2 } from './SleepStoryCardV2';
+export type { SleepStoryCardV2Props } from './SleepStoryCardV2';
+export { SleepStoryCardV3 } from './SleepStoryCardV3';
+export type { SleepStoryCardV3Props } from './SleepStoryCardV3';
+
+export { MindfulnessStreakV2 } from './MindfulnessStreakV2';
+export type { MindfulnessStreakV2Props } from './MindfulnessStreakV2';
+export { MindfulnessStreakV3 } from './MindfulnessStreakV3';
+export type { MindfulnessStreakV3Props } from './MindfulnessStreakV3';

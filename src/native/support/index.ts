@@ -60,3 +60,29 @@ export type { ResolutionTimerProps } from './ResolutionTimer';
 
 export { KBArticleRow } from './KBArticleRow';
 export type { KBArticleRowProps, KBArticle, KBStatus } from './KBArticleRow';
+
+/* ------------------------------------------------------------------ *
+ * Alternate designs (drop-in). Each Vn component shares the base
+ * component's public Props (`<Name>VnProps = <Name>Props`); swap the
+ * import to restyle a screen with no call-site changes.
+ * ------------------------------------------------------------------ */
+
+export { TicketRowV2 } from './TicketRowV2';
+export type { TicketRowV2Props } from './TicketRowV2';
+export { TicketRowV3 } from './TicketRowV3';
+export type { TicketRowV3Props } from './TicketRowV3';
+
+export { ConversationPanelV2 } from './ConversationPanelV2';
+export type { ConversationPanelV2Props } from './ConversationPanelV2';
+export { ConversationPanelV3 } from './ConversationPanelV3';
+export type { ConversationPanelV3Props } from './ConversationPanelV3';
+
+export { AgentStatusV2 } from './AgentStatusV2';
+export type { AgentStatusV2Props } from './AgentStatusV2';
+export { AgentStatusV3 } from './AgentStatusV3';
+export type { AgentStatusV3Props } from './AgentStatusV3';
+
+export { SatisfactionRatingV2 } from './SatisfactionRatingV2';
+export type { SatisfactionRatingV2Props } from './SatisfactionRatingV2';
+export { SatisfactionRatingV3 } from './SatisfactionRatingV3';
+export type { SatisfactionRatingV3Props } from './SatisfactionRatingV3';

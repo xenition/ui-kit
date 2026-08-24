@@ -1,0 +1,147 @@
+import * as React from 'react';
+import { fireEvent } from '@testing-library/react-native';
+import {
+  SEED_LIGHT,
+  SEED_DARK,
+  renderThemed,
+  renderedStyleHexes,
+  tokenHexSet,
+} from '../spec-support/render-native';
+import { RegisterKeypadV2 } from './RegisterKeypadV2';
+import { RegisterKeypadV3 } from './RegisterKeypadV3';
+import { CartLineV2 } from './CartLineV2';
+import { CartLineV3 } from './CartLineV3';
+import { ReceiptViewV2 } from './ReceiptViewV2';
+import { ReceiptViewV3 } from './ReceiptViewV3';
+import { ProductGridTileV2 } from './ProductGridTileV2';
+import { ProductGridTileV3 } from './ProductGridTileV3';
+import type { ReceiptLine, ReceiptTender } from './ReceiptView';
+
+const SEEDS = [SEED_LIGHT, SEED_DARK] as const;
+
+const RECEIPT_ITEMS: ReceiptLine[] = [
+  { name: 'Flat White', quantity: 2, amountCents: 900, detail: 'Oat milk' },
+  { name: 'Croissant', amountCents: 450 },
+];
+const TENDERS: ReceiptTender[] = [{ method: 'card', amountCents: 1350 }];
+
+describe('pos design variants — mount + core content', () => {
+  it('RegisterKeypadV2 / V3 render the display value and keys', () => {
+    const v2 = renderThemed(<RegisterKeypadV2 value="42" displayPrefix="$" onChange={() => undefined} />, SEED_LIGHT);
+    expect(v2.getByText('42')).toBeTruthy();
+    expect(v2.getByLabelText('7')).toBeTruthy();
+
+    const v3 = renderThemed(<RegisterKeypadV3 value="7" onChange={() => undefined} />, SEED_DARK);
+    expect(v3.getByLabelText('Backspace')).toBeTruthy();
+  });
+
+  it('CartLineV2 / V3 show the line total (unit × qty − discount)', () => {
+    const v2 = renderThemed(
+      <CartLineV2 name="Latte" quantity={2} unitPriceCents={450} modifiers={['Oat']} onQuantityChange={() => undefined} onVoid={() => undefined} />,
+      SEED_LIGHT
+    );
+    expect(v2.getByText('$9.00')).toBeTruthy();
+
+    const v3 = renderThemed(
+      <CartLineV3 name="Bagel" quantity={3} unitPriceCents={300} discountCents={100} onQuantityChange={() => undefined} />,
+      SEED_DARK
+    );
+    expect(v3.getByText('$8.00')).toBeTruthy(); // 900 − 100
+  });
+
+  it('ReceiptViewV2 / V3 render the total — and an empty receipt', () => {
+    const v2 = renderThemed(
+      <ReceiptViewV2 merchant="Bean & Co" items={RECEIPT_ITEMS} totalCents={1350} subtotalCents={1350} tenders={TENDERS} orderNumber="88" />,
+      SEED_LIGHT
+    );
+    expect(v2.getByText('Bean & Co')).toBeTruthy();
+    expect(v2.getAllByText('$13.50').length).toBeGreaterThan(0);
+
+    const v3 = renderThemed(<ReceiptViewV3 items={RECEIPT_ITEMS} totalCents={1350} subtotalCents={1350} />, SEED_DARK);
+    expect(v3.getAllByText('$13.50').length).toBeGreaterThan(0);
+
+    // Empty item lists → EmptyState, total still renders.
+    const emptyV2 = renderThemed(<ReceiptViewV2 items={[]} totalCents={0} emptyLabel="Nothing here" />, SEED_LIGHT);
+    expect(emptyV2.getByText('Nothing here')).toBeTruthy();
+    const emptyV3 = renderThemed(<ReceiptViewV3 items={[]} totalCents={0} emptyLabel="Nothing here" />, SEED_DARK);
+    expect(emptyV3.getByText('Nothing here')).toBeTruthy();
+  });
+
+  it('ProductGridTileV2 / V3 render the name and price', () => {
+    const v2 = renderThemed(<ProductGridTileV2 name="Espresso" priceCents={350} onPress={() => undefined} />, SEED_LIGHT);
+    expect(v2.getByText('Espresso')).toBeTruthy();
+    expect(v2.getByText('$3.50')).toBeTruthy();
+
+    const v3 = renderThemed(<ProductGridTileV3 name="Cortado" priceCents={400} soldOut onPress={() => undefined} />, SEED_DARK);
+    expect(v3.getByText('Cortado')).toBeTruthy();
+    expect(v3.getByText('Sold out')).toBeTruthy();
+  });
+});
+
+describe('pos design variants — interaction', () => {
+  it('RegisterKeypadV2 folds a tapped digit into value; V3 backspaces', () => {
+    const onChange = jest.fn();
+    const onKeyPress = jest.fn();
+    const v2 = renderThemed(<RegisterKeypadV2 value="12" onChange={onChange} onKeyPress={onKeyPress} />, SEED_LIGHT);
+    fireEvent.press(v2.getByLabelText('7'));
+    expect(onKeyPress).toHaveBeenCalledWith('7');
+    expect(onChange).toHaveBeenCalledWith('127');
+
+    const onChange3 = jest.fn();
+    const v3 = renderThemed(<RegisterKeypadV3 value="99" onChange={onChange3} />, SEED_DARK);
+    fireEvent.press(v3.getByLabelText('Backspace'));
+    expect(onChange3).toHaveBeenCalledWith('9');
+  });
+
+  it('CartLineV2 drives its quantity stepper', () => {
+    const onQuantityChange = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <CartLineV2 name="Mocha" quantity={2} unitPriceCents={500} onQuantityChange={onQuantityChange} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('Increase quantity'));
+    expect(onQuantityChange).toHaveBeenCalledWith(3);
+  });
+
+  it('ProductGridTileV2 presses through', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(<ProductGridTileV2 name="Chai" priceCents={420} onPress={onPress} />, SEED_LIGHT);
+    fireEvent.press(getByLabelText('Chai, $4.20'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('pos design variants — token purity (both seeds)', () => {
+  it('every rendered hex traces to a compiled token', () => {
+    SEEDS.forEach((seed) => {
+      const { root } = renderThemed(
+        <>
+          <RegisterKeypadV2 value="12.50" displayPrefix="$" onChange={() => undefined} />
+          <RegisterKeypadV3 value="42" variant="number" onChange={() => undefined} />
+          <CartLineV2
+            name="Latte"
+            quantity={2}
+            unitPriceCents={450}
+            modifiers={['Oat', 'Extra shot']}
+            note="Hot"
+            discountCents={50}
+            onQuantityChange={() => undefined}
+            onVoid={() => undefined}
+          />
+          <CartLineV3 name="Bagel" quantity={3} unitPriceCents={300} modifiers={['Toasted']} onQuantityChange={() => undefined} onVoid={() => undefined} />
+          <ReceiptViewV2 merchant="Bean & Co" addressLines={['1 Main St']} items={RECEIPT_ITEMS} subtotalCents={1350} discountCents={100} taxCents={80} tipCents={200} totalCents={1730} tenders={TENDERS} footer="Thanks!" orderNumber="88" />
+          <ReceiptViewV3 merchant="Bean & Co" items={RECEIPT_ITEMS} subtotalCents={1350} discountCents={100} taxCents={80} totalCents={1330} tenders={TENDERS} footer="Thanks!" />
+          <ProductGridTileV2 name="Espresso" priceCents={350} tone="accent" selected onPress={() => undefined} />
+          <ProductGridTileV2 name="Decaf" priceCents={300} soldOut onPress={() => undefined} />
+          <ProductGridTileV3 name="Cortado" priceCents={400} selected onPress={() => undefined} />
+          <ProductGridTileV3 name="Macchiato" priceCents={380} soldOut onPress={() => undefined} />
+        </>,
+        seed
+      );
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+});
