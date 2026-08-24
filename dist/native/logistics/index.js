@@ -14,7 +14,7 @@
  * picked → in-transit → out-for-delivery → delivered.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CARRIER_META = exports.DOCK_META = exports.SCAN_META = exports.PROOF_META = exports.STOP_META = exports.SHIPMENT_META = exports.TRACKING_META = exports.TRACKING_ORDER = exports.trackingIndex = exports.formatWeight = exports.clampPct = exports.withAlpha = exports.toneColor = exports.ETABar = exports.ScanRow = exports.LoadPlanBar = exports.DockSchedule = exports.ManifestRow = exports.CarrierBadge = exports.TrackingTimeline = exports.WarehouseBin = exports.DeliveryProof = exports.RouteStop = exports.PackageRow = exports.ShipmentCard = void 0;
+exports.RouteStopV3 = exports.RouteStopV2 = exports.TrackingTimelineV3 = exports.TrackingTimelineV2 = exports.PackageRowV3 = exports.PackageRowV2 = exports.ShipmentCardV3 = exports.ShipmentCardV2 = exports.CARRIER_META = exports.DOCK_META = exports.SCAN_META = exports.PROOF_META = exports.STOP_META = exports.SHIPMENT_META = exports.TRACKING_META = exports.TRACKING_ORDER = exports.trackingIndex = exports.formatWeight = exports.clampPct = exports.withAlpha = exports.toneColor = exports.ETABar = exports.ScanRow = exports.LoadPlanBar = exports.DockSchedule = exports.ManifestRow = exports.CarrierBadge = exports.TrackingTimeline = exports.WarehouseBin = exports.DeliveryProof = exports.RouteStop = exports.PackageRow = exports.ShipmentCard = void 0;
 var ShipmentCard_1 = require("./ShipmentCard");
 Object.defineProperty(exports, "ShipmentCard", { enumerable: true, get: function () { return ShipmentCard_1.ShipmentCard; } });
 var PackageRow_1 = require("./PackageRow");
@@ -53,4 +53,22 @@ Object.defineProperty(exports, "PROOF_META", { enumerable: true, get: function (
 Object.defineProperty(exports, "SCAN_META", { enumerable: true, get: function () { return internal_1.SCAN_META; } });
 Object.defineProperty(exports, "DOCK_META", { enumerable: true, get: function () { return internal_1.DOCK_META; } });
 Object.defineProperty(exports, "CARRIER_META", { enumerable: true, get: function () { return internal_1.CARRIER_META; } });
+// ── Alternate designs (V2 / V3) — drop-in components sharing each classic's
+// Props (`<Name>V2Props = <Name>Props`), a genuinely different design each.
+var ShipmentCardV2_1 = require("./ShipmentCardV2");
+Object.defineProperty(exports, "ShipmentCardV2", { enumerable: true, get: function () { return ShipmentCardV2_1.ShipmentCardV2; } });
+var ShipmentCardV3_1 = require("./ShipmentCardV3");
+Object.defineProperty(exports, "ShipmentCardV3", { enumerable: true, get: function () { return ShipmentCardV3_1.ShipmentCardV3; } });
+var PackageRowV2_1 = require("./PackageRowV2");
+Object.defineProperty(exports, "PackageRowV2", { enumerable: true, get: function () { return PackageRowV2_1.PackageRowV2; } });
+var PackageRowV3_1 = require("./PackageRowV3");
+Object.defineProperty(exports, "PackageRowV3", { enumerable: true, get: function () { return PackageRowV3_1.PackageRowV3; } });
+var TrackingTimelineV2_1 = require("./TrackingTimelineV2");
+Object.defineProperty(exports, "TrackingTimelineV2", { enumerable: true, get: function () { return TrackingTimelineV2_1.TrackingTimelineV2; } });
+var TrackingTimelineV3_1 = require("./TrackingTimelineV3");
+Object.defineProperty(exports, "TrackingTimelineV3", { enumerable: true, get: function () { return TrackingTimelineV3_1.TrackingTimelineV3; } });
+var RouteStopV2_1 = require("./RouteStopV2");
+Object.defineProperty(exports, "RouteStopV2", { enumerable: true, get: function () { return RouteStopV2_1.RouteStopV2; } });
+var RouteStopV3_1 = require("./RouteStopV3");
+Object.defineProperty(exports, "RouteStopV3", { enumerable: true, get: function () { return RouteStopV3_1.RouteStopV3; } });
 //# sourceMappingURL=index.js.map

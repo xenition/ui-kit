@@ -77,3 +77,25 @@ export {
   DOCK_META,
   CARRIER_META,
 } from './internal';
+
+// ── Alternate designs (V2 / V3) — drop-in components sharing each classic's
+// Props (`<Name>V2Props = <Name>Props`), a genuinely different design each.
+export { ShipmentCardV2 } from './ShipmentCardV2';
+export type { ShipmentCardV2Props } from './ShipmentCardV2';
+export { ShipmentCardV3 } from './ShipmentCardV3';
+export type { ShipmentCardV3Props } from './ShipmentCardV3';
+
+export { PackageRowV2 } from './PackageRowV2';
+export type { PackageRowV2Props } from './PackageRowV2';
+export { PackageRowV3 } from './PackageRowV3';
+export type { PackageRowV3Props } from './PackageRowV3';
+
+export { TrackingTimelineV2 } from './TrackingTimelineV2';
+export type { TrackingTimelineV2Props } from './TrackingTimelineV2';
+export { TrackingTimelineV3 } from './TrackingTimelineV3';
+export type { TrackingTimelineV3Props } from './TrackingTimelineV3';
+
+export { RouteStopV2 } from './RouteStopV2';
+export type { RouteStopV2Props } from './RouteStopV2';
+export { RouteStopV3 } from './RouteStopV3';
+export type { RouteStopV3Props } from './RouteStopV3';
