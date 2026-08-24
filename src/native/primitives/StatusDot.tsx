@@ -3,7 +3,7 @@ import { Animated, Easing, View, type StyleProp, type ViewStyle } from 'react-na
 import { useXenitionTheme } from '../theme';
 import { useReducedMotion } from './internal/useReducedMotion';
 
-export type StatusDotTone = 'success' | 'warn' | 'danger' | 'primary' | 'accent';
+export type StatusDotTone = 'success' | 'warn' | 'danger' | 'primary' | 'accent' | 'muted';
 
 export interface StatusDotProps {
   /** Semantic color slot for the dot (default `success` — "live"). */

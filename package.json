@@ -224,6 +224,36 @@
       "types": "./dist/native/sports/index.d.ts",
       "import": "./dist/native/sports/index.js",
       "require": "./dist/native/sports/index.js"
+    },
+    "./native/marketplace": {
+      "types": "./dist/native/marketplace/index.d.ts",
+      "import": "./dist/native/marketplace/index.js",
+      "require": "./dist/native/marketplace/index.js"
+    },
+    "./native/medical": {
+      "types": "./dist/native/medical/index.d.ts",
+      "import": "./dist/native/medical/index.js",
+      "require": "./dist/native/medical/index.js"
+    },
+    "./native/crm": {
+      "types": "./dist/native/crm/index.d.ts",
+      "import": "./dist/native/crm/index.js",
+      "require": "./dist/native/crm/index.js"
+    },
+    "./native/support": {
+      "types": "./dist/native/support/index.d.ts",
+      "import": "./dist/native/support/index.js",
+      "require": "./dist/native/support/index.js"
+    },
+    "./native/automotive": {
+      "types": "./dist/native/automotive/index.d.ts",
+      "import": "./dist/native/automotive/index.js",
+      "require": "./dist/native/automotive/index.js"
+    },
+    "./native/insurance": {
+      "types": "./dist/native/insurance/index.d.ts",
+      "import": "./dist/native/insurance/index.js",
+      "require": "./dist/native/insurance/index.js"
     }
   },
   "scripts": {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
-export type StatusDotTone = 'success' | 'warn' | 'danger' | 'primary' | 'accent';
+export type StatusDotTone = 'success' | 'warn' | 'danger' | 'primary' | 'accent' | 'muted';
 export interface StatusDotProps {
     /** Semantic color slot for the dot (default `success` — "live"). */
     tone?: StatusDotTone;

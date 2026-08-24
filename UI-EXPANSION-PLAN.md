@@ -148,6 +148,8 @@ The core kit is broad; Phase 2 adds domain composed blocks so a builder can make
 
 - 2026-08-24 — **Phase 2 wave 4 shipped**: dating/gaming/crypto/smarthome/weather/sports = 72 blocks. **20 domain modules, 419 native components.** tsc clean, 1024/1024 jest green.
 
+- 2026-08-24 — **Phase 2 wave 5 shipped**: marketplace/medical/crm/support/automotive/insurance = 72 blocks. **26 domain modules, 491 native components.** tsc clean, 1111/1111 jest green.
+
 ## 3. Progress log
 - 2026-08-24 — Plan created after deep research of knowledge/, ui-kit, sdk, templates, cortex integration.
 - 2026-08-24 — **Wave 1 (native) shipped** (commit fd82ff7): native/layout (16) + native/charts (12) + native/dashboard (16) = **44 mobile components**. tsc clean, 565/565 jest green, dist emits all three. Built by 3 parallel subagents, integrated + verified together.
