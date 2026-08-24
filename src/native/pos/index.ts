@@ -28,6 +28,27 @@ export type {
   ReceiptTender,
 } from './ReceiptView';
 
+// ── design variants (V2 / V3): separate drop-in alternates, identical props ──
+export { RegisterKeypadV2 } from './RegisterKeypadV2';
+export type { RegisterKeypadV2Props } from './RegisterKeypadV2';
+export { RegisterKeypadV3 } from './RegisterKeypadV3';
+export type { RegisterKeypadV3Props } from './RegisterKeypadV3';
+
+export { CartLineV2 } from './CartLineV2';
+export type { CartLineV2Props } from './CartLineV2';
+export { CartLineV3 } from './CartLineV3';
+export type { CartLineV3Props } from './CartLineV3';
+
+export { ReceiptViewV2 } from './ReceiptViewV2';
+export type { ReceiptViewV2Props } from './ReceiptViewV2';
+export { ReceiptViewV3 } from './ReceiptViewV3';
+export type { ReceiptViewV3Props } from './ReceiptViewV3';
+
+export { ProductGridTileV2 } from './ProductGridTileV2';
+export type { ProductGridTileV2Props } from './ProductGridTileV2';
+export { ProductGridTileV3 } from './ProductGridTileV3';
+export type { ProductGridTileV3Props } from './ProductGridTileV3';
+
 export { PaymentMethodTile } from './PaymentMethodTile';
 export type { PaymentMethodTileProps, PaymentMethodTileVariant } from './PaymentMethodTile';
 

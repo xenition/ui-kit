@@ -1,6 +1,6 @@
 {
   "name": "@xenition/ui",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Official UI kit for Xenition-generated apps — seed-token theme compiler with WCAG auto-contrast, Tailwind preset, themed React primitives (web), and React Native theme tokens.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

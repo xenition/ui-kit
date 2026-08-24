@@ -11,7 +11,7 @@
  * native-only.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProgressCalendar = exports.DailyQuoteCard = exports.SessionTimer = exports.SoundscapeRow = exports.WellnessGoalRing = exports.JournalPrompt = exports.GratitudeEntry = exports.SleepStoryCard = exports.MindfulnessStreak = exports.MoodCheckIn = exports.BreathingGuide = exports.MeditationSessionCard = void 0;
+exports.MindfulnessStreakV3 = exports.MindfulnessStreakV2 = exports.SleepStoryCardV3 = exports.SleepStoryCardV2 = exports.MoodCheckInV3 = exports.MoodCheckInV2 = exports.MeditationSessionCardV3 = exports.MeditationSessionCardV2 = exports.ProgressCalendar = exports.DailyQuoteCard = exports.SessionTimer = exports.SoundscapeRow = exports.WellnessGoalRing = exports.JournalPrompt = exports.GratitudeEntry = exports.SleepStoryCard = exports.MindfulnessStreak = exports.MoodCheckIn = exports.BreathingGuide = exports.MeditationSessionCard = void 0;
 var MeditationSessionCard_1 = require("./MeditationSessionCard");
 Object.defineProperty(exports, "MeditationSessionCard", { enumerable: true, get: function () { return MeditationSessionCard_1.MeditationSessionCard; } });
 var BreathingGuide_1 = require("./BreathingGuide");
@@ -36,4 +36,23 @@ var DailyQuoteCard_1 = require("./DailyQuoteCard");
 Object.defineProperty(exports, "DailyQuoteCard", { enumerable: true, get: function () { return DailyQuoteCard_1.DailyQuoteCard; } });
 var ProgressCalendar_1 = require("./ProgressCalendar");
 Object.defineProperty(exports, "ProgressCalendar", { enumerable: true, get: function () { return ProgressCalendar_1.ProgressCalendar; } });
+// ── Alternate designs (v2 / v3) ────────────────────────────────────────────
+// Drop-in redesigns that share each base component's prop contract exactly
+// (`<Name>V{2,3}Props = <Name>Props`) — pick one for visual variety.
+var MeditationSessionCardV2_1 = require("./MeditationSessionCardV2");
+Object.defineProperty(exports, "MeditationSessionCardV2", { enumerable: true, get: function () { return MeditationSessionCardV2_1.MeditationSessionCardV2; } });
+var MeditationSessionCardV3_1 = require("./MeditationSessionCardV3");
+Object.defineProperty(exports, "MeditationSessionCardV3", { enumerable: true, get: function () { return MeditationSessionCardV3_1.MeditationSessionCardV3; } });
+var MoodCheckInV2_1 = require("./MoodCheckInV2");
+Object.defineProperty(exports, "MoodCheckInV2", { enumerable: true, get: function () { return MoodCheckInV2_1.MoodCheckInV2; } });
+var MoodCheckInV3_1 = require("./MoodCheckInV3");
+Object.defineProperty(exports, "MoodCheckInV3", { enumerable: true, get: function () { return MoodCheckInV3_1.MoodCheckInV3; } });
+var SleepStoryCardV2_1 = require("./SleepStoryCardV2");
+Object.defineProperty(exports, "SleepStoryCardV2", { enumerable: true, get: function () { return SleepStoryCardV2_1.SleepStoryCardV2; } });
+var SleepStoryCardV3_1 = require("./SleepStoryCardV3");
+Object.defineProperty(exports, "SleepStoryCardV3", { enumerable: true, get: function () { return SleepStoryCardV3_1.SleepStoryCardV3; } });
+var MindfulnessStreakV2_1 = require("./MindfulnessStreakV2");
+Object.defineProperty(exports, "MindfulnessStreakV2", { enumerable: true, get: function () { return MindfulnessStreakV2_1.MindfulnessStreakV2; } });
+var MindfulnessStreakV3_1 = require("./MindfulnessStreakV3");
+Object.defineProperty(exports, "MindfulnessStreakV3", { enumerable: true, get: function () { return MindfulnessStreakV3_1.MindfulnessStreakV3; } });
 //# sourceMappingURL=index.js.map

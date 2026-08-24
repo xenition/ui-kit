@@ -1,0 +1,13 @@
+import * as React from 'react';
+import type { AllowanceTrackerProps } from './AllowanceTracker';
+/** Same public contract as {@link AllowanceTracker} — a drop-in alternate design. */
+export type AllowanceTrackerV2Props = AllowanceTrackerProps;
+/**
+ * AllowanceTracker, redesigned (v2): a **wallet hero card**. A big centered
+ * balance leads; the savings goal renders as a circular ring medallion showing
+ * the percent to target; earned and spent sit in two tinted stat pills below.
+ * Add/Spend anchor the card. Lifted with a shadow and a mount-fade. Distinct
+ * from v1's left-aligned figure + linear bar. Same props, same empty state.
+ */
+export declare function AllowanceTrackerV2({ balance, currency, earned, spent, goal, loading, emptyLabel, onAdd, onWithdraw, style, }: AllowanceTrackerV2Props): React.ReactElement;
+//# sourceMappingURL=AllowanceTrackerV2.d.ts.map
