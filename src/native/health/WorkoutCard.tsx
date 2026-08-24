@@ -1,7 +1,14 @@
 import * as React from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
 import { Button } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
+
+/** Resolve a fill semantic key to its contrast-safe `*Text` sibling when one exists. */
+function textTone(colors: SemanticColors, key: keyof SemanticColors): string {
+  return (colors as unknown as Record<string, string>)[`${key}Text`] ?? colors[key];
+}
 
 export type WorkoutVariant = 'strength' | 'cardio' | 'yoga' | 'cycling' | 'running' | 'swimming' | 'hiit' | 'walking';
 
@@ -38,6 +45,8 @@ export interface WorkoutCardProps {
   /** CTA label; defaults to "Start". Hidden when `completed` or no `onStart`. */
   startLabel?: string;
   onStart?: () => void;
+  /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -45,7 +54,7 @@ export interface WorkoutCardProps {
  * A workout summary card: discipline icon + tag, title, a duration / calories
  * stat strip, and a single dominant "Start" action. Completed workouts swap the
  * CTA for a `success` "Completed" note. The `variant` sets the icon and accent
- * tone. Token-only colors.
+ * tone. `appearance` selects the surface treatment (classic by default). Token-only colors.
  */
 export function WorkoutCard({
   title,
@@ -56,19 +65,20 @@ export function WorkoutCard({
   completed = false,
   startLabel = 'Start',
   onStart,
+  appearance = 'classic',
   style,
 }: WorkoutCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const meta = WORKOUT_META[variant];
+  const enter = useEnter();
 
   return (
+    <Animated.View style={{ opacity: enter.opacity, transform: enter.transform }}>
     <View
       accessibilityLabel={`${meta.label} workout: ${title}${completed ? ', completed' : ''}`}
       style={[
         {
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          borderWidth: 1,
+          ...appearanceStyle(appearance, colors, tokens),
           borderRadius: tokens.radius.lg,
           padding: tokens.spacing.lg,
           gap: tokens.spacing.md,
@@ -82,7 +92,7 @@ export function WorkoutCard({
         </Text>
         <View style={{ flex: 1, gap: 2 }}>
           <Text
-            style={{ color: colors[meta.color], fontSize: tokens.typography.scale.xs, fontWeight: '700', textTransform: 'uppercase' }}
+            style={{ color: textTone(colors, meta.color), fontSize: tokens.typography.scale.xs, fontWeight: '700', textTransform: 'uppercase' }}
           >
             {meta.label}
           </Text>
@@ -118,7 +128,7 @@ export function WorkoutCard({
       </View>
 
       {completed ? (
-        <Text style={{ color: colors.success, fontSize: tokens.typography.scale.sm, fontWeight: '700' }}>
+        <Text style={{ color: colors.successText, fontSize: tokens.typography.scale.sm, fontWeight: '700' }}>
           ✓ Completed
         </Text>
       ) : onStart ? (
@@ -127,5 +137,6 @@ export function WorkoutCard({
         </Button>
       ) : null}
     </View>
+    </Animated.View>
   );
 }

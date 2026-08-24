@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Pressable, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Icon } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 import { AttachmentBar, type StagedAttachment } from './AttachmentBar';
 
 export interface MessageComposerProps {
@@ -24,6 +25,11 @@ export interface MessageComposerProps {
   placeholder?: string;
   /** Disable input + actions. */
   disabled?: boolean;
+  /**
+   * Visual treatment for the composer bar surface (diversity system). Defaults
+   * to `classic` — the historical surface fill with a top divider.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -42,6 +48,7 @@ export function MessageComposer({
   onRemoveAttachment,
   placeholder = 'Message',
   disabled = false,
+  appearance = 'classic',
   style,
 }: MessageComposerProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -56,10 +63,12 @@ export function MessageComposer({
   return (
     <View
       style={[
+        // Appearance FIRST; classic keeps the historical surface + top divider.
+        appearance === 'classic' ? null : appearanceStyle(appearance, colors, tokens),
         {
           borderTopWidth: 1,
           borderTopColor: colors.border,
-          backgroundColor: colors.surface,
+          backgroundColor: appearance === 'classic' ? colors.surface : undefined,
           paddingVertical: tokens.spacing.sm,
         },
         style,

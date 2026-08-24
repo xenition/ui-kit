@@ -4,13 +4,14 @@ exports.BoardingPass = BoardingPass;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const primitives_1 = require("../primitives");
+const appearance_1 = require("../primitives/internal/appearance");
 /**
  * A mobile boarding pass — passenger, the from→to route, flight, and a grid of
  * gate/seat/zone/boarding fields, capped by a token-styled barcode placeholder
  * (no barcode dependency; the `barcode` string is shown beneath it). Token-only
  * colors.
  */
-function BoardingPass({ passenger, from, to, flight, gate, seat, zone, boardingTime, extraFields = [], barcode, style, }) {
+function BoardingPass({ passenger, from, to, flight, gate, seat, zone, boardingTime, extraFields = [], barcode, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, primitives_1.useXenitionTheme)();
     const fields = [
         gate ? { label: 'Gate', value: gate } : null,
@@ -20,11 +21,9 @@ function BoardingPass({ passenger, from, to, flight, gate, seat, zone, boardingT
         ...extraFields,
     ].filter((f) => f != null);
     return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessible: true, accessibilityLabel: `Boarding pass for ${passenger}, ${from} to ${to}, flight ${flight}`, style: [
+            (0, appearance_1.appearanceStyle)(appearance, colors, tokens),
             {
                 borderRadius: tokens.radius.lg,
-                borderWidth: 1,
-                borderColor: colors.border,
-                backgroundColor: colors.surface,
                 overflow: 'hidden',
             },
             style,

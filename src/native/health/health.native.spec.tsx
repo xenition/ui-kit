@@ -195,6 +195,50 @@ describe('MealCard / SleepBar / BodyMetricCard (native)', () => {
   });
 });
 
+describe('appearance diversity (native health)', () => {
+  it('mounts elevated + soft treatments token-pure in both seeds', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      const { root, getByText, getByLabelText } = renderThemed(
+        <>
+          <WorkoutCard title="Push" variant="strength" durationMin={45} calories={300} appearance="elevated" />
+          <MealCard name="Salad" variant="lunch" calories={210} macros={{ protein: 12 }} appearance="soft" />
+          <GoalCard title="Steps" value={9000} target={8000} unit="steps" appearance="outline" />
+          <VitalStat variant="steps" value={8421} delta={340} appearance="filled" />
+          <SleepBar hours={6.5} goal={8} quality="fair" appearance="elevated" />
+          <WaterTracker count={3} goal={6} appearance="soft" />
+          <StreakCounter count={9} best={20} appearance="elevated" />
+          <HabitRow name="Water" done streak={3} onToggle={() => {}} appearance="soft" />
+          <ExerciseRow name="Squat" sets={5} reps={5} done onToggle={() => {}} appearance="filled" />
+          <ActivityRings rings={[{ label: 'Move', value: 200, goal: 400 }]} appearance="elevated" />
+          <MetricRing label="Move" value={200} goal={400} unit="kcal" appearance="soft" />
+        </>,
+        seed
+      );
+      expect(getByText('Push')).toBeTruthy();
+      expect(getByLabelText(/Steps: 9000 of 8000 steps/)).toBeTruthy();
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+});
+
+describe('motion (native health)', () => {
+  it('a pressable card with press-scale mounts and fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <GoalCard title="Steps" value={4000} target={8000} unit="steps" onPress={onPress} />,
+      SEED_LIGHT
+    );
+    const node = getByLabelText(/Steps: 4000 of 8000 steps/);
+    fireEvent(node, 'pressIn');
+    fireEvent.press(node);
+    fireEvent(node, 'pressOut');
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('token purity (native health, both seeds)', () => {
   it('every rendered hex traces to a compiled token', () => {
     [SEED_LIGHT, SEED_DARK].forEach((seed) => {

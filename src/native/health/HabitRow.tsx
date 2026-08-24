@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter, usePressScale } from '../primitives/internal/motion';
 
 export interface HabitRowProps {
   /** Habit name, e.g. "Drink water". */
@@ -13,14 +15,20 @@ export interface HabitRowProps {
   meta?: string;
   /** Fires with the next `done` state when the row / checkbox is toggled. */
   onToggle?: (next: boolean) => void;
+  /**
+   * Surface treatment for visual diversity; defaults to `classic`. For rows
+   * `classic` stays transparent (the historical look) — non-classic values wrap
+   * the row in a rounded, treated surface.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
 /**
  * A habit-tracker row: a tappable check control, the habit name + meta, and a
  * streak flame. Completing a habit reads in the `success` tone. `onToggle`
- * receives the next boolean state. Token-only; a11y announces done state and
- * streak.
+ * receives the next boolean state. `appearance` selects an optional surface
+ * treatment. Token-only; a11y announces done state and streak.
  */
 export function HabitRow({
   name,
@@ -28,16 +36,22 @@ export function HabitRow({
   streak = 0,
   meta,
   onToggle,
+  appearance = 'classic',
   style,
 }: HabitRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const safeStreak = Math.max(Math.floor(streak), 0);
   const a11y = `${name}, ${done ? 'done' : 'not done'}${safeStreak > 0 ? `, ${safeStreak} day streak` : ''}`;
+  const enter = useEnter();
+  const press = usePressScale();
 
   const content = (
     <View
       style={[
         {
+          ...(appearance !== 'classic'
+            ? { ...appearanceStyle(appearance, colors, tokens), borderRadius: tokens.radius.md }
+            : null),
           flexDirection: 'row',
           alignItems: 'center',
           gap: tokens.spacing.md,
@@ -89,7 +103,7 @@ export function HabitRow({
           <Text allowFontScaling={false} style={{ fontSize: tokens.typography.scale.sm }}>
             🔥
           </Text>
-          <Text style={{ color: colors.warn, fontSize: tokens.typography.scale.sm, fontWeight: '700' }}>
+          <Text style={{ color: colors.warnText, fontSize: tokens.typography.scale.sm, fontWeight: '700' }}>
             {safeStreak}
           </Text>
         </View>
@@ -98,17 +112,25 @@ export function HabitRow({
   );
 
   if (!onToggle) {
-    return <View accessibilityLabel={a11y}>{content}</View>;
+    return (
+      <Animated.View accessibilityLabel={a11y} style={{ opacity: enter.opacity, transform: enter.transform }}>
+        {content}
+      </Animated.View>
+    );
   }
   return (
-    <Pressable
-      accessibilityRole="checkbox"
-      accessibilityState={{ checked: done }}
-      accessibilityLabel={a11y}
-      onPress={() => onToggle(!done)}
-      style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-    >
-      {content}
-    </Pressable>
+    <Animated.View style={{ opacity: enter.opacity, transform: [...enter.transform, { scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="checkbox"
+        accessibilityState={{ checked: done }}
+        accessibilityLabel={a11y}
+        onPress={() => onToggle(!done)}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+      >
+        {content}
+      </Pressable>
+    </Animated.View>
   );
 }

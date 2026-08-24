@@ -147,16 +147,17 @@ describe('ReactionBar (native)', () => {
 });
 
 describe('EngagementBar (native)', () => {
-  it('tints a liked heart with the danger token', () => {
+  it('tints a liked heart with the on-surface danger-text token', () => {
     const c = colorsFor(SEED_LIGHT);
     const { getByLabelText } = renderThemed(
       <EngagementBar liked likeCount={5} onLike={() => undefined} />,
       SEED_LIGHT
     );
     const like = getByLabelText('Like, 5');
-    // The heart glyph Text is the first child; assert the danger tint appears.
+    // The heart glyph Text is the first child; the liked tint is the
+    // readable-on-surface `dangerText` variant (fill-as-text fix).
     const hexes = renderedStyleHexes(like);
-    expect(hexes).toContain(c.danger.toLowerCase());
+    expect(hexes).toContain(c.dangerText.toLowerCase());
   });
 });
 
@@ -337,5 +338,84 @@ describe('token purity (native social, both seeds)', () => {
       expect(found.length).toBeGreaterThan(0);
       found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
     });
+  });
+});
+
+describe('appearance diversity + motion (native social)', () => {
+  // Every surface component under each non-classic appearance must still mount
+  // and stay token-pure (fill/border/elevation vary, but never a literal hex).
+  (['elevated', 'soft'] as const).forEach((appearance) => {
+    it(`renders every surface component with appearance="${appearance}" token-pure, both seeds`, () => {
+      [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+        const { root } = renderThemed(
+          <>
+            <PostCard
+              appearance={appearance}
+              author={{ name: 'Ada', verified: true }}
+              text="hi @grace #native"
+              onPress={() => undefined}
+              likeCount={2}
+              liked
+              onLike={() => undefined}
+            />
+            <UserCard
+              appearance={appearance}
+              variant="card"
+              user={{ name: 'Ada', bio: 'hi', verified: true }}
+              stats={[{ label: 'Posts', value: 1 }]}
+              followState="follow"
+              onFollow={() => undefined}
+              onPress={() => undefined}
+            />
+            <CommentItem appearance={appearance} author="Ada" text="hi @grace" pinned onReply={() => undefined} />
+            <Poll appearance={appearance} question="Q" options={[{ id: 'a', label: 'A', votes: 1 }]} />
+            <ShareSheet appearance={appearance} visible targets={[{ id: 'c', label: 'Copy', icon: '🔗' }]} onClose={() => undefined} />
+          </>,
+          seed
+        );
+        const allowed = tokenHexSet(seed);
+        const found = renderedStyleHexes(root);
+        expect(found.length).toBeGreaterThan(0);
+        found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+      });
+    });
+  });
+
+  it('classic appearance keeps a bare (border-less) UserCard row', () => {
+    // Backward-compat guard: the row variant must NOT gain a border by default.
+    const { getByLabelText } = renderThemed(
+      <UserCard user={{ name: 'Ada' }} onPress={() => undefined} />,
+      SEED_LIGHT
+    );
+    const raw = getByLabelText('Ada').props.style;
+    const resolved = typeof raw === 'function' ? raw({ pressed: false }) : raw;
+    const flat = flatten(resolved);
+    expect(flat.borderWidth ?? 0).toBe(0);
+  });
+
+  it('motion-wrapped components (press + enter) mount and stay interactive', () => {
+    // A pressable PostCard (enter + press-scale) and a compact-density feed item.
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <PostCard
+        appearance="elevated"
+        density="compact"
+        author={{ name: 'Grace' }}
+        text="tap me"
+        onPress={onPress}
+      />,
+      SEED_DARK
+    );
+    fireEvent.press(getByLabelText('Post by Grace'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+
+    // A StoryRing (press-scale) still fires its handler through the wrapper.
+    const onStory = jest.fn();
+    const bar = renderThemed(
+      <StoryBar stories={[{ id: 's1', name: 'Ada', state: 'unseen' }]} showAdd={false} onPressStory={onStory} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(bar.getByLabelText('Ada'));
+    expect(onStory).toHaveBeenCalledWith('s1');
   });
 });

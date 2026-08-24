@@ -1,6 +1,13 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter, usePressScale } from '../primitives/internal/motion';
+
+/** Resolve a fill semantic key to its contrast-safe `*Text` sibling when one exists. */
+function textTone(colors: SemanticColors, key: keyof SemanticColors): string {
+  return (colors as unknown as Record<string, string>)[`${key}Text`] ?? colors[key];
+}
 
 export type VitalStatVariant =
   | 'heart-rate'
@@ -43,15 +50,18 @@ export interface VitalStatProps {
   /** Optional change readout, e.g. `"+4"`; positive reads success, negative danger. */
   delta?: number;
   onPress?: () => void;
+  /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
 /**
  * A single vital-sign tile: an emoji icon, the measured value with its unit, a
  * caption, and an optional trend delta. The `variant` picks sensible defaults
- * (icon / unit / accent tone) that individual props can override. Colors resolve
- * from `SemanticColors` via `useXenitionTheme()` — no literal colors. Pressable
- * when `onPress` is provided.
+ * (icon / unit / accent tone) that individual props can override. `appearance`
+ * selects the surface treatment (classic by default). Colors resolve from
+ * `SemanticColors` via `useXenitionTheme()` — no literal colors. Pressable when
+ * `onPress` is provided.
  */
 export function VitalStat({
   variant,
@@ -60,22 +70,24 @@ export function VitalStat({
   label,
   delta,
   onPress,
+  appearance = 'classic',
   style,
 }: VitalStatProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const meta = VARIANT_META[variant];
   const resolvedUnit = unit ?? meta.unit;
   const resolvedLabel = label ?? meta.label;
-  const deltaColor = delta == null || delta === 0 ? colors.muted : delta > 0 ? colors.success : colors.danger;
+  const deltaColor =
+    delta == null || delta === 0 ? colors.muted : delta > 0 ? colors.successText : colors.dangerText;
   const a11y = `${resolvedLabel}: ${String(value)}${resolvedUnit ? ` ${resolvedUnit}` : ''}`;
+  const enter = useEnter();
+  const press = usePressScale();
 
   const inner = (
     <View
       style={[
         {
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          borderWidth: 1,
+          ...appearanceStyle(appearance, colors, tokens),
           borderRadius: tokens.radius.md,
           padding: tokens.spacing.md,
           gap: tokens.spacing.xs,
@@ -92,7 +104,7 @@ export function VitalStat({
         </Text>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: tokens.spacing.xs }}>
-        <Text style={{ color: colors[meta.color], fontSize: tokens.typography.scale['2xl'], fontWeight: '700' }}>
+        <Text style={{ color: textTone(colors, meta.color), fontSize: tokens.typography.scale['2xl'], fontWeight: '700' }}>
           {value}
         </Text>
         {resolvedUnit ? (
@@ -111,16 +123,24 @@ export function VitalStat({
   );
 
   if (!onPress) {
-    return <View accessibilityLabel={a11y}>{inner}</View>;
+    return (
+      <Animated.View accessibilityLabel={a11y} style={{ opacity: enter.opacity, transform: enter.transform }}>
+        {inner}
+      </Animated.View>
+    );
   }
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={a11y}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
-    >
-      {inner}
-    </Pressable>
+    <Animated.View style={{ opacity: enter.opacity, transform: [...enter.transform, { scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={a11y}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
+      >
+        {inner}
+      </Pressable>
+    </Animated.View>
   );
 }

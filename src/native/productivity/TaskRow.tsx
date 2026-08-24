@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Checkbox } from '../primitives';
+import { type Appearance, appearanceStyle } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 import { PriorityTag, type PriorityLevel } from './PriorityTag';
 import { DueDatePill, type DueDateTone } from './DueDatePill';
 
@@ -30,6 +32,8 @@ export interface TaskRowProps {
   dueLabel?: string;
   /** Due-date urgency tone for the `dated` variant. */
   dueTone?: DueDateTone;
+  /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -48,13 +52,16 @@ export function TaskRow({
   priority = 'low',
   dueLabel,
   dueTone = 'upcoming',
+  appearance = 'classic',
   style,
 }: TaskRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
 
   return (
     <View
       style={[
+        appearance === 'classic' ? null : appearanceStyle(appearance, colors, tokens),
         {
           flexDirection: 'row',
           alignItems: 'center',
@@ -62,32 +69,35 @@ export function TaskRow({
           paddingVertical: tokens.spacing.sm,
           paddingHorizontal: tokens.spacing.sm,
           borderRadius: tokens.radius.md,
-          backgroundColor: colors.surface,
         },
         style,
       ]}
     >
       <Checkbox checked={done} onCheckedChange={onToggle} accessibilityLabel={title} />
 
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={title}
-        onPress={onPress}
-        disabled={!onPress}
-        style={{ flex: 1 }}
-      >
-        <Text
-          numberOfLines={2}
-          style={{
-            color: done ? colors.muted : colors.onSurface,
-            fontSize: tokens.typography.scale.sm,
-            fontWeight: '500',
-            textDecorationLine: done ? 'line-through' : 'none',
-          }}
+      <Animated.View style={{ flex: 1, transform: [{ scale: press.scale }] }}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={title}
+          onPress={onPress}
+          onPressIn={press.onPressIn}
+          onPressOut={press.onPressOut}
+          disabled={!onPress}
+          style={{ flex: 1 }}
         >
-          {title}
-        </Text>
-      </Pressable>
+          <Text
+            numberOfLines={2}
+            style={{
+              color: done ? colors.muted : colors.onSurface,
+              fontSize: tokens.typography.scale.sm,
+              fontWeight: '500',
+              textDecorationLine: done ? 'line-through' : 'none',
+            }}
+          >
+            {title}
+          </Text>
+        </Pressable>
+      </Animated.View>
 
       {variant === 'priority' ? <PriorityTag level={priority} /> : null}
       {variant === 'dated' && dueLabel ? <DueDatePill label={dueLabel} tone={dueTone} /> : null}

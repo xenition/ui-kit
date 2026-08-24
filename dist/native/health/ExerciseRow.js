@@ -4,18 +4,26 @@ exports.ExerciseRow = ExerciseRow;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
+const appearance_1 = require("../primitives/internal/appearance");
+const motion_1 = require("../primitives/internal/motion");
 /**
  * A workout-set row: exercise name, a `sets × reps` prescription, an optional
  * weight, and a completion toggle. Completed rows read muted with a success
- * check. `onToggle` receives the next boolean. Token-only.
+ * check. `onToggle` receives the next boolean. `appearance` selects an optional
+ * surface treatment. Token-only.
  */
-function ExerciseRow({ name, sets, reps, weight, done = false, meta, onToggle, style, }) {
+function ExerciseRow({ name, sets, reps, weight, done = false, meta, onToggle, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    const enter = (0, motion_1.useEnter)();
+    const press = (0, motion_1.usePressScale)();
     const prescription = sets != null && reps != null ? `${sets} × ${reps}` : sets != null ? `${sets} sets` : reps != null ? `${reps} reps` : undefined;
     const detailParts = [prescription, weight != null ? String(weight) : undefined, meta].filter(Boolean);
     const a11y = `${name}${detailParts.length ? `, ${detailParts.join(', ')}` : ''}, ${done ? 'done' : 'not done'}`;
     const content = ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [
             {
+                ...(appearance !== 'classic'
+                    ? { ...(0, appearance_1.appearanceStyle)(appearance, colors, tokens), borderRadius: tokens.radius.md }
+                    : null),
                 flexDirection: 'row',
                 alignItems: 'center',
                 gap: tokens.spacing.md,
@@ -39,8 +47,8 @@ function ExerciseRow({ name, sets, reps, weight, done = false, meta, onToggle, s
                     justifyContent: 'center',
                 }, children: done ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { allowFontScaling: false, style: { color: colors.onSuccess, fontSize: tokens.typography.scale.xs, fontWeight: '700' }, children: "\u2713" })) : null })] }));
     if (!onToggle) {
-        return (0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityLabel: a11y, children: content });
+        return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { accessibilityLabel: a11y, style: { opacity: enter.opacity, transform: enter.transform }, children: content }));
     }
-    return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "checkbox", accessibilityState: { checked: done }, accessibilityLabel: a11y, onPress: () => onToggle(!done), style: ({ pressed }) => ({ opacity: pressed ? 0.7 : 1 }), children: content }));
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: { opacity: enter.opacity, transform: [...enter.transform, { scale: press.scale }] }, children: (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "checkbox", accessibilityState: { checked: done }, accessibilityLabel: a11y, onPress: () => onToggle(!done), onPressIn: press.onPressIn, onPressOut: press.onPressOut, style: ({ pressed }) => ({ opacity: pressed ? 0.7 : 1 }), children: content }) }));
 }
 //# sourceMappingURL=ExerciseRow.js.map

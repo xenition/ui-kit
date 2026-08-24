@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export interface MapCardProps {
     /** Place name announced and shown under the pin. */
     label: string;
@@ -15,6 +16,12 @@ export interface MapCardProps {
     };
     /** Frame height in px (default 160). */
     height?: number;
+    /**
+     * Surface treatment for the OUTER frame (visual diversity). Default
+     * `'classic'` — the original look. The faux grid, pin, and caption overlay
+     * keep their inner look regardless.
+     */
+    appearance?: Appearance;
     /** Fires when the card is pressed (e.g. to open the real map elsewhere). */
     onPress?: () => void;
     style?: StyleProp<ViewStyle>;
@@ -26,5 +33,5 @@ export interface MapCardProps {
  * renders in any environment. Wire a real map behind `onPress` when needed.
  * Token-only colors.
  */
-export declare function MapCard({ label, caption, pin, height, onPress, style, }: MapCardProps): React.ReactElement;
+export declare function MapCard({ label, caption, pin, height, appearance, onPress, style, }: MapCardProps): React.ReactElement;
 //# sourceMappingURL=MapCard.d.ts.map

@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
 import { Sparkline } from '../charts';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter, usePressScale } from '../primitives/internal/motion';
 
 export type BodyMetricVariant = 'weight' | 'bmi' | 'body-fat' | 'muscle' | 'waist' | 'blood-sugar';
 
@@ -37,14 +39,17 @@ export interface BodyMetricCardProps {
   /** Recent history for an inline sparkline trend. */
   trend?: number[];
   onPress?: () => void;
+  /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
 /**
  * A body-composition metric card: icon + label, the current value with unit, an
  * optional change delta, and an inline {@link Sparkline} trend. `lowerIsBetter`
- * flips the delta tone for metrics where a decrease is good. Colors trace to
- * `SemanticColors` tokens — no literals. Pressable when `onPress` is set.
+ * flips the delta tone for metrics where a decrease is good. `appearance` selects
+ * the surface treatment (classic by default). Colors trace to `SemanticColors`
+ * tokens — no literals. Pressable when `onPress` is set.
  */
 export function BodyMetricCard({
   variant,
@@ -54,17 +59,20 @@ export function BodyMetricCard({
   lowerIsBetter = false,
   trend,
   onPress,
+  appearance = 'classic',
   style,
 }: BodyMetricCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const meta = VARIANT_META[variant];
   const resolvedUnit = unit ?? meta.unit;
+  const enter = useEnter();
+  const press = usePressScale();
 
   let deltaColor: string = colors.muted;
   let trendColor: keyof SemanticColors = 'primary';
   if (delta != null && delta !== 0) {
     const good = lowerIsBetter ? delta < 0 : delta > 0;
-    deltaColor = good ? colors.success : colors.danger;
+    deltaColor = good ? colors.successText : colors.dangerText;
     trendColor = good ? 'success' : 'danger';
   }
 
@@ -72,9 +80,7 @@ export function BodyMetricCard({
     <View
       style={[
         {
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          borderWidth: 1,
+          ...appearanceStyle(appearance, colors, tokens),
           borderRadius: tokens.radius.lg,
           padding: tokens.spacing.lg,
           gap: tokens.spacing.sm,
@@ -120,16 +126,24 @@ export function BodyMetricCard({
 
   const a11y = `${meta.label}: ${String(value)}${resolvedUnit ? ` ${resolvedUnit}` : ''}`;
   if (!onPress) {
-    return <View accessibilityLabel={a11y}>{inner}</View>;
+    return (
+      <Animated.View accessibilityLabel={a11y} style={{ opacity: enter.opacity, transform: enter.transform }}>
+        {inner}
+      </Animated.View>
+    );
   }
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={a11y}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
-    >
-      {inner}
-    </Pressable>
+    <Animated.View style={{ opacity: enter.opacity, transform: [...enter.transform, { scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={a11y}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+      >
+        {inner}
+      </Pressable>
+    </Animated.View>
   );
 }

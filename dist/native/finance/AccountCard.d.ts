@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 /** The kind of account a card represents. */
 export type AccountVariant = 'checking' | 'savings' | 'credit';
 export interface AccountCardProps {
@@ -17,6 +18,11 @@ export interface AccountCardProps {
     icon?: string;
     /** Fires on card press. */
     onPress?: () => void;
+    /**
+     * Surface treatment (visual-diversity preset). Defaults to `classic` —
+     * byte-for-byte the historical bordered card, so this is opt-in only.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -26,5 +32,5 @@ export interface AccountCardProps {
  * balance is integer cents rendered through {@link MoneyAmount} (neutral tone,
  * so a positive balance is not colored "income" green). Token-bound throughout.
  */
-export declare function AccountCard({ name, variant, balanceCents, currency, accountNumber, icon, onPress, style, }: AccountCardProps): React.ReactElement;
+export declare function AccountCard({ name, variant, balanceCents, currency, accountNumber, icon, onPress, appearance, style, }: AccountCardProps): React.ReactElement;
 //# sourceMappingURL=AccountCard.d.ts.map

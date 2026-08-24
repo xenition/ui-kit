@@ -15,8 +15,8 @@ export interface MoodPickerProps {
 /**
  * A mood check-in: a row of emoji faces from awful to great. The selected face
  * gets a tinted ring in its mood color; the rest read muted. Each face is an
- * accessible button labelled with its mood. `onChange` fires with the tapped
- * mood. Token-only colors.
+ * accessible button labelled with its mood, and animates a tap scale when
+ * chosen. `onChange` fires with the tapped mood. Token-only colors.
  */
 export declare function MoodPicker({ value, options, showLabels, onChange, style, }: MoodPickerProps): React.ReactElement;
 //# sourceMappingURL=MoodPicker.d.ts.map

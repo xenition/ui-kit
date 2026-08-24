@@ -4,26 +4,28 @@ exports.Poll = Poll;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
+const appearance_1 = require("../primitives/internal/appearance");
+const motion_1 = require("../primitives/internal/motion");
 /**
  * A tap-to-vote poll with three states: open (tappable options), voted, and
  * closed. Once voted or closed each option becomes a labeled percentage bar,
  * the viewer's pick is tinted primary, and the leading option is emphasized.
  * Guards an all-zero tally. Token-only.
  */
-function Poll({ question, options, votedOptionId, closed = false, onVote, meta, style, }) {
+function Poll({ question, options, votedOptionId, closed = false, onVote, meta, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    const enter = (0, motion_1.useEnter)();
     const total = options.reduce((sum, o) => sum + (o.votes ?? 0), 0);
     const showResults = closed || votedOptionId != null;
     const leadVotes = options.reduce((max, o) => Math.max(max, o.votes ?? 0), 0);
     const derivedMeta = meta ??
         `${total.toLocaleString()} ${total === 1 ? 'vote' : 'votes'}${closed ? ' · Final' : ''}`;
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "radiogroup", style: [
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.Animated.View, { accessibilityRole: "radiogroup", style: [
+            { opacity: enter.opacity, transform: enter.transform },
             {
+                ...(0, appearance_1.appearanceStyle)(appearance, colors, tokens),
                 gap: tokens.spacing.sm,
-                borderWidth: 1,
-                borderColor: colors.border,
                 borderRadius: tokens.radius.lg,
-                backgroundColor: colors.surface,
                 padding: tokens.spacing.md,
             },
             style,
@@ -56,7 +58,7 @@ function Poll({ question, options, votedOptionId, closed = false, onVote, meta, 
                         borderWidth: 1,
                         borderColor: colors.primary,
                         backgroundColor: pressed ? colors.primary : colors.surface,
-                    }), children: ({ pressed }) => ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: pressed ? colors.onPrimary : colors.primary, fontSize: tokens.typography.scale.sm, fontWeight: '600', textAlign: 'center' }, children: o.label })) }, o.id));
+                    }), children: ({ pressed }) => ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: pressed ? colors.onPrimary : colors.primaryText, fontSize: tokens.typography.scale.sm, fontWeight: '600', textAlign: 'center' }, children: o.label })) }, o.id));
             }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: derivedMeta })] }));
 }
 //# sourceMappingURL=Poll.js.map

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { fireEvent } from '@testing-library/react-native';
 import {
   SEED_LIGHT,
+  SEED_DARK,
   renderThemed,
   renderedStyleHexes,
   tokenHexSet,
@@ -199,6 +200,38 @@ describe('QuickReplies (native)', () => {
   it('renders nothing when there are no replies', () => {
     const { toJSON } = renderThemed(<QuickReplies replies={[]} />, SEED_LIGHT);
     expect(toJSON()).toBeNull();
+  });
+});
+
+describe('appearance diversity + motion (native)', () => {
+  // Non-classic appearances must stay token-pure under every seed: every rendered
+  // hex still has to trace to a compiled-theme token, exactly like classic.
+  it.each([SEED_LIGHT, SEED_DARK])('renders non-classic appearances token-pure (%#)', (seed) => {
+    const allowedForSeed = tokenHexSet(seed);
+    const { root } = renderThemed(
+      <>
+        <ChatHeader title="Ada Lovelace" appearance="elevated" />
+        <ConversationRow name="Alan Turing" lastMessage="Decoded it" unreadCount={2} appearance="filled" />
+        <ConversationRow name="Grace Hopper" lastMessage="Compiled" appearance="soft" />
+        <DateSeparator label="Today" appearance="outline" />
+        <TypingIndicator name="Ada" appearance="elevated" />
+        <AttachmentBar attachments={[{ id: 'f1', name: 'a.pdf', kind: 'file' }]} appearance="filled" />
+      </>,
+      seed
+    );
+    renderedStyleHexes(root).forEach((hex) => expect(allowedForSeed.has(hex)).toBe(true));
+  });
+
+  it('mounts motion components (enter transition) without error', () => {
+    const { getByText } = renderThemed(
+      <MessageGroup
+        side="them"
+        authorName="Ada"
+        messages={[{ id: 'm1', text: 'Incoming with a rise-in' }]}
+      />,
+      SEED_LIGHT
+    );
+    expect(getByText('Incoming with a rise-in')).toBeTruthy();
   });
 });
 

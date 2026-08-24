@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export interface ShareTarget {
     id: string;
     /** Target name (e.g. `Messages`, `Copy link`). */
@@ -22,6 +23,11 @@ export interface ShareSheetProps {
     onClose?: () => void;
     /** Message shown when `targets` is empty. */
     emptyLabel?: string;
+    /**
+     * Surface treatment for the sheet panel — fill/border/elevation only; the
+     * rounded top corners/padding are unchanged. Default `'classic'`.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -30,5 +36,5 @@ export interface ShareSheetProps {
  * `null` while hidden) — the parent owns `visible`. Handles an empty target
  * list. Token-only.
  */
-export declare function ShareSheet({ visible, title, subtitle, targets, onSelect, onClose, emptyLabel, style, }: ShareSheetProps): React.ReactElement | null;
+export declare function ShareSheet({ visible, title, subtitle, targets, onSelect, onClose, emptyLabel, appearance, style, }: ShareSheetProps): React.ReactElement | null;
 //# sourceMappingURL=ShareSheet.d.ts.map

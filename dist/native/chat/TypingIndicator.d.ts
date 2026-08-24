@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export interface TypingIndicatorProps {
     /**
      * Who is typing. Renders as a leading caption (e.g. "Ada is typing"). Omit for
@@ -10,6 +11,11 @@ export interface TypingIndicatorProps {
     bubble?: boolean;
     /** Dot diameter in px (default 6). */
     size?: number;
+    /**
+     * Visual treatment for the bubble surface (diversity system). Defaults to
+     * `classic` — the historical surface fill with a hairline border.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -18,5 +24,5 @@ export interface TypingIndicatorProps {
  * "Reduce Motion" setting. Marked as a polite live region so assistive tech
  * announces when typing starts. No literal colors.
  */
-export declare function TypingIndicator({ name, bubble, size, style, }: TypingIndicatorProps): React.ReactElement;
+export declare function TypingIndicator({ name, bubble, size, appearance, style, }: TypingIndicatorProps): React.ReactElement;
 //# sourceMappingURL=TypingIndicator.d.ts.map

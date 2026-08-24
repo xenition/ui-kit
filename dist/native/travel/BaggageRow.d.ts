@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 /** The category of baggage. */
 export type BaggageKind = 'cabin' | 'personal' | 'checked';
 export interface BaggageRowProps {
@@ -15,6 +16,12 @@ export interface BaggageRowProps {
     priceCents?: number;
     /** ISO 4217 currency (default `USD`). */
     currency?: string;
+    /**
+     * Surface treatment (visual diversity). Default `'classic'` — the original
+     * borderless row. Any other value wraps the row in that surface (with
+     * padding + radius) so it can stand alone as a card-like tile.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -23,5 +30,5 @@ export interface BaggageRowProps {
  * `included` drives both the badge text and the announcement (never
  * color-alone). Token-only colors.
  */
-export declare function BaggageRow({ kind, label, allowance, included, priceCents, currency, style, }: BaggageRowProps): React.ReactElement;
+export declare function BaggageRow({ kind, label, allowance, included, priceCents, currency, appearance, style, }: BaggageRowProps): React.ReactElement;
 //# sourceMappingURL=BaggageRow.d.ts.map

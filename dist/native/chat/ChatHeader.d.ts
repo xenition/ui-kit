@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import { type Presence } from './PresenceDot';
 export interface ChatHeaderAction {
     /** Stable identifier. */
@@ -27,6 +28,11 @@ export interface ChatHeaderProps {
     onPressTitle?: () => void;
     /** Trailing action buttons (call, video, info…). */
     actions?: ChatHeaderAction[];
+    /**
+     * Visual treatment for the header surface (diversity system). Defaults to
+     * `classic` — the historical surface fill with a bottom divider.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -35,5 +41,5 @@ export interface ChatHeaderProps {
  * caption), and trailing action buttons. Uses the `header` role. No literal
  * colors.
  */
-export declare function ChatHeader({ title, subtitle, avatarUri, presence, typing, onBack, onPressTitle, actions, style, }: ChatHeaderProps): React.ReactElement;
+export declare function ChatHeader({ title, subtitle, avatarUri, presence, typing, onBack, onPressTitle, actions, appearance, style, }: ChatHeaderProps): React.ReactElement;
 //# sourceMappingURL=ChatHeader.d.ts.map

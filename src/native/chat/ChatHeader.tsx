@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Avatar, Icon } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 import { PresenceDot, type Presence } from './PresenceDot';
 
 export interface ChatHeaderAction {
@@ -31,6 +32,11 @@ export interface ChatHeaderProps {
   onPressTitle?: () => void;
   /** Trailing action buttons (call, video, info…). */
   actions?: ChatHeaderAction[];
+  /**
+   * Visual treatment for the header surface (diversity system). Defaults to
+   * `classic` — the historical surface fill with a bottom divider.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -49,6 +55,7 @@ export function ChatHeader({
   onBack,
   onPressTitle,
   actions,
+  appearance = 'classic',
   style,
 }: ChatHeaderProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -56,6 +63,8 @@ export function ChatHeader({
     <View
       accessibilityRole="header"
       style={[
+        // Appearance FIRST; classic keeps the historical surface + bottom divider.
+        appearance === 'classic' ? null : appearanceStyle(appearance, colors, tokens),
         {
           flexDirection: 'row',
           alignItems: 'center',
@@ -64,7 +73,7 @@ export function ChatHeader({
           paddingVertical: tokens.spacing.sm,
           borderBottomWidth: 1,
           borderBottomColor: colors.border,
-          backgroundColor: colors.surface,
+          backgroundColor: appearance === 'classic' ? colors.surface : undefined,
         },
         style,
       ]}
@@ -106,7 +115,7 @@ export function ChatHeader({
             <Text
               accessibilityLiveRegion="polite"
               numberOfLines={1}
-              style={{ color: colors.primary, fontSize: tokens.typography.scale.xs }}
+              style={{ color: colors.primaryText, fontSize: tokens.typography.scale.xs }}
             >
               typing…
             </Text>

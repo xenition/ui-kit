@@ -56,19 +56,21 @@ type CompiledScale = {
 };
 
 function toneColorKey(tone: MoneyTone, cents: number): keyof SemanticColors {
+  // FILL-AS-TEXT: the amount is TEXT, so it reads the AA-guaranteed *Text slots
+  // (successText / dangerText) rather than the fill-oriented success / danger.
   switch (tone) {
     case 'income':
-      return 'success';
+      return 'successText';
     case 'expense':
-      return 'danger';
+      return 'dangerText';
     case 'neutral':
       return 'onSurface';
     case 'muted':
       return 'muted';
     case 'auto':
     default:
-      if (cents > 0) return 'success';
-      if (cents < 0) return 'danger';
+      if (cents > 0) return 'successText';
+      if (cents < 0) return 'dangerText';
       return 'onSurface';
   }
 }

@@ -5,6 +5,8 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const primitives_1 = require("../primitives");
+const appearance_1 = require("../primitives/internal/appearance");
+const motion_1 = require("../primitives/internal/motion");
 const MoneyAmount_1 = require("./MoneyAmount");
 const mask_1 = require("./internal/mask");
 const VARIANT_META = {
@@ -19,10 +21,14 @@ const VARIANT_META = {
  * balance is integer cents rendered through {@link MoneyAmount} (neutral tone,
  * so a positive balance is not colored "income" green). Token-bound throughout.
  */
-function AccountCard({ name, variant, balanceCents, currency = 'USD', accountNumber, icon, onPress, style, }) {
+function AccountCard({ name, variant, balanceCents, currency = 'USD', accountNumber, icon, onPress, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const meta = VARIANT_META[variant];
-    const body = ((0, jsx_runtime_1.jsxs)(primitives_1.Card, { style: style, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+    const press = (0, motion_1.usePressScale)();
+    // Appearance overrides the Card's default surface; classic → the Card's own
+    // outlined look, unchanged. Card keeps its radius/padding.
+    const surface = appearance === 'classic' ? undefined : (0, appearance_1.appearanceStyle)(appearance, colors, tokens);
+    const body = ((0, jsx_runtime_1.jsxs)(primitives_1.Card, { style: [surface, style], children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                             width: 36,
                             height: 36,
                             borderRadius: tokens.radius.md,
@@ -34,6 +40,6 @@ function AccountCard({ name, variant, balanceCents, currency = 'USD', accountNum
                         }, children: (0, jsx_runtime_1.jsx)(primitives_1.Icon, { glyph: icon ?? meta.glyph, color: meta.accent, size: "lg" }) }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1 }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { numberOfLines: 1, style: { color: colors.onSurface, fontSize: tokens.typography.scale.base, fontWeight: '600' }, children: name }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: accountNumber != null ? (0, mask_1.maskAccountNumber)(accountNumber) : meta.label })] })] }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { marginTop: tokens.spacing.md, gap: 2 }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: "Balance" }), (0, jsx_runtime_1.jsx)(MoneyAmount_1.MoneyAmount, { cents: balanceCents, currency: currency, tone: "neutral", size: "lg" })] })] }));
     if (!onPress)
         return body;
-    return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `${name}, ${meta.label} account`, onPress: onPress, style: ({ pressed }) => ({ opacity: pressed ? 0.85 : 1 }), children: body }));
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: { transform: [{ scale: press.scale }] }, children: (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `${name}, ${meta.label} account`, onPress: onPress, onPressIn: press.onPressIn, onPressOut: press.onPressOut, style: ({ pressed }) => ({ opacity: pressed ? 0.85 : 1 }), children: body }) }));
 }
 //# sourceMappingURL=AccountCard.js.map

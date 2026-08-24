@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { type Appearance, appearanceStyle } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
 import { TaskRow } from './TaskRow';
 import type { PriorityLevel } from './PriorityTag';
 import type { DueDateTone } from './DueDatePill';
@@ -27,7 +29,39 @@ export interface BoardColumnProps {
   onAddCard?: () => void;
   /** Fixed column width in px (default 280). */
   width?: number;
+  /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
+}
+
+/** A single board card that fades/rises in on mount via the shared `useEnter`. */
+function BoardCardRow({
+  card,
+  onToggle,
+  onPress,
+  borderColor,
+}: {
+  card: BoardCard;
+  onToggle?: (id: string, done: boolean) => void;
+  onPress?: (id: string) => void;
+  borderColor: string;
+}): React.ReactElement {
+  const enter = useEnter();
+  return (
+    <Animated.View style={enter}>
+      <TaskRow
+        title={card.title}
+        done={card.done}
+        variant={card.dueLabel ? 'dated' : 'priority'}
+        priority={card.priority ?? 'low'}
+        dueLabel={card.dueLabel}
+        dueTone={card.dueTone}
+        onToggle={(next) => onToggle?.(card.id, next)}
+        onPress={onPress ? () => onPress(card.id) : undefined}
+        style={{ borderWidth: 1, borderColor }}
+      />
+    </Animated.View>
+  );
 }
 
 /**
@@ -43,6 +77,7 @@ export function BoardColumn({
   onCardPress,
   onAddCard,
   width = 280,
+  appearance = 'classic',
   style,
 }: BoardColumnProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -52,12 +87,10 @@ export function BoardColumn({
     <View
       accessibilityLabel={`${title} column, ${items.length} cards`}
       style={[
+        appearanceStyle(appearance, colors, tokens),
         {
           width,
-          borderWidth: 1,
-          borderColor: colors.border,
           borderRadius: tokens.radius.md,
-          backgroundColor: colors.surface,
           padding: tokens.spacing.sm,
           gap: tokens.spacing.sm,
         },
@@ -97,17 +130,12 @@ export function BoardColumn({
         </View>
       ) : (
         items.map((c) => (
-          <TaskRow
+          <BoardCardRow
             key={c.id}
-            title={c.title}
-            done={c.done}
-            variant={c.dueLabel ? 'dated' : 'priority'}
-            priority={c.priority ?? 'low'}
-            dueLabel={c.dueLabel}
-            dueTone={c.dueTone}
-            onToggle={(next) => onToggleCard?.(c.id, next)}
-            onPress={onCardPress ? () => onCardPress(c.id) : undefined}
-            style={{ borderWidth: 1, borderColor: colors.border }}
+            card={c}
+            onToggle={onToggleCard}
+            onPress={onCardPress}
+            borderColor={colors.border}
           />
         ))
       )}
@@ -123,7 +151,7 @@ export function BoardColumn({
             opacity: pressed ? 0.7 : 1,
           })}
         >
-          <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.sm, fontWeight: '600' }}>
+          <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm, fontWeight: '600' }}>
             + Add
           </Text>
         </Pressable>

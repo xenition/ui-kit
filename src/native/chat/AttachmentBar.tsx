@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Image, Pressable, ScrollView, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Icon } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 
 /** Kinds of staged attachment, driving the fallback glyph. */
 export type AttachmentKind = 'image' | 'video' | 'file' | 'audio';
@@ -22,6 +23,11 @@ export interface AttachmentBarProps {
   attachments: StagedAttachment[];
   /** Called with an attachment id when its remove button is tapped. */
   onRemove?: (id: string) => void;
+  /**
+   * Visual treatment for each attachment tile (diversity system). Defaults to
+   * `classic` — the historical surface fill with a hairline border.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -40,6 +46,7 @@ const KIND_GLYPH: Record<AttachmentKind, string> = {
 export function AttachmentBar({
   attachments,
   onRemove,
+  appearance = 'classic',
   style,
 }: AttachmentBarProps): React.ReactElement | null {
   const { colors, tokens } = useXenitionTheme();
@@ -59,12 +66,11 @@ export function AttachmentBar({
           <View key={att.id} style={{ width: tile }}>
             <View
               style={{
+                // Appearance FIRST (fill/border/elevation); classic == surface + hairline border.
+                ...appearanceStyle(appearance, colors, tokens),
                 width: tile,
                 height: tile,
                 borderRadius: tokens.radius.md,
-                borderWidth: 1,
-                borderColor: colors.border,
-                backgroundColor: colors.surface,
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../primitives';
+import { useEnter } from '../primitives/internal/motion';
 
 /** The kind of itinerary event — drives the leading glyph. */
 export type ItineraryKind = 'flight' | 'hotel' | 'activity' | 'transfer' | 'meal';
@@ -36,10 +37,18 @@ const KIND_GLYPH: Record<ItineraryKind, string> = {
   meal: '🍽',
 };
 
+/** Node ring/rail tint (a fill/border) per status. */
 const STATUS_SLOT: Record<ItineraryStatus, keyof SemanticColors> = {
   upcoming: 'muted',
   active: 'primary',
   done: 'success',
+};
+
+/** The glyph is TEXT, so it reads from the contrast-tuned `*Text` slot. */
+const STATUS_TEXT_SLOT: Record<ItineraryStatus, keyof SemanticColors> = {
+  upcoming: 'muted',
+  active: 'primaryText',
+  done: 'successText',
 };
 
 /**
@@ -61,10 +70,18 @@ export function ItineraryItem({
 }: ItineraryItemProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const nodeColor = colors[STATUS_SLOT[status]];
+  const markColor = colors[STATUS_TEXT_SLOT[status]];
   const mark = glyph ?? KIND_GLYPH[kind];
+  const enter = useEnter();
 
   const body = (
-    <View style={[{ flexDirection: 'row', gap: tokens.spacing.md }, style]}>
+    <Animated.View
+      style={[
+        { opacity: enter.opacity, transform: enter.transform },
+        { flexDirection: 'row', gap: tokens.spacing.md },
+        style,
+      ]}
+    >
       <View style={{ alignItems: 'center', width: 32 }}>
         <View
           style={{
@@ -78,7 +95,7 @@ export function ItineraryItem({
             justifyContent: 'center',
           }}
         >
-          <Text style={{ fontSize: tokens.typography.scale.sm, color: nodeColor }}>{mark}</Text>
+          <Text style={{ fontSize: tokens.typography.scale.sm, color: markColor }}>{mark}</Text>
         </View>
         {showConnector ? (
           <View style={{ flex: 1, width: 2, marginTop: 2, backgroundColor: colors.border }} />
@@ -98,7 +115,7 @@ export function ItineraryItem({
           <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>{subtitle}</Text>
         ) : null}
       </View>
-    </View>
+    </Animated.View>
   );
 
   const a11yLabel = `${title}${time ? `, ${time}` : ''}, ${status}`;

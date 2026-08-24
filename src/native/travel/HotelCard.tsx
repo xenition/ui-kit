@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, Rating, Badge, PriceTag } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 
 /** Layout for a {@link HotelCard}. */
 export type HotelCardVariant = 'stacked' | 'row';
@@ -24,6 +26,8 @@ export interface HotelCardProps {
   compareAtCents?: number;
   /** Layout variant. */
   variant?: HotelCardVariant;
+  /** Surface treatment (visual diversity). Default `'classic'` — the original look. */
+  appearance?: Appearance;
   /** Fires when the card is pressed. */
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -45,10 +49,12 @@ export function HotelCard({
   tags = [],
   compareAtCents,
   variant = 'stacked',
+  appearance = 'classic',
   onPress,
   style,
 }: HotelCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
   const row = variant === 'row';
 
   const media = (
@@ -117,13 +123,11 @@ export function HotelCard({
   const body = (
     <View
       style={[
+        appearanceStyle(appearance, colors, tokens),
         {
           flexDirection: row ? 'row' : 'column',
           gap: tokens.spacing.md,
           borderRadius: tokens.radius.lg,
-          borderWidth: 1,
-          borderColor: colors.border,
-          backgroundColor: colors.surface,
           padding: tokens.spacing.md,
         },
         style,
@@ -136,13 +140,17 @@ export function HotelCard({
 
   if (!onPress) return body;
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`${name}${location ? `, ${location}` : ''}`}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
-    >
-      {body}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${name}${location ? `, ${location}` : ''}`}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
+      >
+        {body}
+      </Pressable>
+    </Animated.View>
   );
 }

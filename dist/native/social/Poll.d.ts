@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export interface PollOption {
     id: string;
     label: string;
@@ -19,6 +20,11 @@ export interface PollProps {
     onVote?: (id: string) => void;
     /** Footer meta (e.g. `1,204 votes · 2d left`). Auto-derived if omitted. */
     meta?: string;
+    /**
+     * Surface treatment for the poll card — fill/border/elevation only;
+     * radius/padding are unchanged. Default `'classic'` (the historical look).
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -27,5 +33,5 @@ export interface PollProps {
  * the viewer's pick is tinted primary, and the leading option is emphasized.
  * Guards an all-zero tally. Token-only.
  */
-export declare function Poll({ question, options, votedOptionId, closed, onVote, meta, style, }: PollProps): React.ReactElement;
+export declare function Poll({ question, options, votedOptionId, closed, onVote, meta, appearance, style, }: PollProps): React.ReactElement;
 //# sourceMappingURL=Poll.d.ts.map

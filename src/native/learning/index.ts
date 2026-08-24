@@ -48,3 +48,30 @@ export type { LeaderboardRowProps } from './LeaderboardRow';
 
 export { AchievementBadge } from './AchievementBadge';
 export type { AchievementBadgeProps, AchievementTier, AchievementBadgeSize } from './AchievementBadge';
+
+// ---------------------------------------------------------------------------
+// Alternate designs (v2 / v3). Each is a drop-in for its base component: it
+// accepts the SAME props (`<Name>V2Props = <Name>Props`) but renders a visually
+// distinct layout, so two learning apps don't produce the same screen. Native,
+// token-pure, a11y-preserving.
+// ---------------------------------------------------------------------------
+
+export { CourseCardV2 } from './CourseCardV2';
+export type { CourseCardV2Props } from './CourseCardV2';
+export { CourseCardV3 } from './CourseCardV3';
+export type { CourseCardV3Props } from './CourseCardV3';
+
+export { LessonRowV2 } from './LessonRowV2';
+export type { LessonRowV2Props } from './LessonRowV2';
+export { LessonRowV3 } from './LessonRowV3';
+export type { LessonRowV3Props } from './LessonRowV3';
+
+export { QuizQuestionV2 } from './QuizQuestionV2';
+export type { QuizQuestionV2Props } from './QuizQuestionV2';
+export { QuizQuestionV3 } from './QuizQuestionV3';
+export type { QuizQuestionV3Props } from './QuizQuestionV3';
+
+export { LeaderboardRowV2 } from './LeaderboardRowV2';
+export type { LeaderboardRowV2Props } from './LeaderboardRowV2';
+export { LeaderboardRowV3 } from './LeaderboardRowV3';
+export type { LeaderboardRowV3Props } from './LeaderboardRowV3';

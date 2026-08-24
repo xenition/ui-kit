@@ -1,10 +1,16 @@
 import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 
 export interface DateSeparatorProps {
   /** The date/label to show centered in the pill (e.g. "Today", "12 Aug"). */
   label: string;
+  /**
+   * Visual treatment for the pill surface (diversity system). Defaults to
+   * `classic` — the historical surface fill with a hairline border.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -13,7 +19,11 @@ export interface DateSeparatorProps {
  * as a header for screen-reader navigation. No literal colors — the pill fill
  * and text come from semantic tokens.
  */
-export function DateSeparator({ label, style }: DateSeparatorProps): React.ReactElement {
+export function DateSeparator({
+  label,
+  appearance = 'classic',
+  style,
+}: DateSeparatorProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   return (
     <View
@@ -22,9 +32,8 @@ export function DateSeparator({ label, style }: DateSeparatorProps): React.React
     >
       <View
         style={{
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          borderWidth: 1,
+          // Appearance FIRST (fill/border/elevation); classic == surface + hairline border.
+          ...appearanceStyle(appearance, colors, tokens),
           borderRadius: tokens.radius.full,
           paddingVertical: 2,
           paddingHorizontal: tokens.spacing.md,

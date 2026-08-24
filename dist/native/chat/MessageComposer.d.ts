@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import { type StagedAttachment } from './AttachmentBar';
 export interface MessageComposerProps {
     /** Controlled draft text. */
@@ -21,6 +22,11 @@ export interface MessageComposerProps {
     placeholder?: string;
     /** Disable input + actions. */
     disabled?: boolean;
+    /**
+     * Visual treatment for the composer bar surface (diversity system). Defaults
+     * to `classic` — the historical surface fill with a top divider.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -29,5 +35,5 @@ export interface MessageComposerProps {
  * attachment). Staged attachments preview above via `AttachmentBar`. Controlled
  * via `value`/`onChangeText`; emits `onSend`/`onAttach`. No literal colors.
  */
-export declare function MessageComposer({ value, onChangeText, onSend, onAttach, attachments, onRemoveAttachment, placeholder, disabled, style, }: MessageComposerProps): React.ReactElement;
+export declare function MessageComposer({ value, onChangeText, onSend, onAttach, attachments, onRemoveAttachment, placeholder, disabled, appearance, style, }: MessageComposerProps): React.ReactElement;
 //# sourceMappingURL=MessageComposer.d.ts.map

@@ -4,6 +4,7 @@ exports.MapCard = MapCard;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const primitives_1 = require("../primitives");
+const appearance_1 = require("../primitives/internal/appearance");
 const clamp01 = (n) => (n < 0 ? 0 : n > 1 ? 1 : n);
 /**
  * A location preview — a STATIC, dependency-free styled placeholder, NOT a live
@@ -12,17 +13,15 @@ const clamp01 = (n) => (n < 0 ? 0 : n > 1 ? 1 : n);
  * renders in any environment. Wire a real map behind `onPress` when needed.
  * Token-only colors.
  */
-function MapCard({ label, caption, pin = { x: 0.5, y: 0.5 }, height = 160, onPress, style, }) {
+function MapCard({ label, caption, pin = { x: 0.5, y: 0.5 }, height = 160, appearance = 'classic', onPress, style, }) {
     const { colors, tokens } = (0, primitives_1.useXenitionTheme)();
     const x = clamp01(pin.x);
     const y = clamp01(pin.y);
     const frame = ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [
+            (0, appearance_1.appearanceStyle)(appearance, colors, tokens),
             {
                 height,
                 borderRadius: tokens.radius.lg,
-                borderWidth: 1,
-                borderColor: colors.border,
-                backgroundColor: colors.surface,
                 overflow: 'hidden',
             },
             style,

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 
 export interface MapCardProps {
   /** Place name announced and shown under the pin. */
@@ -14,6 +15,12 @@ export interface MapCardProps {
   pin?: { x: number; y: number };
   /** Frame height in px (default 160). */
   height?: number;
+  /**
+   * Surface treatment for the OUTER frame (visual diversity). Default
+   * `'classic'` — the original look. The faux grid, pin, and caption overlay
+   * keep their inner look regardless.
+   */
+  appearance?: Appearance;
   /** Fires when the card is pressed (e.g. to open the real map elsewhere). */
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -33,6 +40,7 @@ export function MapCard({
   caption,
   pin = { x: 0.5, y: 0.5 },
   height = 160,
+  appearance = 'classic',
   onPress,
   style,
 }: MapCardProps): React.ReactElement {
@@ -43,12 +51,10 @@ export function MapCard({
   const frame = (
     <View
       style={[
+        appearanceStyle(appearance, colors, tokens),
         {
           height,
           borderRadius: tokens.radius.lg,
-          borderWidth: 1,
-          borderColor: colors.border,
-          backgroundColor: colors.surface,
           overflow: 'hidden',
         },
         style,

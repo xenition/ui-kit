@@ -39,6 +39,8 @@ const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const useReducedMotion_1 = require("../primitives/internal/useReducedMotion");
+const appearance_1 = require("../primitives/internal/appearance");
+const motion_1 = require("../primitives/internal/motion");
 function Dot({ delay, size, animate }) {
     const { colors } = (0, theme_1.useXenitionTheme)();
     const anim = React.useRef(new react_native_1.Animated.Value(0)).current;
@@ -86,15 +88,18 @@ function Dot({ delay, size, animate }) {
  * "Reduce Motion" setting. Marked as a polite live region so assistive tech
  * announces when typing starts. No literal colors.
  */
-function TypingIndicator({ name, bubble = true, size = 6, style, }) {
+function TypingIndicator({ name, bubble = true, size = 6, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const reduced = (0, useReducedMotion_1.useReducedMotion)();
     const animate = !reduced;
+    const enter = (0, motion_1.useEnter)();
     const dots = ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'flex-end', gap: size * 0.6 }, children: [(0, jsx_runtime_1.jsx)(Dot, { delay: 0, size: size, animate: animate }), (0, jsx_runtime_1.jsx)(Dot, { delay: 150, size: size, animate: animate }), (0, jsx_runtime_1.jsx)(Dot, { delay: 300, size: size, animate: animate })] }));
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityLiveRegion: "polite", accessibilityLabel: name ? `${name} is typing` : 'Typing', style: [{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }, style], children: [name ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: name })) : null, bubble ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
-                    backgroundColor: colors.surface,
-                    borderColor: colors.border,
-                    borderWidth: 1,
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.Animated.View, { accessibilityLiveRegion: "polite", accessibilityLabel: name ? `${name} is typing` : 'Typing', style: [
+            { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm, opacity: enter.opacity, transform: enter.transform },
+            style,
+        ], children: [name ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: name })) : null, bubble ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                    // Appearance FIRST (fill/border/elevation); classic == surface + hairline border.
+                    ...(0, appearance_1.appearanceStyle)(appearance, colors, tokens),
                     borderRadius: tokens.radius.lg,
                     paddingVertical: tokens.spacing.sm,
                     paddingHorizontal: tokens.spacing.md,

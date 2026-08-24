@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export type MealVariant = 'breakfast' | 'lunch' | 'dinner' | 'snack';
 export interface MealMacros {
     /** Protein in grams. */
@@ -21,12 +22,15 @@ export interface MealCardProps {
     /** Optional time label, e.g. "8:30 AM". */
     time?: string;
     onPress?: () => void;
+    /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
  * A logged-meal card: meal-slot icon + tag, dish name, calories, and a
  * color-coded protein / carbs / fat macro strip. Macros with no value are
- * omitted. Pressable when `onPress` is set. Token-only colors.
+ * omitted. Pressable when `onPress` is set. `appearance` selects the surface
+ * treatment (classic by default). Token-only colors.
  */
-export declare function MealCard({ name, variant, calories, macros, time, onPress, style, }: MealCardProps): React.ReactElement;
+export declare function MealCard({ name, variant, calories, macros, time, onPress, appearance, style, }: MealCardProps): React.ReactElement;
 //# sourceMappingURL=MealCard.d.ts.map

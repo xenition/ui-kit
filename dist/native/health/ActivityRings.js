@@ -38,6 +38,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const react_native_svg_1 = __importStar(require("react-native-svg"));
 const theme_1 = require("../theme");
+const appearance_1 = require("../primitives/internal/appearance");
 const DEFAULT_COLORS = ['danger', 'success', 'primary', 'accent'];
 /**
  * Apple-style concentric activity rings drawn with `react-native-svg`. Each ring
@@ -46,8 +47,11 @@ const DEFAULT_COLORS = ['danger', 'success', 'primary', 'accent'];
  * note when `rings` is empty. The whole figure exposes one `accessibilityLabel`
  * summarizing every ring. Token-only colors.
  */
-function ActivityRings({ rings, size = 140, strokeWidth = 14, gap = 4, showLegend = false, accessibilityLabel, style, }) {
+function ActivityRings({ rings, size = 140, strokeWidth = 14, gap = 4, showLegend = false, accessibilityLabel, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    const surface = appearance !== 'classic'
+        ? { ...(0, appearance_1.appearanceStyle)(appearance, colors, tokens), borderRadius: tokens.radius.lg, padding: tokens.spacing.lg }
+        : null;
     if (rings.length === 0) {
         return (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" });
     }
@@ -73,9 +77,9 @@ function ActivityRings({ rings, size = 140, strokeWidth = 14, gap = 4, showLegen
                     return ((0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: r, fill: "none", stroke: colors.border, strokeWidth: strokeWidth }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: r, fill: "none", stroke: arcColor, strokeWidth: strokeWidth, strokeLinecap: "round", strokeDasharray: `${dash} ${circumference}` })] }, i));
                 }) }) }) }));
     if (!showLegend) {
-        return (0, jsx_runtime_1.jsx)(react_native_1.View, { style: style, children: figure });
+        return (0, jsx_runtime_1.jsx)(react_native_1.View, { style: [surface, style], children: figure });
     }
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg }, style], children: [figure, (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { gap: tokens.spacing.sm }, children: rings.map((ring, i) => {
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg }, surface, style], children: [figure, (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { gap: tokens.spacing.sm }, children: rings.map((ring, i) => {
                     const g = Math.max(ring.goal, 0);
                     const arcColor = colors[ring.color ?? DEFAULT_COLORS[i % DEFAULT_COLORS.length] ?? 'primary'];
                     return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {

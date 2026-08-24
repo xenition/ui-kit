@@ -5,16 +5,18 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const primitives_1 = require("../primitives");
+const appearance_1 = require("../primitives/internal/appearance");
 const DueDatePill_1 = require("./DueDatePill");
 /**
  * A milestone line: a status marker (filled **success** when reached), the title,
  * an optional target {@link DueDatePill}, and an optional {@link Progress} bar.
  * The marker and progress recolor to success once reached. No literal colors.
  */
-function MilestoneRow({ title, reached = false, progress, dateLabel, dateTone = 'upcoming', style, }) {
+function MilestoneRow({ title, reached = false, progress, dateLabel, dateTone = 'upcoming', appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const pct = typeof progress === 'number' ? Math.max(0, Math.min(100, progress)) : undefined;
     return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [
+            appearance === 'classic' ? null : (0, appearance_1.appearanceStyle)(appearance, colors, tokens),
             {
                 flexDirection: 'row',
                 alignItems: 'flex-start',

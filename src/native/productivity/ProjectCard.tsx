@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Card, Progress } from '../primitives';
+import { type Appearance, appearanceStyle } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 import { AssigneeGroup, type Assignee } from './AssigneeGroup';
 import { DueDatePill, type DueDateTone } from './DueDatePill';
 
@@ -21,6 +23,8 @@ export interface ProjectCardProps {
   dueTone?: DueDateTone;
   /** Fires when the card is pressed. */
   onPress?: () => void;
+  /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -39,13 +43,15 @@ export function ProjectCard({
   dueLabel,
   dueTone = 'upcoming',
   onPress,
+  appearance = 'classic',
   style,
 }: ProjectCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
   const pct = typeof progress === 'number' ? Math.max(0, Math.min(100, progress)) : undefined;
 
   const inner = (
-    <Card style={{ gap: tokens.spacing.sm }}>
+    <Card style={[appearanceStyle(appearance, colors, tokens), { gap: tokens.spacing.sm }]}>
       <View style={{ gap: tokens.spacing.xs }}>
         <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale.lg, fontWeight: '700' }}>
           {title}
@@ -82,14 +88,18 @@ export function ProjectCard({
 
   if (onPress) {
     return (
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={title}
-        onPress={onPress}
-        style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }, style]}
-      >
-        {inner}
-      </Pressable>
+      <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={title}
+          onPress={onPress}
+          onPressIn={press.onPressIn}
+          onPressOut={press.onPressOut}
+          style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }, style]}
+        >
+          {inner}
+        </Pressable>
+      </Animated.View>
     );
   }
   return <View style={style}>{inner}</View>;

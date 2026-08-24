@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 /** Card network — drives only the corner label, never a literal brand color. */
 export type CardBrand = 'visa' | 'mastercard' | 'amex' | 'generic';
 /** Which token ramp paints the gradient face. */
@@ -15,6 +16,12 @@ export interface CreditCardViewProps {
     brand?: CardBrand;
     /** Gradient ramp for the face (default `primary`). */
     variant?: CreditCardVariant;
+    /**
+     * Surface treatment applied to the card's OUTER container — the gradient face
+     * is always kept; this only adds an optional elevation / border frame around
+     * it. Defaults to `classic`, which adds nothing (the face is unchanged).
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -26,5 +33,5 @@ export interface CreditCardViewProps {
  * the number is masked to the last four via {@link maskCardNumber}. Foreground
  * text uses the ramp's on-color token so it stays legible on the fill.
  */
-export declare function CreditCardView({ holder, number, expiry, brand, variant, style, }: CreditCardViewProps): React.ReactElement;
+export declare function CreditCardView({ holder, number, expiry, brand, variant, appearance, style, }: CreditCardViewProps): React.ReactElement;
 //# sourceMappingURL=CreditCardView.d.ts.map

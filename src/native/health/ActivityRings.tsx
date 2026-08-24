@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import Svg, { Circle, G } from 'react-native-svg';
 import { useXenitionTheme, type SemanticColors } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 
 export type ActivityRingColor = keyof SemanticColors;
 
@@ -31,6 +32,11 @@ export interface ActivityRingsProps {
   showLegend?: boolean;
   /** Accessible summary override; a per-ring summary is generated otherwise. */
   accessibilityLabel?: string;
+  /**
+   * Surface treatment for the outer container (the SVG rings are unaffected);
+   * defaults to `classic` (no surface, the historical look).
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -50,9 +56,14 @@ export function ActivityRings({
   gap = 4,
   showLegend = false,
   accessibilityLabel,
+  appearance = 'classic',
   style,
 }: ActivityRingsProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const surface: ViewStyle | null =
+    appearance !== 'classic'
+      ? { ...appearanceStyle(appearance, colors, tokens), borderRadius: tokens.radius.lg, padding: tokens.spacing.lg }
+      : null;
 
   if (rings.length === 0) {
     return <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>No data</Text>;
@@ -109,11 +120,11 @@ export function ActivityRings({
   );
 
   if (!showLegend) {
-    return <View style={style}>{figure}</View>;
+    return <View style={[surface, style]}>{figure}</View>;
   }
 
   return (
-    <View style={[{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg }, style]}>
+    <View style={[{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg }, surface, style]}>
       {figure}
       <View style={{ gap: tokens.spacing.sm }}>
         {rings.map((ring, i) => {

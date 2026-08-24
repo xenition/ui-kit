@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Image, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Image, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Avatar } from '../primitives/Avatar';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter, usePressScale } from '../primitives/internal/motion';
 import { MentionText } from './MentionText';
 import { EngagementBar } from './EngagementBar';
 
@@ -67,6 +69,16 @@ export interface PostCardProps {
 
   /** Skeleton placeholder while the post loads. */
   loading?: boolean;
+  /**
+   * Surface treatment for the card container — fill/border/elevation only;
+   * radius/padding are unchanged. Default `'classic'` (the historical look).
+   */
+  appearance?: Appearance;
+  /**
+   * Layout density. `comfortable` (default) is the historical padding/gap;
+   * `compact` tightens both for denser feeds.
+   */
+  density?: 'comfortable' | 'compact';
   style?: StyleProp<ViewStyle>;
 }
 
@@ -101,18 +113,21 @@ export function PostCard({
   onPressMention,
   onPressHashtag,
   loading = false,
+  appearance = 'classic',
+  density = 'comfortable',
   style,
 }: PostCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const enter = useEnter();
+  const press = usePressScale();
+  const compact = density === 'compact';
 
   const containerStyle: StyleProp<ViewStyle> = [
     {
-      backgroundColor: colors.surface,
-      borderWidth: 1,
-      borderColor: colors.border,
+      ...appearanceStyle(appearance, colors, tokens),
       borderRadius: tokens.radius.lg,
-      padding: tokens.spacing.md,
-      gap: tokens.spacing.sm,
+      padding: compact ? tokens.spacing.sm : tokens.spacing.md,
+      gap: compact ? tokens.spacing.xs : tokens.spacing.sm,
     },
     style,
   ];
@@ -145,7 +160,7 @@ export function PostCard({
             {author.name}
           </Text>
           {author.verified ? (
-            <Text accessibilityLabel="Verified" style={{ color: colors.primary, fontSize: tokens.typography.scale.sm }}>
+            <Text accessibilityLabel="Verified" style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm }}>
               ✓
             </Text>
           ) : null}
@@ -248,15 +263,25 @@ export function PostCard({
 
   if (onPress) {
     return (
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`Post by ${author.name}`}
-        onPress={onPress}
-        style={({ pressed }) => [containerStyle, { opacity: pressed ? 0.97 : 1 }]}
-      >
-        {inner}
-      </Pressable>
+      <Animated.View style={{ opacity: enter.opacity, transform: enter.transform }}>
+        <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Post by ${author.name}`}
+            onPress={onPress}
+            onPressIn={press.onPressIn}
+            onPressOut={press.onPressOut}
+            style={({ pressed }) => [containerStyle, { opacity: pressed ? 0.97 : 1 }]}
+          >
+            {inner}
+          </Pressable>
+        </Animated.View>
+      </Animated.View>
     );
   }
-  return <View style={containerStyle}>{inner}</View>;
+  return (
+    <Animated.View style={[{ opacity: enter.opacity, transform: enter.transform }, containerStyle]}>
+      {inner}
+    </Animated.View>
+  );
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import { type Assignee } from './AssigneeGroup';
 import { type DueDateTone } from './DueDatePill';
 export interface ProjectCardProps {
@@ -18,6 +19,8 @@ export interface ProjectCardProps {
     dueTone?: DueDateTone;
     /** Fires when the card is pressed. */
     onPress?: () => void;
+    /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -26,5 +29,5 @@ export interface ProjectCardProps {
  * {@link AssigneeGroup} and optional {@link DueDatePill}. Progress tone shifts to
  * success at 100%. No literal colors.
  */
-export declare function ProjectCard({ title, description, progress, taskCount, assignees, dueLabel, dueTone, onPress, style, }: ProjectCardProps): React.ReactElement;
+export declare function ProjectCard({ title, description, progress, taskCount, assignees, dueLabel, dueTone, onPress, appearance, style, }: ProjectCardProps): React.ReactElement;
 //# sourceMappingURL=ProjectCard.d.ts.map

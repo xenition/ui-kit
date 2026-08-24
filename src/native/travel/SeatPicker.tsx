@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../primitives';
+import { usePressScale } from '../primitives/internal/motion';
 
 /** Availability of a single seat. */
 export type SeatStatus = 'available' | 'occupied' | 'selected';
@@ -80,38 +81,14 @@ export function SeatPicker({
             >
               {rowLabel}
             </Text>
-            {seats.map((seat, c) => {
-              const status = statusOf(seat);
-              const [bg, fg, bd] = STATUS_SLOTS[status];
-              const label = seat.label ?? seat.id;
-              const disabled = status === 'occupied';
-              const glyph = STATUS_GLYPH[status];
-              return (
-                <Pressable
-                  key={seat.id || `seat-${r}-${c}`}
-                  accessibilityRole="button"
-                  accessibilityLabel={`Seat ${label}, ${status === 'selected' ? 'selected' : status}`}
-                  accessibilityState={{ selected: status === 'selected', disabled }}
-                  disabled={disabled}
-                  onPress={disabled ? undefined : () => onSelect?.(seat)}
-                  style={({ pressed }) => ({
-                    width: 36,
-                    height: 36,
-                    borderRadius: tokens.radius.sm,
-                    borderWidth: 1,
-                    borderColor: colors[bd],
-                    backgroundColor: colors[bg],
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: disabled ? 0.6 : pressed ? 0.85 : 1,
-                  })}
-                >
-                  <Text style={{ color: colors[fg], fontSize: tokens.typography.scale.xs, fontWeight: '600' }}>
-                    {glyph || label}
-                  </Text>
-                </Pressable>
-              );
-            })}
+            {seats.map((seat, c) => (
+              <SeatButton
+                key={seat.id || `seat-${r}-${c}`}
+                seat={seat}
+                status={statusOf(seat)}
+                onSelect={onSelect}
+              />
+            ))}
           </View>
         );
       })}
@@ -121,5 +98,54 @@ export function SeatPicker({
         </Text>
       ) : null}
     </View>
+  );
+}
+
+interface SeatButtonProps {
+  seat: Seat;
+  status: SeatStatus;
+  onSelect?: (seat: Seat) => void;
+}
+
+/**
+ * A single seat. Its own `usePressScale` gives the chosen seat a subtle tap
+ * scale; occupied seats stay disabled (no press feedback), and all a11y —
+ * label, selected/disabled state, status glyph — is preserved.
+ */
+function SeatButton({ seat, status, onSelect }: SeatButtonProps): React.ReactElement {
+  const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
+  const [bg, fg, bd] = STATUS_SLOTS[status];
+  const label = seat.label ?? seat.id;
+  const disabled = status === 'occupied';
+  const glyph = STATUS_GLYPH[status];
+
+  return (
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`Seat ${label}, ${status === 'selected' ? 'selected' : status}`}
+        accessibilityState={{ selected: status === 'selected', disabled }}
+        disabled={disabled}
+        onPress={disabled ? undefined : () => onSelect?.(seat)}
+        onPressIn={disabled ? undefined : press.onPressIn}
+        onPressOut={disabled ? undefined : press.onPressOut}
+        style={({ pressed }) => ({
+          width: 36,
+          height: 36,
+          borderRadius: tokens.radius.sm,
+          borderWidth: 1,
+          borderColor: colors[bd],
+          backgroundColor: colors[bg],
+          alignItems: 'center',
+          justifyContent: 'center',
+          opacity: disabled ? 0.6 : pressed ? 0.85 : 1,
+        })}
+      >
+        <Text style={{ color: colors[fg], fontSize: tokens.typography.scale.xs, fontWeight: '600' }}>
+          {glyph || label}
+        </Text>
+      </Pressable>
+    </Animated.View>
   );
 }

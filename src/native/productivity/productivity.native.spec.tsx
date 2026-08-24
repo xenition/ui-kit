@@ -165,6 +165,52 @@ describe('ReminderRow (native)', () => {
   });
 });
 
+describe('productivity appearance + motion (native, additive)', () => {
+  it('mounts the elevated and outline appearances without breaking existing behavior', () => {
+    const onToggle = jest.fn();
+    const { getByText, getByRole } = renderThemed(
+      <>
+        <TaskRow title="Elevated task" appearance="elevated" onToggle={onToggle} />
+        <ProjectCard title="Outlined project" appearance="outline" progress={40} />
+      </>,
+      SEED_LIGHT
+    );
+    expect(getByText('Elevated task')).toBeTruthy();
+    expect(getByText('Outlined project')).toBeTruthy();
+    fireEvent.press(getByRole('checkbox'));
+    expect(onToggle).toHaveBeenCalledWith(true);
+  });
+
+  it('keeps every appearance token-pure across both seeds', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      const { root } = renderThemed(
+        <>
+          <TaskRow title="A" appearance="elevated" />
+          <BoardColumn title="Todo" cards={[{ id: 'c', title: 'card' }]} appearance="outline" />
+          <MilestoneRow title="Beta" reached progress={100} appearance="filled" />
+          <ReminderRow title="Call" timeLabel="5 PM" appearance="soft" />
+          <TimeTracker elapsedLabel="00:10" appearance="minimal" />
+        </>,
+        seed
+      );
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+
+  it('mounts a motion-wrapped pressable card and still fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByRole } = renderThemed(
+      <ProjectCard title="Pressable" appearance="elevated" onPress={onPress} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByRole('button'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('productivity token purity (native, both seeds)', () => {
   it('every rendered hex traces to a compiled token across a composed tree', () => {
     [SEED_LIGHT, SEED_DARK].forEach((seed) => {

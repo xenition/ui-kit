@@ -39,7 +39,7 @@ export function UnreadDivider({
       <View style={{ flex: 1, height: 1, backgroundColor: colors.primary, opacity: 0.5 }} />
       <Text
         style={{
-          color: colors.primary,
+          color: colors.primaryText,
           fontSize: tokens.typography.scale.xs,
           fontWeight: '600',
         }}

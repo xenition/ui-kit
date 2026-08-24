@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
 
 export type SleepQuality = 'poor' | 'fair' | 'good' | 'excellent';
 
@@ -9,6 +11,14 @@ const QUALITY_COLOR: Record<SleepQuality, keyof SemanticColors> = {
   fair: 'warn',
   good: 'primary',
   excellent: 'success',
+};
+
+/** Quality → the contrast-safe `*Text` key used for the quality tag label. */
+const QUALITY_TEXT_COLOR: Record<SleepQuality, keyof SemanticColors> = {
+  poor: 'dangerText',
+  fair: 'warnText',
+  good: 'primaryText',
+  excellent: 'successText',
 };
 
 const QUALITY_LABEL: Record<SleepQuality, string> = {
@@ -29,13 +39,16 @@ export interface SleepBarProps {
   bedtime?: string;
   /** Optional wake time label, e.g. "6:45 AM". */
   wakeTime?: string;
+  /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
 /**
  * A sleep-duration summary: hours slept versus goal drawn as a single fill bar,
  * a color-coded quality tag, and optional bed / wake times. The bar color comes
- * from `quality` (falling back to `primary`). Guards `goal <= 0`. Token-only.
+ * from `quality` (falling back to `primary`). `appearance` selects the surface
+ * treatment (classic by default). Guards `goal <= 0`. Token-only.
  */
 export function SleepBar({
   hours,
@@ -43,28 +56,31 @@ export function SleepBar({
   quality,
   bedtime,
   wakeTime,
+  appearance = 'classic',
   style,
 }: SleepBarProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const enter = useEnter();
 
   const safeGoal = Math.max(goal, 0);
   const safeHours = Math.max(hours, 0);
   const ratio = safeGoal > 0 ? Math.min(safeHours / safeGoal, 1) : 0;
   const barColor = quality ? colors[QUALITY_COLOR[quality]] : colors.primary;
+  const tagTextColor = quality ? colors[QUALITY_TEXT_COLOR[quality]] : colors.primaryText;
 
   return (
-    <View
+    <Animated.View
       accessibilityLabel={`Sleep: ${safeHours} hours${safeGoal > 0 ? ` of ${safeGoal}` : ''}${
         quality ? `, ${QUALITY_LABEL[quality]} quality` : ''
       }`}
       style={[
         {
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          borderWidth: 1,
+          ...appearanceStyle(appearance, colors, tokens),
           borderRadius: tokens.radius.lg,
           padding: tokens.spacing.lg,
           gap: tokens.spacing.sm,
+          opacity: enter.opacity,
+          transform: enter.transform,
         },
         style,
       ]}
@@ -82,7 +98,7 @@ export function SleepBar({
           </Text>
         </View>
         {quality ? (
-          <Text style={{ color: barColor, fontSize: tokens.typography.scale.xs, fontWeight: '700' }}>
+          <Text style={{ color: tagTextColor, fontSize: tokens.typography.scale.xs, fontWeight: '700' }}>
             {QUALITY_LABEL[quality]}
           </Text>
         ) : null}
@@ -102,6 +118,6 @@ export function SleepBar({
           </Text>
         </View>
       ) : null}
-    </View>
+    </Animated.View>
   );
 }

@@ -1,7 +1,28 @@
 import * as React from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { useEnter } from '../primitives/internal/motion';
 import { ChecklistItem } from './ChecklistItem';
+
+/** One subtask row that fades/rises in on mount via the shared `useEnter`. */
+function SubtaskRow({
+  subtask,
+  onToggle,
+}: {
+  subtask: Subtask;
+  onToggle?: (id: string, done: boolean) => void;
+}): React.ReactElement {
+  const enter = useEnter();
+  return (
+    <Animated.View style={enter}>
+      <ChecklistItem
+        label={subtask.title}
+        checked={!!subtask.done}
+        onCheckedChange={(next) => onToggle?.(subtask.id, next)}
+      />
+    </Animated.View>
+  );
+}
 
 export interface Subtask {
   id: string;
@@ -50,14 +71,7 @@ export function SubtaskList({
           <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.xs }}>{emptyLabel}</Text>
         </View>
       ) : (
-        items.map((s) => (
-          <ChecklistItem
-            key={s.id}
-            label={s.title}
-            checked={!!s.done}
-            onCheckedChange={(next) => onToggle?.(s.id, next)}
-          />
-        ))
+        items.map((s) => <SubtaskRow key={s.id} subtask={s} onToggle={onToggle} />)
       )}
     </View>
   );

@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { EmptyState } from '../commerce/EmptyState';
+import { type Appearance } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
 import { TransactionRow, type TransactionDirection } from './TransactionRow';
 
 /** One entry in a statement / transaction feed. */
@@ -32,7 +34,53 @@ export interface StatementListProps {
   emptyTitle?: string;
   /** Empty-state supporting line. */
   emptyDescription?: string;
+  /**
+   * Surface treatment forwarded to every {@link TransactionRow}. Defaults to
+   * `classic` — the historical borderless, divided rows, so this is opt-in only.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
+}
+
+/**
+ * One statement row wrapped in a mount-enter transition (a subcomponent so the
+ * `useEnter` hook is called at a stable position, never inside a `.map`).
+ */
+function StatementRow({
+  entry,
+  index,
+  isLast,
+  appearance,
+  onSelectItem,
+}: {
+  entry: StatementEntry;
+  index: number;
+  isLast: boolean;
+  appearance: Appearance;
+  onSelectItem?: (entry: StatementEntry, index: number) => void;
+}): React.ReactElement {
+  const { colors } = useXenitionTheme();
+  const enter = useEnter();
+  return (
+    <Animated.View
+      style={[
+        enter,
+        isLast ? undefined : { borderBottomWidth: 1, borderBottomColor: colors.border },
+      ]}
+    >
+      <TransactionRow
+        title={entry.title}
+        subtitle={entry.subtitle}
+        amountCents={entry.amountCents}
+        currency={entry.currency}
+        direction={entry.direction}
+        date={entry.date}
+        icon={entry.icon}
+        appearance={appearance}
+        onPress={onSelectItem ? () => onSelectItem(entry, index) : undefined}
+      />
+    </Animated.View>
+  );
 }
 
 /**
@@ -51,6 +99,7 @@ export function StatementList({
   loadingRows = 4,
   emptyTitle = 'No transactions',
   emptyDescription,
+  appearance = 'classic',
   style,
 }: StatementListProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -105,25 +154,14 @@ export function StatementList({
     <View style={style}>
       {headerNode}
       {items.map((entry, index) => (
-        <View
+        <StatementRow
           key={entry.id ?? String(index)}
-          style={
-            index < items.length - 1
-              ? { borderBottomWidth: 1, borderBottomColor: colors.border }
-              : undefined
-          }
-        >
-          <TransactionRow
-            title={entry.title}
-            subtitle={entry.subtitle}
-            amountCents={entry.amountCents}
-            currency={entry.currency}
-            direction={entry.direction}
-            date={entry.date}
-            icon={entry.icon}
-            onPress={onSelectItem ? () => onSelectItem(entry, index) : undefined}
-          />
-        </View>
+          entry={entry}
+          index={index}
+          isLast={index === items.length - 1}
+          appearance={appearance}
+          onSelectItem={onSelectItem}
+        />
       ))}
     </View>
   );

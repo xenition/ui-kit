@@ -13,6 +13,7 @@ import { toNativeTokens } from '../../theme/outputs';
 import { MoneyAmount } from './MoneyAmount';
 import { TransactionRow } from './TransactionRow';
 import { AccountCard } from './AccountCard';
+import { BalanceHeader } from './BalanceHeader';
 import { BudgetBar } from './BudgetBar';
 import { CreditCardView } from './CreditCardView';
 import { StatementList, type StatementEntry } from './StatementList';
@@ -33,15 +34,16 @@ describe('MoneyAmount (native)', () => {
     expect(getByText('$1,234,567.89')).toBeTruthy();
   });
 
-  it('tones income as success (green token) and expense as danger', () => {
+  it('tones income as success and expense as danger, using the AA *Text slots', () => {
+    // FILL-AS-TEXT: money is TEXT, so it reads successText / dangerText.
     const income = renderThemed(<MoneyAmount cents={2500} tone="income" />, SEED_LIGHT);
-    expect(flatten(income.getByText('$25.00').props.style).color).toBe(lightColors.success);
+    expect(flatten(income.getByText('$25.00').props.style).color).toBe(lightColors.successText);
 
     const expense = renderThemed(
       <MoneyAmount cents={-2500} tone="expense" signDisplay="never" />,
       SEED_LIGHT
     );
-    expect(flatten(expense.getByText('$25.00').props.style).color).toBe(lightColors.danger);
+    expect(flatten(expense.getByText('$25.00').props.style).color).toBe(lightColors.dangerText);
   });
 
   it('shows a leading minus for negative amounts by default', () => {
@@ -97,8 +99,8 @@ describe('BudgetBar (native)', () => {
     );
     expect(getByText('$520.00 / $400.00')).toBeTruthy();
     expect(getByText('Over budget')).toBeTruthy();
-    // Over-budget remainder ($120.00) rendered in the danger token.
-    expect(flatten(getByText('$120.00').props.style).color).toBe(lightColors.danger);
+    // Over-budget remainder ($120.00) rendered in the danger *Text token.
+    expect(flatten(getByText('$120.00').props.style).color).toBe(lightColors.dangerText);
   });
 
   it('guards a zero limit without dividing by zero', () => {
@@ -144,7 +146,8 @@ describe('ExchangeRateRow (native)', () => {
     );
     expect(getByText('0.9231')).toBeTruthy();
     const change = getByText(/\+0\.42%/);
-    expect(flatten(change.props.style).color).toBe(lightColors.success);
+    // FILL-AS-TEXT: the change chip is TEXT → successText.
+    expect(flatten(change.props.style).color).toBe(lightColors.successText);
   });
 });
 
@@ -220,6 +223,60 @@ describe('StatementList (native)', () => {
   });
 });
 
+describe('appearance diversity (native finance)', () => {
+  it('mounts non-classic appearance presets on cards and rows', () => {
+    // elevated (shadow, no border) + one more (filled) must both render.
+    const { getByText } = renderThemed(
+      <>
+        <AccountCard name="Wallet A" variant="checking" balanceCents={482355} appearance="elevated" />
+        <TransactionRow title="Coffee" amountCents={640} direction="expense" icon="☕" appearance="filled" />
+        <SavingsGoalCard title="Fund" savedCents={300000} targetCents={1000000} appearance="outline" />
+      </>,
+      SEED_LIGHT
+    );
+    expect(getByText('Wallet A')).toBeTruthy();
+    expect(getByText('Coffee')).toBeTruthy();
+    expect(getByText('Fund')).toBeTruthy();
+  });
+
+  it('keeps the default (classic) appearance byte-identical — no added surface layer', () => {
+    // A classic bare row must not gain a background/border it never had.
+    const { getByText } = renderThemed(
+      <TransactionRow title="Rent" amountCents={180000} direction="expense" />,
+      SEED_LIGHT
+    );
+    const rowStyle = flatten(getByText('Rent').parent?.parent?.props.style);
+    expect(rowStyle.backgroundColor).toBeUndefined();
+    expect(rowStyle.borderWidth).toBeUndefined();
+  });
+});
+
+describe('motion (native finance)', () => {
+  it('mounts a press-scale pressable row and a mount-enter list without error', () => {
+    const onPress = jest.fn();
+    const press = renderThemed(
+      <TransactionRow title="Tap me" amountCents={100} onPress={onPress} />,
+      SEED_LIGHT
+    );
+    // Pressable is wrapped in an Animated.View; the row still fires its callback.
+    fireEvent.press(press.getByText('Tap me'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+
+    // BalanceHeader (hero) + StatementList rows both mount via useEnter.
+    const enter = renderThemed(
+      <>
+        <BalanceHeader balanceCents={482355} changeCents={1200} changePct={2.4} />
+        <StatementList
+          items={[{ id: '1', title: 'Payroll', amountCents: 250000, direction: 'income' }]}
+        />
+      </>,
+      SEED_LIGHT
+    );
+    expect(enter.getByText('Payroll')).toBeTruthy();
+    expect(enter.getByText('$4,823.55')).toBeTruthy();
+  });
+});
+
 describe('token purity (native finance, both seeds)', () => {
   it('every rendered style hex traces to a compiled token', () => {
     [SEED_LIGHT, SEED_DARK].forEach((seed) => {
@@ -233,6 +290,10 @@ describe('token purity (native finance, both seeds)', () => {
           <SavingsGoalCard title="Fund" savedCents={300000} targetCents={1000000} />
           <ExchangeRateRow baseCurrency="USD" quoteCurrency="EUR" rate={0.92} changePct={-0.3} />
           <StatementList items={[]} />
+          {/* Non-classic appearance presets must also stay token-pure. */}
+          <AccountCard name="Savings" variant="savings" balanceCents={90000} appearance="elevated" />
+          <TransactionRow title="Rent" amountCents={180000} direction="expense" appearance="filled" />
+          <SavingsGoalCard title="Trip" savedCents={5000} targetCents={20000} appearance="outline" />
         </>,
         seed
       );

@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
 
 export interface ShareTarget {
   id: string;
@@ -25,6 +27,11 @@ export interface ShareSheetProps {
   onClose?: () => void;
   /** Message shown when `targets` is empty. */
   emptyLabel?: string;
+  /**
+   * Surface treatment for the sheet panel — fill/border/elevation only; the
+   * rounded top corners/padding are unchanged. Default `'classic'`.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -42,9 +49,12 @@ export function ShareSheet({
   onSelect,
   onClose,
   emptyLabel = 'No share options available',
+  appearance = 'classic',
   style,
 }: ShareSheetProps): React.ReactElement | null {
   const { colors, tokens } = useXenitionTheme();
+  // A short rise as the panel appears from the bottom edge.
+  const enter = useEnter({ translateY: 16 });
   if (!visible) return null;
 
   return (
@@ -59,14 +69,14 @@ export function ShareSheet({
         onPress={onClose}
         style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, backgroundColor: colors.onSurface, opacity: 0.4 }}
       />
-      <View
+      <Animated.View
         accessibilityRole="menu"
         style={{
-          backgroundColor: colors.surface,
+          opacity: enter.opacity,
+          transform: enter.transform,
+          ...appearanceStyle(appearance, colors, tokens),
           borderTopLeftRadius: tokens.radius.lg,
           borderTopRightRadius: tokens.radius.lg,
-          borderWidth: 1,
-          borderColor: colors.border,
           padding: tokens.spacing.lg,
           gap: tokens.spacing.md,
         }}
@@ -135,7 +145,7 @@ export function ShareSheet({
             Cancel
           </Text>
         </Pressable>
-      </View>
+      </Animated.View>
     </View>
   );
 }

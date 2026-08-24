@@ -21,7 +21,7 @@ function UnreadDivider({ label = 'Unread messages', count, style, }) {
             },
             style,
         ], children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flex: 1, height: 1, backgroundColor: colors.primary, opacity: 0.5 } }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                    color: colors.primary,
+                    color: colors.primaryText,
                     fontSize: tokens.typography.scale.xs,
                     fontWeight: '600',
                 }, children: text }), (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flex: 1, height: 1, backgroundColor: colors.primary, opacity: 0.5 } })] }));

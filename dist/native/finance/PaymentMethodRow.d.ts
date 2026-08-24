@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import type { CardBrand } from './CreditCardView';
 /** Payment instrument kind. */
 export type PaymentMethodKind = 'card' | 'bank' | 'wallet';
@@ -22,6 +23,12 @@ export interface PaymentMethodRowProps {
     selected?: boolean;
     /** Fires on row press (selection). */
     onPress?: () => void;
+    /**
+     * Surface treatment (visual-diversity preset). Defaults to `classic` —
+     * byte-for-byte the historical bordered row. The `selected` primary ring is
+     * preserved across every appearance.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -31,5 +38,5 @@ export interface PaymentMethodRowProps {
  * ring; unselected rows use the `border` token. Becomes a radio-style button
  * when `onPress` is supplied. Token-bound throughout.
  */
-export declare function PaymentMethodRow({ label, kind, brand: _brand, last4, expiry, icon, isDefault, selected, onPress, style, }: PaymentMethodRowProps): React.ReactElement;
+export declare function PaymentMethodRow({ label, kind, brand: _brand, last4, expiry, icon, isDefault, selected, onPress, appearance, style, }: PaymentMethodRowProps): React.ReactElement;
 //# sourceMappingURL=PaymentMethodRow.d.ts.map

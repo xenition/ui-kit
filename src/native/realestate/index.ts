@@ -46,3 +46,29 @@ export type { NeighborhoodStatProps } from './NeighborhoodStat';
 
 export { ComparableRow } from './ComparableRow';
 export type { ComparableRowProps, ComparableStatus } from './ComparableRow';
+
+/**
+ * Design variants — alternate, drop-in layouts of the most-used blocks. Each
+ * `V2`/`V3` accepts the SAME props as its base component (`<Name>V2Props =
+ * <Name>Props`), so they swap in without a code change; only the visual design
+ * differs. Same token-purity and a11y discipline as the originals.
+ */
+export { PropertyCardV2 } from './PropertyCardV2';
+export type { PropertyCardV2Props } from './PropertyCardV2';
+export { PropertyCardV3 } from './PropertyCardV3';
+export type { PropertyCardV3Props } from './PropertyCardV3';
+
+export { AgentCardV2 } from './AgentCardV2';
+export type { AgentCardV2Props } from './AgentCardV2';
+export { AgentCardV3 } from './AgentCardV3';
+export type { AgentCardV3Props } from './AgentCardV3';
+
+export { ListingGalleryV2 } from './ListingGalleryV2';
+export type { ListingGalleryV2Props } from './ListingGalleryV2';
+export { ListingGalleryV3 } from './ListingGalleryV3';
+export type { ListingGalleryV3Props } from './ListingGalleryV3';
+
+export { ComparableRowV2 } from './ComparableRowV2';
+export type { ComparableRowV2Props } from './ComparableRowV2';
+export { ComparableRowV3 } from './ComparableRowV3';
+export type { ComparableRowV3Props } from './ComparableRowV3';

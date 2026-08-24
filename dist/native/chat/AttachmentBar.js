@@ -5,6 +5,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const primitives_1 = require("../primitives");
+const appearance_1 = require("../primitives/internal/appearance");
 const KIND_GLYPH = {
     image: '🖼️',
     video: '🎬',
@@ -16,7 +17,7 @@ const KIND_GLYPH = {
  * message is sent. Each tile shows a thumbnail (or a kind glyph) and a remove
  * button. Scrolls horizontally; renders nothing when empty. No literal colors.
  */
-function AttachmentBar({ attachments, onRemove, style, }) {
+function AttachmentBar({ attachments, onRemove, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (attachments.length === 0)
         return null;
@@ -24,12 +25,11 @@ function AttachmentBar({ attachments, onRemove, style, }) {
     return ((0, jsx_runtime_1.jsx)(react_native_1.ScrollView, { horizontal: true, showsHorizontalScrollIndicator: false, accessibilityLabel: "Staged attachments", contentContainerStyle: { gap: tokens.spacing.sm, padding: tokens.spacing.sm }, style: style, children: attachments.map((att) => {
             const kind = att.kind ?? 'file';
             return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { width: tile }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                            // Appearance FIRST (fill/border/elevation); classic == surface + hairline border.
+                            ...(0, appearance_1.appearanceStyle)(appearance, colors, tokens),
                             width: tile,
                             height: tile,
                             borderRadius: tokens.radius.md,
-                            borderWidth: 1,
-                            borderColor: colors.border,
-                            backgroundColor: colors.surface,
                             alignItems: 'center',
                             justifyContent: 'center',
                             overflow: 'hidden',

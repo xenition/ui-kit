@@ -54,7 +54,7 @@ export function QuickReplies({
             opacity: pressed ? 0.7 : 1,
           })}
         >
-          <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.sm, fontWeight: '500' }}>
+          <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm, fontWeight: '500' }}>
             {reply.label}
           </Text>
         </Pressable>

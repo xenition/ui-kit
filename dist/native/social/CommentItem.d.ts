@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export interface CommentItemProps {
     /** Comment author display name. */
     author: string;
@@ -16,6 +17,11 @@ export interface CommentItemProps {
     depth?: number;
     /** Pinned/highlighted comment (e.g. author's pick) — tints the surface. */
     pinned?: boolean;
+    /**
+     * Surface treatment applied when `pinned` — fill/border/elevation only;
+     * radius/padding are unchanged. Default `'classic'` (the historical look).
+     */
+    appearance?: Appearance;
     onLike?: () => void;
     onReply?: () => void;
     onPressAuthor?: () => void;
@@ -30,5 +36,5 @@ export interface CommentItemProps {
  * highlighting), and a like/reply action row. Supports threaded replies via
  * `depth` indentation and nested `children`, plus a `pinned` highlight. Token-only.
  */
-export declare function CommentItem({ author, handle, avatarUrl, text, timestamp, likeCount, liked, depth, pinned, onLike, onReply, onPressAuthor, onPressMention, onPressHashtag, children, style, }: CommentItemProps): React.ReactElement;
+export declare function CommentItem({ author, handle, avatarUrl, text, timestamp, likeCount, liked, depth, pinned, appearance, onLike, onReply, onPressAuthor, onPressMention, onPressHashtag, children, style, }: CommentItemProps): React.ReactElement;
 //# sourceMappingURL=CommentItem.d.ts.map

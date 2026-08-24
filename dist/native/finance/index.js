@@ -7,8 +7,11 @@
  * compiled theme tokens via `useXenitionTheme()` — no literal colors. Money is
  * always carried as integer **cents** and funnelled through {@link MoneyAmount}
  * / the single `formatMoney` home, so printed values never drift. Income reads
- * `success`, expense reads `danger`; every component takes data + callbacks +
- * variants (no fetching, no SDK import).
+ * `successText`, expense reads `dangerText` (money is TEXT, so it uses the
+ * AA-guaranteed *Text slots); every component takes data + callbacks +
+ * variants (no fetching, no SDK import). Card/row/tile blocks accept an
+ * `appearance` preset (visual diversity) and animate press / mount motion via
+ * the shared reduced-motion-aware hooks — both default to the historical look.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.maskAccountNumber = exports.maskCardNumber = exports.formatMoney = exports.ExchangeRateRow = exports.PaymentMethodRow = exports.SavingsGoalCard = exports.StatementList = exports.TransferForm = exports.InvoiceLine = exports.SpendCategoryRow = exports.CreditCardView = exports.BudgetBar = exports.BalanceHeader = exports.AccountCard = exports.TransactionRow = exports.MoneyAmount = void 0;

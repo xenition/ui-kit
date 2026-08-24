@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Icon, Badge } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 import type { CardBrand } from './CreditCardView';
 
 /** Payment instrument kind. */
@@ -26,6 +28,12 @@ export interface PaymentMethodRowProps {
   selected?: boolean;
   /** Fires on row press (selection). */
   onPress?: () => void;
+  /**
+   * Surface treatment (visual-diversity preset). Defaults to `classic` —
+   * byte-for-byte the historical bordered row. The `selected` primary ring is
+   * preserved across every appearance.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -52,27 +60,40 @@ export function PaymentMethodRow({
   isDefault = false,
   selected = false,
   onPress,
+  appearance = 'classic',
   style,
 }: PaymentMethodRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
 
   const sub = [last4 != null ? `•• ${last4}` : null, expiry != null ? `exp ${expiry}` : null]
     .filter(Boolean)
     .join('  ·  ');
 
+  // Appearance surface FIRST; layout (radius/padding) AFTER. Classic reproduces
+  // the historical bordered surface byte-for-byte. In every appearance the
+  // `selected` primary ring wins as an overlaid border.
+  const surface =
+    appearance === 'classic'
+      ? {
+          borderWidth: 1,
+          borderColor: selected ? colors.primary : colors.border,
+          backgroundColor: colors.surface,
+        }
+      : appearanceStyle(appearance, colors, tokens);
+
   const body = (
     <View
       style={[
+        surface,
         {
           flexDirection: 'row',
           alignItems: 'center',
           gap: tokens.spacing.md,
           padding: tokens.spacing.md,
           borderRadius: tokens.radius.md,
-          borderWidth: 1,
-          borderColor: selected ? colors.primary : colors.border,
-          backgroundColor: colors.surface,
         },
+        selected && appearance !== 'classic' ? { borderWidth: 1, borderColor: colors.primary } : null,
         style,
       ]}
     >
@@ -94,14 +115,18 @@ export function PaymentMethodRow({
 
   if (!onPress) return body;
   return (
-    <Pressable
-      accessibilityRole="radio"
-      accessibilityState={{ selected }}
-      accessibilityLabel={label}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
-    >
-      {body}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="radio"
+        accessibilityState={{ selected }}
+        accessibilityLabel={label}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+      >
+        {body}
+      </Pressable>
+    </Animated.View>
   );
 }

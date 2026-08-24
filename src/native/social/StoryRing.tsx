@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Avatar, type AvatarSize } from '../primitives/Avatar';
+import { usePressScale } from '../primitives/internal/motion';
 
 export type StoryState = 'unseen' | 'seen' | 'live' | 'add';
 
@@ -40,6 +41,7 @@ export function StoryRing({
   style,
 }: StoryRingProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
   const outer = DIAMETER[size];
   const ringColor =
     state === 'live' ? colors.danger : state === 'seen' ? colors.border : colors.primary;
@@ -106,13 +108,17 @@ export function StoryRing({
 
   if (!onPress) return body;
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={state === 'add' ? 'Add to your story' : `${name ?? 'Story'}${state === 'live' ? ', live' : ''}`}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
-    >
-      {body}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={state === 'add' ? 'Add to your story' : `${name ?? 'Story'}${state === 'live' ? ', live' : ''}`}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
+      >
+        {body}
+      </Pressable>
+    </Animated.View>
   );
 }

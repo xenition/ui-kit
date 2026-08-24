@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, Badge, PriceTag } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 
 /** Visual size for a {@link DestinationCard}. */
 export type DestinationCardVariant = 'default' | 'wide';
@@ -22,6 +24,8 @@ export interface DestinationCardProps {
   badge?: string;
   /** Size variant. */
   variant?: DestinationCardVariant;
+  /** Surface treatment (visual diversity). Default `'classic'` — the original look. */
+  appearance?: Appearance;
   /** Fires when the card is pressed. */
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -42,20 +46,20 @@ export function DestinationCard({
   currency = 'USD',
   badge,
   variant = 'default',
+  appearance = 'classic',
   onPress,
   style,
 }: DestinationCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
   const wide = variant === 'wide';
 
   const body = (
     <View
       style={[
+        appearanceStyle(appearance, colors, tokens),
         {
           borderRadius: tokens.radius.lg,
-          borderWidth: 1,
-          borderColor: colors.border,
-          backgroundColor: colors.surface,
           overflow: 'hidden',
           width: wide ? '100%' : 220,
         },
@@ -109,13 +113,17 @@ export function DestinationCard({
 
   if (!onPress) return body;
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`${name}${country ? `, ${country}` : ''}`}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
-    >
-      {body}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${name}${country ? `, ${country}` : ''}`}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
+      >
+        {body}
+      </Pressable>
+    </Animated.View>
   );
 }

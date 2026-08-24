@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Progress } from '../primitives';
+import { type Appearance, appearanceStyle } from '../primitives/internal/appearance';
 import { DueDatePill, type DueDateTone } from './DueDatePill';
 
 export interface MilestoneRowProps {
@@ -15,6 +16,8 @@ export interface MilestoneRowProps {
   dateLabel?: string;
   /** Tone for the target-date pill. */
   dateTone?: DueDateTone;
+  /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -29,6 +32,7 @@ export function MilestoneRow({
   progress,
   dateLabel,
   dateTone = 'upcoming',
+  appearance = 'classic',
   style,
 }: MilestoneRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -37,6 +41,7 @@ export function MilestoneRow({
   return (
     <View
       style={[
+        appearance === 'classic' ? null : appearanceStyle(appearance, colors, tokens),
         {
           flexDirection: 'row',
           alignItems: 'flex-start',

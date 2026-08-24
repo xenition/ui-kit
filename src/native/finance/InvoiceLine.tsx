@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 import { formatMoney } from '../commerce/money';
 import { MoneyAmount } from './MoneyAmount';
 
@@ -20,6 +21,11 @@ export interface InvoiceLineProps {
   amountCents?: number;
   /** Render as the emphasized total row (heavier weight, no unit breakdown). */
   emphasized?: boolean;
+  /**
+   * Surface treatment (visual-diversity preset). Defaults to `classic` — the
+   * historical borderless line, so this is opt-in only.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -36,6 +42,7 @@ export function InvoiceLine({
   currency = 'USD',
   amountCents,
   emphasized = false,
+  appearance = 'classic',
   style,
 }: InvoiceLineProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -43,9 +50,13 @@ export function InvoiceLine({
   const total = typeof amountCents === 'number' ? amountCents : Math.trunc(unitPriceCents) * qty;
   const showBreakdown = !emphasized && qty !== 1;
 
+  // Appearance surface FIRST; layout (radius/padding) stays AFTER. Classic → unchanged.
+  const surface = appearance === 'classic' ? undefined : appearanceStyle(appearance, colors, tokens);
+
   return (
     <View
       style={[
+        surface,
         { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md, paddingVertical: tokens.spacing.sm },
         style,
       ]}

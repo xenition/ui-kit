@@ -5,6 +5,8 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const charts_1 = require("../charts");
+const appearance_1 = require("../primitives/internal/appearance");
+const motion_1 = require("../primitives/internal/motion");
 const money_1 = require("../commerce/money");
 /**
  * The hero balance block for an account/wallet screen: a muted label, a large
@@ -13,13 +15,18 @@ const money_1 = require("../commerce/money");
  * (formatted to two decimals, no drift); the change tone derives from its sign.
  * All colors trace to tokens.
  */
-function BalanceHeader({ label = 'Total balance', balanceCents, currency = 'USD', changeCents, changePct, trend, formatMoney: format = money_1.formatMoney, loading = false, style, }) {
+function BalanceHeader({ label = 'Total balance', balanceCents, currency = 'USD', changeCents, changePct, trend, formatMoney: format = money_1.formatMoney, loading = false, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    const enter = (0, motion_1.useEnter)();
     const hasChange = typeof changeCents === 'number' && Number.isFinite(changeCents);
     const up = (changeCents ?? 0) >= 0;
-    const changeColor = up ? colors.success : colors.danger;
+    // FILL-AS-TEXT: the change reads as TEXT (arrow + amount), so it uses the
+    // AA-guaranteed *Text slots. The Sparkline below stays a FILL (unchanged).
+    const changeColor = up ? colors.successText : colors.dangerText;
     const arrow = up ? '▲' : '▼';
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "summary", style: [{ gap: tokens.spacing.xs }, style], children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: label }), loading ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityLabel: "Loading balance", style: {
+    // Appearance surface FIRST; the enter transition + gap layout stay AFTER.
+    const surface = appearance === 'classic' ? undefined : (0, appearance_1.appearanceStyle)(appearance, colors, tokens);
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.Animated.View, { accessibilityRole: "summary", style: [surface, { gap: tokens.spacing.xs }, enter, style], children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: label }), loading ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityLabel: "Loading balance", style: {
                     height: tokens.typography.scale['3xl'],
                     width: 160,
                     borderRadius: tokens.radius.sm,

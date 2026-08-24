@@ -38,6 +38,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const primitives_1 = require("../primitives");
+const motion_1 = require("../primitives/internal/motion");
 /**
  * A cheapest-day fare grid — each cell shows a day label and its price, and the
  * lowest-priced available day is flagged (badge glyph + announcement, never
@@ -59,25 +60,28 @@ function PriceCalendar({ days, columns = 7, selectedDate, currency = 'USD', form
     }, [days]);
     const cols = Math.max(1, columns);
     const widthPct = `${100 / cols}%`;
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: [{ flexDirection: 'row', flexWrap: 'wrap' }, style], children: days.map((day, i) => {
-            const available = typeof day.cents === 'number';
-            const isSelected = day.date === selectedDate;
-            const isCheapest = day.date === cheapest;
-            const border = isSelected ? colors.primary : colors.border;
-            const bg = isSelected ? colors.primary : colors.surface;
-            const fg = isSelected ? colors.onPrimary : colors.onSurface;
-            const priceColor = isSelected ? colors.onPrimary : isCheapest ? colors.success : colors.muted;
-            return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: widthPct, padding: 2 }, children: (0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `${day.date}${available ? `, ${format(day.cents, currency)}` : ', unavailable'}${isCheapest ? ', cheapest' : ''}`, accessibilityState: { selected: isSelected, disabled: !available }, disabled: !available, onPress: available ? () => onSelectDay?.(day) : undefined, style: ({ pressed }) => ({
-                        borderWidth: 1,
-                        borderColor: border,
-                        backgroundColor: bg,
-                        borderRadius: tokens.radius.sm,
-                        paddingVertical: tokens.spacing.sm,
-                        paddingHorizontal: tokens.spacing.xs,
-                        alignItems: 'center',
-                        gap: 2,
-                        opacity: available ? (pressed ? 0.85 : 1) : 0.5,
-                    }), children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: fg, fontSize: tokens.typography.scale.xs, fontWeight: '600' }, children: isCheapest ? `★ ${day.label}` : day.label }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: priceColor, fontSize: tokens.typography.scale.xs }, children: available ? format(day.cents, currency) : '—' })] }) }, day.date || `day-${i}`));
-        }) }));
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: [{ flexDirection: 'row', flexWrap: 'wrap' }, style], children: days.map((day, i) => ((0, jsx_runtime_1.jsx)(DayCell, { day: day, width: widthPct, isSelected: day.date === selectedDate, isCheapest: day.date === cheapest, currency: currency, format: format, onSelectDay: onSelectDay }, day.date || `day-${i}`))) }));
+}
+/** One fare cell. Its own `usePressScale` gives the pressed day a subtle dip. */
+function DayCell({ day, width, isSelected, isCheapest, currency, format, onSelectDay, }) {
+    const { colors, tokens } = (0, primitives_1.useXenitionTheme)();
+    const press = (0, motion_1.usePressScale)();
+    const available = typeof day.cents === 'number';
+    const border = isSelected ? colors.primary : colors.border;
+    const bg = isSelected ? colors.primary : colors.surface;
+    const fg = isSelected ? colors.onPrimary : colors.onSurface;
+    // Cheapest-day price is TEXT, so it reads from the contrast-tuned `*Text` slot.
+    const priceColor = isSelected ? colors.onPrimary : isCheapest ? colors.successText : colors.muted;
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: { width, padding: 2, transform: [{ scale: press.scale }] }, children: (0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `${day.date}${available ? `, ${format(day.cents, currency)}` : ', unavailable'}${isCheapest ? ', cheapest' : ''}`, accessibilityState: { selected: isSelected, disabled: !available }, disabled: !available, onPress: available ? () => onSelectDay?.(day) : undefined, onPressIn: available ? press.onPressIn : undefined, onPressOut: available ? press.onPressOut : undefined, style: ({ pressed }) => ({
+                borderWidth: 1,
+                borderColor: border,
+                backgroundColor: bg,
+                borderRadius: tokens.radius.sm,
+                paddingVertical: tokens.spacing.sm,
+                paddingHorizontal: tokens.spacing.xs,
+                alignItems: 'center',
+                gap: 2,
+                opacity: available ? (pressed ? 0.85 : 1) : 0.5,
+            }), children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: fg, fontSize: tokens.typography.scale.xs, fontWeight: '600' }, children: isCheapest ? `★ ${day.label}` : day.label }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: priceColor, fontSize: tokens.typography.scale.xs }, children: available ? format(day.cents, currency) : '—' })] }) }));
 }
 //# sourceMappingURL=PriceCalendar.js.map
