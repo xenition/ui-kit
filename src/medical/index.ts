@@ -15,15 +15,27 @@
 
 export { AppointmentCard } from './AppointmentCard';
 export type { AppointmentCardProps, AppointmentStatus, AppointmentMode } from './AppointmentCard';
+export { AppointmentCardV2 } from './AppointmentCardV2';
+export type { AppointmentCardV2Props } from './AppointmentCardV2';
+export { AppointmentCardV3 } from './AppointmentCardV3';
+export type { AppointmentCardV3Props } from './AppointmentCardV3';
 
 export { PrescriptionRow } from './PrescriptionRow';
 export type { PrescriptionRowProps, PrescriptionStatus } from './PrescriptionRow';
+export { PrescriptionRowV2 } from './PrescriptionRowV2';
+export type { PrescriptionRowV2Props } from './PrescriptionRowV2';
+export { PrescriptionRowV3 } from './PrescriptionRowV3';
+export type { PrescriptionRowV3Props } from './PrescriptionRowV3';
 
 export { SymptomSelector } from './SymptomSelector';
 export type { SymptomSelectorProps, SymptomOption } from './SymptomSelector';
 
 export { LabResultRow } from './LabResultRow';
 export type { LabResultRowProps, LabStatus } from './LabResultRow';
+export { LabResultRowV2 } from './LabResultRowV2';
+export type { LabResultRowV2Props } from './LabResultRowV2';
+export { LabResultRowV3 } from './LabResultRowV3';
+export type { LabResultRowV3Props } from './LabResultRowV3';
 
 export { PatientCard } from './PatientCard';
 export type { PatientCardProps, PatientStatus } from './PatientCard';
@@ -39,6 +51,10 @@ export type { MedicationScheduleProps, MedicationDose } from './MedicationSchedu
 
 export { DoctorCard } from './DoctorCard';
 export type { DoctorCardProps, DoctorAvailability } from './DoctorCard';
+export { DoctorCardV2 } from './DoctorCardV2';
+export type { DoctorCardV2Props } from './DoctorCardV2';
+export { DoctorCardV3 } from './DoctorCardV3';
+export type { DoctorCardV3Props } from './DoctorCardV3';
 
 export { VisitSummary } from './VisitSummary';
 export type { VisitSummaryProps, VisitSummarySection } from './VisitSummary';
