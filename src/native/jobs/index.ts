@@ -77,3 +77,24 @@ export type { SavedJobRowProps } from './SavedJobRow';
 
 export { RecruiterMessage } from './RecruiterMessage';
 export type { RecruiterMessageProps } from './RecruiterMessage';
+
+// ── alternate designs (v2 / v3) — separate drop-in components, same props ──
+export { JobCardV2 } from './JobCardV2';
+export type { JobCardV2Props } from './JobCardV2';
+export { JobCardV3 } from './JobCardV3';
+export type { JobCardV3Props } from './JobCardV3';
+
+export { CompanyCardV2 } from './CompanyCardV2';
+export type { CompanyCardV2Props } from './CompanyCardV2';
+export { CompanyCardV3 } from './CompanyCardV3';
+export type { CompanyCardV3Props } from './CompanyCardV3';
+
+export { ApplicationRowV2 } from './ApplicationRowV2';
+export type { ApplicationRowV2Props } from './ApplicationRowV2';
+export { ApplicationRowV3 } from './ApplicationRowV3';
+export type { ApplicationRowV3Props } from './ApplicationRowV3';
+
+export { StatusPipelineV2 } from './StatusPipelineV2';
+export type { StatusPipelineV2Props } from './StatusPipelineV2';
+export { StatusPipelineV3 } from './StatusPipelineV3';
+export type { StatusPipelineV3Props } from './StatusPipelineV3';

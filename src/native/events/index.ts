@@ -44,6 +44,27 @@ export type { CalendarStripProps } from './CalendarStrip';
 export { SessionCard } from './SessionCard';
 export type { SessionCardProps, SessionCardVariant, SessionSpeaker } from './SessionCard';
 
+// Alternate drop-in designs (v2 / v3) — same props as the base component.
+export { EventCardV2 } from './EventCardV2';
+export type { EventCardV2Props } from './EventCardV2';
+export { EventCardV3 } from './EventCardV3';
+export type { EventCardV3Props } from './EventCardV3';
+
+export { TicketStubV2 } from './TicketStubV2';
+export type { TicketStubV2Props } from './TicketStubV2';
+export { TicketStubV3 } from './TicketStubV3';
+export type { TicketStubV3Props } from './TicketStubV3';
+
+export { SpeakerCardV2 } from './SpeakerCardV2';
+export type { SpeakerCardV2Props } from './SpeakerCardV2';
+export { SpeakerCardV3 } from './SpeakerCardV3';
+export type { SpeakerCardV3Props } from './SpeakerCardV3';
+
+export { SessionCardV2 } from './SessionCardV2';
+export type { SessionCardV2Props } from './SessionCardV2';
+export { SessionCardV3 } from './SessionCardV3';
+export type { SessionCardV3Props } from './SessionCardV3';
+
 // Shared date/time helpers (no external deps).
 export {
   weekdayLabel,

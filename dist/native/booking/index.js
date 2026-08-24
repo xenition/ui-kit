@@ -10,13 +10,28 @@
  * never duplicated. Event idioms are native (`onSelectDate`/`onPick`).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.weekRow = exports.monthMatrix = exports.startOfMonth = exports.addDays = exports.formatTimeInTz = exports.dayKeyInTz = exports.toDayKey = exports.BookingSummary = exports.SlotPicker = exports.BookingCalendar = void 0;
+exports.weekRow = exports.monthMatrix = exports.startOfMonth = exports.addDays = exports.formatTimeInTz = exports.dayKeyInTz = exports.toDayKey = exports.BookingSummaryV3 = exports.BookingSummaryV2 = exports.SlotPickerV3 = exports.SlotPickerV2 = exports.BookingCalendarV3 = exports.BookingCalendarV2 = exports.BookingSummary = exports.SlotPicker = exports.BookingCalendar = void 0;
 var BookingCalendar_1 = require("./BookingCalendar");
 Object.defineProperty(exports, "BookingCalendar", { enumerable: true, get: function () { return BookingCalendar_1.BookingCalendar; } });
 var SlotPicker_1 = require("./SlotPicker");
 Object.defineProperty(exports, "SlotPicker", { enumerable: true, get: function () { return SlotPicker_1.SlotPicker; } });
 var BookingSummary_1 = require("./BookingSummary");
 Object.defineProperty(exports, "BookingSummary", { enumerable: true, get: function () { return BookingSummary_1.BookingSummary; } });
+// Alternate designs — separate drop-in components sharing each base prop
+// contract (`<Name>V2Props`/`<Name>V3Props` alias the originals). Pick one at
+// the import site; nothing changes on the base components.
+var BookingCalendarV2_1 = require("./BookingCalendarV2");
+Object.defineProperty(exports, "BookingCalendarV2", { enumerable: true, get: function () { return BookingCalendarV2_1.BookingCalendarV2; } });
+var BookingCalendarV3_1 = require("./BookingCalendarV3");
+Object.defineProperty(exports, "BookingCalendarV3", { enumerable: true, get: function () { return BookingCalendarV3_1.BookingCalendarV3; } });
+var SlotPickerV2_1 = require("./SlotPickerV2");
+Object.defineProperty(exports, "SlotPickerV2", { enumerable: true, get: function () { return SlotPickerV2_1.SlotPickerV2; } });
+var SlotPickerV3_1 = require("./SlotPickerV3");
+Object.defineProperty(exports, "SlotPickerV3", { enumerable: true, get: function () { return SlotPickerV3_1.SlotPickerV3; } });
+var BookingSummaryV2_1 = require("./BookingSummaryV2");
+Object.defineProperty(exports, "BookingSummaryV2", { enumerable: true, get: function () { return BookingSummaryV2_1.BookingSummaryV2; } });
+var BookingSummaryV3_1 = require("./BookingSummaryV3");
+Object.defineProperty(exports, "BookingSummaryV3", { enumerable: true, get: function () { return BookingSummaryV3_1.BookingSummaryV3; } });
 var datetime_1 = require("../../booking/datetime");
 Object.defineProperty(exports, "toDayKey", { enumerable: true, get: function () { return datetime_1.toDayKey; } });
 Object.defineProperty(exports, "dayKeyInTz", { enumerable: true, get: function () { return datetime_1.dayKeyInTz; } });

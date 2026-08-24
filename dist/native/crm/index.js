@@ -11,7 +11,7 @@
  * empty/loading handling and a11y labels — no fetching, no SDK import.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.clampPct = exports.toneColor = exports.QUOTE_META = exports.ACTIVITY_META = exports.TEMPERATURE_META = exports.OUTCOME_META = exports.NextStepRow = exports.WinLossBadge = exports.TagFilterBar = exports.EmailThreadRow = exports.ContactTimeline = exports.DealForecast = exports.QuoteCard = exports.ActivityLogRow = exports.LeadRow = exports.ContactCard = exports.PipelineBoard = exports.DealCard = void 0;
+exports.clampPct = exports.toneColor = exports.QUOTE_META = exports.ACTIVITY_META = exports.TEMPERATURE_META = exports.OUTCOME_META = exports.LeadRowV3 = exports.LeadRowV2 = exports.PipelineBoardV3 = exports.PipelineBoardV2 = exports.ContactCardV3 = exports.ContactCardV2 = exports.DealCardV3 = exports.DealCardV2 = exports.NextStepRow = exports.WinLossBadge = exports.TagFilterBar = exports.EmailThreadRow = exports.ContactTimeline = exports.DealForecast = exports.QuoteCard = exports.ActivityLogRow = exports.LeadRow = exports.ContactCard = exports.PipelineBoard = exports.DealCard = void 0;
 var DealCard_1 = require("./DealCard");
 Object.defineProperty(exports, "DealCard", { enumerable: true, get: function () { return DealCard_1.DealCard; } });
 var PipelineBoard_1 = require("./PipelineBoard");
@@ -36,6 +36,23 @@ var WinLossBadge_1 = require("./WinLossBadge");
 Object.defineProperty(exports, "WinLossBadge", { enumerable: true, get: function () { return WinLossBadge_1.WinLossBadge; } });
 var NextStepRow_1 = require("./NextStepRow");
 Object.defineProperty(exports, "NextStepRow", { enumerable: true, get: function () { return NextStepRow_1.NextStepRow; } });
+// --- Alternate designs (drop-in: each V2/V3 accepts the same props as its base) ---
+var DealCardV2_1 = require("./DealCardV2");
+Object.defineProperty(exports, "DealCardV2", { enumerable: true, get: function () { return DealCardV2_1.DealCardV2; } });
+var DealCardV3_1 = require("./DealCardV3");
+Object.defineProperty(exports, "DealCardV3", { enumerable: true, get: function () { return DealCardV3_1.DealCardV3; } });
+var ContactCardV2_1 = require("./ContactCardV2");
+Object.defineProperty(exports, "ContactCardV2", { enumerable: true, get: function () { return ContactCardV2_1.ContactCardV2; } });
+var ContactCardV3_1 = require("./ContactCardV3");
+Object.defineProperty(exports, "ContactCardV3", { enumerable: true, get: function () { return ContactCardV3_1.ContactCardV3; } });
+var PipelineBoardV2_1 = require("./PipelineBoardV2");
+Object.defineProperty(exports, "PipelineBoardV2", { enumerable: true, get: function () { return PipelineBoardV2_1.PipelineBoardV2; } });
+var PipelineBoardV3_1 = require("./PipelineBoardV3");
+Object.defineProperty(exports, "PipelineBoardV3", { enumerable: true, get: function () { return PipelineBoardV3_1.PipelineBoardV3; } });
+var LeadRowV2_1 = require("./LeadRowV2");
+Object.defineProperty(exports, "LeadRowV2", { enumerable: true, get: function () { return LeadRowV2_1.LeadRowV2; } });
+var LeadRowV3_1 = require("./LeadRowV3");
+Object.defineProperty(exports, "LeadRowV3", { enumerable: true, get: function () { return LeadRowV3_1.LeadRowV3; } });
 var internal_1 = require("./internal");
 Object.defineProperty(exports, "OUTCOME_META", { enumerable: true, get: function () { return internal_1.OUTCOME_META; } });
 Object.defineProperty(exports, "TEMPERATURE_META", { enumerable: true, get: function () { return internal_1.TEMPERATURE_META; } });

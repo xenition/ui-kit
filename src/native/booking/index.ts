@@ -15,6 +15,22 @@ export { SlotPicker } from './SlotPicker';
 export type { SlotPickerProps } from './SlotPicker';
 export { BookingSummary } from './BookingSummary';
 export type { BookingSummaryProps } from './BookingSummary';
+
+// Alternate designs — separate drop-in components sharing each base prop
+// contract (`<Name>V2Props`/`<Name>V3Props` alias the originals). Pick one at
+// the import site; nothing changes on the base components.
+export { BookingCalendarV2 } from './BookingCalendarV2';
+export type { BookingCalendarV2Props } from './BookingCalendarV2';
+export { BookingCalendarV3 } from './BookingCalendarV3';
+export type { BookingCalendarV3Props } from './BookingCalendarV3';
+export { SlotPickerV2 } from './SlotPickerV2';
+export type { SlotPickerV2Props } from './SlotPickerV2';
+export { SlotPickerV3 } from './SlotPickerV3';
+export type { SlotPickerV3Props } from './SlotPickerV3';
+export { BookingSummaryV2 } from './BookingSummaryV2';
+export type { BookingSummaryV2Props } from './BookingSummaryV2';
+export { BookingSummaryV3 } from './BookingSummaryV3';
+export type { BookingSummaryV3Props } from './BookingSummaryV3';
 export type { BookingResource, BookingSlot } from '../../booking/types';
 export {
   toDayKey,
