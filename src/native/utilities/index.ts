@@ -15,15 +15,31 @@
 
 export { BillCard } from './BillCard';
 export type { BillCardProps, UtilityKind, BillStatus } from './BillCard';
+export { BillCardV2 } from './BillCardV2';
+export type { BillCardV2Props } from './BillCardV2';
+export { BillCardV3 } from './BillCardV3';
+export type { BillCardV3Props } from './BillCardV3';
 
 export { UsageMeter } from './UsageMeter';
 export type { UsageMeterProps } from './UsageMeter';
+export { UsageMeterV2 } from './UsageMeterV2';
+export type { UsageMeterV2Props } from './UsageMeterV2';
+export { UsageMeterV3 } from './UsageMeterV3';
+export type { UsageMeterV3Props } from './UsageMeterV3';
 
 export { PaymentRow } from './PaymentRow';
 export type { PaymentRowProps, PaymentState } from './PaymentRow';
+export { PaymentRowV2 } from './PaymentRowV2';
+export type { PaymentRowV2Props } from './PaymentRowV2';
+export { PaymentRowV3 } from './PaymentRowV3';
+export type { PaymentRowV3Props } from './PaymentRowV3';
 
 export { ServiceStatus } from './ServiceStatus';
 export type { ServiceStatusProps, ServiceState } from './ServiceStatus';
+export { ServiceStatusV2 } from './ServiceStatusV2';
+export type { ServiceStatusV2Props } from './ServiceStatusV2';
+export { ServiceStatusV3 } from './ServiceStatusV3';
+export type { ServiceStatusV3Props } from './ServiceStatusV3';
 
 export { MeterReading } from './MeterReading';
 export type { MeterReadingProps } from './MeterReading';

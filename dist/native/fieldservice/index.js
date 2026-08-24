@@ -13,7 +13,7 @@
  * no SDK import).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatPct = exports.formatDuration = exports.formatMoney = exports.SafetyChecklist = exports.DispatchBar = exports.MaterialsRow = exports.SignaturePad = exports.TimeLogRow = exports.ServiceChecklist = exports.TechnicianCard = exports.EquipmentRow = exports.PunchListItem = exports.InspectionRow = exports.JobSiteCard = exports.WorkOrderCard = void 0;
+exports.formatPct = exports.formatDuration = exports.formatMoney = exports.TechnicianCardV3 = exports.TechnicianCardV2 = exports.InspectionRowV3 = exports.InspectionRowV2 = exports.JobSiteCardV3 = exports.JobSiteCardV2 = exports.WorkOrderCardV3 = exports.WorkOrderCardV2 = exports.SafetyChecklist = exports.DispatchBar = exports.MaterialsRow = exports.SignaturePad = exports.TimeLogRow = exports.ServiceChecklist = exports.TechnicianCard = exports.EquipmentRow = exports.PunchListItem = exports.InspectionRow = exports.JobSiteCard = exports.WorkOrderCard = void 0;
 var WorkOrderCard_1 = require("./WorkOrderCard");
 Object.defineProperty(exports, "WorkOrderCard", { enumerable: true, get: function () { return WorkOrderCard_1.WorkOrderCard; } });
 var JobSiteCard_1 = require("./JobSiteCard");
@@ -38,6 +38,26 @@ var DispatchBar_1 = require("./DispatchBar");
 Object.defineProperty(exports, "DispatchBar", { enumerable: true, get: function () { return DispatchBar_1.DispatchBar; } });
 var SafetyChecklist_1 = require("./SafetyChecklist");
 Object.defineProperty(exports, "SafetyChecklist", { enumerable: true, get: function () { return SafetyChecklist_1.SafetyChecklist; } });
+// Alternate designs (v2 / v3) — separate drop-in components sharing the base
+// props (`export type <Name>V2Props = <Name>Props`). Genuinely different visual
+// treatments (elevated status-rail vs dense line, profile card vs roster row)
+// so two field-service apps don't produce the same screen.
+var WorkOrderCardV2_1 = require("./WorkOrderCardV2");
+Object.defineProperty(exports, "WorkOrderCardV2", { enumerable: true, get: function () { return WorkOrderCardV2_1.WorkOrderCardV2; } });
+var WorkOrderCardV3_1 = require("./WorkOrderCardV3");
+Object.defineProperty(exports, "WorkOrderCardV3", { enumerable: true, get: function () { return WorkOrderCardV3_1.WorkOrderCardV3; } });
+var JobSiteCardV2_1 = require("./JobSiteCardV2");
+Object.defineProperty(exports, "JobSiteCardV2", { enumerable: true, get: function () { return JobSiteCardV2_1.JobSiteCardV2; } });
+var JobSiteCardV3_1 = require("./JobSiteCardV3");
+Object.defineProperty(exports, "JobSiteCardV3", { enumerable: true, get: function () { return JobSiteCardV3_1.JobSiteCardV3; } });
+var InspectionRowV2_1 = require("./InspectionRowV2");
+Object.defineProperty(exports, "InspectionRowV2", { enumerable: true, get: function () { return InspectionRowV2_1.InspectionRowV2; } });
+var InspectionRowV3_1 = require("./InspectionRowV3");
+Object.defineProperty(exports, "InspectionRowV3", { enumerable: true, get: function () { return InspectionRowV3_1.InspectionRowV3; } });
+var TechnicianCardV2_1 = require("./TechnicianCardV2");
+Object.defineProperty(exports, "TechnicianCardV2", { enumerable: true, get: function () { return TechnicianCardV2_1.TechnicianCardV2; } });
+var TechnicianCardV3_1 = require("./TechnicianCardV3");
+Object.defineProperty(exports, "TechnicianCardV3", { enumerable: true, get: function () { return TechnicianCardV3_1.TechnicianCardV3; } });
 // Shared money/format home (re-exported for ergonomics; mirrors sibling modules).
 var format_1 = require("./internal/format");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return format_1.formatMoney; } });
