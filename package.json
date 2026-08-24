@@ -184,6 +184,16 @@
       "types": "./dist/native/content/index.d.ts",
       "import": "./dist/native/content/index.js",
       "require": "./dist/native/content/index.js"
+    },
+    "./native/streaming": {
+      "types": "./dist/native/streaming/index.d.ts",
+      "import": "./dist/native/streaming/index.js",
+      "require": "./dist/native/streaming/index.js"
+    },
+    "./native/onboarding": {
+      "types": "./dist/native/onboarding/index.d.ts",
+      "import": "./dist/native/onboarding/index.js",
+      "require": "./dist/native/onboarding/index.js"
     }
   },
   "scripts": {
