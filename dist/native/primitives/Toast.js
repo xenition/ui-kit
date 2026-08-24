@@ -38,6 +38,7 @@ exports.ToastProvider = ToastProvider;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
+const react_native_safe_area_context_1 = require("react-native-safe-area-context");
 const theme_1 = require("../theme");
 const ToastContext = React.createContext(null);
 /** Access the toast API. Must be used within a `<ToastProvider>`. */
@@ -55,7 +56,10 @@ function ToastCard({ item, onDismiss }) {
         warn: colors.accent,
         danger: colors.danger,
     };
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "summary", style: {
+    // Announce toasts to assistive tech (design.md §46). Danger is urgent, so
+    // it interrupts (assertive + alert role); other tones are announced politely.
+    const isDanger = item.tone === 'danger';
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: isDanger ? 'alert' : 'summary', accessibilityLiveRegion: isDanger ? 'assertive' : 'polite', style: {
             width: '100%',
             maxWidth: 420,
             flexDirection: 'row',
@@ -80,6 +84,9 @@ function ToastCard({ item, onDismiss }) {
  */
 function ToastProvider({ children }) {
     const { tokens } = (0, theme_1.useXenitionTheme)();
+    // Offset the top-anchored viewport below the status bar / notch. Needs a
+    // `SafeAreaProvider` above it (Expo default).
+    const insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
     const [items, setItems] = React.useState([]);
     const idRef = React.useRef(0);
     const timers = React.useRef(new Map());
@@ -110,7 +117,7 @@ function ToastProvider({ children }) {
     const value = React.useMemo(() => ({ toast, dismiss }), [toast, dismiss]);
     return ((0, jsx_runtime_1.jsxs)(ToastContext.Provider, { value: value, children: [children, (0, jsx_runtime_1.jsx)(react_native_1.View, { pointerEvents: "box-none", style: {
                     position: 'absolute',
-                    top: tokens.spacing.xl,
+                    top: tokens.spacing.xl + insets.top,
                     left: 0,
                     right: 0,
                     alignItems: 'center',

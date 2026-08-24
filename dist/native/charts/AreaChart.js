@@ -44,7 +44,7 @@ const theme_1 = require("../theme");
  * data's own min/max. Renders a `muted` "No data" note on empty input and guards
  * zero-range series.
  */
-function AreaChart({ data, height = 160, width = 300, color = 'primary', fillOpacity = 0.2, strokeWidth = 2, showDots = false, style, }) {
+function AreaChart({ data, height = 160, width = 300, color = 'primary', fillOpacity = 0.2, strokeWidth = 2, showDots = false, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (data.length === 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
@@ -71,7 +71,7 @@ function AreaChart({ data, height = 160, width = 300, color = 'primary', fillOpa
     const lineSegs = pixels.map((p) => `L ${p.px} ${p.py}`).join(' ');
     const areaPath = `M ${first.px} ${baseY} L ${first.px} ${first.py} ${lineSegs} L ${last.px} ${baseY} Z`;
     const polyPoints = pixels.map((p) => `${p.px},${p.py}`).join(' ');
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: style, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.default, { width: width, height: height, viewBox: `0 0 ${width} ${height}`, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: areaPath, fill: colors[color], fillOpacity: fillOpacity, stroke: "none" }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Polyline, { points: polyPoints, fill: "none", stroke: colors[color], strokeWidth: strokeWidth, strokeLinejoin: "round", strokeLinecap: "round" }), showDots
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Area chart, ${data.length} points`, style: style, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.default, { width: width, height: height, viewBox: `0 0 ${width} ${height}`, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: areaPath, fill: colors[color], fillOpacity: fillOpacity, stroke: "none" }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Polyline, { points: polyPoints, fill: "none", stroke: colors[color], strokeWidth: strokeWidth, strokeLinejoin: "round", strokeLinecap: "round" }), showDots
                     ? pixels.map((p, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: p.px, cy: p.py, r: strokeWidth + 1, fill: colors[color] }, i)))
                     : null] }) }));
 }

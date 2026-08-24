@@ -13,6 +13,8 @@ export interface HeatmapProps {
   max?: number;
   /** Cell edge length in px. */
   cellSize?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -26,6 +28,7 @@ export function Heatmap({
   color = 'primary',
   max,
   cellSize = 16,
+  accessibilityLabel,
   style,
 }: HeatmapProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -40,9 +43,16 @@ export function Heatmap({
 
   const flat = data.flat();
   const ceiling = Math.max(max ?? Math.max(...flat), 1);
+  const cols = Math.max(...data.map((row) => row.length));
 
   return (
-    <View style={[{ gap: 2 }, style]}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={
+        accessibilityLabel ?? `Heatmap, ${data.length}×${cols} grid, max ${ceiling}`
+      }
+      style={[{ gap: 2 }, style]}
+    >
       {data.map((row, r) => (
         <View key={r} style={{ flexDirection: 'row', gap: 2 }}>
           {row.map((value, c) => {

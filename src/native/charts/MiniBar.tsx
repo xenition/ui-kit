@@ -13,6 +13,8 @@ export interface MiniBarProps {
   color?: MiniBarColor;
   /** Track/fill height in px. */
   height?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -25,6 +27,7 @@ export function MiniBar({
   max = 100,
   color = 'primary',
   height = 6,
+  accessibilityLabel,
   style,
 }: MiniBarProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -33,6 +36,8 @@ export function MiniBar({
 
   return (
     <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Progress bar, ${value} of ${max}`}
       style={[
         {
           height,

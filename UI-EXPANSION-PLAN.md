@@ -118,13 +118,13 @@ Hooks: `useMutation` · `usePaginatedResource` · `useInfiniteResource` · `useA
 
 ## 2B. Existing-component corrections (from the knowledge-doc audit, 2026-08-24)
 Audit clean on the scary stuff: no invalid RN roles, no `localhost`, no hardcoded endpoints, auth-form copy/states already good. Backlog:
-- ⬜ **A1 (systemic, P1) safe-area insets** — add `react-native-safe-area-context` peerDep + thread `useSafeAreaInsets()` through the 6 edge-anchored native components: `BottomNav` (paddingBottom), `AppShell` top bar (top), `Toast` (top), `BottomSheet` (bottom), `ActionSheet` (bottom), `FloatButton` (bottom) + `dashboard/PageContainer`. (mobile.md — fails only on real hardware.)
-- ⬜ **A2 (P0) LanguageSwitcher token cleanup** — `src/i18n/LanguageSwitcher.tsx` inline rem sizing + literal color/shadow fallbacks (`rgba(0,0,0,…)`, `#fff`, `#111`) that dodge the color-lint → route through `--xen-*`; add a `--xen-shadow`/`colors.scrim` token; add arrow-key nav for its `role="listbox"`.
-- ⬜ **A3 (P1) chart a11y** — native + web charts render data visually only; add an `accessibilityLabel` data-summary + `accessibilityRole="image"` (mirror dashboard `StatCard`).
-- ⬜ **A4 (P1) Toast native live region** — `src/native/primitives/Toast.tsx` add `accessibilityLiveRegion` (assertive for danger, polite else) + role `alert` for error.
-- ⬜ **A5 (P1) numeric fontSize → type scale** — `Drawer`, `Accordion`, `Tooltip`, `Popconfirm`, `Menu` (native), and `native/marketing/RichText` inline `fontSize` numbers → `tokens.typography.scale.*` (Dynamic Type).
-- ⬜ **A6 (P1) guiding empty states (§15)** — `DataTable`/`Table` (web+native) default `'No data'` → a two-line guiding default.
-- ⬜ **A7 (P2) semantic scrim token** — add `colors.scrim`/`overlay`; unify AppShell (`ramps.neutral[950]`) vs BottomSheet/ActionSheet (`onSurface`) overlays; DatePicker day-cell touch target ≥44; verify reduced-motion on Countdown/GenerativeCover/GradientHero.
+- 🟩 **A1 (systemic, P1) safe-area insets** — add `react-native-safe-area-context` peerDep + thread `useSafeAreaInsets()` through the 6 edge-anchored native components: `BottomNav` (paddingBottom), `AppShell` top bar (top), `Toast` (top), `BottomSheet` (bottom), `ActionSheet` (bottom), `FloatButton` (bottom) + `dashboard/PageContainer`. (mobile.md — fails only on real hardware.)
+- 🟩 **A2 (P0) LanguageSwitcher token cleanup** — `src/i18n/LanguageSwitcher.tsx` inline rem sizing + literal color/shadow fallbacks (`rgba(0,0,0,…)`, `#fff`, `#111`) that dodge the color-lint → route through `--xen-*`; add a `--xen-shadow`/`colors.scrim` token; add arrow-key nav for its `role="listbox"`.
+- 🟩 **A3 (P1) chart a11y** — native + web charts render data visually only; add an `accessibilityLabel` data-summary + `accessibilityRole="image"` (mirror dashboard `StatCard`).
+- 🟩 **A4 (P1) Toast native live region** — `src/native/primitives/Toast.tsx` add `accessibilityLiveRegion` (assertive for danger, polite else) + role `alert` for error.
+- 🟩 **A5 (P1) numeric fontSize → type scale** — `Drawer`, `Accordion`, `Tooltip`, `Popconfirm`, `Menu` (native), and `native/marketing/RichText` inline `fontSize` numbers → `tokens.typography.scale.*` (Dynamic Type).
+- 🟩 **A6 (P1) guiding empty states (§15)** — `DataTable`/`Table` (web+native) default `'No data'` → a two-line guiding default.
+- 🟩 **A7 (P2) semantic scrim token** — add `colors.scrim`/`overlay`; unify AppShell (`ramps.neutral[950]`) vs BottomSheet/ActionSheet (`onSurface`) overlays; DatePicker day-cell touch target ≥44; verify reduced-motion on Countdown/GenerativeCover/GradientHero.
 
 ## 3. Progress log
 - 2026-08-24 — Plan created after deep research of knowledge/, ui-kit, sdk, templates, cortex integration.
@@ -136,5 +136,7 @@ Audit clean on the scary stuff: no invalid RN roles, no `localhost`, no hardcode
 
 - 2026-08-24 — **Wave 4 shipped** (commit d158849): native SVG charts (8) + web layout (16) + web charts (16) + web dashboard (16) = 56 components. react-native-svg wired. tsc clean, 667/667 jest green. Audit backlog (§2B) captured.
 
-## Running total: **134 new components this session** (wave 1: 44 modules; wave 2: 24 primitives). 
+- 2026-08-24 — **Audit fixes shipped** (commit 041ea3e): A1 safe-area insets (7 native components + react-native-safe-area-context), A2 LanguageSwitcher tokens+keyboard, A3 chart a11y (36 charts), A4 Toast live region, A5 fontSize→scale (6 files), A6 guiding empty states (4 tables), A7 DatePicker target + scrim. tsc clean, 667/667 green.
+
+## Running total: **134 new components + full audit-fix pass, this session** (wave 1: 44 modules; wave 2: 24 primitives). 
 Native primitives now ~90, + 3 new native modules (layout/charts/dashboard). Next: (a) cortex `routes_assist.py` native prompt + `_UI_VERSION` bump + publish `@xenition/ui@0.2.0` so mobile generation uses them [needs npm publish — release action]; (b) native display/navigation remaining gaps; (c) web parity for the 3 new modules + the 24 primitives; (d) SVG charts if `react-native-svg` is approved.

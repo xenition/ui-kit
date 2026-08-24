@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useXenitionTheme } from '../theme';
 
 export interface BottomNavItem {
@@ -27,6 +28,9 @@ export interface BottomNavProps {
  */
 export function BottomNav({ items, active, onChange, style }: BottomNavProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Add the device's bottom safe-area inset to the token padding so the bar
+  // clears the home indicator. Needs a `SafeAreaProvider` above it (Expo default).
+  const insets = useSafeAreaInsets();
 
   return (
     <View
@@ -37,7 +41,7 @@ export function BottomNav({ items, active, onChange, style }: BottomNavProps): R
           backgroundColor: colors.surface,
           borderTopWidth: 1,
           borderTopColor: colors.border,
-          paddingBottom: tokens.spacing.sm,
+          paddingBottom: tokens.spacing.sm + insets.bottom,
           paddingTop: tokens.spacing.sm,
         },
         style,

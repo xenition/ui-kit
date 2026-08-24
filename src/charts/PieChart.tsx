@@ -52,6 +52,7 @@ export const PieChart = React.forwardRef<SVGSVGElement, PieChartProps>(function 
       width={size}
       height={size}
       role="img"
+      aria-label={`Pie chart, ${data.length} slices`}
       className={cn('inline-block', className)}
       {...rest}
     >

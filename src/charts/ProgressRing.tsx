@@ -36,7 +36,7 @@ export const ProgressRing = React.forwardRef<SVGSVGElement, ProgressRingProps>(f
 
   return (
     <div className={cn('relative inline-block', className)} style={{ width: size, height: size }}>
-      <svg ref={ref} viewBox={`0 0 ${size} ${size}`} width={size} height={size} role="img" {...rest}>
+      <svg ref={ref} viewBox={`0 0 ${size} ${size}`} width={size} height={size} role="img" aria-label={`Progress ring, ${Math.round(ratio * 100)}%`} {...rest}>
         <circle cx={cx} cy={cx} r={r} fill="none" stroke="var(--xen-border)" strokeWidth={thickness} />
         <circle
           cx={cx}

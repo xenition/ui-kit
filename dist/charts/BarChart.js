@@ -51,7 +51,7 @@ exports.BarChart = React.forwardRef(function BarChart({ data, labels, height = 1
     const fill = (0, internal_1.colorVar)(color);
     const slot = width / data.length;
     const barW = slot * 0.66;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, cn_1.cn)('inline-block w-full', className), children: [(0, jsx_runtime_1.jsxs)("svg", { viewBox: `0 0 ${width} ${height}`, width: "100%", height: height, preserveAspectRatio: "none", role: "img", ref: ref, ...rest, children: [data.map((v, i) => {
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, cn_1.cn)('inline-block w-full', className), children: [(0, jsx_runtime_1.jsxs)("svg", { viewBox: `0 0 ${width} ${height}`, width: "100%", height: height, preserveAspectRatio: "none", role: "img", "aria-label": `Bar chart, ${data.length} bars, max ${ceiling}`, ref: ref, ...rest, children: [data.map((v, i) => {
                         const h = Math.max((0, internal_1.clamp01)(v / ceiling) * height, 1);
                         const x = i * slot + (slot - barW) / 2;
                         return (0, jsx_runtime_1.jsx)("rect", { x: x, y: height - h, width: barW, height: h, rx: 2, fill: fill }, i);

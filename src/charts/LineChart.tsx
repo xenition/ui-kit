@@ -52,6 +52,7 @@ export const LineChart = React.forwardRef<SVGSVGElement, LineChartProps>(functio
       height={height}
       preserveAspectRatio="none"
       role="img"
+      aria-label={`Line chart, ${data.length} points, max ${Math.max(...data)}`}
       className={cn('overflow-visible', className)}
       {...rest}
     >

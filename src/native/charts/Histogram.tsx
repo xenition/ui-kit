@@ -13,6 +13,8 @@ export interface HistogramProps {
   color?: HistogramColor;
   /** Count mapped to full height; defaults to the largest bin. */
   max?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -26,6 +28,7 @@ export function Histogram({
   height = 120,
   color = 'primary',
   max,
+  accessibilityLabel,
   style,
 }: HistogramProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -41,7 +44,11 @@ export function Histogram({
   const ceiling = Math.max(max ?? Math.max(...bins), 1);
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Histogram, ${bins.length} bins, max ${ceiling}`}
+      style={style}
+    >
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', height }}>
         {bins.map((count, i) => {
           const ratio = Math.min(Math.max(count / ceiling, 0), 1);

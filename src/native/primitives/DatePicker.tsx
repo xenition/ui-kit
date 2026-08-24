@@ -251,7 +251,7 @@ export function DatePicker({
                 {weekdayLabels.map((label) => (
                   <View
                     key={label}
-                    style={{ width: 40, alignItems: 'center', paddingVertical: tokens.spacing.xs }}
+                    style={{ width: 44, alignItems: 'center', paddingVertical: tokens.spacing.xs }}
                   >
                     <Text
                       style={{
@@ -280,7 +280,7 @@ export function DatePicker({
                         : colors.onSurface;
 
                     return (
-                      <View key={key} style={{ width: 40, alignItems: 'center', padding: 2 }}>
+                      <View key={key} style={{ width: 44, alignItems: 'center' }}>
                         <Pressable
                           accessibilityRole="button"
                           accessibilityLabel={longDate.format(date)}
@@ -291,8 +291,8 @@ export function DatePicker({
                             setOpen(false);
                           }}
                           style={({ pressed }) => ({
-                            width: 36,
-                            height: 36,
+                            minWidth: 44,
+                            minHeight: 44,
                             alignItems: 'center',
                             justifyContent: 'center',
                             borderRadius: tokens.radius.md,

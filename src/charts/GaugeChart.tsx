@@ -54,6 +54,7 @@ export const GaugeChart = React.forwardRef<SVGSVGElement, GaugeChartProps>(funct
       width={size}
       height={height}
       role="img"
+      aria-label={`Gauge, ${value} of ${max}`}
       className={cn('inline-block', className)}
       {...rest}
     >

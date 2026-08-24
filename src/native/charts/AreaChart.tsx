@@ -23,6 +23,8 @@ export interface AreaChartProps {
   strokeWidth?: number;
   /** Render a dot at each point. */
   showDots?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -40,6 +42,7 @@ export function AreaChart({
   fillOpacity = 0.2,
   strokeWidth = 2,
   showDots = false,
+  accessibilityLabel,
   style,
 }: AreaChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -78,7 +81,11 @@ export function AreaChart({
   const polyPoints = pixels.map((p) => `${p.px},${p.py}`).join(' ');
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Area chart, ${data.length} points`}
+      style={style}
+    >
       <Svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         <Path d={areaPath} fill={colors[color]} fillOpacity={fillOpacity} stroke="none" />
         <Polyline

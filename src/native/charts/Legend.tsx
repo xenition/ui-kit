@@ -16,6 +16,8 @@ export interface LegendProps {
   items: LegendItem[];
   /** Stack vertically instead of wrapping in a row. */
   vertical?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -23,7 +25,12 @@ export interface LegendProps {
  * Chart legend — token-bound, View-based (no SVG). Each entry is a color swatch
  * (a theme color, optionally at reduced `opacity`) beside its `onSurface` label.
  */
-export function Legend({ items, vertical = false, style }: LegendProps): React.ReactElement {
+export function Legend({
+  items,
+  vertical = false,
+  accessibilityLabel,
+  style,
+}: LegendProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
 
   if (items.length === 0) {
@@ -36,6 +43,8 @@ export function Legend({ items, vertical = false, style }: LegendProps): React.R
 
   return (
     <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Legend: ${items.map((it) => it.label).join(', ')}`}
       style={[
         {
           flexDirection: vertical ? 'column' : 'row',

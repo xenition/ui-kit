@@ -34,7 +34,7 @@ export const BarChart = React.forwardRef<SVGSVGElement, BarChartProps>(function 
 
   return (
     <div className={cn('inline-block w-full', className)}>
-      <svg viewBox={`0 0 ${width} ${height}`} width="100%" height={height} preserveAspectRatio="none" role="img" ref={ref} {...rest}>
+      <svg viewBox={`0 0 ${width} ${height}`} width="100%" height={height} preserveAspectRatio="none" role="img" aria-label={`Bar chart, ${data.length} bars, max ${ceiling}`} ref={ref} {...rest}>
         {data.map((v, i) => {
           const h = Math.max(clamp01(v / ceiling) * height, 1);
           const x = i * slot + (slot - barW) / 2;

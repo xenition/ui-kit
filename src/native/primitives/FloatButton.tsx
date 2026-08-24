@@ -7,6 +7,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useXenitionTheme } from '../theme';
 
 export type FloatButtonPlacement = 'bottom-right' | 'bottom-left' | 'bottom-center';
@@ -43,6 +44,9 @@ export function FloatButton({
   ...rest
 }: FloatButtonProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Lift the FAB above the home indicator by adding the bottom safe-area inset
+  // to its anchor offset. Needs a `SafeAreaProvider` above it (Expo default).
+  const insets = useSafeAreaInsets();
 
   const anchor: ViewStyle =
     placement === 'bottom-left'
@@ -61,7 +65,7 @@ export function FloatButton({
       style={({ pressed }) => [
         {
           position: 'absolute',
-          bottom: tokens.spacing.xl,
+          bottom: tokens.spacing.xl + insets.bottom,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',

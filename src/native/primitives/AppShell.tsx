@@ -7,6 +7,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useXenitionTheme } from '../theme';
 
 export interface AppShellProps {
@@ -39,6 +40,9 @@ export function AppShell({
 }: AppShellProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const [open, setOpen] = React.useState(false);
+  // Push the top bar below the status bar / notch by adding the top safe-area
+  // inset to its token padding. Needs a `SafeAreaProvider` above it (Expo default).
+  const insets = useSafeAreaInsets();
 
   return (
     <View style={[{ flex: 1, backgroundColor: colors.surface }, style]}>
@@ -51,7 +55,8 @@ export function AppShell({
           borderColor: colors.border,
           backgroundColor: colors.surface,
           paddingHorizontal: tokens.spacing.lg,
-          paddingVertical: tokens.spacing.md,
+          paddingTop: tokens.spacing.md + insets.top,
+          paddingBottom: tokens.spacing.md,
         }}
       >
         <Pressable
@@ -92,7 +97,7 @@ export function AppShell({
             onPress={() => setOpen(false)}
             style={{
               flex: 1,
-              backgroundColor: tokens.ramps.neutral[950],
+              backgroundColor: colors.onSurface,
               opacity: 0.5,
             }}
           />

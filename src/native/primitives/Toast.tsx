@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Pressable, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useXenitionTheme } from '../theme';
 
 export type ToastTone = 'info' | 'success' | 'warn' | 'danger';
@@ -39,9 +40,13 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: (id: numbe
     warn: colors.accent,
     danger: colors.danger,
   };
+  // Announce toasts to assistive tech (design.md §46). Danger is urgent, so
+  // it interrupts (assertive + alert role); other tones are announced politely.
+  const isDanger = item.tone === 'danger';
   return (
     <View
-      accessibilityRole="summary"
+      accessibilityRole={isDanger ? 'alert' : 'summary'}
+      accessibilityLiveRegion={isDanger ? 'assertive' : 'polite'}
       style={{
         width: '100%',
         maxWidth: 420,
@@ -92,6 +97,9 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: (id: numbe
  */
 export function ToastProvider({ children }: { children: React.ReactNode }): React.ReactElement {
   const { tokens } = useXenitionTheme();
+  // Offset the top-anchored viewport below the status bar / notch. Needs a
+  // `SafeAreaProvider` above it (Expo default).
+  const insets = useSafeAreaInsets();
   const [items, setItems] = React.useState<ToastItem[]>([]);
   const idRef = React.useRef(0);
   const timers = React.useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
@@ -138,7 +146,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }): Reac
         pointerEvents="box-none"
         style={{
           position: 'absolute',
-          top: tokens.spacing.xl,
+          top: tokens.spacing.xl + insets.top,
           left: 0,
           right: 0,
           alignItems: 'center',

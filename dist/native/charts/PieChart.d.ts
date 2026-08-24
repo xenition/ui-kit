@@ -15,6 +15,8 @@ export interface PieChartProps {
     size?: number;
     /** Render a swatch + label legend beneath the pie. */
     showLegend?: boolean;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -23,5 +25,5 @@ export interface PieChartProps {
  * cycled palette (opacity steps down on wrap-around). Renders a `muted` "No data"
  * note when empty or when every value is zero.
  */
-export declare function PieChart({ data, size, showLegend, style, }: PieChartProps): React.ReactElement;
+export declare function PieChart({ data, size, showLegend, accessibilityLabel, style, }: PieChartProps): React.ReactElement;
 //# sourceMappingURL=PieChart.d.ts.map

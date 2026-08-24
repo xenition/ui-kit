@@ -21,6 +21,8 @@ export interface LineChartProps {
   showDots?: boolean;
   /** Stroke width in px. */
   strokeWidth?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -37,6 +39,7 @@ export function LineChart({
   color = 'primary',
   showDots = false,
   strokeWidth = 2,
+  accessibilityLabel,
   style,
 }: LineChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -71,7 +74,11 @@ export function LineChart({
   const polyPoints = pixels.map((p) => `${p.px},${p.py}`).join(' ');
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Line chart, ${data.length} points`}
+      style={style}
+    >
       <Svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         <Polyline
           points={polyPoints}

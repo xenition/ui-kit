@@ -51,7 +51,7 @@ exports.Histogram = React.forwardRef(function Histogram({ bins, height = 120, co
     const ceiling = (0, internal_1.safeMax)(bins, max);
     const fill = (0, internal_1.colorVar)(color);
     const slot = width / bins.length;
-    return ((0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${width} ${height}`, width: "100%", height: height, preserveAspectRatio: "none", role: "img", className: (0, cn_1.cn)('inline-block', className), ...rest, children: [bins.map((count, i) => {
+    return ((0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${width} ${height}`, width: "100%", height: height, preserveAspectRatio: "none", role: "img", "aria-label": `Histogram, ${bins.length} bins, max ${ceiling}`, className: (0, cn_1.cn)('inline-block', className), ...rest, children: [bins.map((count, i) => {
                 const h = Math.max((0, internal_1.clamp01)(count / ceiling) * height, 1);
                 return ((0, jsx_runtime_1.jsx)("rect", { x: i * slot, y: height - h, width: slot, height: h, fill: fill, stroke: "var(--xen-surface)", strokeWidth: 1 }, i));
             }), (0, jsx_runtime_1.jsx)("line", { x1: 0, y1: height, x2: width, y2: height, stroke: "var(--xen-muted)", strokeWidth: 1 })] }));

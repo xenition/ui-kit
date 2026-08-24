@@ -53,6 +53,7 @@ export const AreaChart = React.forwardRef<SVGSVGElement, AreaChartProps>(functio
       height={height}
       preserveAspectRatio="none"
       role="img"
+      aria-label={`Area chart, ${data.length} points, max ${Math.max(...data)}`}
       className={cn('overflow-visible', className)}
       {...rest}
     >

@@ -18,6 +18,8 @@ export interface GaugeChartProps {
   color?: GaugeChartColor;
   /** Show the value text under the needle. */
   showValue?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -38,6 +40,7 @@ export function GaugeChart({
   thickness = 18,
   color = 'primary',
   showValue = true,
+  accessibilityLabel,
   style,
 }: GaugeChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -67,7 +70,11 @@ export function GaugeChart({
   const needle = polar(cx, cy, r, end);
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Gauge, ${clamped} of ${max}`}
+      style={style}
+    >
       <Svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         <G>
           <Path

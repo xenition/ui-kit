@@ -61,7 +61,7 @@ exports.DonutChart = React.forwardRef(function DonutChart({ data, size = 160, th
     const nonZero = data.filter((d) => Math.max(d.value, 0) > 0);
     const single = nonZero.length === 1;
     let angle = -Math.PI / 2;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, cn_1.cn)('relative inline-block', className), style: { width: size, height: size }, children: [(0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${size} ${size}`, width: size, height: size, role: "img", ...rest, children: [single ? ((0, jsx_runtime_1.jsx)("circle", { cx: cx, cy: cy, r: r, fill: fillFor(nonZero[0] ?? data[0], 0) })) : (data.map((d, i) => {
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, cn_1.cn)('relative inline-block', className), style: { width: size, height: size }, children: [(0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${size} ${size}`, width: size, height: size, role: "img", "aria-label": `Donut chart, ${data.length} segments${centerLabel ? `, ${centerLabel}` : ''}`, ...rest, children: [single ? ((0, jsx_runtime_1.jsx)("circle", { cx: cx, cy: cy, r: r, fill: fillFor(nonZero[0] ?? data[0], 0) })) : (data.map((d, i) => {
                         const frac = Math.max(d.value, 0) / total;
                         if (frac <= 0)
                             return null;

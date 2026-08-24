@@ -44,7 +44,7 @@ const theme_1 = require("../theme");
  * box; zero-range axes are guarded. Optional `border` axis lines. Renders a
  * `muted` "No data" note on empty input.
  */
-function ScatterChart({ points, height = 200, width = 300, color = 'primary', dotRadius = 4, showAxes = true, style, }) {
+function ScatterChart({ points, height = 200, width = 300, color = 'primary', dotRadius = 4, showAxes = true, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (points.length === 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
@@ -64,6 +64,6 @@ function ScatterChart({ points, height = 200, width = 300, color = 'primary', do
         cx: pad + ((p.x - minX) / spanX) * plotW,
         cy: pad + (1 - (p.y - minY) / spanY) * plotH,
     }));
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: style, children: (0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: width, height: height, viewBox: `0 0 ${width} ${height}`, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { children: [showAxes ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Line, { x1: pad, y1: pad, x2: pad, y2: pad + plotH, stroke: colors.border, strokeWidth: 1 }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Line, { x1: pad, y1: pad + plotH, x2: pad + plotW, y2: pad + plotH, stroke: colors.border, strokeWidth: 1 })] })) : null, pixels.map((p, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: p.cx, cy: p.cy, r: dotRadius, fill: colors[color], fillOpacity: 0.85 }, i)))] }) }) }));
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Scatter plot, ${points.length} points`, style: style, children: (0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: width, height: height, viewBox: `0 0 ${width} ${height}`, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { children: [showAxes ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Line, { x1: pad, y1: pad, x2: pad, y2: pad + plotH, stroke: colors.border, strokeWidth: 1 }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Line, { x1: pad, y1: pad + plotH, x2: pad + plotW, y2: pad + plotH, stroke: colors.border, strokeWidth: 1 })] })) : null, pixels.map((p, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: p.cx, cy: p.cy, r: dotRadius, fill: colors[color], fillOpacity: 0.85 }, i)))] }) }) }));
 }
 //# sourceMappingURL=ScatterChart.js.map

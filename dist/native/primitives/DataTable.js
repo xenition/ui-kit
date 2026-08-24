@@ -41,6 +41,19 @@ const theme_1 = require("../theme");
 const Input_1 = require("./Input");
 const Pagination_1 = require("./Pagination");
 /**
+ * Guiding two-line empty state (design.md §15): a title plus a hint on what
+ * makes rows appear, instead of a bare "No data".
+ */
+function DefaultEmptyState() {
+    const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.xs, alignItems: 'center' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
+                    color: colors.onSurface,
+                    fontSize: tokens.typography.scale.sm,
+                    fontWeight: '600',
+                    textAlign: 'center',
+                }, children: "Nothing here yet" }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs, textAlign: 'center' }, children: "Rows will appear once data is added." })] }));
+}
+/**
  * Sortable, searchable, paginated data table — the native mirror of the web
  * `DataTable`. RN has no `<table>`, so the layout is View/Text rows with
  * `flex: 1` columns (as the native `Table`); tap a `sortable` header to toggle
@@ -48,7 +61,7 @@ const Pagination_1 = require("./Pagination");
  * the native `Pagination`. Client-side, token-bound, no literal colors. For a
  * full create/edit/delete screen use `CrudTable`.
  */
-function DataTable({ columns, rows, pageSize = 10, searchable = false, getRowKey, onRowClick, empty = 'No data', style, }) {
+function DataTable({ columns, rows, pageSize = 10, searchable = false, getRowKey, onRowClick, empty = (0, jsx_runtime_1.jsx)(DefaultEmptyState, {}), style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const [sort, setSort] = React.useState(null);
     const [query, setQuery] = React.useState('');

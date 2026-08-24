@@ -19,6 +19,8 @@ export interface DonutChartProps {
     centerLabel?: string;
     /** Render a swatch + label legend beneath the donut. */
     showLegend?: boolean;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -27,5 +29,5 @@ export interface DonutChartProps {
  * hole for an optional `centerLabel`. Colors are semantic keys or a cycled
  * palette. Renders a `muted` "No data" note when empty or all-zero.
  */
-export declare function DonutChart({ data, size, thickness, centerLabel, showLegend, style, }: DonutChartProps): React.ReactElement;
+export declare function DonutChart({ data, size, thickness, centerLabel, showLegend, accessibilityLabel, style, }: DonutChartProps): React.ReactElement;
 //# sourceMappingURL=DonutChart.d.ts.map

@@ -47,7 +47,7 @@ function polar(cx, cy, r, angle) {
  * at the clamped value. `max` guards divide-by-zero. Renders a `muted` "No data"
  * note only when `max <= 0`.
  */
-function GaugeChart({ value, max = 100, size = 220, thickness = 18, color = 'primary', showValue = true, style, }) {
+function GaugeChart({ value, max = 100, size = 220, thickness = 18, color = 'primary', showValue = true, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (max <= 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
@@ -68,7 +68,7 @@ function GaugeChart({ value, max = 100, size = 220, thickness = 18, color = 'pri
     const valEnd = polar(cx, cy, r, end);
     const largeArc = end - start > Math.PI ? 1 : 0;
     const needle = polar(cx, cy, r, end);
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: style, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: width, height: height, viewBox: `0 0 ${width} ${height}`, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: `M ${trackStart.x} ${trackStart.y} A ${r} ${r} 0 0 1 ${trackEnd.x} ${trackEnd.y}`, fill: "none", stroke: colors.border, strokeWidth: thickness, strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: `M ${valStart.x} ${valStart.y} A ${r} ${r} 0 ${largeArc} 1 ${valEnd.x} ${valEnd.y}`, fill: "none", stroke: colors[color], strokeWidth: thickness, strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Line, { x1: cx, y1: cy, x2: needle.x, y2: needle.y, stroke: colors[color], strokeWidth: 2 })] }) }), showValue ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Gauge, ${clamped} of ${max}`, style: style, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: width, height: height, viewBox: `0 0 ${width} ${height}`, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: `M ${trackStart.x} ${trackStart.y} A ${r} ${r} 0 0 1 ${trackEnd.x} ${trackEnd.y}`, fill: "none", stroke: colors.border, strokeWidth: thickness, strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: `M ${valStart.x} ${valStart.y} A ${r} ${r} 0 ${largeArc} 1 ${valEnd.x} ${valEnd.y}`, fill: "none", stroke: colors[color], strokeWidth: thickness, strokeLinecap: "round" }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Line, { x1: cx, y1: cy, x2: needle.x, y2: needle.y, stroke: colors[color], strokeWidth: 2 })] }) }), showValue ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
                     textAlign: 'center',
                     marginTop: tokens.spacing.xs,
                     color: colors.onSurface,

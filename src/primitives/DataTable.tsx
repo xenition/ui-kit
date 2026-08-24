@@ -3,6 +3,17 @@ import { cn } from './cn';
 import { Input } from './Input';
 import { Pagination } from './Pagination';
 
+/**
+ * Guiding two-line empty state (design.md §15): a title plus a hint on what
+ * makes rows appear, instead of a bare "No data".
+ */
+const DEFAULT_EMPTY = (
+  <div className="flex flex-col items-center gap-1">
+    <span className="font-medium text-on-surface">Nothing here yet</span>
+    <span className="text-muted text-xs">Rows will appear once data is added.</span>
+  </div>
+);
+
 export interface DataTableColumn<T> {
   key: string;
   header: React.ReactNode;
@@ -39,7 +50,7 @@ export function DataTable<T>({
   searchable = false,
   getRowKey,
   onRowClick,
-  empty = 'No data',
+  empty = DEFAULT_EMPTY,
   className,
 }: DataTableProps<T>): React.ReactElement {
   const [sort, setSort] = React.useState<{ key: string; dir: 'asc' | 'desc' } | null>(null);

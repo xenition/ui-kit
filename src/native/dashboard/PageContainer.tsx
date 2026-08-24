@@ -6,6 +6,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useXenitionTheme } from '../theme';
 
 export interface PageContainerProps {
@@ -38,6 +39,10 @@ export function PageContainer({
   bottomInset = 0,
 }: PageContainerProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Derive top/bottom padding from the device safe-area insets so the screen
+  // clears the status bar / notch and home indicator; the explicit `bottomInset`
+  // prop stacks on top of the inset. Needs a `SafeAreaProvider` above it (Expo default).
+  const insets = useSafeAreaInsets();
 
   const header = title ? (
     <View
@@ -71,8 +76,9 @@ export function PageContainer({
   ) : null;
 
   const padding = {
-    padding: tokens.spacing.lg,
-    paddingBottom: tokens.spacing.lg + bottomInset,
+    paddingHorizontal: tokens.spacing.lg,
+    paddingTop: tokens.spacing.lg + insets.top,
+    paddingBottom: tokens.spacing.lg + insets.bottom + bottomInset,
   };
 
   if (!scroll) {

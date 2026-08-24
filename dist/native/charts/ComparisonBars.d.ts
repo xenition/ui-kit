@@ -15,6 +15,8 @@ export interface ComparisonBarsProps {
     max?: number;
     /** Plot height in px. */
     height?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -23,5 +25,5 @@ export interface ComparisonBarsProps {
  * provided theme `colors` (and, beyond that, by descending opacity). Group
  * labels use `onSurface`; a `muted` baseline stands in for the axis.
  */
-export declare function ComparisonBars({ data, colors: seriesColors, max, height, style, }: ComparisonBarsProps): React.ReactElement;
+export declare function ComparisonBars({ data, colors: seriesColors, max, height, accessibilityLabel, style, }: ComparisonBarsProps): React.ReactElement;
 //# sourceMappingURL=ComparisonBars.d.ts.map

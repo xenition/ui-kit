@@ -45,7 +45,7 @@ const PALETTE = ['primary', 'accent', 'success', 'warn', 'danger'];
  * low fill opacity). Values are normalized to `max`. Renders a `muted` "No data"
  * note when there are no axes or no series.
  */
-function RadarChart({ axes, series, size = 220, max, rings = 4, style, }) {
+function RadarChart({ axes, series, size = 220, max, rings = 4, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (axes.length === 0 || series.length === 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
@@ -67,7 +67,7 @@ function RadarChart({ axes, series, size = 220, max, rings = 4, style, }) {
             return `${p.x},${p.y}`;
         }).join(' ');
     });
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: style, children: (0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: size, height: size, viewBox: `0 0 ${size} ${size}`, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { children: [ringPolys.map((pts, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Polygon, { points: pts, fill: "none", stroke: colors.border, strokeWidth: 1 }, `ring-${i}`))), axes.map((_, i) => {
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Radar chart, ${series.length} series, ${axes.length} axes`, style: style, children: (0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: size, height: size, viewBox: `0 0 ${size} ${size}`, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { children: [ringPolys.map((pts, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Polygon, { points: pts, fill: "none", stroke: colors.border, strokeWidth: 1 }, `ring-${i}`))), axes.map((_, i) => {
                         const p = point(i, r);
                         return ((0, jsx_runtime_1.jsx)(react_native_svg_1.Line, { x1: cx, y1: cy, x2: p.x, y2: p.y, stroke: colors.border, strokeWidth: 1 }, `spoke-${i}`));
                     }), series.map((row, si) => {

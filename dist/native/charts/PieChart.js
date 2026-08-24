@@ -51,7 +51,7 @@ function polar(cx, cy, r, angle) {
  * cycled palette (opacity steps down on wrap-around). Renders a `muted` "No data"
  * note when empty or when every value is zero.
  */
-function PieChart({ data, size = 200, showLegend = false, style, }) {
+function PieChart({ data, size = 200, showLegend = false, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const total = data.reduce((sum, d) => sum + Math.max(d.value, 0), 0);
     if (data.length === 0 || total <= 0) {
@@ -75,7 +75,7 @@ function PieChart({ data, size = 200, showLegend = false, style, }) {
         return { d: d3, fill: sliceColor(d, i), opacity: sliceOpacity(d, i), frac };
     });
     const single = slices.length === 1;
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: style, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: size, height: size, viewBox: `0 0 ${size} ${size}`, children: (0, jsx_runtime_1.jsx)(react_native_svg_1.G, { children: single ? ((0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: r, fill: slices[0]?.fill ?? colors.primary, fillOpacity: slices[0]?.opacity ?? 1 })) : (slices.map((s, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: s.d, fill: s.fill, fillOpacity: s.opacity }, i)))) }) }), showLegend ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { marginTop: tokens.spacing.sm, gap: tokens.spacing.xs }, children: data.map((d, i) => ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Pie chart, ${data.length} slices`, style: style, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: size, height: size, viewBox: `0 0 ${size} ${size}`, children: (0, jsx_runtime_1.jsx)(react_native_svg_1.G, { children: single ? ((0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: r, fill: slices[0]?.fill ?? colors.primary, fillOpacity: slices[0]?.opacity ?? 1 })) : (slices.map((s, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: s.d, fill: s.fill, fillOpacity: s.opacity }, i)))) }) }), showLegend ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { marginTop: tokens.spacing.sm, gap: tokens.spacing.xs }, children: data.map((d, i) => ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                                 width: 12,
                                 height: 12,
                                 borderRadius: tokens.radius.sm,

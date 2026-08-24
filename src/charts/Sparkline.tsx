@@ -44,6 +44,7 @@ export const Sparkline = React.forwardRef<SVGSVGElement, SparklineProps>(functio
       height={height}
       preserveAspectRatio="none"
       role="img"
+      aria-label={`Sparkline, ${data.length} points`}
       className={cn('inline-block align-middle', className)}
       {...rest}
     >

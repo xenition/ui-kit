@@ -18,6 +18,8 @@ export interface StackedBarProps {
   segments: StackedBarSegment[];
   /** Bar height in px. */
   height?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -29,6 +31,7 @@ export interface StackedBarProps {
 export function StackedBar({
   segments,
   height = 16,
+  accessibilityLabel,
   style,
 }: StackedBarProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -48,6 +51,8 @@ export function StackedBar({
 
   return (
     <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Stacked bar, ${segments.length} segments`}
       style={[
         {
           flexDirection: 'row',

@@ -17,6 +17,8 @@ export interface ProgressRingProps {
     label?: string;
     /** Show `NN%` in the center when no explicit `label` is given. */
     showPercent?: boolean;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -25,5 +27,5 @@ export interface ProgressRingProps {
  * (rotated so it starts at 12 o'clock). `max` guards divide-by-zero. Renders a
  * `muted` "No data" note only when `max <= 0`.
  */
-export declare function ProgressRing({ value, max, size, strokeWidth, color, label, showPercent, style, }: ProgressRingProps): React.ReactElement;
+export declare function ProgressRing({ value, max, size, strokeWidth, color, label, showPercent, accessibilityLabel, style, }: ProgressRingProps): React.ReactElement;
 //# sourceMappingURL=ProgressRing.d.ts.map

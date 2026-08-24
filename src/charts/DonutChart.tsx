@@ -45,7 +45,15 @@ export const DonutChart = React.forwardRef<SVGSVGElement, DonutChartProps>(funct
 
   return (
     <div className={cn('relative inline-block', className)} style={{ width: size, height: size }}>
-      <svg ref={ref} viewBox={`0 0 ${size} ${size}`} width={size} height={size} role="img" {...rest}>
+      <svg
+        ref={ref}
+        viewBox={`0 0 ${size} ${size}`}
+        width={size}
+        height={size}
+        role="img"
+        aria-label={`Donut chart, ${data.length} segments${centerLabel ? `, ${centerLabel}` : ''}`}
+        {...rest}
+      >
         {single ? (
           <circle cx={cx} cy={cy} r={r} fill={fillFor(nonZero[0] ?? data[0]!, 0)} />
         ) : (

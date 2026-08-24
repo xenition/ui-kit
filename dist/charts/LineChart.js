@@ -57,7 +57,7 @@ exports.LineChart = React.forwardRef(function LineChart({ data, height = 120, wi
         return { x, y };
     });
     const poly = points.map((p) => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
-    return ((0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${width} ${height}`, width: "100%", height: height, preserveAspectRatio: "none", role: "img", className: (0, cn_1.cn)('overflow-visible', className), ...rest, children: [(0, jsx_runtime_1.jsx)("polyline", { points: poly, fill: "none", stroke: stroke, strokeWidth: 2, strokeLinejoin: "round", strokeLinecap: "round" }), showDots
+    return ((0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${width} ${height}`, width: "100%", height: height, preserveAspectRatio: "none", role: "img", "aria-label": `Line chart, ${data.length} points, max ${Math.max(...data)}`, className: (0, cn_1.cn)('overflow-visible', className), ...rest, children: [(0, jsx_runtime_1.jsx)("polyline", { points: poly, fill: "none", stroke: stroke, strokeWidth: 2, strokeLinejoin: "round", strokeLinecap: "round" }), showDots
                 ? points.map((p, i) => (0, jsx_runtime_1.jsx)("circle", { cx: p.x, cy: p.y, r: 3, fill: stroke }, i))
                 : null] }));
 });

@@ -55,6 +55,7 @@ export const ScatterChart = React.forwardRef<SVGSVGElement, ScatterChartProps>(f
       width="100%"
       height={height}
       role="img"
+      aria-label={`Scatter plot, ${data.length} points`}
       className={cn('inline-block', className)}
       {...rest}
     >

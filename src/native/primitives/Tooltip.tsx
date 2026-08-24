@@ -58,7 +58,7 @@ export function Tooltip({ label, side = 'top', children }: TooltipProps): React.
             }}
           >
             {typeof label === 'string' ? (
-              <Text style={{ fontSize: 12, color: colors.surface }}>{label}</Text>
+              <Text style={{ fontSize: tokens.typography.scale.xs, color: colors.surface }}>{label}</Text>
             ) : (
               label
             )}

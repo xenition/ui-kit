@@ -17,6 +17,8 @@ export interface RangeBarProps {
   color?: RangeBarColor;
   /** Track height in px. */
   height?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -32,6 +34,7 @@ export function RangeBar({
   domainMax = 100,
   color = 'primary',
   height = 10,
+  accessibilityLabel,
   style,
 }: RangeBarProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -45,6 +48,8 @@ export function RangeBar({
 
   return (
     <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Range bar, ${lo} to ${hi}`}
       style={[
         {
           height,

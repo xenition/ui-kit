@@ -37,6 +37,7 @@ exports.BottomSheet = BottomSheet;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
+const react_native_safe_area_context_1 = require("react-native-safe-area-context");
 const theme_1 = require("../theme");
 const useReducedMotion_1 = require("./internal/useReducedMotion");
 /**
@@ -51,6 +52,9 @@ function BottomSheet({ open, onClose, title, children, snap = 0.5, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const { height } = (0, react_native_1.useWindowDimensions)();
     const reduced = (0, useReducedMotion_1.useReducedMotion)();
+    // Pad the sheet body past the home indicator with the bottom safe-area inset.
+    // Needs a `SafeAreaProvider` above it (Expo default).
+    const insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
     const sheetHeight = Math.max(120, Math.min(1, snap) * height);
     const translateY = React.useRef(new react_native_1.Animated.Value(sheetHeight)).current;
     React.useEffect(() => {
@@ -92,7 +96,7 @@ function BottomSheet({ open, onClose, title, children, snap = 0.5, style, }) {
                             borderTopLeftRadius: tokens.radius.lg,
                             borderTopRightRadius: tokens.radius.lg,
                             paddingHorizontal: tokens.spacing.lg,
-                            paddingBottom: tokens.spacing.lg,
+                            paddingBottom: tokens.spacing.lg + insets.bottom,
                             transform: [{ translateY }],
                         },
                         style,

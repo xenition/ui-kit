@@ -11,6 +11,8 @@ export interface HistogramProps {
     color?: HistogramColor;
     /** Count mapped to full height; defaults to the largest bin. */
     max?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -18,5 +20,5 @@ export interface HistogramProps {
  * but bars sit flush (gapless) to read as a distribution. Bar height is
  * `count / max`; a `muted` baseline stands in for the axis.
  */
-export declare function Histogram({ bins, height, color, max, style, }: HistogramProps): React.ReactElement;
+export declare function Histogram({ bins, height, color, max, accessibilityLabel, style, }: HistogramProps): React.ReactElement;
 //# sourceMappingURL=Histogram.d.ts.map

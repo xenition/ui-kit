@@ -59,7 +59,7 @@ exports.RadarChart = React.forwardRef(function RadarChart({ data, series, labels
     const ringPoints = (radius) => Array.from({ length: axisCount }, (_, i) => spoke(c, radius, i * step))
         .map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`)
         .join(' ');
-    return ((0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${size} ${size}`, width: size, height: size, role: "img", className: (0, cn_1.cn)('inline-block', className), ...rest, children: [[0.25, 0.5, 0.75, 1].map((f) => ((0, jsx_runtime_1.jsx)("polygon", { points: ringPoints(r * f), fill: "none", stroke: "var(--xen-border)", strokeWidth: 1 }, f))), allSeries.map((s, si) => {
+    return ((0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${size} ${size}`, width: size, height: size, role: "img", "aria-label": `Radar chart, ${allSeries.length} series, ${axisCount} axes`, className: (0, cn_1.cn)('inline-block', className), ...rest, children: [[0.25, 0.5, 0.75, 1].map((f) => ((0, jsx_runtime_1.jsx)("polygon", { points: ringPoints(r * f), fill: "none", stroke: "var(--xen-border)", strokeWidth: 1 }, f))), allSeries.map((s, si) => {
                 const stroke = (0, internal_1.seriesColor)(si);
                 const pts = Array.from({ length: axisCount }, (_, i) => {
                     const v = s[i] ?? 0;

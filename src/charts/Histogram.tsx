@@ -38,6 +38,7 @@ export const Histogram = React.forwardRef<SVGSVGElement, HistogramProps>(functio
       height={height}
       preserveAspectRatio="none"
       role="img"
+      aria-label={`Histogram, ${bins.length} bins, max ${ceiling}`}
       className={cn('inline-block', className)}
       {...rest}
     >

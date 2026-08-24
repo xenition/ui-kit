@@ -72,10 +72,10 @@ function Accordion({ items, type = 'single', defaultValue = [], style, }) {
                             gap: tokens.spacing.sm,
                             paddingVertical: tokens.spacing.md,
                             paddingHorizontal: tokens.spacing.lg,
-                        }, children: [typeof it.title === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 14, fontWeight: '500', color: colors.onSurface }, children: it.title })) : (it.title), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
+                        }, children: [typeof it.title === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: tokens.typography.scale.sm, fontWeight: '500', color: colors.onSurface }, children: it.title })) : (it.title), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
                                     color: colors.muted,
                                     transform: [{ rotate: isOpen ? '180deg' : '0deg' }],
-                                }, children: "\u25BE" })] }), isOpen && ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { paddingHorizontal: tokens.spacing.lg, paddingBottom: tokens.spacing.md }, children: typeof it.content === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 14, color: colors.muted }, children: it.content })) : (it.content) }))] }, it.value));
+                                }, children: "\u25BE" })] }), isOpen && ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { paddingHorizontal: tokens.spacing.lg, paddingBottom: tokens.spacing.md }, children: typeof it.content === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: tokens.typography.scale.sm, color: colors.muted }, children: it.content })) : (it.content) }))] }, it.value));
         }) }));
 }
 //# sourceMappingURL=Accordion.js.map

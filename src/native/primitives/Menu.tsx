@@ -94,7 +94,7 @@ export function Menu({ trigger, items, align = 'start' }: MenuProps): React.Reac
                   {typeof it.label === 'string' ? (
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: tokens.typography.scale.sm,
                         color: it.danger ? colors.danger : colors.onSurface,
                       }}
                     >

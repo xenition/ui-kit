@@ -36,7 +36,13 @@ export const ColumnChart = React.forwardRef<HTMLDivElement, ColumnChartProps>(fu
   const fill = colorVar(color);
 
   return (
-    <div ref={ref} className={cn('flex flex-col gap-2', className)} {...rest}>
+    <div
+      ref={ref}
+      role="img"
+      aria-label={`Bar chart, ${data.length} bars, max ${ceiling}`}
+      className={cn('flex flex-col gap-2', className)}
+      {...rest}
+    >
       {data.map((d, i) => {
         const ratio = clamp01(d.value / ceiling);
         return (
@@ -45,7 +51,7 @@ export const ColumnChart = React.forwardRef<HTMLDivElement, ColumnChartProps>(fu
               <span className="truncate text-on-surface text-xs">{d.label}</span>
               {showValues ? <span className="text-muted text-xs">{d.value}</span> : null}
             </div>
-            <svg viewBox="0 0 100 10" width="100%" height={barHeight} preserveAspectRatio="none" role="img">
+            <svg viewBox="0 0 100 10" width="100%" height={barHeight} preserveAspectRatio="none" aria-hidden="true">
               <rect x={0} y={0} width={100} height={10} rx={5} fill="var(--xen-border)" />
               <rect x={0} y={0} width={Math.max(ratio * 100, 0)} height={10} rx={5} fill={fill} />
             </svg>

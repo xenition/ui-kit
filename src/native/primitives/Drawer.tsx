@@ -96,7 +96,7 @@ export function Drawer({
             (typeof title === 'string' ? (
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: tokens.typography.scale.lg,
                   fontWeight: '600',
                   color: colors.onSurface,
                   marginBottom: tokens.spacing.md,

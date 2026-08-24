@@ -44,7 +44,7 @@ const theme_1 = require("../theme");
  * a semantic theme color, never a literal hex. Renders a `muted` "No data" note
  * on empty input and guards against zero-range (single point / flat) series.
  */
-function LineChart({ data, height = 160, width = 300, color = 'primary', showDots = false, strokeWidth = 2, style, }) {
+function LineChart({ data, height = 160, width = 300, color = 'primary', showDots = false, strokeWidth = 2, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (data.length === 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
@@ -67,7 +67,7 @@ function LineChart({ data, height = 160, width = 300, color = 'primary', showDot
     });
     const pixels = points.map(toPx);
     const polyPoints = pixels.map((p) => `${p.px},${p.py}`).join(' ');
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: style, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.default, { width: width, height: height, viewBox: `0 0 ${width} ${height}`, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Polyline, { points: polyPoints, fill: "none", stroke: colors[color], strokeWidth: strokeWidth, strokeLinejoin: "round", strokeLinecap: "round" }), showDots
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Line chart, ${data.length} points`, style: style, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.default, { width: width, height: height, viewBox: `0 0 ${width} ${height}`, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Polyline, { points: polyPoints, fill: "none", stroke: colors[color], strokeWidth: strokeWidth, strokeLinejoin: "round", strokeLinecap: "round" }), showDots
                     ? pixels.map((p, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: p.px, cy: p.py, r: strokeWidth + 1, fill: colors[color] }, i)))
                     : null] }) }));
 }

@@ -108,27 +108,32 @@ function parseRichText(html) {
 function RichText({ html, style }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const blocks = React.useMemo(() => parseRichText(html), [html]);
+    // Body copy tracks the `base` type token; line height stays proportional so
+    // it scales with Dynamic Type rather than being pinned to a literal px value.
+    const bodySize = tokens.typography.scale.base;
+    const bodyLine = Math.round(bodySize * 1.5);
     return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: [{ gap: tokens.spacing.md }, style], children: blocks.map((b, i) => {
             if (b.kind === 'heading') {
+                const headingSize = b.level <= 2 ? tokens.typography.scale['2xl'] : tokens.typography.scale.lg;
                 return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                        fontSize: b.level <= 2 ? 22 : 18,
-                        lineHeight: b.level <= 2 ? 28 : 24,
+                        fontSize: headingSize,
+                        lineHeight: Math.round(headingSize * 1.3),
                         fontWeight: '700',
                         color: colors.onSurface,
                         marginTop: i === 0 ? 0 : tokens.spacing.sm,
                     }, children: b.text }, i));
             }
             if (b.kind === 'listitem') {
-                return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 16, lineHeight: 26, color: colors.accent }, children: '•' }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { flex: 1, fontSize: 16, lineHeight: 26, color: colors.onSurface }, children: b.text })] }, i));
+                return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: bodySize, lineHeight: bodyLine, color: colors.accent }, children: '•' }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { flex: 1, fontSize: bodySize, lineHeight: bodyLine, color: colors.onSurface }, children: b.text })] }, i));
             }
             if (b.kind === 'quote') {
                 return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                         borderLeftWidth: 3,
                         borderLeftColor: colors.border,
                         paddingLeft: tokens.spacing.md,
-                    }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 16, lineHeight: 26, fontStyle: 'italic', color: colors.muted }, children: b.text }) }, i));
+                    }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: bodySize, lineHeight: bodyLine, fontStyle: 'italic', color: colors.muted }, children: b.text }) }, i));
             }
-            return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 16, lineHeight: 26, color: colors.onSurface }, children: b.text }, i));
+            return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: bodySize, lineHeight: bodyLine, color: colors.onSurface }, children: b.text }, i));
         }) }));
 }
 //# sourceMappingURL=RichText.js.map

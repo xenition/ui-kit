@@ -88,7 +88,7 @@ export function Accordion({
               }}
             >
               {typeof it.title === 'string' ? (
-                <Text style={{ fontSize: 14, fontWeight: '500', color: colors.onSurface }}>
+                <Text style={{ fontSize: tokens.typography.scale.sm, fontWeight: '500', color: colors.onSurface }}>
                   {it.title}
                 </Text>
               ) : (
@@ -106,7 +106,7 @@ export function Accordion({
             {isOpen && (
               <View style={{ paddingHorizontal: tokens.spacing.lg, paddingBottom: tokens.spacing.md }}>
                 {typeof it.content === 'string' ? (
-                  <Text style={{ fontSize: 14, color: colors.muted }}>{it.content}</Text>
+                  <Text style={{ fontSize: tokens.typography.scale.sm, color: colors.muted }}>{it.content}</Text>
                 ) : (
                   it.content
                 )}

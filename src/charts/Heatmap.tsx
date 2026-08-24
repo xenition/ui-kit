@@ -41,6 +41,7 @@ export const Heatmap = React.forwardRef<SVGSVGElement, HeatmapProps>(function He
       width={width}
       height={height}
       role="img"
+      aria-label={`Heatmap, ${rows}×${cols} grid, max ${ceiling}`}
       className={cn('inline-block', className)}
       {...rest}
     >

@@ -180,7 +180,7 @@ function DatePicker({ value, onChange, min, max, placeholder = 'Select a date', 
                                                 color: colors.onSurface,
                                                 fontSize: tokens.typography.scale.sm,
                                                 fontWeight: '600',
-                                            }, children: monthLabel }), chevron('Next month', 1)] }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityLabel: `Choose a date — ${monthLabel}`, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flexDirection: 'row' }, children: weekdayLabels.map((label) => ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: 40, alignItems: 'center', paddingVertical: tokens.spacing.xs }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
+                                            }, children: monthLabel }), chevron('Next month', 1)] }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityLabel: `Choose a date — ${monthLabel}`, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flexDirection: 'row' }, children: weekdayLabels.map((label) => ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: 44, alignItems: 'center', paddingVertical: tokens.spacing.xs }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
                                                         color: colors.muted,
                                                         fontSize: tokens.typography.scale.xs,
                                                         fontWeight: '500',
@@ -194,12 +194,12 @@ function DatePicker({ value, onChange, min, max, placeholder = 'Select a date', 
                                                     : !inMonth || blocked
                                                         ? colors.muted
                                                         : colors.onSurface;
-                                                return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: 40, alignItems: 'center', padding: 2 }, children: (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: longDate.format(date), accessibilityState: { selected: isSelected, disabled: blocked }, disabled: blocked, onPress: () => {
+                                                return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: 44, alignItems: 'center' }, children: (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: longDate.format(date), accessibilityState: { selected: isSelected, disabled: blocked }, disabled: blocked, onPress: () => {
                                                             onChange?.(key);
                                                             setOpen(false);
                                                         }, style: ({ pressed }) => ({
-                                                            width: 36,
-                                                            height: 36,
+                                                            minWidth: 44,
+                                                            minHeight: 44,
                                                             alignItems: 'center',
                                                             justifyContent: 'center',
                                                             borderRadius: tokens.radius.md,

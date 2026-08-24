@@ -9,9 +9,9 @@ const Sparkline_1 = require("./Sparkline");
  * A labelled stat paired with an inline {@link Sparkline} — token-bound,
  * View-based (no SVG). Surfaces a headline metric with an at-a-glance trend.
  */
-function TrendCard({ label, value, delta, data, color = 'primary', style, }) {
+function TrendCard({ label, value, delta, data, color = 'primary', accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `${label}, ${value}${delta ? `, ${delta}` : ''}`, style: [
             {
                 backgroundColor: colors.surface,
                 borderColor: colors.border,

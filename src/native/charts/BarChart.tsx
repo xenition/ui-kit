@@ -15,6 +15,8 @@ export interface BarChartProps {
   color?: ChartColor;
   /** Value mapped to full bar height; defaults to the largest datum. */
   max?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -29,6 +31,7 @@ export function BarChart({
   height = 120,
   color = 'primary',
   max,
+  accessibilityLabel,
   style,
 }: BarChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -44,7 +47,11 @@ export function BarChart({
   const ceiling = Math.max(max ?? Math.max(...data), 1);
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Bar chart, ${data.length} bars, max ${ceiling}`}
+      style={style}
+    >
       <View
         style={{
           flexDirection: 'row',

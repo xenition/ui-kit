@@ -37,6 +37,7 @@ exports.AppShell = AppShell;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
+const react_native_safe_area_context_1 = require("react-native-safe-area-context");
 const theme_1 = require("../theme");
 /**
  * Dashboard layout — the native mirror of the web `AppShell`. Renders a top bar
@@ -47,6 +48,9 @@ const theme_1 = require("../theme");
 function AppShell({ sidebar, header, children, menuLabel = 'Toggle navigation', sidebarWidth = 280, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const [open, setOpen] = React.useState(false);
+    // Push the top bar below the status bar / notch by adding the top safe-area
+    // inset to its token padding. Needs a `SafeAreaProvider` above it (Expo default).
+    const insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
     return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ flex: 1, backgroundColor: colors.surface }, style], children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -55,7 +59,8 @@ function AppShell({ sidebar, header, children, menuLabel = 'Toggle navigation', 
                     borderColor: colors.border,
                     backgroundColor: colors.surface,
                     paddingHorizontal: tokens.spacing.lg,
-                    paddingVertical: tokens.spacing.md,
+                    paddingTop: tokens.spacing.md + insets.top,
+                    paddingBottom: tokens.spacing.md,
                 }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: menuLabel, onPress: () => setOpen(true), style: {
                             borderRadius: tokens.radius.sm,
                             padding: tokens.spacing.xs,
@@ -65,7 +70,7 @@ function AppShell({ sidebar, header, children, menuLabel = 'Toggle navigation', 
                                 fontWeight: '600',
                             }, children: header })) : (header) })] }), (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flex: 1, padding: tokens.spacing.lg }, children: children }), (0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "slide", onRequestClose: () => setOpen(false), children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, flexDirection: 'row' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: sidebarWidth, maxWidth: '85%' }, children: sidebar }), (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityLabel: "Close navigation", onPress: () => setOpen(false), style: {
                                 flex: 1,
-                                backgroundColor: tokens.ramps.neutral[950],
+                                backgroundColor: colors.onSurface,
                                 opacity: 0.5,
                             } })] }) })] }));
 }

@@ -11,6 +11,8 @@ export interface HeatmapProps {
     max?: number;
     /** Cell edge length in px. */
     cellSize?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -18,5 +20,5 @@ export interface HeatmapProps {
  * color and varies only its `opacity` (`value / max`), so no literal colors are
  * introduced. Empty cells fall back to a `border`-tinted blank.
  */
-export declare function Heatmap({ data, color, max, cellSize, style, }: HeatmapProps): React.ReactElement;
+export declare function Heatmap({ data, color, max, cellSize, accessibilityLabel, style, }: HeatmapProps): React.ReactElement;
 //# sourceMappingURL=Heatmap.d.ts.map

@@ -50,6 +50,7 @@ export const RadarChart = React.forwardRef<SVGSVGElement, RadarChartProps>(funct
       width={size}
       height={size}
       role="img"
+      aria-label={`Radar chart, ${allSeries.length} series, ${axisCount} axes`}
       className={cn('inline-block', className)}
       {...rest}
     >

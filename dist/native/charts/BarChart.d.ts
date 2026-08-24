@@ -13,6 +13,8 @@ export interface BarChartProps {
     color?: ChartColor;
     /** Value mapped to full bar height; defaults to the largest datum. */
     max?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -20,5 +22,5 @@ export interface BarChartProps {
  * `View` whose height is `(value / max) * height`. A `muted` baseline stands in
  * for the axis; labels use `onSurface`.
  */
-export declare function BarChart({ data, labels, height, color, max, style, }: BarChartProps): React.ReactElement;
+export declare function BarChart({ data, labels, height, color, max, accessibilityLabel, style, }: BarChartProps): React.ReactElement;
 //# sourceMappingURL=BarChart.d.ts.map

@@ -60,6 +60,6 @@ exports.AreaChart = React.forwardRef(function AreaChart({ data, height = 120, wi
     const last = pts[pts.length - 1] ?? { x: width, y: height };
     const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(' ');
     const area = `${line} L${last.x.toFixed(2)} ${height} L${first.x.toFixed(2)} ${height} Z`;
-    return ((0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${width} ${height}`, width: "100%", height: height, preserveAspectRatio: "none", role: "img", className: (0, cn_1.cn)('overflow-visible', className), ...rest, children: [(0, jsx_runtime_1.jsx)("path", { d: area, fill: c, fillOpacity: 0.18, stroke: "none" }), (0, jsx_runtime_1.jsx)("path", { d: line, fill: "none", stroke: c, strokeWidth: 2, strokeLinejoin: "round", strokeLinecap: "round" })] }));
+    return ((0, jsx_runtime_1.jsxs)("svg", { ref: ref, viewBox: `0 0 ${width} ${height}`, width: "100%", height: height, preserveAspectRatio: "none", role: "img", "aria-label": `Area chart, ${data.length} points, max ${Math.max(...data)}`, className: (0, cn_1.cn)('overflow-visible', className), ...rest, children: [(0, jsx_runtime_1.jsx)("path", { d: area, fill: c, fillOpacity: 0.18, stroke: "none" }), (0, jsx_runtime_1.jsx)("path", { d: line, fill: "none", stroke: c, strokeWidth: 2, strokeLinejoin: "round", strokeLinecap: "round" })] }));
 });
 //# sourceMappingURL=AreaChart.js.map

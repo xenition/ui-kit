@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActionSheet = ActionSheet;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
+const react_native_safe_area_context_1 = require("react-native-safe-area-context");
 const theme_1 = require("../theme");
 /**
  * iOS-style action sheet — a bottom-anchored `Modal` presenting a token-bound
@@ -13,7 +14,14 @@ const theme_1 = require("../theme");
  */
 function ActionSheet({ open, onClose, title, actions, cancelLabel = 'Cancel', }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
-    return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "slide", onRequestClose: onClose, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, justifyContent: 'flex-end' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityLabel: "Close", onPress: onClose, style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: colors.onSurface, opacity: 0.5 } }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { padding: tokens.spacing.md, gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "menu", style: {
+    // Clear the home indicator by adding the bottom safe-area inset to the bottom
+    // container's padding. Needs a `SafeAreaProvider` above it (Expo default).
+    const insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "slide", onRequestClose: onClose, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, justifyContent: 'flex-end' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityLabel: "Close", onPress: onClose, style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: colors.onSurface, opacity: 0.5 } }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+                        padding: tokens.spacing.md,
+                        paddingBottom: tokens.spacing.md + insets.bottom,
+                        gap: tokens.spacing.sm,
+                    }, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "menu", style: {
                                 backgroundColor: colors.surface,
                                 borderColor: colors.border,
                                 borderWidth: 1,

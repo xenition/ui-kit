@@ -20,6 +20,8 @@ export interface LineChartProps {
     showDots?: boolean;
     /** Stroke width in px. */
     strokeWidth?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -28,5 +30,5 @@ export interface LineChartProps {
  * a semantic theme color, never a literal hex. Renders a `muted` "No data" note
  * on empty input and guards against zero-range (single point / flat) series.
  */
-export declare function LineChart({ data, height, width, color, showDots, strokeWidth, style, }: LineChartProps): React.ReactElement;
+export declare function LineChart({ data, height, width, color, showDots, strokeWidth, accessibilityLabel, style, }: LineChartProps): React.ReactElement;
 //# sourceMappingURL=LineChart.d.ts.map

@@ -18,6 +18,8 @@ export interface ComparisonBarsProps {
   max?: number;
   /** Plot height in px. */
   height?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -35,6 +37,7 @@ export function ComparisonBars({
   colors: seriesColors = ['primary', 'accent'],
   max,
   height = 120,
+  accessibilityLabel,
   style,
 }: ComparisonBarsProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -53,7 +56,11 @@ export function ComparisonBars({
   );
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Comparison bars, ${data.length} groups`}
+      style={style}
+    >
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', height, gap: tokens.spacing.sm }}>
         {data.map((group, gi) => (
           <View

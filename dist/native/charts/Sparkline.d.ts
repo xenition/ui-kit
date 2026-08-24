@@ -11,6 +11,8 @@ export interface SparklineProps {
     color?: SparklineColor;
     /** Value mapped to full height; defaults to the largest datum. */
     max?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -18,5 +20,5 @@ export interface SparklineProps {
  * kit has no `react-native-svg`). Each datum is a hairline-gapped bar whose
  * height tracks its value, reading as a sparkline at a glance.
  */
-export declare function Sparkline({ data, height, color, max, style, }: SparklineProps): React.ReactElement;
+export declare function Sparkline({ data, height, color, max, accessibilityLabel, style, }: SparklineProps): React.ReactElement;
 //# sourceMappingURL=Sparkline.d.ts.map

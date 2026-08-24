@@ -84,7 +84,7 @@ function Drawer({ open, onClose, side = 'right', title, children, style, }) {
                         style,
                     ], children: [title != null &&
                             (typeof title === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                                    fontSize: 18,
+                                    fontSize: tokens.typography.scale.lg,
                                     fontWeight: '600',
                                     color: colors.onSurface,
                                     marginBottom: tokens.spacing.md,

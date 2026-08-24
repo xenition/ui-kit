@@ -53,7 +53,7 @@ exports.Heatmap = React.forwardRef(function Heatmap({ data, color = 'primary', m
     const fill = (0, internal_1.colorVar)(color);
     const width = cols * cellSize + (cols - 1) * gap;
     const height = rows * cellSize + (rows - 1) * gap;
-    return ((0, jsx_runtime_1.jsx)("svg", { ref: ref, viewBox: `0 0 ${Math.max(width, 1)} ${Math.max(height, 1)}`, width: width, height: height, role: "img", className: (0, cn_1.cn)('inline-block', className), ...rest, children: data.map((row, r) => Array.from({ length: cols }, (_, c) => {
+    return ((0, jsx_runtime_1.jsx)("svg", { ref: ref, viewBox: `0 0 ${Math.max(width, 1)} ${Math.max(height, 1)}`, width: width, height: height, role: "img", "aria-label": `Heatmap, ${rows}×${cols} grid, max ${ceiling}`, className: (0, cn_1.cn)('inline-block', className), ...rest, children: data.map((row, r) => Array.from({ length: cols }, (_, c) => {
             const value = row[c] ?? 0;
             const intensity = (0, internal_1.clamp01)(value / ceiling);
             return ((0, jsx_runtime_1.jsx)("rect", { x: c * (cellSize + gap), y: r * (cellSize + gap), width: cellSize, height: cellSize, rx: 2, fill: fill, fillOpacity: 0.08 + intensity * 0.92 }, `${r}-${c}`));

@@ -62,6 +62,6 @@ function Tooltip({ label, side = 'top', children }) {
                                 borderRadius: tokens.radius.sm,
                                 paddingVertical: tokens.spacing.xs,
                                 paddingHorizontal: tokens.spacing.sm,
-                            }, children: typeof label === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 12, color: colors.surface }, children: label })) : (label) })] }) })] }));
+                            }, children: typeof label === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: tokens.typography.scale.xs, color: colors.surface }, children: label })) : (label) })] }) })] }));
 }
 //# sourceMappingURL=Tooltip.js.map

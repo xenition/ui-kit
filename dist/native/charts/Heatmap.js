@@ -9,14 +9,15 @@ const theme_1 = require("../theme");
  * color and varies only its `opacity` (`value / max`), so no literal colors are
  * introduced. Empty cells fall back to a `border`-tinted blank.
  */
-function Heatmap({ data, color = 'primary', max, cellSize = 16, style, }) {
+function Heatmap({ data, color = 'primary', max, cellSize = 16, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (data.length === 0 || data.every((row) => row.length === 0)) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
     }
     const flat = data.flat();
     const ceiling = Math.max(max ?? Math.max(...flat), 1);
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: [{ gap: 2 }, style], children: data.map((row, r) => ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flexDirection: 'row', gap: 2 }, children: row.map((value, c) => {
+    const cols = Math.max(...data.map((row) => row.length));
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Heatmap, ${data.length}×${cols} grid, max ${ceiling}`, style: [{ gap: 2 }, style], children: data.map((row, r) => ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flexDirection: 'row', gap: 2 }, children: row.map((value, c) => {
                 const intensity = Math.min(Math.max(value / ceiling, 0), 1);
                 return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                         width: cellSize,

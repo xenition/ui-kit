@@ -20,6 +20,8 @@ export interface ColumnChartProps {
   barHeight?: number;
   /** Show the numeric value at the end of each bar. */
   showValues?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -34,6 +36,7 @@ export function ColumnChart({
   max,
   barHeight = 12,
   showValues = false,
+  accessibilityLabel,
   style,
 }: ColumnChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -49,7 +52,11 @@ export function ColumnChart({
   const ceiling = Math.max(max ?? Math.max(...data.map((d) => d.value)), 1);
 
   return (
-    <View style={[{ gap: tokens.spacing.sm }, style]}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Bar chart, ${data.length} bars, max ${ceiling}`}
+      style={[{ gap: tokens.spacing.sm }, style]}
+    >
       {data.map((d, i) => {
         const ratio = Math.min(Math.max(d.value / ceiling, 0), 1);
         return (

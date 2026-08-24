@@ -69,7 +69,7 @@ export function Popconfirm({
             }}
           >
             {typeof message === 'string' ? (
-              <Text style={{ fontSize: 14, color: colors.onSurface, marginBottom: tokens.spacing.md }}>
+              <Text style={{ fontSize: tokens.typography.scale.sm, color: colors.onSurface, marginBottom: tokens.spacing.md }}>
                 {message}
               </Text>
             ) : (
@@ -85,7 +85,7 @@ export function Popconfirm({
                   paddingHorizontal: tokens.spacing.sm,
                 }}
               >
-                <Text style={{ fontSize: 12, color: colors.muted }}>{cancelLabel}</Text>
+                <Text style={{ fontSize: tokens.typography.scale.xs, color: colors.muted }}>{cancelLabel}</Text>
               </Pressable>
               <Pressable
                 accessibilityRole="button"
@@ -100,7 +100,7 @@ export function Popconfirm({
                   paddingHorizontal: tokens.spacing.sm,
                 }}
               >
-                <Text style={{ fontSize: 12, color: colors.onPrimary }}>{confirmLabel}</Text>
+                <Text style={{ fontSize: tokens.typography.scale.xs, color: colors.onPrimary }}>{confirmLabel}</Text>
               </Pressable>
             </View>
           </View>

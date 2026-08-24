@@ -23,6 +23,8 @@ export interface DonutChartProps {
   centerLabel?: string;
   /** Render a swatch + label legend beneath the donut. */
   showLegend?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -45,6 +47,7 @@ export function DonutChart({
   thickness = 32,
   centerLabel,
   showLegend = false,
+  accessibilityLabel,
   style,
 }: DonutChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -85,7 +88,14 @@ export function DonutChart({
   const single = segments.length === 1;
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={
+        accessibilityLabel ??
+        `Donut chart, ${data.length} segments${centerLabel ? `, ${centerLabel}` : ''}`
+      }
+      style={style}
+    >
       <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
         <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           <G>

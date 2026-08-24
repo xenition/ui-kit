@@ -12,13 +12,13 @@ const OPACITY_STEPS = [1, 0.6, 0.35, 0.2];
  * provided theme `colors` (and, beyond that, by descending opacity). Group
  * labels use `onSurface`; a `muted` baseline stands in for the axis.
  */
-function ComparisonBars({ data, colors: seriesColors = ['primary', 'accent'], max, height = 120, style, }) {
+function ComparisonBars({ data, colors: seriesColors = ['primary', 'accent'], max, height = 120, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (data.length === 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
     }
     const ceiling = Math.max(max ?? Math.max(...data.flatMap((g) => g.values), 1), 1);
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: style, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'flex-end', height, gap: tokens.spacing.sm }, children: data.map((group, gi) => ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flex: 1, flexDirection: 'row', alignItems: 'flex-end', gap: 2, height }, children: group.values.map((value, si) => {
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Comparison bars, ${data.length} groups`, style: style, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'flex-end', height, gap: tokens.spacing.sm }, children: data.map((group, gi) => ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flex: 1, flexDirection: 'row', alignItems: 'flex-end', gap: 2, height }, children: group.values.map((value, si) => {
                         const ratio = Math.min(Math.max(value / ceiling, 0), 1);
                         const colorKey = seriesColors[si % seriesColors.length] ?? 'primary';
                         const opacity = si < seriesColors.length ? 1 : OPACITY_STEPS[Math.min(si, OPACITY_STEPS.length - 1)];

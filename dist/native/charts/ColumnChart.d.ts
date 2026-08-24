@@ -17,6 +17,8 @@ export interface ColumnChartProps {
     barHeight?: number;
     /** Show the numeric value at the end of each bar. */
     showValues?: boolean;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -24,5 +26,5 @@ export interface ColumnChartProps {
  * label plus a `View` whose width flexes to `value / max`. Track uses `border`,
  * fill uses the chosen theme color.
  */
-export declare function ColumnChart({ data, color, max, barHeight, showValues, style, }: ColumnChartProps): React.ReactElement;
+export declare function ColumnChart({ data, color, max, barHeight, showValues, accessibilityLabel, style, }: ColumnChartProps): React.ReactElement;
 //# sourceMappingURL=ColumnChart.d.ts.map

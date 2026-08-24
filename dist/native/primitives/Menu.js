@@ -81,7 +81,7 @@ function Menu({ trigger, items, align = 'start' }) {
                                         opacity: it.disabled ? 0.5 : 1,
                                         backgroundColor: pressed ? colors.border : colors.surface,
                                     }), children: [it.icon != null && (0, jsx_runtime_1.jsx)(react_native_1.View, { children: it.icon }), typeof it.label === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                                                fontSize: 14,
+                                                fontSize: tokens.typography.scale.sm,
                                                 color: it.danger ? colors.danger : colors.onSurface,
                                             }, children: it.label })) : (it.label)] }, i))) }) })] }) })] }));
 }

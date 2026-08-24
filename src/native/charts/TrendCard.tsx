@@ -16,6 +16,8 @@ export interface TrendCardProps {
   data?: number[];
   /** Theme color key for the sparkline + accents. */
   color?: TrendCardColor;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -29,12 +31,15 @@ export function TrendCard({
   delta,
   data,
   color = 'primary',
+  accessibilityLabel,
   style,
 }: TrendCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
 
   return (
     <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `${label}, ${value}${delta ? `, ${delta}` : ''}`}
       style={[
         {
           backgroundColor: colors.surface,

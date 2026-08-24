@@ -19,6 +19,8 @@ export interface PieChartProps {
   size?: number;
   /** Render a swatch + label legend beneath the pie. */
   showLegend?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -41,6 +43,7 @@ export function PieChart({
   data,
   size = 200,
   showLegend = false,
+  accessibilityLabel,
   style,
 }: PieChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -76,7 +79,11 @@ export function PieChart({
   const single = slices.length === 1;
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Pie chart, ${data.length} slices`}
+      style={style}
+    >
       <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <G>
           {single ? (

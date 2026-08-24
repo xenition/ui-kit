@@ -4,6 +4,33 @@ import { useXenitionTheme } from '../theme';
 import { Input } from './Input';
 import { Pagination } from './Pagination';
 
+/**
+ * Guiding two-line empty state (design.md §15): a title plus a hint on what
+ * makes rows appear, instead of a bare "No data".
+ */
+function DefaultEmptyState(): React.ReactElement {
+  const { colors, tokens } = useXenitionTheme();
+  return (
+    <View style={{ gap: tokens.spacing.xs, alignItems: 'center' }}>
+      <Text
+        style={{
+          color: colors.onSurface,
+          fontSize: tokens.typography.scale.sm,
+          fontWeight: '600',
+          textAlign: 'center',
+        }}
+      >
+        Nothing here yet
+      </Text>
+      <Text
+        style={{ color: colors.muted, fontSize: tokens.typography.scale.xs, textAlign: 'center' }}
+      >
+        Rows will appear once data is added.
+      </Text>
+    </View>
+  );
+}
+
 export interface DataTableColumn<T> {
   key: string;
   header: React.ReactNode;
@@ -45,7 +72,7 @@ export function DataTable<T>({
   searchable = false,
   getRowKey,
   onRowClick,
-  empty = 'No data',
+  empty = <DefaultEmptyState />,
   style,
 }: DataTableProps<T>): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();

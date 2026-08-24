@@ -9,13 +9,13 @@ const theme_1 = require("../theme");
  * `View` whose height is `(value / max) * height`. A `muted` baseline stands in
  * for the axis; labels use `onSurface`.
  */
-function BarChart({ data, labels, height = 120, color = 'primary', max, style, }) {
+function BarChart({ data, labels, height = 120, color = 'primary', max, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (data.length === 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
     }
     const ceiling = Math.max(max ?? Math.max(...data), 1);
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: style, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Bar chart, ${data.length} bars, max ${ceiling}`, style: style, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                     flexDirection: 'row',
                     alignItems: 'flex-end',
                     height,

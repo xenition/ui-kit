@@ -36,8 +36,14 @@ export const StackedBar = React.forwardRef<HTMLDivElement, StackedBarProps>(func
   let x = 0;
 
   return (
-    <div ref={ref} className={cn('w-full', className)} {...rest}>
-      <svg viewBox="0 0 100 10" width="100%" height={height} preserveAspectRatio="none" role="img">
+    <div
+      ref={ref}
+      role="img"
+      aria-label={`Stacked bar, ${segments.length} segments`}
+      className={cn('w-full', className)}
+      {...rest}
+    >
+      <svg viewBox="0 0 100 10" width="100%" height={height} preserveAspectRatio="none" aria-hidden="true">
         <rect x={0} y={0} width={100} height={10} rx={5} fill="var(--xen-border)" />
         {segments.map((seg, i) => {
           const w = (Math.max(seg.value, 0) / total) * 100;

@@ -22,6 +22,8 @@ export interface AreaChartProps {
     strokeWidth?: number;
     /** Render a dot at each point. */
     showDots?: boolean;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -30,5 +32,5 @@ export interface AreaChartProps {
  * data's own min/max. Renders a `muted` "No data" note on empty input and guards
  * zero-range series.
  */
-export declare function AreaChart({ data, height, width, color, fillOpacity, strokeWidth, showDots, style, }: AreaChartProps): React.ReactElement;
+export declare function AreaChart({ data, height, width, color, fillOpacity, strokeWidth, showDots, accessibilityLabel, style, }: AreaChartProps): React.ReactElement;
 //# sourceMappingURL=AreaChart.d.ts.map

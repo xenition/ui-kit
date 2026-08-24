@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useXenitionTheme } from '../theme';
 
 export interface ActionSheetAction {
@@ -35,6 +36,9 @@ export function ActionSheet({
   cancelLabel = 'Cancel',
 }: ActionSheetProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Clear the home indicator by adding the bottom safe-area inset to the bottom
+  // container's padding. Needs a `SafeAreaProvider` above it (Expo default).
+  const insets = useSafeAreaInsets();
 
   return (
     <Modal visible={open} transparent animationType="slide" onRequestClose={onClose}>
@@ -44,7 +48,13 @@ export function ActionSheet({
           onPress={onClose}
           style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: colors.onSurface, opacity: 0.5 }}
         />
-        <View style={{ padding: tokens.spacing.md, gap: tokens.spacing.sm }}>
+        <View
+          style={{
+            padding: tokens.spacing.md,
+            paddingBottom: tokens.spacing.md + insets.bottom,
+            gap: tokens.spacing.sm,
+          }}
+        >
           <View
             accessibilityRole="menu"
             style={{

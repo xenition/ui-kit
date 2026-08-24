@@ -60,7 +60,7 @@ exports.PieChart = React.forwardRef(function PieChart({ data, size = 160, classN
     const nonZero = data.filter((d) => Math.max(d.value, 0) > 0);
     const single = nonZero.length === 1;
     let angle = -Math.PI / 2; // start at 12 o'clock
-    return ((0, jsx_runtime_1.jsx)("svg", { ref: ref, viewBox: `0 0 ${size} ${size}`, width: size, height: size, role: "img", className: (0, cn_1.cn)('inline-block', className), ...rest, children: single ? ((0, jsx_runtime_1.jsx)("circle", { cx: cx, cy: cy, r: r, fill: fillFor(nonZero[0] ?? data[0], data.indexOf(nonZero[0] ?? data[0])) })) : (data.map((d, i) => {
+    return ((0, jsx_runtime_1.jsx)("svg", { ref: ref, viewBox: `0 0 ${size} ${size}`, width: size, height: size, role: "img", "aria-label": `Pie chart, ${data.length} slices`, className: (0, cn_1.cn)('inline-block', className), ...rest, children: single ? ((0, jsx_runtime_1.jsx)("circle", { cx: cx, cy: cy, r: r, fill: fillFor(nonZero[0] ?? data[0], data.indexOf(nonZero[0] ?? data[0])) })) : (data.map((d, i) => {
             const frac = Math.max(d.value, 0) / total;
             if (frac <= 0)
                 return null;

@@ -30,6 +30,8 @@ export const Legend = React.forwardRef<HTMLDivElement, LegendProps>(function Leg
   return (
     <div
       ref={ref}
+      role="img"
+      aria-label={`Legend: ${items.map((it) => it.label).join(', ')}`}
       className={cn('flex gap-3', vertical ? 'flex-col flex-nowrap' : 'flex-row flex-wrap', className)}
       {...rest}
     >

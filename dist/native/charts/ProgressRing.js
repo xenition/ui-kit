@@ -44,7 +44,7 @@ const theme_1 = require("../theme");
  * (rotated so it starts at 12 o'clock). `max` guards divide-by-zero. Renders a
  * `muted` "No data" note only when `max <= 0`.
  */
-function ProgressRing({ value, max = 100, size = 120, strokeWidth = 12, color = 'primary', label, showPercent = true, style, }) {
+function ProgressRing({ value, max = 100, size = 120, strokeWidth = 12, color = 'primary', label, showPercent = true, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (max <= 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
@@ -57,7 +57,7 @@ function ProgressRing({ value, max = 100, size = 120, strokeWidth = 12, color = 
     const circumference = 2 * Math.PI * r;
     const dash = circumference * frac;
     const centerText = label ?? (showPercent ? `${Math.round(frac * 100)}%` : undefined);
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }, style], children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: size, height: size, viewBox: `0 0 ${size} ${size}`, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { rotation: -90, origin: `${cx}, ${cy}`, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: r, fill: "none", stroke: colors.border, strokeWidth: strokeWidth }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: r, fill: "none", stroke: colors[color], strokeWidth: strokeWidth, strokeLinecap: "round", strokeDasharray: `${dash} ${circumference}` })] }) }), centerText !== undefined ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Progress ring, ${Math.round(frac * 100)}%`, style: [{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }, style], children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: size, height: size, viewBox: `0 0 ${size} ${size}`, children: (0, jsx_runtime_1.jsxs)(react_native_svg_1.G, { rotation: -90, origin: `${cx}, ${cy}`, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: r, fill: "none", stroke: colors.border, strokeWidth: strokeWidth }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: r, fill: "none", stroke: colors[color], strokeWidth: strokeWidth, strokeLinecap: "round", strokeDasharray: `${dash} ${circumference}` })] }) }), centerText !== undefined ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
                     position: 'absolute',
                     color: colors.onSurface,
                     fontSize: tokens.typography.scale.lg,

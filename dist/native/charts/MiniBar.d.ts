@@ -11,11 +11,13 @@ export interface MiniBarProps {
     color?: MiniBarColor;
     /** Track/fill height in px. */
     height?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
  * A single thin progress-style bar — token-bound, View-based (no SVG). The fill
  * width is `value / max`; the track uses `border`. Handy inline next to a stat.
  */
-export declare function MiniBar({ value, max, color, height, style, }: MiniBarProps): React.ReactElement;
+export declare function MiniBar({ value, max, color, height, accessibilityLabel, style, }: MiniBarProps): React.ReactElement;
 //# sourceMappingURL=MiniBar.d.ts.map

@@ -19,6 +19,8 @@ export interface ScatterChartProps {
     dotRadius?: number;
     /** Draw `border` axis lines along the left + bottom edges. */
     showAxes?: boolean;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -27,5 +29,5 @@ export interface ScatterChartProps {
  * box; zero-range axes are guarded. Optional `border` axis lines. Renders a
  * `muted` "No data" note on empty input.
  */
-export declare function ScatterChart({ points, height, width, color, dotRadius, showAxes, style, }: ScatterChartProps): React.ReactElement;
+export declare function ScatterChart({ points, height, width, color, dotRadius, showAxes, accessibilityLabel, style, }: ScatterChartProps): React.ReactElement;
 //# sourceMappingURL=ScatterChart.d.ts.map

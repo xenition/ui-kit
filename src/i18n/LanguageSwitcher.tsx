@@ -23,7 +23,10 @@ export function LanguageSwitcher({
 }: LanguageSwitcherProps): React.ReactElement {
   const { locale, setLocale, locales, t } = useT();
   const [open, setOpen] = React.useState(false);
+  const [activeIndex, setActiveIndex] = React.useState(0);
   const rootRef = React.useRef<HTMLDivElement>(null);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const listRef = React.useRef<HTMLUListElement>(null);
   const current = locales.find((l) => l.code === locale) ?? locales[0]!;
 
   // Close on outside click / Escape.
@@ -43,14 +46,66 @@ export function LanguageSwitcher({
     };
   }, [open]);
 
+  // On open, seed the active option to the current locale and move focus into
+  // the listbox so arrow-key navigation works immediately.
+  React.useEffect(() => {
+    if (!open) return;
+    const idx = locales.findIndex((l) => l.code === locale);
+    setActiveIndex(idx < 0 ? 0 : idx);
+    listRef.current?.focus();
+  }, [open, locale, locales]);
+
   const choose = (code: Locale) => {
     setLocale(code);
     setOpen(false);
+    triggerRef.current?.focus();
   };
+
+  // Roving keyboard control for the listbox (design.md §46 semantic controls):
+  // Up/Down move the active option, Enter/Space select, Escape closes.
+  const onListKeyDown = (e: React.KeyboardEvent<HTMLUListElement>) => {
+    const n = locales.length;
+    if (n === 0) return;
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setActiveIndex((i) => (i + 1) % n);
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setActiveIndex((i) => (i - 1 + n) % n);
+        break;
+      case 'Home':
+        e.preventDefault();
+        setActiveIndex(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        setActiveIndex(n - 1);
+        break;
+      case 'Enter':
+      case ' ': {
+        e.preventDefault();
+        const opt = locales[activeIndex];
+        if (opt) choose(opt.code);
+        break;
+      }
+      case 'Escape':
+        e.preventDefault();
+        setOpen(false);
+        triggerRef.current?.focus();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const activeCode = locales[activeIndex]?.code;
 
   return (
     <div ref={rootRef} style={{ position: 'relative', display: 'inline-block' }}>
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
@@ -60,75 +115,81 @@ export function LanguageSwitcher({
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '0.4rem',
-          padding: '0.4rem 0.6rem',
-          fontSize: '0.85rem',
+          gap: 'var(--xen-space-xs)',
+          padding: 'var(--xen-space-xs) var(--xen-space-sm)',
+          fontSize: 'var(--xen-text-sm)',
           fontWeight: 500,
           lineHeight: 1,
-          color: 'var(--xen-color-on-surface, currentColor)',
+          color: 'var(--xen-on-surface)',
           background: 'transparent',
-          border: '1px solid var(--xen-color-border, rgba(0,0,0,0.12))',
-          borderRadius: 'var(--xen-radius-md, 0.5rem)',
+          border: '1px solid var(--xen-border)',
+          borderRadius: 'var(--xen-radius-md)',
           cursor: 'pointer',
         }}
       >
-        <span aria-hidden="true" style={{ fontSize: '1rem' }}>
+        <span aria-hidden="true" style={{ fontSize: 'var(--xen-text-base)' }}>
           {current.flag}
         </span>
         {!compact && <span>{current.label}</span>}
-        <span aria-hidden="true" style={{ opacity: 0.6, fontSize: '0.7rem' }}>
+        <span aria-hidden="true" style={{ opacity: 0.6, fontSize: 'var(--xen-text-xs)' }}>
           ▾
         </span>
       </button>
 
       {open && (
         <ul
+          ref={listRef}
           role="listbox"
+          tabIndex={0}
           aria-label={t('lang.label')}
+          aria-activedescendant={activeCode ? `xen-lang-opt-${activeCode}` : undefined}
+          onKeyDown={onListKeyDown}
           style={{
             position: 'absolute',
-            top: 'calc(100% + 0.35rem)',
+            top: 'calc(100% + var(--xen-space-xs))',
             [align === 'end' ? 'right' : 'left']: 0,
             zIndex: 50,
             minWidth: '11rem',
             maxHeight: '18rem',
             overflowY: 'auto',
             margin: 0,
-            padding: '0.3rem',
+            padding: 'var(--xen-space-xs)',
             listStyle: 'none',
-            background: 'var(--xen-color-surface, #fff)',
-            color: 'var(--xen-color-on-surface, #111)',
-            border: '1px solid var(--xen-color-border, rgba(0,0,0,0.12))',
-            borderRadius: 'var(--xen-radius-lg, 0.75rem)',
-            boxShadow: '0 12px 32px rgba(0,0,0,0.16)',
+            background: 'var(--xen-surface)',
+            color: 'var(--xen-on-surface)',
+            border: '1px solid var(--xen-border)',
+            borderRadius: 'var(--xen-radius-lg)',
+            outline: 'none',
+            boxShadow: '0 12px 32px -8px var(--xen-border)',
           }}
         >
-          {locales.map((l) => {
-            const active = l.code === locale;
+          {locales.map((l, i) => {
+            const selected = l.code === locale;
+            const highlighted = i === activeIndex;
             return (
-              <li key={l.code} role="option" aria-selected={active}>
+              <li key={l.code} id={`xen-lang-opt-${l.code}`} role="option" aria-selected={selected}>
                 <button
                   type="button"
+                  tabIndex={-1}
                   onClick={() => choose(l.code)}
+                  onMouseEnter={() => setActiveIndex(i)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.55rem',
+                    gap: 'var(--xen-space-sm)',
                     width: '100%',
-                    padding: '0.5rem 0.6rem',
-                    fontSize: '0.88rem',
+                    padding: 'var(--xen-space-sm) var(--xen-space-sm)',
+                    fontSize: 'var(--xen-text-sm)',
                     textAlign: 'left',
                     color: 'inherit',
-                    background: active
-                      ? 'var(--xen-color-primary-50, rgba(0,0,0,0.05))'
-                      : 'transparent',
+                    background: highlighted || selected ? 'var(--xen-primary-50)' : 'transparent',
                     border: 'none',
-                    borderRadius: 'var(--xen-radius-md, 0.5rem)',
+                    borderRadius: 'var(--xen-radius-md)',
                     cursor: 'pointer',
-                    fontWeight: active ? 600 : 400,
+                    fontWeight: selected ? 600 : 400,
                   }}
                 >
-                  <span aria-hidden="true" style={{ fontSize: '1.05rem' }}>
+                  <span aria-hidden="true" style={{ fontSize: 'var(--xen-text-base)' }}>
                     {l.flag}
                   </span>
                   <span>{l.label}</span>

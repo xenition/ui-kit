@@ -56,6 +56,6 @@ exports.Sparkline = React.forwardRef(function Sparkline({ data, width = 100, hei
         const y = height - pad - ((v - lo) / range) * (height - pad * 2);
         return { x, y };
     });
-    return ((0, jsx_runtime_1.jsx)("svg", { ref: ref, viewBox: `0 0 ${width} ${height}`, width: width, height: height, preserveAspectRatio: "none", role: "img", className: (0, cn_1.cn)('inline-block align-middle', className), ...rest, children: data.length === 1 ? ((0, jsx_runtime_1.jsx)("circle", { cx: pts[0].x, cy: pts[0].y, r: 2, fill: stroke })) : ((0, jsx_runtime_1.jsx)("polyline", { points: pts.map((p) => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' '), fill: "none", stroke: stroke, strokeWidth: 1.5, strokeLinejoin: "round", strokeLinecap: "round" })) }));
+    return ((0, jsx_runtime_1.jsx)("svg", { ref: ref, viewBox: `0 0 ${width} ${height}`, width: width, height: height, preserveAspectRatio: "none", role: "img", "aria-label": `Sparkline, ${data.length} points`, className: (0, cn_1.cn)('inline-block align-middle', className), ...rest, children: data.length === 1 ? ((0, jsx_runtime_1.jsx)("circle", { cx: pts[0].x, cy: pts[0].y, r: 2, fill: stroke })) : ((0, jsx_runtime_1.jsx)("polyline", { points: pts.map((p) => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' '), fill: "none", stroke: stroke, strokeWidth: 1.5, strokeLinejoin: "round", strokeLinecap: "round" })) }));
 });
 //# sourceMappingURL=Sparkline.js.map

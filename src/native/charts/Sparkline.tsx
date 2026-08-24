@@ -13,6 +13,8 @@ export interface SparklineProps {
   color?: SparklineColor;
   /** Value mapped to full height; defaults to the largest datum. */
   max?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -26,6 +28,7 @@ export function Sparkline({
   height = 32,
   color = 'primary',
   max,
+  accessibilityLabel,
   style,
 }: SparklineProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -42,6 +45,8 @@ export function Sparkline({
 
   return (
     <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Sparkline, ${data.length} points`}
       style={[{ flexDirection: 'row', alignItems: 'flex-end', height, gap: 1 }, style]}
     >
       {data.map((value, i) => {

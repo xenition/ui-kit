@@ -40,11 +40,16 @@ const cn_1 = require("./cn");
 const Input_1 = require("./Input");
 const Pagination_1 = require("./Pagination");
 /**
+ * Guiding two-line empty state (design.md §15): a title plus a hint on what
+ * makes rows appear, instead of a bare "No data".
+ */
+const DEFAULT_EMPTY = ((0, jsx_runtime_1.jsxs)("div", { className: "flex flex-col items-center gap-1", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-medium text-on-surface", children: "Nothing here yet" }), (0, jsx_runtime_1.jsx)("span", { className: "text-muted text-xs", children: "Rows will appear once data is added." })] }));
+/**
  * Sortable, searchable, paginated data table — the control every list/CRM/admin
  * screen needs. Client-side; bound to the theme tokens. For a full
  * create/edit/delete screen use {@link CrudTable}.
  */
-function DataTable({ columns, rows, pageSize = 10, searchable = false, getRowKey, onRowClick, empty = 'No data', className, }) {
+function DataTable({ columns, rows, pageSize = 10, searchable = false, getRowKey, onRowClick, empty = DEFAULT_EMPTY, className, }) {
     const [sort, setSort] = React.useState(null);
     const [query, setQuery] = React.useState('');
     const [page, setPage] = React.useState(1);

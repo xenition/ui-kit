@@ -20,6 +20,8 @@ export interface ProgressBarsProps {
   color?: ProgressBarsColor;
   /** Show the numeric value beside each label. */
   showValues?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -32,6 +34,7 @@ export function ProgressBars({
   max,
   color = 'primary',
   showValues = true,
+  accessibilityLabel,
   style,
 }: ProgressBarsProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -47,7 +50,11 @@ export function ProgressBars({
   const ceiling = Math.max(max ?? Math.max(...items.map((i) => i.value)), 1);
 
   return (
-    <View style={[{ gap: tokens.spacing.sm }, style]}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Progress bars, ${items.length} items`}
+      style={[{ gap: tokens.spacing.sm }, style]}
+    >
       {items.map((item, i) => (
         <View key={i} style={{ gap: tokens.spacing.xs }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

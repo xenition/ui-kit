@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BottomNav = BottomNav;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
+const react_native_safe_area_context_1 = require("react-native-safe-area-context");
 const theme_1 = require("../theme");
 /**
  * Fixed bottom tab bar — the primary mobile navigation pattern. A full-width
@@ -13,13 +14,16 @@ const theme_1 = require("../theme");
  */
 function BottomNav({ items, active, onChange, style }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    // Add the device's bottom safe-area inset to the token padding so the bar
+    // clears the home indicator. Needs a `SafeAreaProvider` above it (Expo default).
+    const insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
     return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "tablist", style: [
             {
                 flexDirection: 'row',
                 backgroundColor: colors.surface,
                 borderTopWidth: 1,
                 borderTopColor: colors.border,
-                paddingBottom: tokens.spacing.sm,
+                paddingBottom: tokens.spacing.sm + insets.bottom,
                 paddingTop: tokens.spacing.sm,
             },
             style,

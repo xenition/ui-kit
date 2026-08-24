@@ -68,11 +68,11 @@ function Popconfirm({ trigger, message, onConfirm, onCancel, confirmLabel = 'Con
                                 borderWidth: 1,
                                 borderRadius: tokens.radius.md,
                                 padding: tokens.spacing.md,
-                            }, children: [typeof message === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 14, color: colors.onSurface, marginBottom: tokens.spacing.md }, children: message })) : ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { marginBottom: tokens.spacing.md }, children: message })), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'flex-end', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", onPress: cancel, style: {
+                            }, children: [typeof message === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: tokens.typography.scale.sm, color: colors.onSurface, marginBottom: tokens.spacing.md }, children: message })) : ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { marginBottom: tokens.spacing.md }, children: message })), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'flex-end', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", onPress: cancel, style: {
                                                 borderRadius: tokens.radius.sm,
                                                 paddingVertical: tokens.spacing.xs,
                                                 paddingHorizontal: tokens.spacing.sm,
-                                            }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 12, color: colors.muted }, children: cancelLabel }) }), (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", onPress: () => {
+                                            }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: tokens.typography.scale.xs, color: colors.muted }, children: cancelLabel }) }), (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", onPress: () => {
                                                 onConfirm();
                                                 setOpen(false);
                                             }, style: {
@@ -80,6 +80,6 @@ function Popconfirm({ trigger, message, onConfirm, onCancel, confirmLabel = 'Con
                                                 borderRadius: tokens.radius.sm,
                                                 paddingVertical: tokens.spacing.xs,
                                                 paddingHorizontal: tokens.spacing.sm,
-                                            }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: 12, color: colors.onPrimary }, children: confirmLabel }) })] })] })] }) })] }));
+                                            }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { fontSize: tokens.typography.scale.xs, color: colors.onPrimary }, children: confirmLabel }) })] })] })] }) })] }));
 }
 //# sourceMappingURL=Popconfirm.js.map

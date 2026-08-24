@@ -49,9 +49,9 @@ exports.ColumnChart = React.forwardRef(function ColumnChart({ data, color = 'pri
         return (0, jsx_runtime_1.jsx)(internal_1.ChartEmpty, {});
     const ceiling = (0, internal_1.safeMax)(data.map((d) => d.value), max);
     const fill = (0, internal_1.colorVar)(color);
-    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: (0, cn_1.cn)('flex flex-col gap-2', className), ...rest, children: data.map((d, i) => {
+    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, role: "img", "aria-label": `Bar chart, ${data.length} bars, max ${ceiling}`, className: (0, cn_1.cn)('flex flex-col gap-2', className), ...rest, children: data.map((d, i) => {
             const ratio = (0, internal_1.clamp01)(d.value / ceiling);
-            return ((0, jsx_runtime_1.jsxs)("div", { className: "flex flex-col gap-1", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between", children: [(0, jsx_runtime_1.jsx)("span", { className: "truncate text-on-surface text-xs", children: d.label }), showValues ? (0, jsx_runtime_1.jsx)("span", { className: "text-muted text-xs", children: d.value }) : null] }), (0, jsx_runtime_1.jsxs)("svg", { viewBox: "0 0 100 10", width: "100%", height: barHeight, preserveAspectRatio: "none", role: "img", children: [(0, jsx_runtime_1.jsx)("rect", { x: 0, y: 0, width: 100, height: 10, rx: 5, fill: "var(--xen-border)" }), (0, jsx_runtime_1.jsx)("rect", { x: 0, y: 0, width: Math.max(ratio * 100, 0), height: 10, rx: 5, fill: fill })] })] }, i));
+            return ((0, jsx_runtime_1.jsxs)("div", { className: "flex flex-col gap-1", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between", children: [(0, jsx_runtime_1.jsx)("span", { className: "truncate text-on-surface text-xs", children: d.label }), showValues ? (0, jsx_runtime_1.jsx)("span", { className: "text-muted text-xs", children: d.value }) : null] }), (0, jsx_runtime_1.jsxs)("svg", { viewBox: "0 0 100 10", width: "100%", height: barHeight, preserveAspectRatio: "none", "aria-hidden": "true", children: [(0, jsx_runtime_1.jsx)("rect", { x: 0, y: 0, width: 100, height: 10, rx: 5, fill: "var(--xen-border)" }), (0, jsx_runtime_1.jsx)("rect", { x: 0, y: 0, width: Math.max(ratio * 100, 0), height: 10, rx: 5, fill: fill })] })] }, i));
         }) }));
 });
 //# sourceMappingURL=ColumnChart.js.map

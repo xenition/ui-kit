@@ -16,11 +16,13 @@ export interface ProgressBarsProps {
     color?: ProgressBarsColor;
     /** Show the numeric value beside each label. */
     showValues?: boolean;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
  * Stack of labelled progress bars — token-bound, View-based (no SVG). Each row
  * is a label + value over a {@link MiniBar} sized to `value / max`.
  */
-export declare function ProgressBars({ items, max, color, showValues, style, }: ProgressBarsProps): React.ReactElement;
+export declare function ProgressBars({ items, max, color, showValues, accessibilityLabel, style, }: ProgressBarsProps): React.ReactElement;
 //# sourceMappingURL=ProgressBars.d.ts.map

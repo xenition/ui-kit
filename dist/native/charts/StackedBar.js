@@ -9,13 +9,13 @@ const theme_1 = require("../theme");
  * segment is a `View` flexed by its share of the sum; distinguish series by
  * varying the `opacity` of one theme color rather than inventing hex values.
  */
-function StackedBar({ segments, height = 16, style, }) {
+function StackedBar({ segments, height = 16, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (segments.length === 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
     }
     const total = Math.max(segments.reduce((sum, s) => sum + Math.max(s.value, 0), 0), 1);
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: [
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Stacked bar, ${segments.length} segments`, style: [
             {
                 flexDirection: 'row',
                 height,

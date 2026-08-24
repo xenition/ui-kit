@@ -15,6 +15,8 @@ export interface RangeBarProps {
     color?: RangeBarColor;
     /** Track height in px. */
     height?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -22,5 +24,5 @@ export interface RangeBarProps {
  * track with one filled segment spanning `[start, end]` positioned by its share
  * of `[domainMin, domainMax]`. Good for min–max / percentile bands.
  */
-export declare function RangeBar({ start, end, domainMin, domainMax, color, height, style, }: RangeBarProps): React.ReactElement;
+export declare function RangeBar({ start, end, domainMin, domainMax, color, height, accessibilityLabel, style, }: RangeBarProps): React.ReactElement;
 //# sourceMappingURL=RangeBar.d.ts.map

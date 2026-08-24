@@ -16,6 +16,8 @@ export interface RadarChartProps {
   max?: number;
   /** Number of concentric grid rings. */
   rings?: number;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -33,6 +35,7 @@ export function RadarChart({
   size = 220,
   max,
   rings = 4,
+  accessibilityLabel,
   style,
 }: RadarChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -63,7 +66,13 @@ export function RadarChart({
   });
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={
+        accessibilityLabel ?? `Radar chart, ${series.length} series, ${axes.length} axes`
+      }
+      style={style}
+    >
       <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <G>
           {ringPolys.map((pts, i) => (

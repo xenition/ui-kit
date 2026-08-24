@@ -23,6 +23,8 @@ export interface ScatterChartProps {
   dotRadius?: number;
   /** Draw `border` axis lines along the left + bottom edges. */
   showAxes?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -39,6 +41,7 @@ export function ScatterChart({
   color = 'primary',
   dotRadius = 4,
   showAxes = true,
+  accessibilityLabel,
   style,
 }: ScatterChartProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -67,7 +70,11 @@ export function ScatterChart({
   }));
 
   return (
-    <View style={style}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Scatter plot, ${points.length} points`}
+      style={style}
+    >
       <Svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         <G>
           {showAxes ? (

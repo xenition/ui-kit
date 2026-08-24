@@ -51,7 +51,7 @@ exports.StackedBar = React.forwardRef(function StackedBar({ segments, height = 1
     if (total <= 0)
         return (0, jsx_runtime_1.jsx)(internal_1.ChartEmpty, {});
     let x = 0;
-    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: (0, cn_1.cn)('w-full', className), ...rest, children: (0, jsx_runtime_1.jsxs)("svg", { viewBox: "0 0 100 10", width: "100%", height: height, preserveAspectRatio: "none", role: "img", children: [(0, jsx_runtime_1.jsx)("rect", { x: 0, y: 0, width: 100, height: 10, rx: 5, fill: "var(--xen-border)" }), segments.map((seg, i) => {
+    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, role: "img", "aria-label": `Stacked bar, ${segments.length} segments`, className: (0, cn_1.cn)('w-full', className), ...rest, children: (0, jsx_runtime_1.jsxs)("svg", { viewBox: "0 0 100 10", width: "100%", height: height, preserveAspectRatio: "none", "aria-hidden": "true", children: [(0, jsx_runtime_1.jsx)("rect", { x: 0, y: 0, width: 100, height: 10, rx: 5, fill: "var(--xen-border)" }), segments.map((seg, i) => {
                     const w = (Math.max(seg.value, 0) / total) * 100;
                     if (w <= 0)
                         return null;

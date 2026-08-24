@@ -28,6 +28,8 @@ export const TrendCard = React.forwardRef<HTMLDivElement, TrendCardProps>(functi
   return (
     <div
       ref={ref}
+      role="img"
+      aria-label={`${label}, ${value}${delta ? `, ${delta}` : ''}`}
       className={cn(
         'bg-surface text-on-surface border border-border shadow-sm',
         'rounded-[var(--xen-radius-lg)] p-[var(--xen-space-md)] flex flex-col gap-2',

@@ -13,6 +13,8 @@ export interface RadarChartProps {
     max?: number;
     /** Number of concentric grid rings. */
     rings?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -21,5 +23,5 @@ export interface RadarChartProps {
  * low fill opacity). Values are normalized to `max`. Renders a `muted` "No data"
  * note when there are no axes or no series.
  */
-export declare function RadarChart({ axes, series, size, max, rings, style, }: RadarChartProps): React.ReactElement;
+export declare function RadarChart({ axes, series, size, max, rings, accessibilityLabel, style, }: RadarChartProps): React.ReactElement;
 //# sourceMappingURL=RadarChart.d.ts.map

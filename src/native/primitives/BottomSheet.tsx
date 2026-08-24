@@ -11,6 +11,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useXenitionTheme } from '../theme';
 import { useReducedMotion } from './internal/useReducedMotion';
 
@@ -43,6 +44,9 @@ export function BottomSheet({
   const { colors, tokens } = useXenitionTheme();
   const { height } = useWindowDimensions();
   const reduced = useReducedMotion();
+  // Pad the sheet body past the home indicator with the bottom safe-area inset.
+  // Needs a `SafeAreaProvider` above it (Expo default).
+  const insets = useSafeAreaInsets();
   const sheetHeight = Math.max(120, Math.min(1, snap) * height);
   const translateY = React.useRef(new Animated.Value(sheetHeight)).current;
 
@@ -97,7 +101,7 @@ export function BottomSheet({
               borderTopLeftRadius: tokens.radius.lg,
               borderTopRightRadius: tokens.radius.lg,
               paddingHorizontal: tokens.spacing.lg,
-              paddingBottom: tokens.spacing.lg,
+              paddingBottom: tokens.spacing.lg + insets.bottom,
               transform: [{ translateY }],
             },
             style,

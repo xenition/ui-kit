@@ -9,13 +9,13 @@ const theme_1 = require("../theme");
  * label plus a `View` whose width flexes to `value / max`. Track uses `border`,
  * fill uses the chosen theme color.
  */
-function ColumnChart({ data, color = 'primary', max, barHeight = 12, showValues = false, style, }) {
+function ColumnChart({ data, color = 'primary', max, barHeight = 12, showValues = false, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     if (data.length === 0) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No data" }));
     }
     const ceiling = Math.max(max ?? Math.max(...data.map((d) => d.value)), 1);
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: [{ gap: tokens.spacing.sm }, style], children: data.map((d, i) => {
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ?? `Bar chart, ${data.length} bars, max ${ceiling}`, style: [{ gap: tokens.spacing.sm }, style], children: data.map((d, i) => {
             const ratio = Math.min(Math.max(d.value / ceiling, 0), 1);
             return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'space-between' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { numberOfLines: 1, style: { color: colors.onSurface, fontSize: tokens.typography.scale.xs, flex: 1 }, children: d.label }), showValues ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: d.value })) : null] }), (0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                             height: barHeight,

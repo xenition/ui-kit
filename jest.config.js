@@ -28,6 +28,9 @@ module.exports = {
         // Optional peer dep for SVG charts — mocked to plain host views in tests.
         '^react-native-svg$':
           '<rootDir>/src/native/spec-support/react-native-svg.mock.tsx',
+        // Optional peer dep for safe-area insets — mocked to fixed insets in tests.
+        '^react-native-safe-area-context$':
+          '<rootDir>/src/native/spec-support/react-native-safe-area-context.mock.tsx',
       },
     },
   ],

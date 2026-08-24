@@ -20,6 +20,8 @@ export interface ProgressRingProps {
   label?: string;
   /** Show `NN%` in the center when no explicit `label` is given. */
   showPercent?: boolean;
+  /** Accessible one-line summary; a sensible default is generated when omitted. */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -37,6 +39,7 @@ export function ProgressRing({
   color = 'primary',
   label,
   showPercent = true,
+  accessibilityLabel,
   style,
 }: ProgressRingProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -57,7 +60,11 @@ export function ProgressRing({
   const centerText = label ?? (showPercent ? `${Math.round(frac * 100)}%` : undefined);
 
   return (
-    <View style={[{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }, style]}>
+    <View
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel ?? `Progress ring, ${Math.round(frac * 100)}%`}
+      style={[{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }, style]}
+    >
       <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <G rotation={-90} origin={`${cx}, ${cy}`}>
           <Circle cx={cx} cy={cy} r={r} fill="none" stroke={colors.border} strokeWidth={strokeWidth} />

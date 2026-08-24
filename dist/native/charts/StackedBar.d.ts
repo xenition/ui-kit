@@ -15,6 +15,8 @@ export interface StackedBarProps {
     segments: StackedBarSegment[];
     /** Bar height in px. */
     height?: number;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -22,5 +24,5 @@ export interface StackedBarProps {
  * segment is a `View` flexed by its share of the sum; distinguish series by
  * varying the `opacity` of one theme color rather than inventing hex values.
  */
-export declare function StackedBar({ segments, height, style, }: StackedBarProps): React.ReactElement;
+export declare function StackedBar({ segments, height, accessibilityLabel, style, }: StackedBarProps): React.ReactElement;
 //# sourceMappingURL=StackedBar.d.ts.map

@@ -49,7 +49,7 @@ function polar(cx, cy, r, angle) {
  * hole for an optional `centerLabel`. Colors are semantic keys or a cycled
  * palette. Renders a `muted` "No data" note when empty or all-zero.
  */
-function DonutChart({ data, size = 200, thickness = 32, centerLabel, showLegend = false, style, }) {
+function DonutChart({ data, size = 200, thickness = 32, centerLabel, showLegend = false, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const total = data.reduce((sum, d) => sum + Math.max(d.value, 0), 0);
     if (data.length === 0 || total <= 0) {
@@ -77,7 +77,8 @@ function DonutChart({ data, size = 200, thickness = 32, centerLabel, showLegend 
         return { path, fill: segColor(d, i), opacity: segOpacity(d, i) };
     });
     const single = segments.length === 1;
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: style, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { width: size, height: size, alignItems: 'center', justifyContent: 'center' }, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: size, height: size, viewBox: `0 0 ${size} ${size}`, children: (0, jsx_runtime_1.jsx)(react_native_svg_1.G, { children: single ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: rOuter, fill: segments[0]?.fill ?? colors.primary, fillOpacity: segments[0]?.opacity ?? 1 }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: rInner, fill: colors.surface })] })) : (segments.map((s, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: s.path, fill: s.fill, fillOpacity: s.opacity }, i)))) }) }), centerLabel ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: accessibilityLabel ??
+            `Donut chart, ${data.length} segments${centerLabel ? `, ${centerLabel}` : ''}`, style: style, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { width: size, height: size, alignItems: 'center', justifyContent: 'center' }, children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.default, { width: size, height: size, viewBox: `0 0 ${size} ${size}`, children: (0, jsx_runtime_1.jsx)(react_native_svg_1.G, { children: single ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: rOuter, fill: segments[0]?.fill ?? colors.primary, fillOpacity: segments[0]?.opacity ?? 1 }), (0, jsx_runtime_1.jsx)(react_native_svg_1.Circle, { cx: cx, cy: cy, r: rInner, fill: colors.surface })] })) : (segments.map((s, i) => ((0, jsx_runtime_1.jsx)(react_native_svg_1.Path, { d: s.path, fill: s.fill, fillOpacity: s.opacity }, i)))) }) }), centerLabel ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
                             position: 'absolute',
                             color: colors.onSurface,
                             fontSize: tokens.typography.scale.lg,

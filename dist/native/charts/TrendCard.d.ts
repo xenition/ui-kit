@@ -13,11 +13,13 @@ export interface TrendCardProps {
     data?: number[];
     /** Theme color key for the sparkline + accents. */
     color?: TrendCardColor;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
  * A labelled stat paired with an inline {@link Sparkline} — token-bound,
  * View-based (no SVG). Surfaces a headline metric with an at-a-glance trend.
  */
-export declare function TrendCard({ label, value, delta, data, color, style, }: TrendCardProps): React.ReactElement;
+export declare function TrendCard({ label, value, delta, data, color, accessibilityLabel, style, }: TrendCardProps): React.ReactElement;
 //# sourceMappingURL=TrendCard.d.ts.map

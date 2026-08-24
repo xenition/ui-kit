@@ -1,6 +1,17 @@
 import * as React from 'react';
 import { cn } from './cn';
 
+/**
+ * Guiding two-line empty state (design.md §15): a title plus a hint on what
+ * makes rows appear, instead of a bare "No data".
+ */
+const DEFAULT_EMPTY = (
+  <div className="flex flex-col items-center gap-1">
+    <span className="font-medium text-on-surface">Nothing here yet</span>
+    <span className="text-muted text-xs">Rows will appear once data is added.</span>
+  </div>
+);
+
 export interface TableColumn<T> {
   /** Stable key; also the default field read from the row when `render` is omitted. */
   key: string;
@@ -49,7 +60,7 @@ export function Table<T>({
           {rows.length === 0 ? (
             <tr>
               <td colSpan={columns.length} className="px-4 py-8 text-center text-muted">
-                {empty ?? 'No data'}
+                {empty ?? DEFAULT_EMPTY}
               </td>
             </tr>
           ) : (

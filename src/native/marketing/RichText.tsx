@@ -80,16 +80,23 @@ export function RichText({ html, style }: RichTextProps) {
   const { colors, tokens } = useXenitionTheme();
   const blocks = React.useMemo(() => parseRichText(html), [html]);
 
+  // Body copy tracks the `base` type token; line height stays proportional so
+  // it scales with Dynamic Type rather than being pinned to a literal px value.
+  const bodySize = tokens.typography.scale.base;
+  const bodyLine = Math.round(bodySize * 1.5);
+
   return (
     <View style={[{ gap: tokens.spacing.md }, style]}>
       {blocks.map((b, i) => {
         if (b.kind === 'heading') {
+          const headingSize =
+            b.level <= 2 ? tokens.typography.scale['2xl'] : tokens.typography.scale.lg;
           return (
             <Text
               key={i}
               style={{
-                fontSize: b.level <= 2 ? 22 : 18,
-                lineHeight: b.level <= 2 ? 28 : 24,
+                fontSize: headingSize,
+                lineHeight: Math.round(headingSize * 1.3),
                 fontWeight: '700',
                 color: colors.onSurface,
                 marginTop: i === 0 ? 0 : tokens.spacing.sm,
@@ -102,8 +109,8 @@ export function RichText({ html, style }: RichTextProps) {
         if (b.kind === 'listitem') {
           return (
             <View key={i} style={{ flexDirection: 'row', gap: tokens.spacing.sm }}>
-              <Text style={{ fontSize: 16, lineHeight: 26, color: colors.accent }}>{'•'}</Text>
-              <Text style={{ flex: 1, fontSize: 16, lineHeight: 26, color: colors.onSurface }}>
+              <Text style={{ fontSize: bodySize, lineHeight: bodyLine, color: colors.accent }}>{'•'}</Text>
+              <Text style={{ flex: 1, fontSize: bodySize, lineHeight: bodyLine, color: colors.onSurface }}>
                 {b.text}
               </Text>
             </View>
@@ -119,14 +126,14 @@ export function RichText({ html, style }: RichTextProps) {
                 paddingLeft: tokens.spacing.md,
               }}
             >
-              <Text style={{ fontSize: 16, lineHeight: 26, fontStyle: 'italic', color: colors.muted }}>
+              <Text style={{ fontSize: bodySize, lineHeight: bodyLine, fontStyle: 'italic', color: colors.muted }}>
                 {b.text}
               </Text>
             </View>
           );
         }
         return (
-          <Text key={i} style={{ fontSize: 16, lineHeight: 26, color: colors.onSurface }}>
+          <Text key={i} style={{ fontSize: bodySize, lineHeight: bodyLine, color: colors.onSurface }}>
             {b.text}
           </Text>
         );

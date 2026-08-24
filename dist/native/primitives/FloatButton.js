@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FloatButton = FloatButton;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
+const react_native_safe_area_context_1 = require("react-native-safe-area-context");
 const theme_1 = require("../theme");
 /**
  * Floating action button — a circular (or pill, when `label` is set) primary
@@ -13,6 +14,9 @@ const theme_1 = require("../theme");
  */
 function FloatButton({ onPress, icon, label, placement = 'bottom-right', disabled = false, accessibilityLabel, style, ...rest }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    // Lift the FAB above the home indicator by adding the bottom safe-area inset
+    // to its anchor offset. Needs a `SafeAreaProvider` above it (Expo default).
+    const insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
     const anchor = placement === 'bottom-left'
         ? { left: tokens.spacing.lg }
         : placement === 'bottom-center'
@@ -21,7 +25,7 @@ function FloatButton({ onPress, icon, label, placement = 'bottom-right', disable
     return ((0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: accessibilityLabel ?? label, accessibilityState: { disabled }, disabled: disabled, onPress: onPress, style: ({ pressed }) => [
             {
                 position: 'absolute',
-                bottom: tokens.spacing.xl,
+                bottom: tokens.spacing.xl + insets.bottom,
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',

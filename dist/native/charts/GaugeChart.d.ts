@@ -15,6 +15,8 @@ export interface GaugeChartProps {
     color?: GaugeChartColor;
     /** Show the value text under the needle. */
     showValue?: boolean;
+    /** Accessible one-line summary; a sensible default is generated when omitted. */
+    accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -23,5 +25,5 @@ export interface GaugeChartProps {
  * at the clamped value. `max` guards divide-by-zero. Renders a `muted` "No data"
  * note only when `max <= 0`.
  */
-export declare function GaugeChart({ value, max, size, thickness, color, showValue, style, }: GaugeChartProps): React.ReactElement;
+export declare function GaugeChart({ value, max, size, thickness, color, showValue, accessibilityLabel, style, }: GaugeChartProps): React.ReactElement;
 //# sourceMappingURL=GaugeChart.d.ts.map
