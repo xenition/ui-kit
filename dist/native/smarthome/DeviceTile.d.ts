@@ -1,0 +1,31 @@
+import * as React from 'react';
+import { type StyleProp, type ViewStyle } from 'react-native';
+/** Power/reachability state of a smart-home device. */
+export type DeviceState = 'on' | 'off' | 'unavailable';
+export interface DeviceTileProps {
+    /** Device display name (e.g. "Living Room Lamp"). */
+    name: string;
+    /** Leading glyph/emoji (e.g. "💡", "🔌"). */
+    icon?: string;
+    /** Power/reachability state. `unavailable` disables the toggle. */
+    state?: DeviceState;
+    /** Secondary line under the name (e.g. "72% brightness", "Offline 2m ago"). */
+    subtitle?: string;
+    /** Fires with the requested on/off value when the toggle is pressed. */
+    onToggle?: (next: boolean) => void;
+    /** Fires when the tile body (not the switch) is pressed — opens details. */
+    onPress?: () => void;
+    /** Show a skeleton-style placeholder instead of live content. */
+    loading?: boolean;
+    style?: StyleProp<ViewStyle>;
+}
+/**
+ * A single controllable device tile — a tinted glyph, name + status, and an
+ * on/off {@link Switch}. `state` drives the accent slot and a text status label
+ * (`on`→success, `off`→muted, `unavailable`→danger) so device status is never
+ * conveyed by color alone; `unavailable` disables the switch. Optional `onPress`
+ * makes the body open a detail view while the switch stays independently
+ * tappable. Token-bound throughout — no literal colors.
+ */
+export declare function DeviceTile({ name, icon, state, subtitle, onToggle, onPress, loading, style, }: DeviceTileProps): React.ReactElement;
+//# sourceMappingURL=DeviceTile.d.ts.map

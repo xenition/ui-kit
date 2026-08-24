@@ -194,6 +194,36 @@
       "types": "./dist/native/onboarding/index.d.ts",
       "import": "./dist/native/onboarding/index.js",
       "require": "./dist/native/onboarding/index.js"
+    },
+    "./native/dating": {
+      "types": "./dist/native/dating/index.d.ts",
+      "import": "./dist/native/dating/index.js",
+      "require": "./dist/native/dating/index.js"
+    },
+    "./native/gaming": {
+      "types": "./dist/native/gaming/index.d.ts",
+      "import": "./dist/native/gaming/index.js",
+      "require": "./dist/native/gaming/index.js"
+    },
+    "./native/crypto": {
+      "types": "./dist/native/crypto/index.d.ts",
+      "import": "./dist/native/crypto/index.js",
+      "require": "./dist/native/crypto/index.js"
+    },
+    "./native/smarthome": {
+      "types": "./dist/native/smarthome/index.d.ts",
+      "import": "./dist/native/smarthome/index.js",
+      "require": "./dist/native/smarthome/index.js"
+    },
+    "./native/weather": {
+      "types": "./dist/native/weather/index.d.ts",
+      "import": "./dist/native/weather/index.js",
+      "require": "./dist/native/weather/index.js"
+    },
+    "./native/sports": {
+      "types": "./dist/native/sports/index.d.ts",
+      "import": "./dist/native/sports/index.js",
+      "require": "./dist/native/sports/index.js"
     }
   },
   "scripts": {
