@@ -25,6 +25,9 @@ module.exports = {
         // Optional peer dep — mocked so native specs need no Expo native runtime.
         '^expo-linear-gradient$':
           '<rootDir>/src/native/spec-support/expo-linear-gradient.mock.tsx',
+        // Optional peer dep for SVG charts — mocked to plain host views in tests.
+        '^react-native-svg$':
+          '<rootDir>/src/native/spec-support/react-native-svg.mock.tsx',
       },
     },
   ],

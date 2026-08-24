@@ -221,3 +221,25 @@ export { ButtonGroup } from './ButtonGroup';
 export type { ButtonGroupProps } from './ButtonGroup';
 export { Watermark } from './Watermark';
 export type { WatermarkProps } from './Watermark';
+
+// ── native parity: display + navigation gaps ──────────────────────────
+export { Tree } from './Tree';
+export type { TreeProps, TreeNode } from './Tree';
+export { Statistic } from './Statistic';
+export type { StatisticProps, StatisticTrend } from './Statistic';
+export { Calendar } from './Calendar';
+export type { CalendarProps } from './Calendar';
+export { Kanban } from './Kanban';
+export type { KanbanProps, KanbanColumn, KanbanCard } from './Kanban';
+export { VirtualList } from './VirtualList';
+export type { VirtualListProps } from './VirtualList';
+export { CodeBlock } from './CodeBlock';
+export type { CodeBlockProps } from './CodeBlock';
+export { JsonViewer } from './JsonViewer';
+export type { JsonViewerProps } from './JsonViewer';
+export { Toolbar } from './Toolbar';
+export type { ToolbarProps, ToolbarAction } from './Toolbar';
+export { SplitButton } from './SplitButton';
+export type { SplitButtonProps, SplitButtonAction, SplitButtonVariant } from './SplitButton';
+export { ScrollableTabs } from './ScrollableTabs';
+export type { ScrollableTabsProps, ScrollableTabItem } from './ScrollableTabs';

@@ -1,9 +1,10 @@
 /**
- * `@xenition/ui/native/charts` — View/flex-based, token-bound data-visualization
- * components for React Native. No `react-native-svg` dependency: every chart is
- * built from `View`/`Text` primitives (bars, cells, stacked rectangles) with
- * series/intensity expressed via theme colors + opacity. SVG-only chart types
- * (line/pie/donut/radar) are intentionally not provided here.
+ * `@xenition/ui/native/charts` — token-bound data-visualization components for
+ * React Native. Two families live here: View/flex-based charts (bars, cells,
+ * stacked rectangles) built from `View`/`Text` primitives, and SVG charts
+ * (line/area/pie/donut/radar/gauge/ring/scatter) built on `react-native-svg`
+ * (an optional peer dep). Both express series/intensity via theme colors +
+ * opacity and never hardcode a hex.
  */
 export { BarChart } from './BarChart';
 export type { BarChartProps, ChartColor } from './BarChart';
@@ -29,4 +30,20 @@ export { ProgressBars } from './ProgressBars';
 export type { ProgressBarsProps, ProgressBarsItem, ProgressBarsColor } from './ProgressBars';
 export { ComparisonBars } from './ComparisonBars';
 export type { ComparisonBarsProps, ComparisonBarsGroup, ComparisonBarsColor } from './ComparisonBars';
+export { LineChart } from './LineChart';
+export type { LineChartProps, LineChartDatum, LineChartColor } from './LineChart';
+export { AreaChart } from './AreaChart';
+export type { AreaChartProps, AreaChartDatum, AreaChartColor } from './AreaChart';
+export { PieChart } from './PieChart';
+export type { PieChartProps, PieChartDatum, PieChartColor } from './PieChart';
+export { DonutChart } from './DonutChart';
+export type { DonutChartProps, DonutChartDatum, DonutChartColor } from './DonutChart';
+export { RadarChart } from './RadarChart';
+export type { RadarChartProps, RadarChartColor } from './RadarChart';
+export { GaugeChart } from './GaugeChart';
+export type { GaugeChartProps, GaugeChartColor } from './GaugeChart';
+export { ProgressRing } from './ProgressRing';
+export type { ProgressRingProps, ProgressRingColor } from './ProgressRing';
+export { ScatterChart } from './ScatterChart';
+export type { ScatterChartProps, ScatterPoint, ScatterChartColor } from './ScatterChart';
 //# sourceMappingURL=index.d.ts.map

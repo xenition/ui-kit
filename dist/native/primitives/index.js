@@ -8,7 +8,8 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tag = exports.Tooltip = exports.Popconfirm = exports.Accordion = exports.Menu = exports.Popover = exports.Drawer = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.formatMoney = exports.EmptyState = exports.PriceTag = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Wordmark = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
-exports.Watermark = exports.ButtonGroup = exports.LoadingOverlay = exports.Result = exports.Callout = exports.Banner = exports.BottomSheet = exports.ActionSheet = exports.ContextMenu = exports.BottomNav = exports.FloatButton = exports.Icon = exports.ColorPicker = exports.CurrencyInput = exports.PhoneInput = exports.ToggleGroup = exports.RangeSlider = exports.AutoComplete = exports.TagInput = exports.MultiSelect = exports.DateRangePicker = exports.TimePicker = exports.PasswordInput = exports.SearchInput = exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = exports.List = void 0;
+exports.JsonViewer = exports.CodeBlock = exports.VirtualList = exports.Kanban = exports.Calendar = exports.Statistic = exports.Tree = exports.Watermark = exports.ButtonGroup = exports.LoadingOverlay = exports.Result = exports.Callout = exports.Banner = exports.BottomSheet = exports.ActionSheet = exports.ContextMenu = exports.BottomNav = exports.FloatButton = exports.Icon = exports.ColorPicker = exports.CurrencyInput = exports.PhoneInput = exports.ToggleGroup = exports.RangeSlider = exports.AutoComplete = exports.TagInput = exports.MultiSelect = exports.DateRangePicker = exports.TimePicker = exports.PasswordInput = exports.SearchInput = exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = exports.List = void 0;
+exports.ScrollableTabs = exports.SplitButton = exports.Toolbar = void 0;
 var XenitionUIProvider_1 = require("./XenitionUIProvider");
 Object.defineProperty(exports, "XenitionUIProvider", { enumerable: true, get: function () { return XenitionUIProvider_1.XenitionUIProvider; } });
 // Re-export the theme access hook so a mobile app can `useXenitionTheme()`
@@ -206,4 +207,25 @@ var ButtonGroup_1 = require("./ButtonGroup");
 Object.defineProperty(exports, "ButtonGroup", { enumerable: true, get: function () { return ButtonGroup_1.ButtonGroup; } });
 var Watermark_1 = require("./Watermark");
 Object.defineProperty(exports, "Watermark", { enumerable: true, get: function () { return Watermark_1.Watermark; } });
+// ── native parity: display + navigation gaps ──────────────────────────
+var Tree_1 = require("./Tree");
+Object.defineProperty(exports, "Tree", { enumerable: true, get: function () { return Tree_1.Tree; } });
+var Statistic_1 = require("./Statistic");
+Object.defineProperty(exports, "Statistic", { enumerable: true, get: function () { return Statistic_1.Statistic; } });
+var Calendar_1 = require("./Calendar");
+Object.defineProperty(exports, "Calendar", { enumerable: true, get: function () { return Calendar_1.Calendar; } });
+var Kanban_1 = require("./Kanban");
+Object.defineProperty(exports, "Kanban", { enumerable: true, get: function () { return Kanban_1.Kanban; } });
+var VirtualList_1 = require("./VirtualList");
+Object.defineProperty(exports, "VirtualList", { enumerable: true, get: function () { return VirtualList_1.VirtualList; } });
+var CodeBlock_1 = require("./CodeBlock");
+Object.defineProperty(exports, "CodeBlock", { enumerable: true, get: function () { return CodeBlock_1.CodeBlock; } });
+var JsonViewer_1 = require("./JsonViewer");
+Object.defineProperty(exports, "JsonViewer", { enumerable: true, get: function () { return JsonViewer_1.JsonViewer; } });
+var Toolbar_1 = require("./Toolbar");
+Object.defineProperty(exports, "Toolbar", { enumerable: true, get: function () { return Toolbar_1.Toolbar; } });
+var SplitButton_1 = require("./SplitButton");
+Object.defineProperty(exports, "SplitButton", { enumerable: true, get: function () { return SplitButton_1.SplitButton; } });
+var ScrollableTabs_1 = require("./ScrollableTabs");
+Object.defineProperty(exports, "ScrollableTabs", { enumerable: true, get: function () { return ScrollableTabs_1.ScrollableTabs; } });
 //# sourceMappingURL=index.js.map

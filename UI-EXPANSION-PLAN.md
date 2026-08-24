@@ -7,6 +7,8 @@ drop-in component for every common need — following `nocode-pipeline/knowledge
 
 Status legend: ⬜ not started · 🟨 in progress · 🟩 done · ⏭️ skipped/deferred
 
+> **UPDATED DIRECTIVES (2026-08-24, user):** "do all" — (1) add `react-native-svg` and build the SVG charts; (2) do **web parity** for everything; (3) **prep the release** (version bump + cortex prompt) — publishing waits on the npm key (user provides later); (4) go **beyond 200** components, as many as useful; (5) **audit & correct EXISTING components** against the knowledge docs (`design.md`, `mobile.md`, `backend.md`, `database.md`) — states, empty states, accessibility, token discipline, mobile safe-areas, etc.
+
 > **PRIORITY (2026-08-24): MOBILE / React Native FIRST.** Mobile is the main target. Build the
 > **`@xenition/ui/native/*`** version of every batch first and ship it; the web (`@xenition/ui`)
 > parity follows in a later pass. So within each batch below, *native is the deliverable now*, web
@@ -67,7 +69,7 @@ Status legend: ⬜ not started · 🟨 in progress · 🟩 done · ⏭️ skippe
 
 ## 2. Batches (each ~15–22 components, web + native parity noted)
 
-### 🟩 Batch 1 — Layout module — **native 🟩 DONE** · web ⬜  [16]
+### 🟩 Batch 1 — Layout module — **native 🟩 + web 🟩 DONE** [16]
 Foundational; unblocks everything else. Shipped `@xenition/ui/native/layout` (commit fd82ff7).
 `Container` ⬜ · `Row` ⬜ · `Col` ⬜ · `Grid` ⬜ · `Flex` ⬜ · `Space` ⬜ · `Divider` ⬜ · `Center` ⬜ · `AspectRatio` ⬜ · `ScrollArea` ⬜ · `Sticky` ⬜ · `Splitter` ⬜ · `Resizable` ⬜ · `Masonry` ⬜ · `PageHeader` ⬜ · `Section` ⬜
 
@@ -85,11 +87,11 @@ Shipped native (commit 98388ac): `SearchInput` `PasswordInput` `TimePicker` `Dat
 Shipped native (commit 98388ac): `Icon` (new base primitive) · `FloatButton` (FAB) · `BottomNav` · `ContextMenu` · `ActionSheet` · `BottomSheet` · `Banner` · `Callout` · `Result` · `LoadingOverlay` · `ButtonGroup` · `Watermark`.
 ⬜ Remaining: `Tour` · `HoverCard` · `Ribbon` · `ProgressCircle` (needs SVG) · `InlineEdit`. (`Notification`/`Snackbar`≈existing Toast; `ConfirmDialog`≈existing Popconfirm; `Sheet`/`Dialog`≈existing Drawer/Modal.)
 
-### 🟩 Batch 6 — Charts module — **native 🟩 DONE (12 View-based)** · SVG charts ⏭️ deferred · web ⬜  [14]
+### 🟩 Batch 6 — Charts module — **native 🟩 (12 View + 8 SVG) + web 🟩 (16) DONE** [28+]
 Shipped `@xenition/ui/native/charts` (fd82ff7). ⏭️ Line/Area/Pie/Donut/Radar/Gauge need `react-native-svg` — decide whether to add that peer dep before building them.
 `LineChart` · `BarChart` · `AreaChart` · `PieChart` · `DonutChart` · `Sparkline` · `GaugeChart` · `ProgressRing` · `RadarChart` · `ScatterChart` · `StackedBar` · `Histogram` · `TrendCard` · `MiniBar`
 
-### 🟩 Batch 7 — Dashboard/app blocks — **native 🟩 DONE (16)** · web ⬜  [18]
+### 🟩 Batch 7 — Dashboard/app blocks — **native 🟩 + web 🟩 DONE (16 each)** [18]
 Shipped `@xenition/ui/native/dashboard` (fd82ff7).
 `StatCard` · `KpiRow` · `ActivityFeed` · `NotificationCenter` · `ProfileHeader` · `AccountMenu` · `SettingsLayout` · `TwoColumnLayout` · `ThreeColumnLayout` · `PageContainer` · `FilterBar` · `SearchHeader` · `DataToolbar` · `BulkActions` · `ColumnManager` · `SavedViews` · `InboxLayout` · `OnboardingChecklist`
 
@@ -114,6 +116,16 @@ Hooks: `useMutation` · `usePaginatedResource` · `useInfiniteResource` · `useA
 
 ---
 
+## 2B. Existing-component corrections (from the knowledge-doc audit, 2026-08-24)
+Audit clean on the scary stuff: no invalid RN roles, no `localhost`, no hardcoded endpoints, auth-form copy/states already good. Backlog:
+- ⬜ **A1 (systemic, P1) safe-area insets** — add `react-native-safe-area-context` peerDep + thread `useSafeAreaInsets()` through the 6 edge-anchored native components: `BottomNav` (paddingBottom), `AppShell` top bar (top), `Toast` (top), `BottomSheet` (bottom), `ActionSheet` (bottom), `FloatButton` (bottom) + `dashboard/PageContainer`. (mobile.md — fails only on real hardware.)
+- ⬜ **A2 (P0) LanguageSwitcher token cleanup** — `src/i18n/LanguageSwitcher.tsx` inline rem sizing + literal color/shadow fallbacks (`rgba(0,0,0,…)`, `#fff`, `#111`) that dodge the color-lint → route through `--xen-*`; add a `--xen-shadow`/`colors.scrim` token; add arrow-key nav for its `role="listbox"`.
+- ⬜ **A3 (P1) chart a11y** — native + web charts render data visually only; add an `accessibilityLabel` data-summary + `accessibilityRole="image"` (mirror dashboard `StatCard`).
+- ⬜ **A4 (P1) Toast native live region** — `src/native/primitives/Toast.tsx` add `accessibilityLiveRegion` (assertive for danger, polite else) + role `alert` for error.
+- ⬜ **A5 (P1) numeric fontSize → type scale** — `Drawer`, `Accordion`, `Tooltip`, `Popconfirm`, `Menu` (native), and `native/marketing/RichText` inline `fontSize` numbers → `tokens.typography.scale.*` (Dynamic Type).
+- ⬜ **A6 (P1) guiding empty states (§15)** — `DataTable`/`Table` (web+native) default `'No data'` → a two-line guiding default.
+- ⬜ **A7 (P2) semantic scrim token** — add `colors.scrim`/`overlay`; unify AppShell (`ramps.neutral[950]`) vs BottomSheet/ActionSheet (`onSurface`) overlays; DatePicker day-cell touch target ≥44; verify reduced-motion on Countdown/GenerativeCover/GradientHero.
+
 ## 3. Progress log
 - 2026-08-24 — Plan created after deep research of knowledge/, ui-kit, sdk, templates, cortex integration.
 - 2026-08-24 — **Wave 1 (native) shipped** (commit fd82ff7): native/layout (16) + native/charts (12) + native/dashboard (16) = **44 mobile components**. tsc clean, 565/565 jest green, dist emits all three. Built by 3 parallel subagents, integrated + verified together.
@@ -122,5 +134,7 @@ Hooks: `useMutation` · `usePaginatedResource` · `useInfiniteResource` · `useA
 - 2026-08-24 — **Wave 2 (native) shipped** (commit 98388ac): 24 new native primitives — data-entry gaps (12) + mobile patterns/feedback (12, incl. the `Icon` base primitive). tsc clean, 587/587 jest green, dist emits all. 2 parallel subagents, integrated together.
 - **Discovery:** native was already far fuller than `COMPONENTS-INVENTORY.md` claimed (~66 native primitives + 34 native marketing = web parity, not 27+1). The doc is stale — see §Inventory correction. Many "obvious" components already exist; remaining waves target true gaps.
 
-## Running native total: **68 new this session** (wave 1: 44 modules; wave 2: 24 primitives). 
+- 2026-08-24 — **Wave 4 shipped** (commit d158849): native SVG charts (8) + web layout (16) + web charts (16) + web dashboard (16) = 56 components. react-native-svg wired. tsc clean, 667/667 jest green. Audit backlog (§2B) captured.
+
+## Running total: **134 new components this session** (wave 1: 44 modules; wave 2: 24 primitives). 
 Native primitives now ~90, + 3 new native modules (layout/charts/dashboard). Next: (a) cortex `routes_assist.py` native prompt + `_UI_VERSION` bump + publish `@xenition/ui@0.2.0` so mobile generation uses them [needs npm publish — release action]; (b) native display/navigation remaining gaps; (c) web parity for the 3 new modules + the 24 primitives; (d) SVG charts if `react-native-svg` is approved.

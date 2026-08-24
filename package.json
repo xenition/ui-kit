@@ -60,6 +60,21 @@
       "import": "./dist/i18n/index.js",
       "require": "./dist/i18n/index.js"
     },
+    "./layout": {
+      "types": "./dist/layout/index.d.ts",
+      "import": "./dist/layout/index.js",
+      "require": "./dist/layout/index.js"
+    },
+    "./charts": {
+      "types": "./dist/charts/index.d.ts",
+      "import": "./dist/charts/index.js",
+      "require": "./dist/charts/index.js"
+    },
+    "./dashboard": {
+      "types": "./dist/dashboard/index.d.ts",
+      "import": "./dist/dashboard/index.js",
+      "require": "./dist/dashboard/index.js"
+    },
     "./native/theme": {
       "types": "./dist/native/theme/index.d.ts",
       "import": "./dist/native/theme/index.js",
@@ -149,15 +164,19 @@
     "node": ">=18"
   },
   "peerDependencies": {
+    "expo-linear-gradient": ">=12",
     "react": ">=18",
     "react-native": ">=0.72",
-    "expo-linear-gradient": ">=12"
+    "react-native-svg": ">=13"
   },
   "peerDependenciesMeta": {
     "expo-linear-gradient": {
       "optional": true
     },
     "react-native": {
+      "optional": true
+    },
+    "react-native-svg": {
       "optional": true
     }
   },
@@ -174,6 +193,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-native": "^0.75.4",
+    "react-native-svg": "^15.15.5",
     "react-test-renderer": "^18.3.1",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.0"
