@@ -18,6 +18,38 @@ describe('Alert', () => {
     fireEvent.click(getByLabelText('Dismiss'));
     expect(onClose).toHaveBeenCalledTimes(1);
   });
+
+  it('keeps the subtle default look and layers solid/outline variants', () => {
+    const subtle = render(<Alert tone="info">hi</Alert>).getByText('hi');
+    // Subtle default is the bordered left-rule card on a neutral surface.
+    expect(subtle.closest('[role]')?.className).toContain('border-l-4');
+    expect(subtle.closest('[role]')?.className).toContain('bg-neutral-50');
+
+    const solid = render(
+      <Alert tone="success" variant="solid">
+        ok
+      </Alert>
+    ).getByText('ok');
+    expect(solid.closest('[role]')?.className).toContain('bg-success');
+
+    const outline = render(
+      <Alert tone="danger" variant="outline">
+        bad
+      </Alert>
+    ).getByText('bad');
+    const root = outline.closest('[role]');
+    expect(root?.className).toContain('border-danger');
+    expect(root?.className).toContain('bg-surface');
+  });
+
+  it('renders an optional trailing action', () => {
+    const { getByText } = render(
+      <Alert tone="info" action={<button>Undo</button>}>
+        moved
+      </Alert>
+    );
+    expect(getByText('Undo')).toBeTruthy();
+  });
 });
 
 describe('Progress', () => {

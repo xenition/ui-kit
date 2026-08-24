@@ -37,16 +37,67 @@ exports.Badge = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("./cn");
-const TONE = {
+/** Historical fill look — preserved exactly for `variant="solid"` (the default). */
+const SOLID = {
     neutral: 'bg-neutral-100 text-on-surface',
     muted: 'bg-neutral-100 text-muted',
     primary: 'bg-primary-50 text-primary',
     success: 'bg-success text-on-success',
     warn: 'bg-warn text-on-warn',
     danger: 'bg-danger text-on-danger',
+    accent: 'bg-accent text-on-accent',
 };
-/** Small status/label pill bound to the theme tokens — for statuses, tags, counts. */
-exports.Badge = React.forwardRef(function Badge({ className, tone = 'neutral', ...rest }, ref) {
-    return ((0, jsx_runtime_1.jsx)("span", { ref: ref, className: (0, cn_1.cn)('inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium', TONE[tone], className), ...rest }));
+/** Soft tint. success/warn/danger have no `-50` ramp → neutral bg + colored text. */
+const SOFT = {
+    neutral: 'bg-neutral-100 text-on-surface',
+    muted: 'bg-neutral-100 text-muted',
+    primary: 'bg-primary-50 text-primary',
+    accent: 'bg-accent-50 text-accent',
+    success: 'bg-neutral-100 text-success',
+    warn: 'bg-neutral-100 text-warn',
+    danger: 'bg-neutral-100 text-danger',
+};
+const OUTLINE = {
+    neutral: 'border border-border text-on-surface',
+    muted: 'border border-border text-muted',
+    primary: 'border border-primary text-primary',
+    accent: 'border border-accent text-accent',
+    success: 'border border-success text-success',
+    warn: 'border border-warn text-warn',
+    danger: 'border border-danger text-danger',
+};
+const VARIANT = {
+    solid: SOLID,
+    soft: SOFT,
+    outline: OUTLINE,
+};
+/** Status-dot fill per tone. */
+const DOT = {
+    neutral: 'bg-on-surface',
+    muted: 'bg-muted',
+    primary: 'bg-primary',
+    accent: 'bg-accent',
+    success: 'bg-success',
+    warn: 'bg-warn',
+    danger: 'bg-danger',
+};
+const SIZE = {
+    sm: 'px-1.5 py-px',
+    md: 'px-2 py-0.5',
+};
+const DOT_SIZE = {
+    sm: 'h-1.5 w-1.5',
+    md: 'h-2 w-2',
+};
+/**
+ * Small status/label pill bound to the theme tokens — for statuses, tags,
+ * counts. The default (`neutral`, `solid`, `md`) renders exactly as before;
+ * the `accent` tone, `soft`/`outline` variants, `sm` size, a `dot` status mode,
+ * and a numeric `count` (`max`-capped to `${max}+`) are additive opt-ins
+ * mirroring the native `Badge`. No literal colors.
+ */
+exports.Badge = React.forwardRef(function Badge({ className, tone = 'neutral', variant = 'solid', size = 'md', dot = false, count, max = 99, children, ...rest }, ref) {
+    const label = count !== undefined ? (count > max ? `${max}+` : String(count)) : children;
+    return ((0, jsx_runtime_1.jsxs)("span", { ref: ref, className: (0, cn_1.cn)('inline-flex items-center gap-1 rounded-full text-xs font-medium', SIZE[size], VARIANT[variant][tone], className), ...rest, children: [dot && ((0, jsx_runtime_1.jsx)("span", { "aria-hidden": true, className: (0, cn_1.cn)('inline-block shrink-0 rounded-full', DOT_SIZE[size], DOT[tone]) })), label] }));
 });
 //# sourceMappingURL=Badge.js.map

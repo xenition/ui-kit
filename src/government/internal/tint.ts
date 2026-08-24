@@ -12,6 +12,7 @@ export const TONE_TINT: Record<BadgeTone, string> = {
   neutral: 'bg-neutral-100 text-on-surface',
   muted: 'bg-neutral-100 text-muted',
   primary: 'bg-primary-50 text-primary',
+  accent: 'bg-accent-50 text-accent',
   success: 'bg-success/10 text-success',
   warn: 'bg-warn/10 text-warn',
   danger: 'bg-danger/10 text-danger',

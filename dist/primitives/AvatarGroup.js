@@ -5,9 +5,11 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const cn_1 = require("./cn");
 const Avatar_1 = require("./Avatar");
 const CHIP = {
+    xs: 'h-6 w-6 text-xs',
     sm: 'h-8 w-8 text-xs',
     md: 'h-10 w-10 text-sm',
     lg: 'h-14 w-14 text-lg',
+    xl: 'h-20 w-20 text-xl',
 };
 /** Overlapping avatar stack with a +N overflow chip — bound to the theme tokens. */
 function AvatarGroup({ avatars, max = 4, size = 'md', className }) {

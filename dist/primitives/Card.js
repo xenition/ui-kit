@@ -37,8 +37,32 @@ exports.Card = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("./cn");
-/** Themed surface container: token-bound background, border, and radius. */
-exports.Card = React.forwardRef(function Card({ className, ...rest }, ref) {
-    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: (0, cn_1.cn)('bg-surface text-on-surface border border-border shadow-sm', 'rounded-[var(--xen-radius-lg)] p-[var(--xen-space-lg)]', className), ...rest }));
+const VARIANT_CLASSES = {
+    // Historical look: bordered surface with a subtle shadow.
+    outlined: 'border border-border shadow-sm',
+    elevated: 'border border-border shadow-md',
+    flat: '',
+    interactive: 'border border-border shadow-sm transition-shadow hover:shadow-md focus-within:shadow-md',
+};
+const PADDING_CLASSES = {
+    none: 'p-0',
+    sm: 'p-[var(--xen-space-sm)]',
+    md: 'p-[var(--xen-space-md)]',
+    lg: 'p-[var(--xen-space-lg)]',
+};
+const RADIUS_CLASSES = {
+    sm: 'rounded-[var(--xen-radius-sm)]',
+    md: 'rounded-[var(--xen-radius-md)]',
+    lg: 'rounded-[var(--xen-radius-lg)]',
+    full: 'rounded-[var(--xen-radius-full)]',
+};
+/**
+ * Themed surface container: token-bound background, border, and radius. The
+ * default (`outlined`, `lg` padding, `lg` radius) renders exactly as before;
+ * `variant`/`padding`/`radius` are additive opt-ins mirroring the native
+ * `Card`. No literal colors.
+ */
+exports.Card = React.forwardRef(function Card({ className, variant = 'outlined', padding, radius, ...rest }, ref) {
+    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: (0, cn_1.cn)('bg-surface text-on-surface', VARIANT_CLASSES[variant], RADIUS_CLASSES[radius ?? 'lg'], PADDING_CLASSES[padding ?? 'lg'], className), ...rest }));
 });
 //# sourceMappingURL=Card.js.map

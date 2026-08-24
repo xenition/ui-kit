@@ -6,6 +6,8 @@ import { GradientText } from './GradientText';
 import { StatusDot } from './StatusDot';
 import { Rating } from './Rating';
 import { StatusMessage } from './StatusMessage';
+import { Card } from './Card';
+import { Avatar } from './Avatar';
 
 const HEX_LITERAL = /#[0-9a-fA-F]{3,8}\b/;
 
@@ -233,5 +235,67 @@ describe('StatusMessage', () => {
       </div>
     );
     expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+  });
+});
+
+describe('Card', () => {
+  it('renders the historical bordered surface by default', () => {
+    const { container } = render(<Card>body</Card>);
+    const el = container.firstElementChild as HTMLElement;
+    expect(el.className).toContain('bg-surface');
+    expect(el.className).toContain('border-border');
+    expect(el.className).toContain('shadow-sm');
+    // Historical lg radius + lg padding.
+    expect(el.className).toContain('rounded-[var(--xen-radius-lg)]');
+    expect(el.className).toContain('p-[var(--xen-space-lg)]');
+  });
+
+  it('applies the additive variant/padding/radius opt-ins', () => {
+    const { container } = render(
+      <Card variant="elevated" padding="sm" radius="full">
+        x
+      </Card>
+    );
+    const el = container.firstElementChild as HTMLElement;
+    expect(el.className).toContain('shadow-md');
+    expect(el.className).toContain('p-[var(--xen-space-sm)]');
+    expect(el.className).toContain('rounded-[var(--xen-radius-full)]');
+  });
+
+  it('flat variant drops the border and shadow', () => {
+    const { container } = render(<Card variant="flat">x</Card>);
+    const el = container.firstElementChild as HTMLElement;
+    expect(el.className).not.toContain('border-border');
+    expect(el.className).not.toContain('shadow');
+  });
+});
+
+describe('Avatar', () => {
+  it('renders initials in the historical single-span circle by default', () => {
+    const { container } = render(<Avatar name="Ada Lovelace" />);
+    const el = container.firstElementChild as HTMLElement;
+    expect(el.tagName).toBe('SPAN');
+    expect(el.className).toContain('rounded-full');
+    expect(el.className).toContain('bg-primary-50');
+    expect(el.className).toContain('h-10 w-10');
+    expect(el.textContent).toBe('AL');
+  });
+
+  it('supports the extended xs/xl sizes and non-circle shapes', () => {
+    const xs = render(<Avatar name="A" size="xs" />).container.firstElementChild as HTMLElement;
+    expect(xs.className).toContain('h-6 w-6');
+    const rounded = render(<Avatar name="A" shape="rounded" />).container
+      .firstElementChild as HTMLElement;
+    expect(rounded.className).toContain('rounded-[var(--xen-radius-md)]');
+  });
+
+  it('renders a status dot in a positioning wrapper with the status color', () => {
+    const { container } = render(<Avatar name="A" status="online" ring />);
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.className).toContain('relative');
+    const dot = root.querySelector('[aria-hidden]');
+    expect(dot?.className).toContain('bg-success');
+    // Ring is status-colored.
+    expect(root.innerHTML).toContain('ring-success');
   });
 });
