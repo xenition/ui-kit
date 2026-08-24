@@ -11,19 +11,35 @@
  * shared `formatMoney` (re-exported from the commerce module).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatMoney = exports.GiftCardRow = exports.PriceListRow = exports.LookbookGrid = exports.ReviewCard = exports.SalonBookingBar = exports.ProductRecommendation = exports.LoyaltyCard = exports.TreatmentCard = exports.BeforeAfter = exports.AppointmentSlot = exports.StylistCard = exports.ServiceMenuItem = void 0;
+exports.formatMoney = exports.GiftCardRow = exports.PriceListRow = exports.LookbookGrid = exports.ReviewCard = exports.SalonBookingBar = exports.ProductRecommendation = exports.LoyaltyCardV3 = exports.LoyaltyCardV2 = exports.LoyaltyCard = exports.TreatmentCardV3 = exports.TreatmentCardV2 = exports.TreatmentCard = exports.BeforeAfter = exports.AppointmentSlot = exports.StylistCardV3 = exports.StylistCardV2 = exports.StylistCard = exports.ServiceMenuItemV3 = exports.ServiceMenuItemV2 = exports.ServiceMenuItem = void 0;
 var ServiceMenuItem_1 = require("./ServiceMenuItem");
 Object.defineProperty(exports, "ServiceMenuItem", { enumerable: true, get: function () { return ServiceMenuItem_1.ServiceMenuItem; } });
+var ServiceMenuItemV2_1 = require("./ServiceMenuItemV2");
+Object.defineProperty(exports, "ServiceMenuItemV2", { enumerable: true, get: function () { return ServiceMenuItemV2_1.ServiceMenuItemV2; } });
+var ServiceMenuItemV3_1 = require("./ServiceMenuItemV3");
+Object.defineProperty(exports, "ServiceMenuItemV3", { enumerable: true, get: function () { return ServiceMenuItemV3_1.ServiceMenuItemV3; } });
 var StylistCard_1 = require("./StylistCard");
 Object.defineProperty(exports, "StylistCard", { enumerable: true, get: function () { return StylistCard_1.StylistCard; } });
+var StylistCardV2_1 = require("./StylistCardV2");
+Object.defineProperty(exports, "StylistCardV2", { enumerable: true, get: function () { return StylistCardV2_1.StylistCardV2; } });
+var StylistCardV3_1 = require("./StylistCardV3");
+Object.defineProperty(exports, "StylistCardV3", { enumerable: true, get: function () { return StylistCardV3_1.StylistCardV3; } });
 var AppointmentSlot_1 = require("./AppointmentSlot");
 Object.defineProperty(exports, "AppointmentSlot", { enumerable: true, get: function () { return AppointmentSlot_1.AppointmentSlot; } });
 var BeforeAfter_1 = require("./BeforeAfter");
 Object.defineProperty(exports, "BeforeAfter", { enumerable: true, get: function () { return BeforeAfter_1.BeforeAfter; } });
 var TreatmentCard_1 = require("./TreatmentCard");
 Object.defineProperty(exports, "TreatmentCard", { enumerable: true, get: function () { return TreatmentCard_1.TreatmentCard; } });
+var TreatmentCardV2_1 = require("./TreatmentCardV2");
+Object.defineProperty(exports, "TreatmentCardV2", { enumerable: true, get: function () { return TreatmentCardV2_1.TreatmentCardV2; } });
+var TreatmentCardV3_1 = require("./TreatmentCardV3");
+Object.defineProperty(exports, "TreatmentCardV3", { enumerable: true, get: function () { return TreatmentCardV3_1.TreatmentCardV3; } });
 var LoyaltyCard_1 = require("./LoyaltyCard");
 Object.defineProperty(exports, "LoyaltyCard", { enumerable: true, get: function () { return LoyaltyCard_1.LoyaltyCard; } });
+var LoyaltyCardV2_1 = require("./LoyaltyCardV2");
+Object.defineProperty(exports, "LoyaltyCardV2", { enumerable: true, get: function () { return LoyaltyCardV2_1.LoyaltyCardV2; } });
+var LoyaltyCardV3_1 = require("./LoyaltyCardV3");
+Object.defineProperty(exports, "LoyaltyCardV3", { enumerable: true, get: function () { return LoyaltyCardV3_1.LoyaltyCardV3; } });
 var ProductRecommendation_1 = require("./ProductRecommendation");
 Object.defineProperty(exports, "ProductRecommendation", { enumerable: true, get: function () { return ProductRecommendation_1.ProductRecommendation; } });
 var SalonBookingBar_1 = require("./SalonBookingBar");
