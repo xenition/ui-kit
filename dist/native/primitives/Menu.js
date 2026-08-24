@@ -48,7 +48,7 @@ const theme_1 = require("../theme");
 function Menu({ trigger, items, align = 'start' }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const [open, setOpen] = React.useState(false);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", onPress: () => setOpen(true), children: trigger }), (0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: () => setOpen(false), children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { onPress: () => setOpen(true), children: trigger }), (0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: () => setOpen(false), children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
                         flex: 1,
                         justifyContent: 'center',
                         alignItems: align === 'end' ? 'flex-end' : 'flex-start',

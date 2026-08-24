@@ -27,7 +27,14 @@ function Rating({ value, max = 5, size = 'md', showValue = false, label, style, 
             { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs },
             style,
         ], children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flexDirection: 'row' }, children: Array.from({ length: total }, (_, i) => ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                        color: i < filled ? colors.accent : colors.muted,
+                        /*
+                          `accentText`, not `accent`. A filled star IS the text here — it is
+                          a glyph, not a fill — and `accent` is a background colour with no
+                          contrast guarantee against `surface`. Measured at 1.43:1 in light,
+                          which is a star you cannot see. `accentText` is the same hue pushed
+                          until it clears AA, and is identical wherever `accent` already did.
+                        */
+                        color: i < filled ? colors.accentText : colors.muted,
                         fontSize,
                         letterSpacing: 1,
                     }, children: STAR }, i))) }), showValue ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {

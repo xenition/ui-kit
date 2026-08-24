@@ -107,7 +107,7 @@ function CrudTable({ title, columns, rows, fields, getId, onCreate, onUpdate, on
         key: '__actions',
         header: '',
         render: (row) => ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'flex-end', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "ghost", onPress: () => openEdit(row), children: "Edit" }), (0, jsx_runtime_1.jsx)(Popconfirm_1.Popconfirm, { trigger: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                            color: colors.danger,
+                            color: colors.dangerText,
                             fontSize: tokens.typography.scale.sm,
                             fontWeight: '600',
                             paddingHorizontal: tokens.spacing.sm,

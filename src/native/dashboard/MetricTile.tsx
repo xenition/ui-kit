@@ -16,12 +16,22 @@ export interface MetricTileProps {
   style?: StyleProp<ViewStyle>;
 }
 
+/**
+ * The tone colours a metric's VALUE, which is text on the tile's `surface` — so
+ * every entry is a `*Text` slot, not the fill of the same name.
+ *
+ * `primary`, `success`, `warn` and `danger` are background colours: the compiler
+ * guarantees `onDanger` against `danger` and nothing at all about `danger`
+ * against `surface`. The audit measured this tile's value at 2.32:1 in light.
+ * The `*Text` forms are the same hues pushed until they clear AA, and unchanged
+ * wherever the fill already did.
+ */
 const TONE_COLOR: Record<MetricTileTone, keyof SemanticColors> = {
   neutral: 'onSurface',
-  primary: 'primary',
-  success: 'success',
-  warn: 'warn',
-  danger: 'danger',
+  primary: 'primaryText',
+  success: 'successText',
+  warn: 'warnText',
+  danger: 'dangerText',
 };
 
 /**

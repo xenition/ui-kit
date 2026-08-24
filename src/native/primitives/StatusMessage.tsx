@@ -65,7 +65,7 @@ export function StatusMessage({
   if (state === 'error') {
     return (
       <View accessibilityRole="alert" accessibilityLiveRegion="assertive" style={container}>
-        <Text style={{ color: colors.danger, fontSize: tokens.typography.scale.sm, textAlign: 'center' }}>
+        <Text style={{ color: colors.dangerText, fontSize: tokens.typography.scale.sm, textAlign: 'center' }}>
           {message ?? DEFAULTS.error}
         </Text>
       </View>

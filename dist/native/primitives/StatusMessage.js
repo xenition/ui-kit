@@ -32,7 +32,7 @@ function StatusMessage({ state, message, style, }) {
         return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityLiveRegion: "polite", accessibilityLabel: message ?? DEFAULTS.loading, style: container, children: [(0, jsx_runtime_1.jsx)(react_native_1.ActivityIndicator, { size: "small", color: colors.primary }), message ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm, textAlign: 'center' }, children: message })) : null] }));
     }
     if (state === 'error') {
-        return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "alert", accessibilityLiveRegion: "assertive", style: container, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.danger, fontSize: tokens.typography.scale.sm, textAlign: 'center' }, children: message ?? DEFAULTS.error }) }));
+        return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "alert", accessibilityLiveRegion: "assertive", style: container, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.dangerText, fontSize: tokens.typography.scale.sm, textAlign: 'center' }, children: message ?? DEFAULTS.error }) }));
     }
     return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: container, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm, textAlign: 'center' }, children: message ?? DEFAULTS.empty }) }));
 }

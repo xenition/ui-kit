@@ -31,13 +31,26 @@ function Button({ variant = 'primary', size = 'md', tone = 'default', onPress, d
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const { paddingKey, textKey } = SIZE_TOKENS[size];
     const isDisabled = disabled || loading;
+    /*
+      Three roles, not two.
+  
+        base — the fill, and the border that matches it
+        on   — what goes ON that fill (guaranteed AA against `base`)
+        text — the same colour as TEXT on `surface` (guaranteed AA against it)
+  
+      `base` used to do double duty as both fill and label colour, which is fine
+      for `primary` (where the label sits on the fill) and wrong for every variant
+      where the label sits on the page. The audit measured `soft` at 2.66:1 in
+      light. `text` is the same hue pushed until it clears, identical wherever the
+      fill already cleared, so filled buttons are untouched.
+    */
     const TONE_COLOR = {
-        default: { base: colors.primary, on: colors.onPrimary },
-        primary: { base: colors.primary, on: colors.onPrimary },
-        danger: { base: colors.danger, on: colors.onDanger },
-        success: { base: colors.success, on: colors.onSuccess },
+        default: { base: colors.primary, on: colors.onPrimary, text: colors.primaryText },
+        primary: { base: colors.primary, on: colors.onPrimary, text: colors.primaryText },
+        danger: { base: colors.danger, on: colors.onDanger, text: colors.dangerText },
+        success: { base: colors.success, on: colors.onSuccess, text: colors.successText },
     };
-    const { base, on } = TONE_COLOR[tone];
+    const { base, on, text } = TONE_COLOR[tone];
     // Per-variant resolution. Defaults are pinned to the historical look so any
     // existing usage renders byte-for-byte the same.
     let bg = 'transparent';
@@ -52,29 +65,32 @@ function Button({ variant = 'primary', size = 'md', tone = 'default', onPress, d
             fg = on;
             break;
         case 'secondary':
-            fg = base;
+            fg = text;
             borderWidth = 1;
+            // The border keeps `base`: a border is a UI boundary at 3:1, not text.
             borderColor = base;
             break;
         case 'ghost':
-            fg = tone === 'default' ? colors.onSurface : base;
+            fg = tone === 'default' ? colors.onSurface : text;
             break;
         case 'outline':
-            fg = tone === 'default' ? colors.onSurface : base;
+            fg = tone === 'default' ? colors.onSurface : text;
             borderWidth = 1;
             borderColor = colors.border;
             break;
         case 'soft':
+            // A 14% tint is still essentially the surface underneath, so the label is
+            // text on `surface` — not text on a fill.
             bg = withAlpha(base, 0.14);
-            fg = base;
+            fg = text;
             break;
         case 'link':
-            fg = base;
+            fg = text;
             underline = true;
             break;
         case 'elevated':
             bg = colors.surface;
-            fg = tone === 'default' ? colors.onSurface : base;
+            fg = tone === 'default' ? colors.onSurface : text;
             borderWidth = 1;
             borderColor = colors.border;
             elevated = true;

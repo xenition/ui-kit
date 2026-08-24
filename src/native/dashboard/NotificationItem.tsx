@@ -2,6 +2,19 @@ import * as React from 'react';
 import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 
+/**
+ * Token-derived translucent tint — takes a theme hex, never invents one.
+ * Mirrors the helper the domain modules already use for the same job.
+ */
+function withAlpha(hex: string, alpha: number): string {
+  const h = hex.replace('#', '');
+  const full = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 export interface NotificationItemProps {
   title: string;
   /** Optional supporting body line. */
@@ -37,7 +50,18 @@ export function NotificationItem({
           paddingVertical: tokens.spacing.sm,
           paddingHorizontal: tokens.spacing.md,
           borderRadius: tokens.radius.md,
-          backgroundColor: unread ? colors.muted : colors.surface,
+          /*
+            `muted` is the de-emphasised TEXT colour, not a surface tint. Using
+            it as the unread background painted the row the same colour as its
+            own body line — measured at 1.00:1, literally invisible — and left
+            the title at 2.12:1 against it, in light and dark alike.
+
+            A tint is what was wanted, so derive one: the primary at 12% over the
+            surface, the same recipe the domain modules use for their tinted
+            rows. Unread now reads as a wash of the brand colour, and every text
+            colour keeps the contrast it has everywhere else.
+          */
+          backgroundColor: unread ? withAlpha(colors.primary, 0.12) : colors.surface,
         },
         style,
       ]}

@@ -78,7 +78,10 @@ describe('JobSiteCard (native)', () => {
     );
     expect(getByText('Riverside Plaza')).toBeTruthy();
     // Soft badge fg for an active site reads the success token.
-    expect(flatten(getByText('▶ On site').props.style).color).toBe(lightColors.success);
+    // `successText`, not `success`: a soft/outline pill puts its label on the
+    // page, not on a fill, and the compiler only guarantees on-pairs. See the
+    // *Text slots added alongside this change.
+    expect(flatten(getByText('▶ On site').props.style).color).toBe(lightColors.successText);
     fireEvent.press(getByText('Directions'));
     expect(onNavigate).toHaveBeenCalledTimes(1);
   });
@@ -157,7 +160,10 @@ describe('TechnicianCard (native)', () => {
     );
     expect(getByText('Marcus Reyes')).toBeTruthy();
     expect(getByText('EPA 608')).toBeTruthy();
-    expect(flatten(getByText('✓ Available').props.style).color).toBe(lightColors.success);
+    // `successText`, not `success`: a soft/outline pill puts its label on the
+    // page, not on a fill, and the compiler only guarantees on-pairs. See the
+    // *Text slots added alongside this change.
+    expect(flatten(getByText('✓ Available').props.style).color).toBe(lightColors.successText);
     fireEvent.press(getByText('Call'));
     fireEvent.press(getByText('Assign'));
     expect(onCall).toHaveBeenCalledTimes(1);

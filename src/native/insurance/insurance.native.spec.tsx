@@ -80,7 +80,10 @@ describe('ClaimRow (native)', () => {
       SEED_LIGHT
     );
     // Badge soft fg reads the success accent slot.
-    expect(flatten(getByText('✓ Approved').props.style).color).toBe(lightColors.success);
+    // `successText`, not `success`: a soft/outline pill puts its label on the
+    // page, not on a fill, and the compiler only guarantees on-pairs. See the
+    // *Text slots added alongside this change.
+    expect(flatten(getByText('✓ Approved').props.style).color).toBe(lightColors.successText);
   });
 });
 

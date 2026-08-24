@@ -96,7 +96,7 @@ export function Calendar({
           onPress={() => goMonth(-1)}
           style={{ padding: tokens.spacing.xs }}
         >
-          <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.lg }}>‹</Text>
+          <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.lg }}>‹</Text>
         </Pressable>
         <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale.base, fontWeight: '600' }}>
           {`${MONTHS[monthIndex] ?? ''} ${year}`}
@@ -107,7 +107,7 @@ export function Calendar({
           onPress={() => goMonth(1)}
           style={{ padding: tokens.spacing.xs }}
         >
-          <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.lg }}>›</Text>
+          <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.lg }}>›</Text>
         </Pressable>
       </View>
 

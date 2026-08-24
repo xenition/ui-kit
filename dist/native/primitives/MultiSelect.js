@@ -113,7 +113,7 @@ function MultiSelect({ options, value = [], onChange, placeholder = 'Select…',
                                         borderTopColor: colors.border,
                                         opacity: pressed ? 0.7 : 1,
                                     }), children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                                            color: colors.primary,
+                                            color: colors.primaryText,
                                             fontSize: tokens.typography.scale.base,
                                             fontWeight: '600',
                                         }, children: "Done" }) })] })] }) })] }));

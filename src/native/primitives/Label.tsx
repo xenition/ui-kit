@@ -25,7 +25,7 @@ export function Label({
       {...rest}
     >
       {children}
-      {required ? <Text style={{ color: colors.danger, marginLeft: 2 }}>*</Text> : null}
+      {required ? <Text style={{ color: colors.dangerText, marginLeft: 2 }}>*</Text> : null}
     </Text>
   );
 }

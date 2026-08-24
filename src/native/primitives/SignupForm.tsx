@@ -100,7 +100,7 @@ export function SignupForm({
               Have an account?
             </Text>
             <Pressable accessibilityRole="button" onPress={onLoginClick}>
-              <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.sm }}>
+              <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm }}>
                 Sign in
               </Text>
             </Pressable>

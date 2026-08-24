@@ -86,7 +86,7 @@ export function LoginForm({
             onPress={onForgotPassword}
             style={{ alignSelf: 'flex-start' }}
           >
-            <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.sm }}>
+            <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm }}>
               Forgot password?
             </Text>
           </Pressable>
@@ -100,7 +100,7 @@ export function LoginForm({
               No account?
             </Text>
             <Pressable accessibilityRole="button" onPress={onSignupClick}>
-              <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.sm }}>
+              <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm }}>
                 Sign up
               </Text>
             </Pressable>

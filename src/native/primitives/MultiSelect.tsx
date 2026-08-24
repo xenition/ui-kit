@@ -188,7 +188,7 @@ export function MultiSelect({
             >
               <Text
                 style={{
-                  color: colors.primary,
+                  color: colors.primaryText,
                   fontSize: tokens.typography.scale.base,
                   fontWeight: '600',
                 }}

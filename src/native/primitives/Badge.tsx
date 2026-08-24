@@ -30,15 +30,25 @@ interface ToneSlots {
   solidFg: keyof SemanticColors;
   /** Vivid accent used for soft fills / outlines / dots. */
   accent: keyof SemanticColors;
+  /**
+   * The same accent as TEXT.
+   *
+   * `soft` and `outline` put the label on the page rather than on a fill — a 14%
+   * tint is still essentially the surface underneath — so the label is text on
+   * `surface`, where a fill colour carries no contrast guarantee. Measured at
+   * 1.32:1 on the soft accent tone. The border and the dot keep `accent`: both
+   * are UI boundaries judged at 3:1, not text.
+   */
+  text: keyof SemanticColors;
 }
 
 const TONE: Record<BadgeTone, ToneSlots> = {
-  neutral: { solidBg: 'border', solidFg: 'onSurface', accent: 'onSurface' },
-  primary: { solidBg: 'primary', solidFg: 'onPrimary', accent: 'primary' },
-  success: { solidBg: 'success', solidFg: 'onSuccess', accent: 'success' },
-  warn: { solidBg: 'warn', solidFg: 'onWarn', accent: 'warn' },
-  danger: { solidBg: 'danger', solidFg: 'onDanger', accent: 'danger' },
-  accent: { solidBg: 'accent', solidFg: 'onAccent', accent: 'accent' },
+  neutral: { solidBg: 'border', solidFg: 'onSurface', accent: 'onSurface', text: 'onSurface' },
+  primary: { solidBg: 'primary', solidFg: 'onPrimary', accent: 'primary', text: 'primaryText' },
+  success: { solidBg: 'success', solidFg: 'onSuccess', accent: 'success', text: 'successText' },
+  warn: { solidBg: 'warn', solidFg: 'onWarn', accent: 'warn', text: 'warnText' },
+  danger: { solidBg: 'danger', solidFg: 'onDanger', accent: 'danger', text: 'dangerText' },
+  accent: { solidBg: 'accent', solidFg: 'onAccent', accent: 'accent', text: 'accentText' },
 };
 
 const SIZE: Record<BadgeSize, { padV: number; padKey: 'xs' | 'sm'; text: 'xs' | 'sm' }> = {
@@ -75,6 +85,7 @@ export function Badge({
   const { colors, tokens } = useXenitionTheme();
   const slots = TONE[tone];
   const accentColor = colors[slots.accent];
+  const textColor = colors[slots.text];
   const sz = SIZE[size];
 
   const label =
@@ -89,10 +100,10 @@ export function Badge({
     fg = colors[slots.solidFg];
   } else if (variant === 'soft') {
     bg = withAlpha(accentColor, 0.14);
-    fg = accentColor;
+    fg = textColor;
   } else {
     bg = 'transparent';
-    fg = accentColor;
+    fg = textColor;
     borderWidth = 1;
     borderColor = accentColor;
   }

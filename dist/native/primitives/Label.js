@@ -10,6 +10,6 @@ function Label({ required = false, style, children, ...rest }) {
     return ((0, jsx_runtime_1.jsxs)(react_native_1.Text, { style: [
             { color: colors.onSurface, fontSize: tokens.typography.scale.sm, fontWeight: '500' },
             style,
-        ], ...rest, children: [children, required ? (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.danger, marginLeft: 2 }, children: "*" }) : null] }));
+        ], ...rest, children: [children, required ? (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.dangerText, marginLeft: 2 }, children: "*" }) : null] }));
 }
 //# sourceMappingURL=Label.js.map

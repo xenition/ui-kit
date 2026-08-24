@@ -71,7 +71,7 @@ export function CodeBlock({
               onPress={() => onCopy(code)}
               style={{ paddingHorizontal: tokens.spacing.sm, paddingVertical: tokens.spacing.xs }}
             >
-              <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.xs, fontWeight: '600' }}>
+              <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.xs, fontWeight: '600' }}>
                 Copy
               </Text>
             </Pressable>

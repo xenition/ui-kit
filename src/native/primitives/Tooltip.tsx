@@ -26,8 +26,21 @@ export function Tooltip({ label, side = 'top', children }: TooltipProps): React.
 
   return (
     <>
+      {/*
+        A transparent tap surface, and deliberately NOT a `button`.
+
+        Same defect the Popover/Menu/Popconfirm triggers had: this wraps whatever
+        the caller passed as `children`, and the natural thing to attach a tooltip
+        to is a control that is already pressable. Claiming
+        `accessibilityRole="button"` here makes react-native-web render both as
+        real `<button>` elements — a `<button>` inside a `<button>`, which is
+        invalid HTML, logs two validateDOMNesting errors per mount, and leaves the
+        tap target up to the browser. A screen reader hears "button" twice.
+
+        The role belongs to the wrapped control, which already declares its own.
+        This layer only needs to catch the press.
+      */}
       <Pressable
-        accessibilityRole="button"
         onPress={() => setOpen((o) => !o)}
         onLongPress={() => setOpen(true)}
       >

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Animated, Easing, Text, type StyleProp, type TextStyle } from 'react-native';
+import { useXenitionTheme } from '../theme';
 import { useReducedMotion } from '../primitives/internal/useReducedMotion';
 
 export interface AnimatedCounterProps {
@@ -23,7 +24,9 @@ const defaultFormat = (value: number): string => Math.round(value).toLocaleStrin
  * mounts, driven by the RN `Animated` clock with an ease-out curve. Under the
  * OS "Reduce Motion" setting the final value renders immediately. The animated
  * value is read on the JS thread (to format each frame), so this uses
- * `useNativeDriver: false`. Motion-only — inherit color via `style`.
+ * `useNativeDriver: false`.
+ *
+ * Defaults to `onSurface`; pass a `color` in `style` to override it.
  */
 export function AnimatedCounter({
   to,
@@ -32,6 +35,7 @@ export function AnimatedCounter({
   format = defaultFormat,
   style,
 }: AnimatedCounterProps): React.ReactElement {
+  const { colors } = useXenitionTheme();
   const reduced = useReducedMotion();
   const anim = React.useRef(new Animated.Value(from)).current;
   const [value, setValue] = React.useState(from);
@@ -56,5 +60,20 @@ export function AnimatedCounter({
     };
   }, [reduced, from, to, duration, anim]);
 
-  return <Text style={style}>{format(value)}</Text>;
+  /*
+    `onSurface` first, caller's `style` second.
+
+    This used to render `<Text style={style}>` with no colour of its own, on the
+    documented theory that colour would be inherited. React Native `Text` does not
+    inherit from a `View` ancestor — with no colour it is black. So the default
+    was black-on-whatever, which is fine on a light surface and invisible on a
+    dark one: the rendered audit measured 1.29:1 in dark, across every seed.
+
+    Putting the token first and spreading `style` after keeps the documented
+    escape hatch — an explicit colour still wins — while making the default
+    readable in both schemes, which is what every other component in the kit does.
+  */
+  return (
+    <Text style={[{ color: colors.onSurface }, style]}>{format(value)}</Text>
+  );
 }

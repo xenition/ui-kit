@@ -37,6 +37,7 @@ exports.AnimatedCounter = AnimatedCounter;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
+const theme_1 = require("../theme");
 const useReducedMotion_1 = require("../primitives/internal/useReducedMotion");
 const defaultFormat = (value) => Math.round(value).toLocaleString('en-US');
 /**
@@ -46,9 +47,12 @@ const defaultFormat = (value) => Math.round(value).toLocaleString('en-US');
  * mounts, driven by the RN `Animated` clock with an ease-out curve. Under the
  * OS "Reduce Motion" setting the final value renders immediately. The animated
  * value is read on the JS thread (to format each frame), so this uses
- * `useNativeDriver: false`. Motion-only — inherit color via `style`.
+ * `useNativeDriver: false`.
+ *
+ * Defaults to `onSurface`; pass a `color` in `style` to override it.
  */
 function AnimatedCounter({ to, from = 0, duration = 1500, format = defaultFormat, style, }) {
+    const { colors } = (0, theme_1.useXenitionTheme)();
     const reduced = (0, useReducedMotion_1.useReducedMotion)();
     const anim = React.useRef(new react_native_1.Animated.Value(from)).current;
     const [value, setValue] = React.useState(from);
@@ -71,6 +75,19 @@ function AnimatedCounter({ to, from = 0, duration = 1500, format = defaultFormat
             anim.removeListener(id);
         };
     }, [reduced, from, to, duration, anim]);
-    return (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: style, children: format(value) });
+    /*
+      `onSurface` first, caller's `style` second.
+  
+      This used to render `<Text style={style}>` with no colour of its own, on the
+      documented theory that colour would be inherited. React Native `Text` does not
+      inherit from a `View` ancestor — with no colour it is black. So the default
+      was black-on-whatever, which is fine on a light surface and invisible on a
+      dark one: the rendered audit measured 1.29:1 in dark, across every seed.
+  
+      Putting the token first and spreading `style` after keeps the documented
+      escape hatch — an explicit colour still wins — while making the default
+      readable in both schemes, which is what every other component in the kit does.
+    */
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: [{ color: colors.onSurface }, style], children: format(value) }));
 }
 //# sourceMappingURL=AnimatedCounter.js.map

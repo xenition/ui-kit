@@ -38,7 +38,7 @@ export function Field({
       {error ? (
         <Text
           accessibilityRole="alert"
-          style={{ color: colors.danger, fontSize: tokens.typography.scale.sm }}
+          style={{ color: colors.dangerText, fontSize: tokens.typography.scale.sm }}
         >
           {error}
         </Text>
