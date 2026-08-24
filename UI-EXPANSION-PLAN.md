@@ -126,6 +126,20 @@ Audit clean on the scary stuff: no invalid RN roles, no `localhost`, no hardcode
 - 🟩 **A6 (P1) guiding empty states (§15)** — `DataTable`/`Table` (web+native) default `'No data'` → a two-line guiding default.
 - 🟩 **A7 (P2) semantic scrim token** — add `colors.scrim`/`overlay`; unify AppShell (`ramps.neutral[950]`) vs BottomSheet/ActionSheet (`onSurface`) overlays; DatePicker day-cell touch target ≥44; verify reduced-motion on Countdown/GenerativeCover/GradientHero.
 
+## 2C. Phase 2 — App-type DOMAIN modules (cover *any* app + real variety)
+The core kit is broad; Phase 2 adds domain composed blocks so a builder can make any app type, plus variant-rich components. Mobile-first (native), web parity after. New native export subpaths wired (commit 93ee07a).
+- 🟩 **native/social** — PostCard(text/image/link/video), FeedList, StoryBar, StoryRing, UserCard, FollowButton, ReactionBar, CommentItem, ShareSheet, Poll, HashtagChip, MentionText, ProfileStats, EngagementBar
+- 🟩 **native/chat** — ConversationList/Row, ChatHeader, MessageComposer, TypingIndicator, MessageGroup, DateSeparator, ReadReceipt, AttachmentBar, VoiceNoteBubble, QuickReplies, UnreadDivider, PresenceDot
+- 🟩 **native/finance** — TransactionRow, AccountCard(checking/savings/credit), BalanceHeader, BudgetBar, CreditCardView, SpendCategoryRow, InvoiceLine, TransferForm, StatementList, MoneyAmount, SavingsGoalCard, PaymentMethodRow, ExchangeRateRow
+- 🟩 **native/health** — WorkoutCard, HabitRow, StreakCounter, MetricRing, MealCard, WaterTracker, SleepBar, ActivityRings, GoalCard, VitalStat, ExerciseRow, MoodPicker, BodyMetricCard
+- 🟩 **native/productivity** — TaskRow, ChecklistItem, PriorityTag, ProjectCard, DueDatePill, AssigneeGroup, BoardColumn, SubtaskList, LabelChip, TimeTracker, MilestoneRow, NoteCard, ReminderRow
+- 🟩 **native/travel** — FlightCard, HotelCard, ItineraryItem, SeatPicker, DestinationCard, TripSummary, BaggageRow, BoardingPass, PriceCalendar, MapCard(dep-free), ReviewStars, AmenityRow, WeatherStrip
+- 🟨 **Next domains (wave 2, building):** learning, food/restaurant, real-estate, events/tickets, jobs, content/blog. Then: media/streaming, auth/onboarding/paywall.
+- ⬜ **Variant enrichment pass** on core primitives (Button/Card/Badge/Avatar/Alert/Tag/Input — more variants/tones/sizes/states) — careful edit of existing files.
+- ⬜ **Web parity** for all Phase-2 domain modules.
+
+- 2026-08-24 — **Phase 2 wave 1 shipped** (commit 328a9d9): 6 native domain modules (social/chat/finance/health/productivity/travel) = 79 composed blocks. tsc clean, 796/796 jest green. **Session total 247 new components.**
+
 ## 3. Progress log
 - 2026-08-24 — Plan created after deep research of knowledge/, ui-kit, sdk, templates, cortex integration.
 - 2026-08-24 — **Wave 1 (native) shipped** (commit fd82ff7): native/layout (16) + native/charts (12) + native/dashboard (16) = **44 mobile components**. tsc clean, 565/565 jest green, dist emits all three. Built by 3 parallel subagents, integrated + verified together.

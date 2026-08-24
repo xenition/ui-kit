@@ -124,6 +124,66 @@
       "types": "./dist/native/dashboard/index.d.ts",
       "import": "./dist/native/dashboard/index.js",
       "require": "./dist/native/dashboard/index.js"
+    },
+    "./native/social": {
+      "types": "./dist/native/social/index.d.ts",
+      "import": "./dist/native/social/index.js",
+      "require": "./dist/native/social/index.js"
+    },
+    "./native/chat": {
+      "types": "./dist/native/chat/index.d.ts",
+      "import": "./dist/native/chat/index.js",
+      "require": "./dist/native/chat/index.js"
+    },
+    "./native/finance": {
+      "types": "./dist/native/finance/index.d.ts",
+      "import": "./dist/native/finance/index.js",
+      "require": "./dist/native/finance/index.js"
+    },
+    "./native/health": {
+      "types": "./dist/native/health/index.d.ts",
+      "import": "./dist/native/health/index.js",
+      "require": "./dist/native/health/index.js"
+    },
+    "./native/productivity": {
+      "types": "./dist/native/productivity/index.d.ts",
+      "import": "./dist/native/productivity/index.js",
+      "require": "./dist/native/productivity/index.js"
+    },
+    "./native/travel": {
+      "types": "./dist/native/travel/index.d.ts",
+      "import": "./dist/native/travel/index.js",
+      "require": "./dist/native/travel/index.js"
+    },
+    "./native/learning": {
+      "types": "./dist/native/learning/index.d.ts",
+      "import": "./dist/native/learning/index.js",
+      "require": "./dist/native/learning/index.js"
+    },
+    "./native/food": {
+      "types": "./dist/native/food/index.d.ts",
+      "import": "./dist/native/food/index.js",
+      "require": "./dist/native/food/index.js"
+    },
+    "./native/realestate": {
+      "types": "./dist/native/realestate/index.d.ts",
+      "import": "./dist/native/realestate/index.js",
+      "require": "./dist/native/realestate/index.js"
+    },
+    "./native/events": {
+      "types": "./dist/native/events/index.d.ts",
+      "import": "./dist/native/events/index.js",
+      "require": "./dist/native/events/index.js"
+    },
+    "./native/jobs": {
+      "types": "./dist/native/jobs/index.d.ts",
+      "import": "./dist/native/jobs/index.js",
+      "require": "./dist/native/jobs/index.js"
+    },
+    "./native/content": {
+      "types": "./dist/native/content/index.d.ts",
+      "import": "./dist/native/content/index.js",
+      "require": "./dist/native/content/index.js"
     }
   },
   "scripts": {

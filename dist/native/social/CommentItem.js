@@ -1,0 +1,27 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CommentItem = CommentItem;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_native_1 = require("react-native");
+const theme_1 = require("../theme");
+const Avatar_1 = require("../primitives/Avatar");
+const MentionText_1 = require("./MentionText");
+/**
+ * A single comment: avatar, author + timestamp, body (with mention/hashtag
+ * highlighting), and a like/reply action row. Supports threaded replies via
+ * `depth` indentation and nested `children`, plus a `pinned` highlight. Token-only.
+ */
+function CommentItem({ author, handle, avatarUrl, text, timestamp, likeCount = 0, liked = false, depth = 0, pinned = false, onLike, onReply, onPressAuthor, onPressMention, onPressHashtag, children, style, }) {
+    const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    const indent = Math.max(0, depth) * tokens.spacing.xl;
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ paddingLeft: indent }, style], children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+                    flexDirection: 'row',
+                    gap: tokens.spacing.sm,
+                    borderRadius: tokens.radius.md,
+                    padding: pinned ? tokens.spacing.sm : 0,
+                    backgroundColor: pinned ? colors.surface : 'transparent',
+                    borderWidth: pinned ? 1 : 0,
+                    borderColor: pinned ? colors.border : 'transparent',
+                }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: author, disabled: !onPressAuthor, onPress: onPressAuthor, children: (0, jsx_runtime_1.jsx)(Avatar_1.Avatar, { src: avatarUrl, name: author, size: "sm" }) }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs, flexWrap: 'wrap' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.onSurface, fontSize: tokens.typography.scale.sm, fontWeight: '700' }, children: author }), handle ? ((0, jsx_runtime_1.jsxs)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: ["@", handle] })) : null, timestamp ? ((0, jsx_runtime_1.jsxs)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: ["\u00B7 ", timestamp] })) : null, pinned ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.primary, fontSize: tokens.typography.scale.xs, fontWeight: '600' }, children: "\u00B7 Pinned" })) : null] }), (0, jsx_runtime_1.jsx)(MentionText_1.MentionText, { text: text, size: "sm", onPressMention: onPressMention, onPressHashtag: onPressHashtag }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg }, children: [(0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `Like, ${likeCount}`, accessibilityState: { selected: liked }, disabled: !onLike, onPress: onLike, style: ({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs, opacity: pressed ? 0.6 : 1 }), children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: liked ? colors.danger : colors.muted, fontSize: tokens.typography.scale.sm }, children: liked ? '♥' : '♡' }), likeCount > 0 ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs, fontWeight: '600' }, children: likeCount })) : null] }), onReply ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: "Reply", onPress: onReply, style: ({ pressed }) => ({ opacity: pressed ? 0.6 : 1 }), children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs, fontWeight: '600' }, children: "Reply" }) })) : null] })] })] }), children ? (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { marginTop: tokens.spacing.sm, gap: tokens.spacing.sm }, children: children }) : null] }));
+}
+//# sourceMappingURL=CommentItem.js.map
