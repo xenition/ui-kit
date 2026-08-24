@@ -12,15 +12,35 @@
  * not betting or gambling.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LeagueBadge = exports.MatchTimeline = exports.LineupField = exports.StatComparison = exports.ScoreTicker = exports.BracketView = exports.LiveCommentary = exports.FixtureRow = exports.PlayerStatCard = exports.TeamCard = exports.Standings = exports.MatchScore = void 0;
+exports.LeagueBadge = exports.MatchTimeline = exports.LineupField = exports.StatComparison = exports.ScoreTicker = exports.BracketView = exports.LiveCommentary = exports.FixtureRow = exports.PlayerStatCardV3 = exports.PlayerStatCardV2 = exports.PlayerStatCard = exports.TeamCardV3 = exports.TeamCardV2 = exports.TeamCard = exports.StandingsV3 = exports.StandingsV2 = exports.Standings = exports.MatchScoreV3 = exports.MatchScoreV2 = exports.MatchScore = void 0;
 var MatchScore_1 = require("./MatchScore");
 Object.defineProperty(exports, "MatchScore", { enumerable: true, get: function () { return MatchScore_1.MatchScore; } });
+// Alternate drop-in designs (same props as `MatchScore`).
+var MatchScoreV2_1 = require("./MatchScoreV2");
+Object.defineProperty(exports, "MatchScoreV2", { enumerable: true, get: function () { return MatchScoreV2_1.MatchScoreV2; } });
+var MatchScoreV3_1 = require("./MatchScoreV3");
+Object.defineProperty(exports, "MatchScoreV3", { enumerable: true, get: function () { return MatchScoreV3_1.MatchScoreV3; } });
 var Standings_1 = require("./Standings");
 Object.defineProperty(exports, "Standings", { enumerable: true, get: function () { return Standings_1.Standings; } });
+// Alternate drop-in designs (same props as `Standings`).
+var StandingsV2_1 = require("./StandingsV2");
+Object.defineProperty(exports, "StandingsV2", { enumerable: true, get: function () { return StandingsV2_1.StandingsV2; } });
+var StandingsV3_1 = require("./StandingsV3");
+Object.defineProperty(exports, "StandingsV3", { enumerable: true, get: function () { return StandingsV3_1.StandingsV3; } });
 var TeamCard_1 = require("./TeamCard");
 Object.defineProperty(exports, "TeamCard", { enumerable: true, get: function () { return TeamCard_1.TeamCard; } });
+// Alternate drop-in designs (same props as `TeamCard`).
+var TeamCardV2_1 = require("./TeamCardV2");
+Object.defineProperty(exports, "TeamCardV2", { enumerable: true, get: function () { return TeamCardV2_1.TeamCardV2; } });
+var TeamCardV3_1 = require("./TeamCardV3");
+Object.defineProperty(exports, "TeamCardV3", { enumerable: true, get: function () { return TeamCardV3_1.TeamCardV3; } });
 var PlayerStatCard_1 = require("./PlayerStatCard");
 Object.defineProperty(exports, "PlayerStatCard", { enumerable: true, get: function () { return PlayerStatCard_1.PlayerStatCard; } });
+// Alternate drop-in designs (same props as `PlayerStatCard`).
+var PlayerStatCardV2_1 = require("./PlayerStatCardV2");
+Object.defineProperty(exports, "PlayerStatCardV2", { enumerable: true, get: function () { return PlayerStatCardV2_1.PlayerStatCardV2; } });
+var PlayerStatCardV3_1 = require("./PlayerStatCardV3");
+Object.defineProperty(exports, "PlayerStatCardV3", { enumerable: true, get: function () { return PlayerStatCardV3_1.PlayerStatCardV3; } });
 var FixtureRow_1 = require("./FixtureRow");
 Object.defineProperty(exports, "FixtureRow", { enumerable: true, get: function () { return FixtureRow_1.FixtureRow; } });
 var LiveCommentary_1 = require("./LiveCommentary");

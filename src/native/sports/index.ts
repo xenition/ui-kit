@@ -14,14 +14,38 @@
 export { MatchScore } from './MatchScore';
 export type { MatchScoreProps, MatchScoreTeam, MatchScoreStatus } from './MatchScore';
 
+// Alternate drop-in designs (same props as `MatchScore`).
+export { MatchScoreV2 } from './MatchScoreV2';
+export type { MatchScoreV2Props } from './MatchScoreV2';
+export { MatchScoreV3 } from './MatchScoreV3';
+export type { MatchScoreV3Props } from './MatchScoreV3';
+
 export { Standings } from './Standings';
 export type { StandingsProps, StandingsRow, StandingsZone, StandingsForm } from './Standings';
+
+// Alternate drop-in designs (same props as `Standings`).
+export { StandingsV2 } from './StandingsV2';
+export type { StandingsV2Props } from './StandingsV2';
+export { StandingsV3 } from './StandingsV3';
+export type { StandingsV3Props } from './StandingsV3';
 
 export { TeamCard } from './TeamCard';
 export type { TeamCardProps, TeamForm } from './TeamCard';
 
+// Alternate drop-in designs (same props as `TeamCard`).
+export { TeamCardV2 } from './TeamCardV2';
+export type { TeamCardV2Props } from './TeamCardV2';
+export { TeamCardV3 } from './TeamCardV3';
+export type { TeamCardV3Props } from './TeamCardV3';
+
 export { PlayerStatCard } from './PlayerStatCard';
 export type { PlayerStatCardProps, PlayerStat } from './PlayerStatCard';
+
+// Alternate drop-in designs (same props as `PlayerStatCard`).
+export { PlayerStatCardV2 } from './PlayerStatCardV2';
+export type { PlayerStatCardV2Props } from './PlayerStatCardV2';
+export { PlayerStatCardV3 } from './PlayerStatCardV3';
+export type { PlayerStatCardV3Props } from './PlayerStatCardV3';
 
 export { FixtureRow } from './FixtureRow';
 export type { FixtureRowProps, FixtureStatus } from './FixtureRow';
