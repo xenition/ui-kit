@@ -13,18 +13,34 @@
  * included.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SurveyIntro = exports.PollResultBar = exports.OpenTextResponse = exports.RankingQuestion = exports.MatrixQuestion = exports.ResponseSummary = exports.SurveyProgress = exports.MultipleChoice = exports.RatingScaleInput = exports.npsBucket = exports.NPSScale = exports.LikertScale = exports.QuestionCard = void 0;
+exports.SurveyIntro = exports.PollResultBar = exports.OpenTextResponse = exports.RankingQuestion = exports.MatrixQuestion = exports.ResponseSummary = exports.SurveyProgress = exports.MultipleChoiceV3 = exports.MultipleChoiceV2 = exports.MultipleChoice = exports.RatingScaleInput = exports.NPSScaleV3 = exports.NPSScaleV2 = exports.npsBucket = exports.NPSScale = exports.LikertScaleV3 = exports.LikertScaleV2 = exports.LikertScale = exports.QuestionCardV3 = exports.QuestionCardV2 = exports.QuestionCard = void 0;
 var QuestionCard_1 = require("./QuestionCard");
 Object.defineProperty(exports, "QuestionCard", { enumerable: true, get: function () { return QuestionCard_1.QuestionCard; } });
+var QuestionCardV2_1 = require("./QuestionCardV2");
+Object.defineProperty(exports, "QuestionCardV2", { enumerable: true, get: function () { return QuestionCardV2_1.QuestionCardV2; } });
+var QuestionCardV3_1 = require("./QuestionCardV3");
+Object.defineProperty(exports, "QuestionCardV3", { enumerable: true, get: function () { return QuestionCardV3_1.QuestionCardV3; } });
 var LikertScale_1 = require("./LikertScale");
 Object.defineProperty(exports, "LikertScale", { enumerable: true, get: function () { return LikertScale_1.LikertScale; } });
+var LikertScaleV2_1 = require("./LikertScaleV2");
+Object.defineProperty(exports, "LikertScaleV2", { enumerable: true, get: function () { return LikertScaleV2_1.LikertScaleV2; } });
+var LikertScaleV3_1 = require("./LikertScaleV3");
+Object.defineProperty(exports, "LikertScaleV3", { enumerable: true, get: function () { return LikertScaleV3_1.LikertScaleV3; } });
 var NPSScale_1 = require("./NPSScale");
 Object.defineProperty(exports, "NPSScale", { enumerable: true, get: function () { return NPSScale_1.NPSScale; } });
 Object.defineProperty(exports, "npsBucket", { enumerable: true, get: function () { return NPSScale_1.npsBucket; } });
+var NPSScaleV2_1 = require("./NPSScaleV2");
+Object.defineProperty(exports, "NPSScaleV2", { enumerable: true, get: function () { return NPSScaleV2_1.NPSScaleV2; } });
+var NPSScaleV3_1 = require("./NPSScaleV3");
+Object.defineProperty(exports, "NPSScaleV3", { enumerable: true, get: function () { return NPSScaleV3_1.NPSScaleV3; } });
 var RatingScaleInput_1 = require("./RatingScaleInput");
 Object.defineProperty(exports, "RatingScaleInput", { enumerable: true, get: function () { return RatingScaleInput_1.RatingScaleInput; } });
 var MultipleChoice_1 = require("./MultipleChoice");
 Object.defineProperty(exports, "MultipleChoice", { enumerable: true, get: function () { return MultipleChoice_1.MultipleChoice; } });
+var MultipleChoiceV2_1 = require("./MultipleChoiceV2");
+Object.defineProperty(exports, "MultipleChoiceV2", { enumerable: true, get: function () { return MultipleChoiceV2_1.MultipleChoiceV2; } });
+var MultipleChoiceV3_1 = require("./MultipleChoiceV3");
+Object.defineProperty(exports, "MultipleChoiceV3", { enumerable: true, get: function () { return MultipleChoiceV3_1.MultipleChoiceV3; } });
 var SurveyProgress_1 = require("./SurveyProgress");
 Object.defineProperty(exports, "SurveyProgress", { enumerable: true, get: function () { return SurveyProgress_1.SurveyProgress; } });
 var ResponseSummary_1 = require("./ResponseSummary");

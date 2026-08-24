@@ -46,6 +46,27 @@ export type { MatchingGiftBannerProps, MatchingGiftVariant } from './MatchingGif
 export { ThankYouCard } from './ThankYouCard';
 export type { ThankYouCardProps, ThankYouCardVariant } from './ThankYouCard';
 
+// Alternate designs (drop-in, identical prop contracts — see `*V2`/`*V3`).
+export { DonationCardV2 } from './DonationCardV2';
+export type { DonationCardV2Props } from './DonationCardV2';
+export { DonationCardV3 } from './DonationCardV3';
+export type { DonationCardV3Props } from './DonationCardV3';
+
+export { CampaignProgressV2 } from './CampaignProgressV2';
+export type { CampaignProgressV2Props } from './CampaignProgressV2';
+export { CampaignProgressV3 } from './CampaignProgressV3';
+export type { CampaignProgressV3Props } from './CampaignProgressV3';
+
+export { CauseCardV2 } from './CauseCardV2';
+export type { CauseCardV2Props } from './CauseCardV2';
+export { CauseCardV3 } from './CauseCardV3';
+export type { CauseCardV3Props } from './CauseCardV3';
+
+export { FundraiserCardV2 } from './FundraiserCardV2';
+export type { FundraiserCardV2Props } from './FundraiserCardV2';
+export { FundraiserCardV3 } from './FundraiserCardV3';
+export type { FundraiserCardV3Props } from './FundraiserCardV3';
+
 // Shared money + tint helpers (no external deps).
 export { formatMoney, withAlpha, goalPct } from './internal';
 export type { MoneyFormatter } from './internal';

@@ -11,7 +11,7 @@
  * Icon, Avatar).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.goalPct = exports.withAlpha = exports.formatMoney = exports.ThankYouCard = exports.MatchingGiftBanner = exports.EventTicketRow = exports.RecurringGiftRow = exports.FundraiserCard = exports.ImpactStat = exports.DonorRow = exports.PledgeRow = exports.VolunteerShift = exports.CauseCard = exports.CampaignProgress = exports.DonationCard = void 0;
+exports.goalPct = exports.withAlpha = exports.formatMoney = exports.FundraiserCardV3 = exports.FundraiserCardV2 = exports.CauseCardV3 = exports.CauseCardV2 = exports.CampaignProgressV3 = exports.CampaignProgressV2 = exports.DonationCardV3 = exports.DonationCardV2 = exports.ThankYouCard = exports.MatchingGiftBanner = exports.EventTicketRow = exports.RecurringGiftRow = exports.FundraiserCard = exports.ImpactStat = exports.DonorRow = exports.PledgeRow = exports.VolunteerShift = exports.CauseCard = exports.CampaignProgress = exports.DonationCard = void 0;
 var DonationCard_1 = require("./DonationCard");
 Object.defineProperty(exports, "DonationCard", { enumerable: true, get: function () { return DonationCard_1.DonationCard; } });
 var CampaignProgress_1 = require("./CampaignProgress");
@@ -36,6 +36,23 @@ var MatchingGiftBanner_1 = require("./MatchingGiftBanner");
 Object.defineProperty(exports, "MatchingGiftBanner", { enumerable: true, get: function () { return MatchingGiftBanner_1.MatchingGiftBanner; } });
 var ThankYouCard_1 = require("./ThankYouCard");
 Object.defineProperty(exports, "ThankYouCard", { enumerable: true, get: function () { return ThankYouCard_1.ThankYouCard; } });
+// Alternate designs (drop-in, identical prop contracts — see `*V2`/`*V3`).
+var DonationCardV2_1 = require("./DonationCardV2");
+Object.defineProperty(exports, "DonationCardV2", { enumerable: true, get: function () { return DonationCardV2_1.DonationCardV2; } });
+var DonationCardV3_1 = require("./DonationCardV3");
+Object.defineProperty(exports, "DonationCardV3", { enumerable: true, get: function () { return DonationCardV3_1.DonationCardV3; } });
+var CampaignProgressV2_1 = require("./CampaignProgressV2");
+Object.defineProperty(exports, "CampaignProgressV2", { enumerable: true, get: function () { return CampaignProgressV2_1.CampaignProgressV2; } });
+var CampaignProgressV3_1 = require("./CampaignProgressV3");
+Object.defineProperty(exports, "CampaignProgressV3", { enumerable: true, get: function () { return CampaignProgressV3_1.CampaignProgressV3; } });
+var CauseCardV2_1 = require("./CauseCardV2");
+Object.defineProperty(exports, "CauseCardV2", { enumerable: true, get: function () { return CauseCardV2_1.CauseCardV2; } });
+var CauseCardV3_1 = require("./CauseCardV3");
+Object.defineProperty(exports, "CauseCardV3", { enumerable: true, get: function () { return CauseCardV3_1.CauseCardV3; } });
+var FundraiserCardV2_1 = require("./FundraiserCardV2");
+Object.defineProperty(exports, "FundraiserCardV2", { enumerable: true, get: function () { return FundraiserCardV2_1.FundraiserCardV2; } });
+var FundraiserCardV3_1 = require("./FundraiserCardV3");
+Object.defineProperty(exports, "FundraiserCardV3", { enumerable: true, get: function () { return FundraiserCardV3_1.FundraiserCardV3; } });
 // Shared money + tint helpers (no external deps).
 var internal_1 = require("./internal");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return internal_1.formatMoney; } });

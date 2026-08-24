@@ -13,7 +13,7 @@
  * import).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatMoney = exports.PERMIT_STAGES = exports.FORM_STATUS = exports.PERMIT_STATUS = exports.CivicAlert = exports.ComplaintRow = exports.BenefitCard = exports.TaxSummaryCard = exports.VotingInfoCard = exports.RepresentativeCard = exports.PublicNoticeCard = exports.DocumentRequest = exports.FormStatusRow = exports.CivicAppointment = exports.PermitStatus = exports.ServiceCard = void 0;
+exports.formatMoney = exports.PERMIT_STAGES = exports.FORM_STATUS = exports.PERMIT_STATUS = exports.RepresentativeCardV3 = exports.RepresentativeCardV2 = exports.CivicAppointmentV3 = exports.CivicAppointmentV2 = exports.PermitStatusV3 = exports.PermitStatusV2 = exports.ServiceCardV3 = exports.ServiceCardV2 = exports.CivicAlert = exports.ComplaintRow = exports.BenefitCard = exports.TaxSummaryCard = exports.VotingInfoCard = exports.RepresentativeCard = exports.PublicNoticeCard = exports.DocumentRequest = exports.FormStatusRow = exports.CivicAppointment = exports.PermitStatus = exports.ServiceCard = void 0;
 var ServiceCard_1 = require("./ServiceCard");
 Object.defineProperty(exports, "ServiceCard", { enumerable: true, get: function () { return ServiceCard_1.ServiceCard; } });
 var PermitStatus_1 = require("./PermitStatus");
@@ -38,6 +38,24 @@ var ComplaintRow_1 = require("./ComplaintRow");
 Object.defineProperty(exports, "ComplaintRow", { enumerable: true, get: function () { return ComplaintRow_1.ComplaintRow; } });
 var CivicAlert_1 = require("./CivicAlert");
 Object.defineProperty(exports, "CivicAlert", { enumerable: true, get: function () { return CivicAlert_1.CivicAlert; } });
+// Alternate designs (V2 / V3) — drop-in replacements sharing each base
+// component's `Props` (`<Name>V2Props = <Name>Props`), distinct layouts.
+var ServiceCardV2_1 = require("./ServiceCardV2");
+Object.defineProperty(exports, "ServiceCardV2", { enumerable: true, get: function () { return ServiceCardV2_1.ServiceCardV2; } });
+var ServiceCardV3_1 = require("./ServiceCardV3");
+Object.defineProperty(exports, "ServiceCardV3", { enumerable: true, get: function () { return ServiceCardV3_1.ServiceCardV3; } });
+var PermitStatusV2_1 = require("./PermitStatusV2");
+Object.defineProperty(exports, "PermitStatusV2", { enumerable: true, get: function () { return PermitStatusV2_1.PermitStatusV2; } });
+var PermitStatusV3_1 = require("./PermitStatusV3");
+Object.defineProperty(exports, "PermitStatusV3", { enumerable: true, get: function () { return PermitStatusV3_1.PermitStatusV3; } });
+var CivicAppointmentV2_1 = require("./CivicAppointmentV2");
+Object.defineProperty(exports, "CivicAppointmentV2", { enumerable: true, get: function () { return CivicAppointmentV2_1.CivicAppointmentV2; } });
+var CivicAppointmentV3_1 = require("./CivicAppointmentV3");
+Object.defineProperty(exports, "CivicAppointmentV3", { enumerable: true, get: function () { return CivicAppointmentV3_1.CivicAppointmentV3; } });
+var RepresentativeCardV2_1 = require("./RepresentativeCardV2");
+Object.defineProperty(exports, "RepresentativeCardV2", { enumerable: true, get: function () { return RepresentativeCardV2_1.RepresentativeCardV2; } });
+var RepresentativeCardV3_1 = require("./RepresentativeCardV3");
+Object.defineProperty(exports, "RepresentativeCardV3", { enumerable: true, get: function () { return RepresentativeCardV3_1.RepresentativeCardV3; } });
 // Shared domain descriptors + the single money/format home (re-exported for
 // ergonomics; mirrors the insurance module).
 var status_1 = require("./internal/status");
