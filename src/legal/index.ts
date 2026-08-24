@@ -17,15 +17,27 @@
 
 export { CaseCard } from './CaseCard';
 export type { CaseCardProps, CaseCardVariant } from './CaseCard';
+export { CaseCardV2 } from './CaseCardV2';
+export type { CaseCardV2Props } from './CaseCardV2';
+export { CaseCardV3 } from './CaseCardV3';
+export type { CaseCardV3Props } from './CaseCardV3';
 
 export { DocumentRow } from './DocumentRow';
 export type { DocumentRowProps, DocumentRowVariant } from './DocumentRow';
+export { DocumentRowV2 } from './DocumentRowV2';
+export type { DocumentRowV2Props } from './DocumentRowV2';
+export { DocumentRowV3 } from './DocumentRowV3';
+export type { DocumentRowV3Props } from './DocumentRowV3';
 
 export { ContractClause } from './ContractClause';
 export type { ContractClauseProps, ContractClauseVariant } from './ContractClause';
 
 export { LegalAppointment } from './LegalAppointment';
 export type { LegalAppointmentProps, LegalAppointmentVariant } from './LegalAppointment';
+export { LegalAppointmentV2 } from './LegalAppointmentV2';
+export type { LegalAppointmentV2Props } from './LegalAppointmentV2';
+export { LegalAppointmentV3 } from './LegalAppointmentV3';
+export type { LegalAppointmentV3Props } from './LegalAppointmentV3';
 
 export { BillableTimeRow } from './BillableTimeRow';
 export type { BillableTimeRowProps, BillableTimeRowVariant } from './BillableTimeRow';
@@ -41,6 +53,10 @@ export type { CourtDateCardProps, CourtDateCardVariant } from './CourtDateCard';
 
 export { RetainerBalance } from './RetainerBalance';
 export type { RetainerBalanceProps, RetainerBalanceVariant } from './RetainerBalance';
+export { RetainerBalanceV2 } from './RetainerBalanceV2';
+export type { RetainerBalanceV2Props } from './RetainerBalanceV2';
+export { RetainerBalanceV3 } from './RetainerBalanceV3';
+export type { RetainerBalanceV3Props } from './RetainerBalanceV3';
 
 export { DisclaimerBanner } from './DisclaimerBanner';
 export type { DisclaimerBannerProps, DisclaimerBannerVariant } from './DisclaimerBanner';
