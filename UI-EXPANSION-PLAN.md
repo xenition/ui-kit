@@ -71,8 +71,9 @@ Status legend: ⬜ not started · 🟨 in progress · 🟩 done · ⏭️ skippe
 Foundational; unblocks everything else. Shipped `@xenition/ui/native/layout` (commit fd82ff7).
 `Container` ⬜ · `Row` ⬜ · `Col` ⬜ · `Grid` ⬜ · `Flex` ⬜ · `Space` ⬜ · `Divider` ⬜ · `Center` ⬜ · `AspectRatio` ⬜ · `ScrollArea` ⬜ · `Sticky` ⬜ · `Splitter` ⬜ · `Resizable` ⬜ · `Masonry` ⬜ · `PageHeader` ⬜ · `Section` ⬜
 
-### ⬜ Batch 2 — Data-entry expansion (`primitives` + native)  [22]
-`TimePicker` · `DateRangePicker` · `ColorPicker` · `PasswordInput` · `CurrencyInput` · `PhoneInput` · `MaskedInput` · `InputGroup` · `AutoComplete` · `MultiSelect` · `TagInput` · `TreeSelect` · `Cascader` · `Transfer` · `Mentions` · `RichTextEditor` · `MarkdownEditor` · `SignaturePad` · `ToggleGroup` · `RangeSlider` · `SearchInput` · `FormWizard`
+### 🟩 Batch 2 — Data-entry expansion — **native 🟩 (12 shipped)** · web ⬜  [22]
+Shipped native (commit 98388ac): `SearchInput` `PasswordInput` `TimePicker` `DateRangePicker` `MultiSelect` `TagInput` `AutoComplete` `RangeSlider` `ToggleGroup` `PhoneInput` `CurrencyInput` `ColorPicker`.
+⬜ Remaining native (lower priority / complex on RN): `MaskedInput` `InputGroup` `TreeSelect` `Cascader` `Transfer` `Mentions` `RichTextEditor` `MarkdownEditor` `SignaturePad` `FormWizard`.
 
 ### ⬜ Batch 3 — Data display expansion (`primitives` + native)  [22]
 `Tree` · `Carousel` · `QRCode` · `Calendar` · `Kanban` · `Statistic` · `StatGroup` · `MetricCard` · `Feed` · `VirtualList` · `InfiniteScroll` · `ExpandableTable` · `TreeTable` · `Sparkline` · `Heatmap` · `Gauge` · `CodeBlock` · `DiffViewer` · `JsonViewer` · `KeyValue` · `Comparison` · `CommentThread`
@@ -80,8 +81,9 @@ Foundational; unblocks everything else. Shipped `@xenition/ui/native/layout` (co
 ### ⬜ Batch 4 — Navigation (`primitives` + native)  [16]
 `Anchor` · `BackTop` · `Affix` · `FloatButton` · `CommandPalette` · `ContextMenu` · `Dock` · `NavRail` · `MegaMenu` · `ScrollSpy` · `BottomNav` · `Toolbar` · `ButtonGroup` · `SplitButton` · `NestedMenu` · `TabScroller`
 
-### ⬜ Batch 5 — Feedback & overlays (`primitives` + native)  [16]
-`Notification` · `Banner` · `Callout` · `Tour` · `ConfirmDialog` · `HoverCard` · `Snackbar` · `Ribbon` · `Watermark` · `Result` · `LoadingOverlay` · `ProgressCircle` · `ErrorState` · `Sheet` · `Dialog` · `InlineEdit`
+### 🟩 Batch 5 — Feedback, overlays & mobile patterns — **native 🟩 (12 shipped)** · web ⬜  [16]
+Shipped native (commit 98388ac): `Icon` (new base primitive) · `FloatButton` (FAB) · `BottomNav` · `ContextMenu` · `ActionSheet` · `BottomSheet` · `Banner` · `Callout` · `Result` · `LoadingOverlay` · `ButtonGroup` · `Watermark`.
+⬜ Remaining: `Tour` · `HoverCard` · `Ribbon` · `ProgressCircle` (needs SVG) · `InlineEdit`. (`Notification`/`Snackbar`≈existing Toast; `ConfirmDialog`≈existing Popconfirm; `Sheet`/`Dialog`≈existing Drawer/Modal.)
 
 ### 🟩 Batch 6 — Charts module — **native 🟩 DONE (12 View-based)** · SVG charts ⏭️ deferred · web ⬜  [14]
 Shipped `@xenition/ui/native/charts` (fd82ff7). ⏭️ Line/Area/Pie/Donut/Radar/Gauge need `react-native-svg` — decide whether to add that peer dep before building them.
@@ -117,4 +119,8 @@ Hooks: `useMutation` · `usePaginatedResource` · `useInfiniteResource` · `useA
 - 2026-08-24 — **Wave 1 (native) shipped** (commit fd82ff7): native/layout (16) + native/charts (12) + native/dashboard (16) = **44 mobile components**. tsc clean, 565/565 jest green, dist emits all three. Built by 3 parallel subagents, integrated + verified together.
 - **Follow-ups noted:** (a) add a native `Icon` primitive — several dashboard blocks want one (currently glyphs/caller-supplied). (b) decide on `react-native-svg` to unlock Line/Area/Pie/Donut/Radar/Gauge charts. (c) cortex `routes_assist.py` native prompt must be extended with `@xenition/ui/native/{layout,charts,dashboard}` once a batch of these is published.
 
-## Running native total: 44 / ~202 new (wave 1). Next waves: native/primitives data-entry + feedback/overlay expansion, then native marketing/commerce/booking/media, then web parity + cortex prompt + version bump.
+- 2026-08-24 — **Wave 2 (native) shipped** (commit 98388ac): 24 new native primitives — data-entry gaps (12) + mobile patterns/feedback (12, incl. the `Icon` base primitive). tsc clean, 587/587 jest green, dist emits all. 2 parallel subagents, integrated together.
+- **Discovery:** native was already far fuller than `COMPONENTS-INVENTORY.md` claimed (~66 native primitives + 34 native marketing = web parity, not 27+1). The doc is stale — see §Inventory correction. Many "obvious" components already exist; remaining waves target true gaps.
+
+## Running native total: **68 new this session** (wave 1: 44 modules; wave 2: 24 primitives). 
+Native primitives now ~90, + 3 new native modules (layout/charts/dashboard). Next: (a) cortex `routes_assist.py` native prompt + `_UI_VERSION` bump + publish `@xenition/ui@0.2.0` so mobile generation uses them [needs npm publish — release action]; (b) native display/navigation remaining gaps; (c) web parity for the 3 new modules + the 24 primitives; (d) SVG charts if `react-native-svg` is approved.

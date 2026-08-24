@@ -8,7 +8,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tag = exports.Tooltip = exports.Popconfirm = exports.Accordion = exports.Menu = exports.Popover = exports.Drawer = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.formatMoney = exports.EmptyState = exports.PriceTag = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Wordmark = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
-exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = exports.List = void 0;
+exports.Watermark = exports.ButtonGroup = exports.LoadingOverlay = exports.Result = exports.Callout = exports.Banner = exports.BottomSheet = exports.ActionSheet = exports.ContextMenu = exports.BottomNav = exports.FloatButton = exports.Icon = exports.ColorPicker = exports.CurrencyInput = exports.PhoneInput = exports.ToggleGroup = exports.RangeSlider = exports.AutoComplete = exports.TagInput = exports.MultiSelect = exports.DateRangePicker = exports.TimePicker = exports.PasswordInput = exports.SearchInput = exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = exports.List = void 0;
 var XenitionUIProvider_1 = require("./XenitionUIProvider");
 Object.defineProperty(exports, "XenitionUIProvider", { enumerable: true, get: function () { return XenitionUIProvider_1.XenitionUIProvider; } });
 // Re-export the theme access hook so a mobile app can `useXenitionTheme()`
@@ -156,4 +156,54 @@ var DatePicker_1 = require("./DatePicker");
 Object.defineProperty(exports, "DatePicker", { enumerable: true, get: function () { return DatePicker_1.DatePicker; } });
 var Upload_1 = require("./Upload");
 Object.defineProperty(exports, "Upload", { enumerable: true, get: function () { return Upload_1.Upload; } });
+// ── native parity: data-entry gap components ──────────────────────────
+var SearchInput_1 = require("./SearchInput");
+Object.defineProperty(exports, "SearchInput", { enumerable: true, get: function () { return SearchInput_1.SearchInput; } });
+var PasswordInput_1 = require("./PasswordInput");
+Object.defineProperty(exports, "PasswordInput", { enumerable: true, get: function () { return PasswordInput_1.PasswordInput; } });
+var TimePicker_1 = require("./TimePicker");
+Object.defineProperty(exports, "TimePicker", { enumerable: true, get: function () { return TimePicker_1.TimePicker; } });
+var DateRangePicker_1 = require("./DateRangePicker");
+Object.defineProperty(exports, "DateRangePicker", { enumerable: true, get: function () { return DateRangePicker_1.DateRangePicker; } });
+var MultiSelect_1 = require("./MultiSelect");
+Object.defineProperty(exports, "MultiSelect", { enumerable: true, get: function () { return MultiSelect_1.MultiSelect; } });
+var TagInput_1 = require("./TagInput");
+Object.defineProperty(exports, "TagInput", { enumerable: true, get: function () { return TagInput_1.TagInput; } });
+var AutoComplete_1 = require("./AutoComplete");
+Object.defineProperty(exports, "AutoComplete", { enumerable: true, get: function () { return AutoComplete_1.AutoComplete; } });
+var RangeSlider_1 = require("./RangeSlider");
+Object.defineProperty(exports, "RangeSlider", { enumerable: true, get: function () { return RangeSlider_1.RangeSlider; } });
+var ToggleGroup_1 = require("./ToggleGroup");
+Object.defineProperty(exports, "ToggleGroup", { enumerable: true, get: function () { return ToggleGroup_1.ToggleGroup; } });
+var PhoneInput_1 = require("./PhoneInput");
+Object.defineProperty(exports, "PhoneInput", { enumerable: true, get: function () { return PhoneInput_1.PhoneInput; } });
+var CurrencyInput_1 = require("./CurrencyInput");
+Object.defineProperty(exports, "CurrencyInput", { enumerable: true, get: function () { return CurrencyInput_1.CurrencyInput; } });
+var ColorPicker_1 = require("./ColorPicker");
+Object.defineProperty(exports, "ColorPicker", { enumerable: true, get: function () { return ColorPicker_1.ColorPicker; } });
+// ── native parity: mobile patterns + feedback ─────────────────────────
+var Icon_1 = require("./Icon");
+Object.defineProperty(exports, "Icon", { enumerable: true, get: function () { return Icon_1.Icon; } });
+var FloatButton_1 = require("./FloatButton");
+Object.defineProperty(exports, "FloatButton", { enumerable: true, get: function () { return FloatButton_1.FloatButton; } });
+var BottomNav_1 = require("./BottomNav");
+Object.defineProperty(exports, "BottomNav", { enumerable: true, get: function () { return BottomNav_1.BottomNav; } });
+var ContextMenu_1 = require("./ContextMenu");
+Object.defineProperty(exports, "ContextMenu", { enumerable: true, get: function () { return ContextMenu_1.ContextMenu; } });
+var ActionSheet_1 = require("./ActionSheet");
+Object.defineProperty(exports, "ActionSheet", { enumerable: true, get: function () { return ActionSheet_1.ActionSheet; } });
+var BottomSheet_1 = require("./BottomSheet");
+Object.defineProperty(exports, "BottomSheet", { enumerable: true, get: function () { return BottomSheet_1.BottomSheet; } });
+var Banner_1 = require("./Banner");
+Object.defineProperty(exports, "Banner", { enumerable: true, get: function () { return Banner_1.Banner; } });
+var Callout_1 = require("./Callout");
+Object.defineProperty(exports, "Callout", { enumerable: true, get: function () { return Callout_1.Callout; } });
+var Result_1 = require("./Result");
+Object.defineProperty(exports, "Result", { enumerable: true, get: function () { return Result_1.Result; } });
+var LoadingOverlay_1 = require("./LoadingOverlay");
+Object.defineProperty(exports, "LoadingOverlay", { enumerable: true, get: function () { return LoadingOverlay_1.LoadingOverlay; } });
+var ButtonGroup_1 = require("./ButtonGroup");
+Object.defineProperty(exports, "ButtonGroup", { enumerable: true, get: function () { return ButtonGroup_1.ButtonGroup; } });
+var Watermark_1 = require("./Watermark");
+Object.defineProperty(exports, "Watermark", { enumerable: true, get: function () { return Watermark_1.Watermark; } });
 //# sourceMappingURL=index.js.map
