@@ -1,9 +1,17 @@
 import * as React from 'react';
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'soft' | 'link' | 'elevated';
 export type ButtonSize = 'sm' | 'md' | 'lg';
+/**
+ * Recolors the button's accent — the web mirror of the native `ButtonTone`.
+ * `default`/`primary` share the primary slot; `danger`/`success` swap in the
+ * semantic accent. Defaults to `default`, which reproduces the historical look.
+ */
+export type ButtonTone = 'default' | 'primary' | 'danger' | 'success';
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant;
     size?: ButtonSize;
+    /** Semantic accent for the button (danger/success paths). Defaults to `default`. */
+    tone?: ButtonTone;
     /**
      * When set, the button renders as an anchor (`<a href>`) styled identically
      * via the same variant/size classes — for navigation CTAs (external links,
@@ -19,6 +27,10 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 /**
  * Themed button. All colors/radii come from the `--xen-*` tokens via the
  * Tailwind preset — no literal colors (kit lint rule).
+ *
+ * Variants `primary`/`secondary`/`ghost`/`outline`/`danger` and the default
+ * tone render exactly as before; `soft`/`link`/`elevated` and the `tone` prop
+ * (`danger`/`success`) are additive opt-ins mirroring the native `Button`.
  *
  * Pass `href` to render a styled `<a>` instead of a `<button>` (navigation
  * CTAs); everything else — variants, sizes, ref forwarding — is identical.

@@ -11,9 +11,11 @@ export interface AvatarGroupProps {
 }
 
 const CHIP: Record<AvatarSize, string> = {
+  xs: 'h-6 w-6 text-xs',
   sm: 'h-8 w-8 text-xs',
   md: 'h-10 w-10 text-sm',
   lg: 'h-14 w-14 text-lg',
+  xl: 'h-20 w-20 text-xl',
 };
 
 /** Overlapping avatar stack with a +N overflow chip — bound to the theme tokens. */

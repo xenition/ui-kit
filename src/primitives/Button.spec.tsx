@@ -58,4 +58,42 @@ describe('Button', () => {
     );
     expect(anchorRef.current?.tagName).toBe('A');
   });
+
+  it('keeps the historical variant class strings intact (default tone)', () => {
+    const { getByText } = render(<Button variant="secondary">s</Button>);
+    const el = getByText('s');
+    expect(el.className).toContain('border-primary');
+    expect(el.className).toContain('text-primary');
+    expect(el.className).toContain('hover:bg-primary-50');
+  });
+
+  it('mounts the additive soft/link/elevated variants with token classes', () => {
+    const soft = render(<Button variant="soft">soft</Button>).getByText('soft');
+    expect(soft.className).toContain('bg-primary-50');
+    expect(soft.className).toContain('text-primary');
+
+    const link = render(<Button variant="link">link</Button>).getByText('link');
+    expect(link.className).toContain('underline');
+    expect(link.className).toContain('text-primary');
+
+    const elevated = render(<Button variant="elevated">el</Button>).getByText('el');
+    expect(elevated.className).toContain('bg-surface');
+    expect(elevated.className).toContain('shadow');
+  });
+
+  it('recolors via the tone prop while defaulting to the historical look', () => {
+    const danger = render(
+      <Button variant="soft" tone="danger">
+        d
+      </Button>
+    ).getByText('d');
+    expect(danger.className).toContain('text-danger');
+
+    const success = render(
+      <Button variant="primary" tone="success">
+        ok
+      </Button>
+    ).getByText('ok');
+    expect(success.className).toContain('bg-success');
+  });
 });

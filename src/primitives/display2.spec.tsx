@@ -22,6 +22,39 @@ describe('Tag', () => {
     fireEvent.click(getByLabelText('Remove'));
     expect(onRemove).toHaveBeenCalledTimes(1);
   });
+
+  it('keeps the solid default and layers soft/outline variants + accent tone', () => {
+    const solid = render(<Tag tone="primary">a</Tag>).getByText('a');
+    expect(solid.className).toContain('bg-primary-50');
+
+    const soft = render(
+      <Tag tone="accent" variant="soft">
+        b
+      </Tag>
+    ).getByText('b');
+    expect(soft.className).toContain('bg-accent-50');
+    expect(soft.className).toContain('text-accent');
+
+    const outline = render(
+      <Tag tone="success" variant="outline">
+        c
+      </Tag>
+    ).getByText('c');
+    expect(outline.className).toContain('border-success');
+    expect(outline.className).toContain('text-success');
+  });
+
+  it('shows the remove affordance via removable and the sm size + leading dot', () => {
+    const { getByLabelText, getByText } = render(
+      <Tag size="sm" removable dot>
+        d
+      </Tag>
+    );
+    expect(getByLabelText('Remove')).toBeTruthy();
+    expect(getByText('d').className).toContain('px-1.5');
+    const dot = getByText('d').parentElement?.querySelector('[aria-hidden]');
+    expect(dot?.className).toContain('rounded-full');
+  });
 });
 
 describe('Pagination', () => {
