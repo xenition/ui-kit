@@ -11,10 +11,22 @@
  */
 export { CourseCard } from './CourseCard';
 export type { CourseCardProps, CourseLevel } from './CourseCard';
+export { CourseCardV2 } from './CourseCardV2';
+export type { CourseCardV2Props } from './CourseCardV2';
+export { CourseCardV3 } from './CourseCardV3';
+export type { CourseCardV3Props } from './CourseCardV3';
 export { LessonRow } from './LessonRow';
 export type { LessonRowProps, LessonStatus } from './LessonRow';
+export { LessonRowV2 } from './LessonRowV2';
+export type { LessonRowV2Props } from './LessonRowV2';
+export { LessonRowV3 } from './LessonRowV3';
+export type { LessonRowV3Props } from './LessonRowV3';
 export { QuizQuestion } from './QuizQuestion';
 export type { QuizQuestionProps, QuizChoice } from './QuizQuestion';
+export { QuizQuestionV2 } from './QuizQuestionV2';
+export type { QuizQuestionV2Props } from './QuizQuestionV2';
+export { QuizQuestionV3 } from './QuizQuestionV3';
+export type { QuizQuestionV3Props } from './QuizQuestionV3';
 export { QuizOption } from './QuizOption';
 export type { QuizOptionProps, QuizOptionState } from './QuizOption';
 export { ProgressTracker } from './ProgressTracker';
