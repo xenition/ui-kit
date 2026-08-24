@@ -404,6 +404,36 @@
       "types": "./dist/content/index.d.ts",
       "import": "./dist/content/index.js",
       "require": "./dist/content/index.js"
+    },
+    "./streaming": {
+      "types": "./dist/streaming/index.d.ts",
+      "import": "./dist/streaming/index.js",
+      "require": "./dist/streaming/index.js"
+    },
+    "./onboarding": {
+      "types": "./dist/onboarding/index.d.ts",
+      "import": "./dist/onboarding/index.js",
+      "require": "./dist/onboarding/index.js"
+    },
+    "./dating": {
+      "types": "./dist/dating/index.d.ts",
+      "import": "./dist/dating/index.js",
+      "require": "./dist/dating/index.js"
+    },
+    "./gaming": {
+      "types": "./dist/gaming/index.d.ts",
+      "import": "./dist/gaming/index.js",
+      "require": "./dist/gaming/index.js"
+    },
+    "./crypto": {
+      "types": "./dist/crypto/index.d.ts",
+      "import": "./dist/crypto/index.js",
+      "require": "./dist/crypto/index.js"
+    },
+    "./smarthome": {
+      "types": "./dist/smarthome/index.d.ts",
+      "import": "./dist/smarthome/index.js",
+      "require": "./dist/smarthome/index.js"
     }
   },
   "scripts": {
