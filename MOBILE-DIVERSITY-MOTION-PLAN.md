@@ -93,3 +93,9 @@ Wave assignments (web v2/v3, 1 agent/module):
 ## Log
 - 2026-08-24 night — synced develop→main (dev had left develop 16 behind at 0.4.0); Wave 0 vocabulary built + green (1984 tests).
 - 2026-08-25 — Phase 2 web-parity started. develop==main==448d1bb, v0.6.0 live. No further version bump until final 0.7.0.
+
+## PHASE 2 COMPLETE (2026-08-25) — WEB PARITY + cortex wiring + v0.7.0
+- **Web v2/v3 for ALL 44 domain modules + logistics/utilities web modules built from scratch** — 366 web `<Name>V2`/`<Name>V3` drop-in alternate designs (same Props, genuinely different DOM/Tailwind, token-pure), each module with a `design-variants.spec.tsx`. Waves W1–W8 (W1–W2 + logistics/utilities via agents before the 200-agent session cap; W3 onward hand-authored).
+- **productivity** got v2/v3 on BOTH native + web (it previously had none anywhere) → the native kit is now 100% v2/v3 across all 45 domain modules.
+- **cortex `routes_assist.py`** — added a "VISUAL VARIETY … pick ONE design tier (base/V2/V3)" sentence to all 4 domain-module prompts (2 native + 2 web) so generated apps of the same type don't look identical.
+- **Released `@xenition/ui@0.7.0`**; bumped cortex `scaffold.py` `_UI_VERSION` → `^0.7.0` (was `^0.3.0`, which under 0.x caret would NOT have allowed 0.4.0+). 2910 tests green, tsc clean, build OK. develop==main synced each wave.
