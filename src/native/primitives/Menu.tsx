@@ -32,7 +32,22 @@ export function Menu({ trigger, items, align = 'start' }: MenuProps): React.Reac
 
   return (
     <>
-      <Pressable accessibilityRole="button" onPress={() => setOpen(true)}>
+      {/*
+        A transparent tap surface, and deliberately NOT a `button`.
+
+        This wraps whatever the caller passed as `trigger`, and the natural thing
+        to pass is a `<Button>` — which is itself a `Pressable`. Give this wrapper
+        `accessibilityRole="button"` and react-native-web renders both as real
+        `<button>` elements, so the trigger becomes a `<button>` inside a
+        `<button>`: invalid HTML, two React `validateDOMNesting` errors on every
+        mount, and an unpredictable click target. On native it is just as wrong,
+        announcing "button" twice to a screen reader.
+
+        The web twin does the same thing for the same reason — it wraps the
+        trigger in a plain `<span onClick>`. The role belongs to the trigger,
+        which already declares its own; this layer only needs to catch the press.
+      */}
+      <Pressable onPress={() => setOpen(true)}>
         {trigger}
       </Pressable>
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>

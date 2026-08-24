@@ -37,8 +37,18 @@ function Node({ label, value, depth, defaultExpandDepth }: RowProps): React.Reac
   const branch = kind === 'object' || kind === 'array';
   const [open, setOpen] = React.useState(depth < defaultExpandDepth);
 
+  /*
+    Syntax highlighting is text by definition, so every colour here is a `*Text`
+    slot rather than the fill it was.
+
+    `accent`, `primary` and `warn` are background colours — the compiler
+    guarantees `onAccent` on `accent`, and nothing at all about `accent` on
+    `surface`. A viewer whose keys measure 1.43:1 is a viewer you cannot read,
+    which the audit found in light mode. The `*Text` forms are the same hues
+    pushed until they clear AA, and unchanged wherever the fill already did.
+  */
   const keyStyle = {
-    color: colors.accent,
+    color: colors.accentText,
     fontFamily: 'monospace' as const,
     fontSize: tokens.typography.scale.sm,
   };
@@ -46,9 +56,9 @@ function Node({ label, value, depth, defaultExpandDepth }: RowProps): React.Reac
     kind === 'string'
       ? colors.onSurface
       : kind === 'number'
-        ? colors.primary
+        ? colors.primaryText
         : kind === 'boolean'
-          ? colors.warn
+          ? colors.warnText
           : colors.muted;
 
   const indent = { paddingLeft: depth * tokens.spacing.md };
@@ -96,8 +106,8 @@ function Node({ label, value, depth, defaultExpandDepth }: RowProps): React.Reac
 }
 
 /**
- * Collapsible JSON tree inspector: keys render in `colors.accent`, strings in
- * `colors.onSurface`, numbers in `colors.primary`, booleans in `colors.warn`,
+ * Collapsible JSON tree inspector: keys render in `colors.accentText`, strings in
+ * `colors.onSurface`, numbers in `colors.primaryText`, booleans in `colors.warnText`,
  * and null in `colors.muted`, all monospaced. Branch nodes (objects/arrays)
  * toggle open on tap. `fontFamily: 'monospace'` is a font family, not a color.
  * All colors and spacing come from the compiled theme tokens via

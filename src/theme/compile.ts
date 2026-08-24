@@ -176,6 +176,25 @@ function deriveSemantics(ramps: RampSet, mode: 'light' | 'dark'): SemanticColors
     onWarn: ensureContrast('#ffffff', warn, MIN_CONTRAST),
     danger,
     onDanger: ensureContrast('#ffffff', danger, MIN_CONTRAST),
+
+    /*
+      The same colors as TEXT, pushed until they are readable on `surface`.
+
+      Every slot above answers "what goes ON this fill". Nothing answered "what
+      if this color IS the text" — so components used the fill directly, which
+      carries no guarantee at all. `ensureContrast` is the same routine the
+      on-pairs use and cannot fail: it walks lightness until the ratio clears,
+      keeping hue and saturation, so a brand color still reads as the brand.
+
+      A fill and its text form are often the same value already — a mid-600 ramp
+      step usually clears AA on a 50 surface — in which case ensureContrast
+      returns it untouched and nothing changes visually.
+    */
+    primaryText: ensureContrast(primary, surface, MIN_CONTRAST),
+    accentText: ensureContrast(accent, surface, MIN_CONTRAST),
+    successText: ensureContrast(success, surface, MIN_CONTRAST),
+    warnText: ensureContrast(warn, surface, MIN_CONTRAST),
+    dangerText: ensureContrast(danger, surface, MIN_CONTRAST),
   };
 }
 

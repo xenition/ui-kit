@@ -30,16 +30,41 @@ interface ToneSlots {
   solidFg: keyof SemanticColors;
   /** Vivid accent used for soft fills / outlines / dots. */
   accent: keyof SemanticColors;
+  /**
+   * The same accent as TEXT.
+   *
+   * `soft` and `outline` put the label on the page rather than on a fill — a 14%
+   * tint is still essentially the surface underneath — so the label is text on
+   * `surface`, where a fill colour carries no contrast guarantee. Measured at
+   * 1.32:1 on the soft accent tone. The border and the dot keep `accent`: both
+   * are UI boundaries judged at 3:1, not text.
+   */
+  text: keyof SemanticColors;
 }
 
-/** Historical solid fg values are kept (success/warn/danger used `onPrimary`). */
+/**
+ * Every tone pairs a background with the `on*` colour compiled for THAT
+ * background.
+ *
+ * This map used to carry `onPrimary` as the foreground for success, warn and
+ * danger, kept for historical reasons. The compiler only guarantees WCAG AA
+ * between a colour and its own partner — `onPrimary` on `primary`, `onDanger`
+ * on `danger` — so pairing `onPrimary` with `danger` guarantees nothing, and a
+ * rendered audit measured it at 2.30:1 against the danger fill.
+ *
+ * `warn` was also filled with `accent` rather than `warn`, which made the
+ * warning tone render in the brand's secondary colour. A semantic colour has to
+ * mean what it says.
+ *
+ * Badge's identical map already had all of this right; the two now agree.
+ */
 const TONE: Record<TagTone, ToneSlots> = {
-  neutral: { solidBg: 'border', solidFg: 'onSurface', accent: 'onSurface' },
-  primary: { solidBg: 'primary', solidFg: 'onPrimary', accent: 'primary' },
-  success: { solidBg: 'success', solidFg: 'onPrimary', accent: 'success' },
-  warn: { solidBg: 'accent', solidFg: 'onPrimary', accent: 'accent' },
-  danger: { solidBg: 'danger', solidFg: 'onPrimary', accent: 'danger' },
-  accent: { solidBg: 'accent', solidFg: 'onAccent', accent: 'accent' },
+  neutral: { solidBg: 'border', solidFg: 'onSurface', accent: 'onSurface', text: 'onSurface' },
+  primary: { solidBg: 'primary', solidFg: 'onPrimary', accent: 'primary', text: 'primaryText' },
+  success: { solidBg: 'success', solidFg: 'onSuccess', accent: 'success', text: 'successText' },
+  warn: { solidBg: 'warn', solidFg: 'onWarn', accent: 'warn', text: 'warnText' },
+  danger: { solidBg: 'danger', solidFg: 'onDanger', accent: 'danger', text: 'dangerText' },
+  accent: { solidBg: 'accent', solidFg: 'onAccent', accent: 'accent', text: 'accentText' },
 };
 
 const SIZE: Record<TagSize, { padV: number; padKey: 'xs' | 'sm'; text: 'xs' | 'sm' }> = {
@@ -76,6 +101,7 @@ export function Tag({
   const { colors, tokens } = useXenitionTheme();
   const slots = TONE[tone];
   const accentColor = colors[slots.accent];
+  const textColor = colors[slots.text];
   const sz = SIZE[size];
 
   let bg: string;
@@ -87,10 +113,10 @@ export function Tag({
     fg = colors[slots.solidFg];
   } else if (variant === 'soft') {
     bg = withAlpha(accentColor, 0.14);
-    fg = accentColor;
+    fg = textColor;
   } else {
     bg = 'transparent';
-    fg = accentColor;
+    fg = textColor;
     borderWidth = 1;
     borderColor = accentColor;
   }

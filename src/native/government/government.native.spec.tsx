@@ -130,7 +130,10 @@ describe('FormStatusRow (native)', () => {
     );
     expect(getByText('Homestead exemption')).toBeTruthy();
     // Badge soft fg reads the success accent slot.
-    expect(flatten(getByText('✓ Complete').props.style).color).toBe(lightColors.success);
+    // `successText`, not `success`: a soft/outline pill puts its label on the
+    // page, not on a fill, and the compiler only guarantees on-pairs. See the
+    // *Text slots added alongside this change.
+    expect(flatten(getByText('✓ Complete').props.style).color).toBe(lightColors.successText);
     fireEvent.press(getByLabelText(/Homestead exemption/));
     expect(onPress).toHaveBeenCalledTimes(1);
   });

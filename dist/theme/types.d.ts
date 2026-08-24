@@ -48,6 +48,26 @@ export interface SemanticColors {
     onAccent: string;
     /** De-emphasized text/icon color (not part of a contrast-guaranteed pair). */
     muted: string;
+    /**
+     * The brand and status colors again, but darkened or lightened until they
+     * clear WCAG AA **as text on `surface`**.
+     *
+     * `primary` and its siblings are FILL colors: the compiler guarantees
+     * `onPrimary` against `primary`, and promises nothing about `primary` against
+     * `surface`. Components reached for them as text anyway — the obvious thing to
+     * do for a link, a chart key, a filled star, a validation asterisk — and a
+     * rendered audit measured the result as low as 1.32:1.
+     *
+     * These are that same fix applied once, by the same `ensureContrast` the
+     * on-pairs already use, instead of six components each guessing. Use them
+     * wherever a brand or status color is the TEXT; keep using the plain slots
+     * wherever it is the background.
+     */
+    primaryText: string;
+    accentText: string;
+    successText: string;
+    warnText: string;
+    dangerText: string;
     border: string;
     success: string;
     onSuccess: string;

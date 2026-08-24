@@ -112,7 +112,10 @@ describe('PaymentRow (native)', () => {
       SEED_LIGHT
     );
     expect(getByText('$129.00')).toBeTruthy();
-    expect(flatten(getByText('✓ Paid').props.style).color).toBe(lightColors.success);
+    // `successText`, not `success`: a soft/outline pill puts its label on the
+    // page, not on a fill, and the compiler only guarantees on-pairs. See the
+    // *Text slots added alongside this change.
+    expect(flatten(getByText('✓ Paid').props.style).color).toBe(lightColors.successText);
 
     fireEvent.press(getByLabelText(/Payment \$129\.00/));
     expect(onPress).toHaveBeenCalledTimes(1);

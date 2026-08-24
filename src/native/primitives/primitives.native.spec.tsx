@@ -552,7 +552,10 @@ describe('enriched primitive variants (native)', () => {
       <Badge tone="accent" variant="soft" size="sm" count={150} max={99} />,
       SEED_LIGHT
     );
-    const accent = require('../../theme/compile').compileTheme(SEED_LIGHT).light.accent.toLowerCase();
+    // `accentText`, not `accent`. A soft badge's label sits on a 14% tint, which
+    // is still the surface underneath, so it is text on `surface` — where a fill
+    // colour carries no contrast guarantee at all.
+    const accent = require('../../theme/compile').compileTheme(SEED_LIGHT).light.accentText.toLowerCase();
     const label = getByText('99+');
     expect(String(flatten(label.props.style).color).toLowerCase()).toBe(accent);
 
@@ -600,7 +603,8 @@ describe('enriched primitive variants (native)', () => {
       </Tag>,
       SEED_LIGHT
     );
-    const accent = require('../../theme/compile').compileTheme(SEED_LIGHT).light.accent.toLowerCase();
+    // Same reason as the Badge case above: soft/outline labels take `accentText`.
+    const accent = require('../../theme/compile').compileTheme(SEED_LIGHT).light.accentText.toLowerCase();
     expect(String(flatten(getByText('filter').props.style).color).toLowerCase()).toBe(accent);
     fireEvent.press(getByLabelText('Remove'));
     expect(onRemove).toHaveBeenCalledTimes(1);

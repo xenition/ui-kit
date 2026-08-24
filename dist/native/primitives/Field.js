@@ -12,6 +12,6 @@ const Label_1 = require("./Label");
  */
 function Field({ label, required = false, error, hint, style, children, ...rest }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ gap: tokens.spacing.xs }, style], ...rest, children: [label != null ? (0, jsx_runtime_1.jsx)(Label_1.Label, { required: required, children: label }) : null, children, error ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { accessibilityRole: "alert", style: { color: colors.danger, fontSize: tokens.typography.scale.sm }, children: error })) : hint ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: hint })) : null] }));
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ gap: tokens.spacing.xs }, style], ...rest, children: [label != null ? (0, jsx_runtime_1.jsx)(Label_1.Label, { required: required, children: label }) : null, children, error ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { accessibilityRole: "alert", style: { color: colors.dangerText, fontSize: tokens.typography.scale.sm }, children: error })) : hint ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: hint })) : null] }));
 }
 //# sourceMappingURL=Field.js.map

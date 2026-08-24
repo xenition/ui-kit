@@ -10,8 +10,8 @@ export interface JsonViewerProps {
     style?: StyleProp<ViewStyle>;
 }
 /**
- * Collapsible JSON tree inspector: keys render in `colors.accent`, strings in
- * `colors.onSurface`, numbers in `colors.primary`, booleans in `colors.warn`,
+ * Collapsible JSON tree inspector: keys render in `colors.accentText`, strings in
+ * `colors.onSurface`, numbers in `colors.primaryText`, booleans in `colors.warnText`,
  * and null in `colors.muted`, all monospaced. Branch nodes (objects/arrays)
  * toggle open on tap. `fontFamily: 'monospace'` is a font family, not a color.
  * All colors and spacing come from the compiled theme tokens via

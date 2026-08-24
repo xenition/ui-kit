@@ -30,6 +30,15 @@ const SEMANTIC_KEYS = [
     'onWarn',
     'danger',
     'onDanger',
+    // The contrast-safe text forms. Emitted as --xen-primary-text and friends, so
+    // the web side gets exactly what native gets — the list is hand-maintained, so
+    // a token added to SemanticColors and not added here silently exists on native
+    // and not on web, which is the parity break this kit's rules forbid.
+    'primaryText',
+    'accentText',
+    'successText',
+    'warnText',
+    'dangerText',
 ];
 function semanticVarLines(colors) {
     return SEMANTIC_KEYS.map((key) => `--xen-${camelToKebab(key)}: ${colors[key]};`);
@@ -138,6 +147,15 @@ function toTailwindPreset(_theme) {
         'on-warn': 'var(--xen-on-warn)',
         danger: 'var(--xen-danger)',
         'on-danger': 'var(--xen-on-danger)',
+        // Contrast-safe TEXT forms: `text-primary-text`, `text-danger-text`, ...
+        // `text-primary` still resolves to the fill, because that is what it has
+        // always meant and changing it under existing markup would be worse than the
+        // bug. New work colouring text with a brand or status colour wants these.
+        'primary-text': 'var(--xen-primary-text)',
+        'accent-text': 'var(--xen-accent-text)',
+        'success-text': 'var(--xen-success-text)',
+        'warn-text': 'var(--xen-warn-text)',
+        'danger-text': 'var(--xen-danger-text)',
     };
     return {
         theme: {

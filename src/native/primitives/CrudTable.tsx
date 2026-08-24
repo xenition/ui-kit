@@ -129,7 +129,7 @@ export function CrudTable<T>({
           trigger={
             <Text
               style={{
-                color: colors.danger,
+                color: colors.dangerText,
                 fontSize: tokens.typography.scale.sm,
                 fontWeight: '600',
                 paddingHorizontal: tokens.spacing.sm,

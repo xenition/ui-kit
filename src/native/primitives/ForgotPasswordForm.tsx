@@ -49,7 +49,7 @@ export function ForgotPasswordForm({
       footer={
         onLoginClick ? (
           <Pressable accessibilityRole="button" onPress={onLoginClick}>
-            <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.sm }}>
+            <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm }}>
               Back to sign in
             </Text>
           </Pressable>

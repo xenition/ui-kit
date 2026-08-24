@@ -5,12 +5,12 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const TONE = {
-    neutral: { solidBg: 'border', solidFg: 'onSurface', accent: 'onSurface' },
-    primary: { solidBg: 'primary', solidFg: 'onPrimary', accent: 'primary' },
-    success: { solidBg: 'success', solidFg: 'onSuccess', accent: 'success' },
-    warn: { solidBg: 'warn', solidFg: 'onWarn', accent: 'warn' },
-    danger: { solidBg: 'danger', solidFg: 'onDanger', accent: 'danger' },
-    accent: { solidBg: 'accent', solidFg: 'onAccent', accent: 'accent' },
+    neutral: { solidBg: 'border', solidFg: 'onSurface', accent: 'onSurface', text: 'onSurface' },
+    primary: { solidBg: 'primary', solidFg: 'onPrimary', accent: 'primary', text: 'primaryText' },
+    success: { solidBg: 'success', solidFg: 'onSuccess', accent: 'success', text: 'successText' },
+    warn: { solidBg: 'warn', solidFg: 'onWarn', accent: 'warn', text: 'warnText' },
+    danger: { solidBg: 'danger', solidFg: 'onDanger', accent: 'danger', text: 'dangerText' },
+    accent: { solidBg: 'accent', solidFg: 'onAccent', accent: 'accent', text: 'accentText' },
 };
 const SIZE = {
     sm: { padV: 1, padKey: 'xs', text: 'xs' },
@@ -35,6 +35,7 @@ function Badge({ tone = 'neutral', variant = 'solid', size = 'md', dot = false, 
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const slots = TONE[tone];
     const accentColor = colors[slots.accent];
+    const textColor = colors[slots.text];
     const sz = SIZE[size];
     const label = count !== undefined ? (count > max ? `${max}+` : String(count)) : children;
     let bg;
@@ -47,11 +48,11 @@ function Badge({ tone = 'neutral', variant = 'solid', size = 'md', dot = false, 
     }
     else if (variant === 'soft') {
         bg = withAlpha(accentColor, 0.14);
-        fg = accentColor;
+        fg = textColor;
     }
     else {
         bg = 'transparent';
-        fg = accentColor;
+        fg = textColor;
         borderWidth = 1;
         borderColor = accentColor;
     }

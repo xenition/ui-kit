@@ -4,14 +4,29 @@ exports.Tag = Tag;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
-/** Historical solid fg values are kept (success/warn/danger used `onPrimary`). */
+/**
+ * Every tone pairs a background with the `on*` colour compiled for THAT
+ * background.
+ *
+ * This map used to carry `onPrimary` as the foreground for success, warn and
+ * danger, kept for historical reasons. The compiler only guarantees WCAG AA
+ * between a colour and its own partner — `onPrimary` on `primary`, `onDanger`
+ * on `danger` — so pairing `onPrimary` with `danger` guarantees nothing, and a
+ * rendered audit measured it at 2.30:1 against the danger fill.
+ *
+ * `warn` was also filled with `accent` rather than `warn`, which made the
+ * warning tone render in the brand's secondary colour. A semantic colour has to
+ * mean what it says.
+ *
+ * Badge's identical map already had all of this right; the two now agree.
+ */
 const TONE = {
-    neutral: { solidBg: 'border', solidFg: 'onSurface', accent: 'onSurface' },
-    primary: { solidBg: 'primary', solidFg: 'onPrimary', accent: 'primary' },
-    success: { solidBg: 'success', solidFg: 'onPrimary', accent: 'success' },
-    warn: { solidBg: 'accent', solidFg: 'onPrimary', accent: 'accent' },
-    danger: { solidBg: 'danger', solidFg: 'onPrimary', accent: 'danger' },
-    accent: { solidBg: 'accent', solidFg: 'onAccent', accent: 'accent' },
+    neutral: { solidBg: 'border', solidFg: 'onSurface', accent: 'onSurface', text: 'onSurface' },
+    primary: { solidBg: 'primary', solidFg: 'onPrimary', accent: 'primary', text: 'primaryText' },
+    success: { solidBg: 'success', solidFg: 'onSuccess', accent: 'success', text: 'successText' },
+    warn: { solidBg: 'warn', solidFg: 'onWarn', accent: 'warn', text: 'warnText' },
+    danger: { solidBg: 'danger', solidFg: 'onDanger', accent: 'danger', text: 'dangerText' },
+    accent: { solidBg: 'accent', solidFg: 'onAccent', accent: 'accent', text: 'accentText' },
 };
 const SIZE = {
     sm: { padV: 1, padKey: 'xs', text: 'xs' },
@@ -36,6 +51,7 @@ function Tag({ tone = 'neutral', variant = 'solid', size = 'md', removable = fal
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const slots = TONE[tone];
     const accentColor = colors[slots.accent];
+    const textColor = colors[slots.text];
     const sz = SIZE[size];
     let bg;
     let fg;
@@ -47,11 +63,11 @@ function Tag({ tone = 'neutral', variant = 'solid', size = 'md', removable = fal
     }
     else if (variant === 'soft') {
         bg = withAlpha(accentColor, 0.14);
-        fg = accentColor;
+        fg = textColor;
     }
     else {
         bg = 'transparent';
-        fg = accentColor;
+        fg = textColor;
         borderWidth = 1;
         borderColor = accentColor;
     }
