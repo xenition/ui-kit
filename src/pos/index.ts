@@ -17,12 +17,24 @@
 
 export { RegisterKeypad } from './RegisterKeypad';
 export type { RegisterKeypadProps, RegisterKeypadVariant, KeypadKey } from './RegisterKeypad';
+export { RegisterKeypadV2 } from './RegisterKeypadV2';
+export type { RegisterKeypadV2Props } from './RegisterKeypadV2';
+export { RegisterKeypadV3 } from './RegisterKeypadV3';
+export type { RegisterKeypadV3Props } from './RegisterKeypadV3';
 
 export { CartLine } from './CartLine';
 export type { CartLineProps, CartLineVariant } from './CartLine';
+export { CartLineV2 } from './CartLineV2';
+export type { CartLineV2Props } from './CartLineV2';
+export { CartLineV3 } from './CartLineV3';
+export type { CartLineV3Props } from './CartLineV3';
 
 export { ReceiptView } from './ReceiptView';
 export type { ReceiptViewProps, ReceiptViewVariant, ReceiptLine, ReceiptTender } from './ReceiptView';
+export { ReceiptViewV2 } from './ReceiptViewV2';
+export type { ReceiptViewV2Props } from './ReceiptViewV2';
+export { ReceiptViewV3 } from './ReceiptViewV3';
+export type { ReceiptViewV3Props } from './ReceiptViewV3';
 
 export { PaymentMethodTile } from './PaymentMethodTile';
 export type { PaymentMethodTileProps, PaymentMethodTileVariant } from './PaymentMethodTile';
@@ -35,6 +47,10 @@ export type { CashDrawerRowProps, CashDrawerRowVariant } from './CashDrawerRow';
 
 export { ProductGridTile } from './ProductGridTile';
 export type { ProductGridTileProps, ProductGridTileVariant } from './ProductGridTile';
+export { ProductGridTileV2 } from './ProductGridTileV2';
+export type { ProductGridTileV2Props } from './ProductGridTileV2';
+export { ProductGridTileV3 } from './ProductGridTileV3';
+export type { ProductGridTileV3Props } from './ProductGridTileV3';
 
 export { SplitBillRow } from './SplitBillRow';
 export type { SplitBillRowProps, SplitBillRowVariant } from './SplitBillRow';

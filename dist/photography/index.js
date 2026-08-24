@@ -14,19 +14,35 @@
  * opinionated surface on top.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PricePackageRow = exports.ShotListItem = exports.EquipmentRow = exports.LightboxThumb = exports.ClientProofRow = exports.GalleryHeader = exports.PackageCard = exports.PrintOrderRow = exports.ShootBookingCard = exports.PhotoTile = exports.AlbumCard = exports.PortfolioGrid = void 0;
+exports.PricePackageRow = exports.ShotListItem = exports.EquipmentRow = exports.LightboxThumb = exports.ClientProofRow = exports.GalleryHeader = exports.PackageCardV3 = exports.PackageCardV2 = exports.PackageCard = exports.PrintOrderRow = exports.ShootBookingCard = exports.PhotoTileV3 = exports.PhotoTileV2 = exports.PhotoTile = exports.AlbumCardV3 = exports.AlbumCardV2 = exports.AlbumCard = exports.PortfolioGridV3 = exports.PortfolioGridV2 = exports.PortfolioGrid = void 0;
 var PortfolioGrid_1 = require("./PortfolioGrid");
 Object.defineProperty(exports, "PortfolioGrid", { enumerable: true, get: function () { return PortfolioGrid_1.PortfolioGrid; } });
+var PortfolioGridV2_1 = require("./PortfolioGridV2");
+Object.defineProperty(exports, "PortfolioGridV2", { enumerable: true, get: function () { return PortfolioGridV2_1.PortfolioGridV2; } });
+var PortfolioGridV3_1 = require("./PortfolioGridV3");
+Object.defineProperty(exports, "PortfolioGridV3", { enumerable: true, get: function () { return PortfolioGridV3_1.PortfolioGridV3; } });
 var AlbumCard_1 = require("./AlbumCard");
 Object.defineProperty(exports, "AlbumCard", { enumerable: true, get: function () { return AlbumCard_1.AlbumCard; } });
+var AlbumCardV2_1 = require("./AlbumCardV2");
+Object.defineProperty(exports, "AlbumCardV2", { enumerable: true, get: function () { return AlbumCardV2_1.AlbumCardV2; } });
+var AlbumCardV3_1 = require("./AlbumCardV3");
+Object.defineProperty(exports, "AlbumCardV3", { enumerable: true, get: function () { return AlbumCardV3_1.AlbumCardV3; } });
 var PhotoTile_1 = require("./PhotoTile");
 Object.defineProperty(exports, "PhotoTile", { enumerable: true, get: function () { return PhotoTile_1.PhotoTile; } });
+var PhotoTileV2_1 = require("./PhotoTileV2");
+Object.defineProperty(exports, "PhotoTileV2", { enumerable: true, get: function () { return PhotoTileV2_1.PhotoTileV2; } });
+var PhotoTileV3_1 = require("./PhotoTileV3");
+Object.defineProperty(exports, "PhotoTileV3", { enumerable: true, get: function () { return PhotoTileV3_1.PhotoTileV3; } });
 var ShootBookingCard_1 = require("./ShootBookingCard");
 Object.defineProperty(exports, "ShootBookingCard", { enumerable: true, get: function () { return ShootBookingCard_1.ShootBookingCard; } });
 var PrintOrderRow_1 = require("./PrintOrderRow");
 Object.defineProperty(exports, "PrintOrderRow", { enumerable: true, get: function () { return PrintOrderRow_1.PrintOrderRow; } });
 var PackageCard_1 = require("./PackageCard");
 Object.defineProperty(exports, "PackageCard", { enumerable: true, get: function () { return PackageCard_1.PackageCard; } });
+var PackageCardV2_1 = require("./PackageCardV2");
+Object.defineProperty(exports, "PackageCardV2", { enumerable: true, get: function () { return PackageCardV2_1.PackageCardV2; } });
+var PackageCardV3_1 = require("./PackageCardV3");
+Object.defineProperty(exports, "PackageCardV3", { enumerable: true, get: function () { return PackageCardV3_1.PackageCardV3; } });
 var GalleryHeader_1 = require("./GalleryHeader");
 Object.defineProperty(exports, "GalleryHeader", { enumerable: true, get: function () { return GalleryHeader_1.GalleryHeader; } });
 var ClientProofRow_1 = require("./ClientProofRow");
