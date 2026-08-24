@@ -494,6 +494,36 @@
       "types": "./dist/agriculture/index.d.ts",
       "import": "./dist/agriculture/index.js",
       "require": "./dist/agriculture/index.js"
+    },
+    "./government": {
+      "types": "./dist/government/index.d.ts",
+      "import": "./dist/government/index.js",
+      "require": "./dist/government/index.js"
+    },
+    "./hr": {
+      "types": "./dist/hr/index.d.ts",
+      "import": "./dist/hr/index.js",
+      "require": "./dist/hr/index.js"
+    },
+    "./survey": {
+      "types": "./dist/survey/index.d.ts",
+      "import": "./dist/survey/index.js",
+      "require": "./dist/survey/index.js"
+    },
+    "./calendar": {
+      "types": "./dist/calendar/index.d.ts",
+      "import": "./dist/calendar/index.js",
+      "require": "./dist/calendar/index.js"
+    },
+    "./email": {
+      "types": "./dist/email/index.d.ts",
+      "import": "./dist/email/index.js",
+      "require": "./dist/email/index.js"
+    },
+    "./music": {
+      "types": "./dist/music/index.d.ts",
+      "import": "./dist/music/index.js",
+      "require": "./dist/music/index.js"
     }
   },
   "scripts": {
