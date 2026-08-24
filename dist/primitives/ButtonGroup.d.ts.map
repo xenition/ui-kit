@@ -1,0 +1,1 @@
+{"version":3,"file":"ButtonGroup.d.ts","sourceRoot":"","sources":["../../src/primitives/ButtonGroup.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAG/B,MAAM,WAAW,gBAAiB,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IAC5E,uEAAuE;IACvE,QAAQ,EAAE,KAAK,CAAC,SAAS,CAAC;IAC1B,wDAAwD;IACxD,IAAI,CAAC,EAAE,OAAO,CAAC;CAChB;AAED;;;;;;;GAOG;AACH,eAAO,MAAM,WAAW,yFAwBtB,CAAC"}

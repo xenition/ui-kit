@@ -1,0 +1,1 @@
+{"version":3,"file":"ChatBubble.d.ts","sourceRoot":"","sources":["../../src/primitives/ChatBubble.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAG/B,MAAM,WAAW,eAAgB,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IAC3E,uFAAuF;IACvF,IAAI,CAAC,EAAE,IAAI,GAAG,MAAM,CAAC;IACrB,0DAA0D;IAC1D,IAAI,CAAC,EAAE,KAAK,CAAC,SAAS,CAAC;CACxB;AAED,iFAAiF;AACjF,eAAO,MAAM,UAAU,wFAsBrB,CAAC"}

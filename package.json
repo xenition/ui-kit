@@ -1,0 +1,426 @@
+{
+  "name": "@xenition/ui",
+  "version": "0.2.0",
+  "description": "Official UI kit for Xenition-generated apps — seed-token theme compiler with WCAG auto-contrast, Tailwind preset, themed React primitives (web), and React Native theme tokens.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme/index.js",
+      "require": "./dist/theme/index.js"
+    },
+    "./tailwind-preset": {
+      "types": "./dist/tailwind-preset/index.d.ts",
+      "import": "./dist/tailwind-preset/index.js",
+      "require": "./dist/tailwind-preset/index.js"
+    },
+    "./primitives": {
+      "types": "./dist/primitives/index.d.ts",
+      "import": "./dist/primitives/index.js",
+      "require": "./dist/primitives/index.js"
+    },
+    "./motion": {
+      "types": "./dist/motion/index.d.ts",
+      "import": "./dist/motion/index.js",
+      "require": "./dist/motion/index.js"
+    },
+    "./data": {
+      "types": "./dist/data/index.d.ts",
+      "import": "./dist/data/index.js",
+      "require": "./dist/data/index.js"
+    },
+    "./marketing": {
+      "types": "./dist/marketing/index.d.ts",
+      "import": "./dist/marketing/index.js",
+      "require": "./dist/marketing/index.js"
+    },
+    "./booking": {
+      "types": "./dist/booking/index.d.ts",
+      "import": "./dist/booking/index.js",
+      "require": "./dist/booking/index.js"
+    },
+    "./media": {
+      "types": "./dist/media/index.d.ts",
+      "import": "./dist/media/index.js",
+      "require": "./dist/media/index.js"
+    },
+    "./commerce": {
+      "types": "./dist/commerce/index.d.ts",
+      "import": "./dist/commerce/index.js",
+      "require": "./dist/commerce/index.js"
+    },
+    "./i18n": {
+      "types": "./dist/i18n/index.d.ts",
+      "import": "./dist/i18n/index.js",
+      "require": "./dist/i18n/index.js"
+    },
+    "./layout": {
+      "types": "./dist/layout/index.d.ts",
+      "import": "./dist/layout/index.js",
+      "require": "./dist/layout/index.js"
+    },
+    "./charts": {
+      "types": "./dist/charts/index.d.ts",
+      "import": "./dist/charts/index.js",
+      "require": "./dist/charts/index.js"
+    },
+    "./dashboard": {
+      "types": "./dist/dashboard/index.d.ts",
+      "import": "./dist/dashboard/index.js",
+      "require": "./dist/dashboard/index.js"
+    },
+    "./native/theme": {
+      "types": "./dist/native/theme/index.d.ts",
+      "import": "./dist/native/theme/index.js",
+      "require": "./dist/native/theme/index.js"
+    },
+    "./native/primitives": {
+      "types": "./dist/native/primitives/index.d.ts",
+      "import": "./dist/native/primitives/index.js",
+      "require": "./dist/native/primitives/index.js"
+    },
+    "./native/commerce": {
+      "types": "./dist/native/commerce/index.d.ts",
+      "import": "./dist/native/commerce/index.js",
+      "require": "./dist/native/commerce/index.js"
+    },
+    "./native/marketing": {
+      "types": "./dist/native/marketing/index.d.ts",
+      "import": "./dist/native/marketing/index.js",
+      "require": "./dist/native/marketing/index.js"
+    },
+    "./native/booking": {
+      "types": "./dist/native/booking/index.d.ts",
+      "import": "./dist/native/booking/index.js",
+      "require": "./dist/native/booking/index.js"
+    },
+    "./native/media": {
+      "types": "./dist/native/media/index.d.ts",
+      "import": "./dist/native/media/index.js",
+      "require": "./dist/native/media/index.js"
+    },
+    "./native/motion": {
+      "types": "./dist/native/motion/index.d.ts",
+      "import": "./dist/native/motion/index.js",
+      "require": "./dist/native/motion/index.js"
+    },
+    "./native/layout": {
+      "types": "./dist/native/layout/index.d.ts",
+      "import": "./dist/native/layout/index.js",
+      "require": "./dist/native/layout/index.js"
+    },
+    "./native/charts": {
+      "types": "./dist/native/charts/index.d.ts",
+      "import": "./dist/native/charts/index.js",
+      "require": "./dist/native/charts/index.js"
+    },
+    "./native/dashboard": {
+      "types": "./dist/native/dashboard/index.d.ts",
+      "import": "./dist/native/dashboard/index.js",
+      "require": "./dist/native/dashboard/index.js"
+    },
+    "./native/social": {
+      "types": "./dist/native/social/index.d.ts",
+      "import": "./dist/native/social/index.js",
+      "require": "./dist/native/social/index.js"
+    },
+    "./native/chat": {
+      "types": "./dist/native/chat/index.d.ts",
+      "import": "./dist/native/chat/index.js",
+      "require": "./dist/native/chat/index.js"
+    },
+    "./native/finance": {
+      "types": "./dist/native/finance/index.d.ts",
+      "import": "./dist/native/finance/index.js",
+      "require": "./dist/native/finance/index.js"
+    },
+    "./native/health": {
+      "types": "./dist/native/health/index.d.ts",
+      "import": "./dist/native/health/index.js",
+      "require": "./dist/native/health/index.js"
+    },
+    "./native/productivity": {
+      "types": "./dist/native/productivity/index.d.ts",
+      "import": "./dist/native/productivity/index.js",
+      "require": "./dist/native/productivity/index.js"
+    },
+    "./native/travel": {
+      "types": "./dist/native/travel/index.d.ts",
+      "import": "./dist/native/travel/index.js",
+      "require": "./dist/native/travel/index.js"
+    },
+    "./native/learning": {
+      "types": "./dist/native/learning/index.d.ts",
+      "import": "./dist/native/learning/index.js",
+      "require": "./dist/native/learning/index.js"
+    },
+    "./native/food": {
+      "types": "./dist/native/food/index.d.ts",
+      "import": "./dist/native/food/index.js",
+      "require": "./dist/native/food/index.js"
+    },
+    "./native/realestate": {
+      "types": "./dist/native/realestate/index.d.ts",
+      "import": "./dist/native/realestate/index.js",
+      "require": "./dist/native/realestate/index.js"
+    },
+    "./native/events": {
+      "types": "./dist/native/events/index.d.ts",
+      "import": "./dist/native/events/index.js",
+      "require": "./dist/native/events/index.js"
+    },
+    "./native/jobs": {
+      "types": "./dist/native/jobs/index.d.ts",
+      "import": "./dist/native/jobs/index.js",
+      "require": "./dist/native/jobs/index.js"
+    },
+    "./native/content": {
+      "types": "./dist/native/content/index.d.ts",
+      "import": "./dist/native/content/index.js",
+      "require": "./dist/native/content/index.js"
+    },
+    "./native/streaming": {
+      "types": "./dist/native/streaming/index.d.ts",
+      "import": "./dist/native/streaming/index.js",
+      "require": "./dist/native/streaming/index.js"
+    },
+    "./native/onboarding": {
+      "types": "./dist/native/onboarding/index.d.ts",
+      "import": "./dist/native/onboarding/index.js",
+      "require": "./dist/native/onboarding/index.js"
+    },
+    "./native/dating": {
+      "types": "./dist/native/dating/index.d.ts",
+      "import": "./dist/native/dating/index.js",
+      "require": "./dist/native/dating/index.js"
+    },
+    "./native/gaming": {
+      "types": "./dist/native/gaming/index.d.ts",
+      "import": "./dist/native/gaming/index.js",
+      "require": "./dist/native/gaming/index.js"
+    },
+    "./native/crypto": {
+      "types": "./dist/native/crypto/index.d.ts",
+      "import": "./dist/native/crypto/index.js",
+      "require": "./dist/native/crypto/index.js"
+    },
+    "./native/smarthome": {
+      "types": "./dist/native/smarthome/index.d.ts",
+      "import": "./dist/native/smarthome/index.js",
+      "require": "./dist/native/smarthome/index.js"
+    },
+    "./native/weather": {
+      "types": "./dist/native/weather/index.d.ts",
+      "import": "./dist/native/weather/index.js",
+      "require": "./dist/native/weather/index.js"
+    },
+    "./native/sports": {
+      "types": "./dist/native/sports/index.d.ts",
+      "import": "./dist/native/sports/index.js",
+      "require": "./dist/native/sports/index.js"
+    },
+    "./native/marketplace": {
+      "types": "./dist/native/marketplace/index.d.ts",
+      "import": "./dist/native/marketplace/index.js",
+      "require": "./dist/native/marketplace/index.js"
+    },
+    "./native/medical": {
+      "types": "./dist/native/medical/index.d.ts",
+      "import": "./dist/native/medical/index.js",
+      "require": "./dist/native/medical/index.js"
+    },
+    "./native/crm": {
+      "types": "./dist/native/crm/index.d.ts",
+      "import": "./dist/native/crm/index.js",
+      "require": "./dist/native/crm/index.js"
+    },
+    "./native/support": {
+      "types": "./dist/native/support/index.d.ts",
+      "import": "./dist/native/support/index.js",
+      "require": "./dist/native/support/index.js"
+    },
+    "./native/automotive": {
+      "types": "./dist/native/automotive/index.d.ts",
+      "import": "./dist/native/automotive/index.js",
+      "require": "./dist/native/automotive/index.js"
+    },
+    "./native/insurance": {
+      "types": "./dist/native/insurance/index.d.ts",
+      "import": "./dist/native/insurance/index.js",
+      "require": "./dist/native/insurance/index.js"
+    },
+    "./native/pets": {
+      "types": "./dist/native/pets/index.d.ts",
+      "import": "./dist/native/pets/index.js",
+      "require": "./dist/native/pets/index.js"
+    },
+    "./native/beauty": {
+      "types": "./dist/native/beauty/index.d.ts",
+      "import": "./dist/native/beauty/index.js",
+      "require": "./dist/native/beauty/index.js"
+    },
+    "./native/fieldservice": {
+      "types": "./dist/native/fieldservice/index.d.ts",
+      "import": "./dist/native/fieldservice/index.js",
+      "require": "./dist/native/fieldservice/index.js"
+    },
+    "./native/agriculture": {
+      "types": "./dist/native/agriculture/index.d.ts",
+      "import": "./dist/native/agriculture/index.js",
+      "require": "./dist/native/agriculture/index.js"
+    },
+    "./native/logistics": {
+      "types": "./dist/native/logistics/index.d.ts",
+      "import": "./dist/native/logistics/index.js",
+      "require": "./dist/native/logistics/index.js"
+    },
+    "./native/utilities": {
+      "types": "./dist/native/utilities/index.d.ts",
+      "import": "./dist/native/utilities/index.js",
+      "require": "./dist/native/utilities/index.js"
+    },
+    "./native/government": {
+      "types": "./dist/native/government/index.d.ts",
+      "import": "./dist/native/government/index.js",
+      "require": "./dist/native/government/index.js"
+    },
+    "./native/hr": {
+      "types": "./dist/native/hr/index.d.ts",
+      "import": "./dist/native/hr/index.js",
+      "require": "./dist/native/hr/index.js"
+    },
+    "./native/survey": {
+      "types": "./dist/native/survey/index.d.ts",
+      "import": "./dist/native/survey/index.js",
+      "require": "./dist/native/survey/index.js"
+    },
+    "./native/calendar": {
+      "types": "./dist/native/calendar/index.d.ts",
+      "import": "./dist/native/calendar/index.js",
+      "require": "./dist/native/calendar/index.js"
+    },
+    "./native/email": {
+      "types": "./dist/native/email/index.d.ts",
+      "import": "./dist/native/email/index.js",
+      "require": "./dist/native/email/index.js"
+    },
+    "./native/music": {
+      "types": "./dist/native/music/index.d.ts",
+      "import": "./dist/native/music/index.js",
+      "require": "./dist/native/music/index.js"
+    },
+    "./native/photography": {
+      "types": "./dist/native/photography/index.d.ts",
+      "import": "./dist/native/photography/index.js",
+      "require": "./dist/native/photography/index.js"
+    },
+    "./native/kids": {
+      "types": "./dist/native/kids/index.d.ts",
+      "import": "./dist/native/kids/index.js",
+      "require": "./dist/native/kids/index.js"
+    },
+    "./native/wellness": {
+      "types": "./dist/native/wellness/index.d.ts",
+      "import": "./dist/native/wellness/index.js",
+      "require": "./dist/native/wellness/index.js"
+    },
+    "./native/legal": {
+      "types": "./dist/native/legal/index.d.ts",
+      "import": "./dist/native/legal/index.js",
+      "require": "./dist/native/legal/index.js"
+    },
+    "./native/nonprofit": {
+      "types": "./dist/native/nonprofit/index.d.ts",
+      "import": "./dist/native/nonprofit/index.js",
+      "require": "./dist/native/nonprofit/index.js"
+    },
+    "./native/pos": {
+      "types": "./dist/native/pos/index.d.ts",
+      "import": "./dist/native/pos/index.js",
+      "require": "./dist/native/pos/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "xenition",
+    "ui-kit",
+    "design-tokens",
+    "theme",
+    "tailwind-preset",
+    "react",
+    "react-native",
+    "components",
+    "wcag",
+    "no-code"
+  ],
+  "author": "Xenition",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xenition/ui-kit.git"
+  },
+  "homepage": "https://github.com/xenition/ui-kit",
+  "bugs": {
+    "url": "https://github.com/xenition/ui-kit/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "expo-linear-gradient": ">=12",
+    "react": ">=18",
+    "react-native": ">=0.72",
+    "react-native-safe-area-context": ">=4",
+    "react-native-svg": ">=13"
+  },
+  "peerDependenciesMeta": {
+    "expo-linear-gradient": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    },
+    "react-native-safe-area-context": {
+      "optional": true
+    },
+    "react-native-svg": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@testing-library/react": "^14.3.1",
+    "@testing-library/react-native": "^12.7.2",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.7",
+    "@types/react-test-renderer": "^18.3.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-native": "^0.75.4",
+    "react-native-safe-area-context": "^4.14.1",
+    "react-native-svg": "^15.15.5",
+    "react-test-renderer": "^18.3.1",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.0"
+  }
+}

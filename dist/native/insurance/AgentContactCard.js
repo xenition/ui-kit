@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AgentContactCard = AgentContactCard;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_native_1 = require("react-native");
+const primitives_1 = require("../primitives");
+const primitives_2 = require("../primitives");
+/**
+ * A contact card for the policyholder's agent / adjuster: avatar with a
+ * presence dot, name/title/agency, and call + email actions. Availability is
+ * shown by **text + a presence dot** (the dot's color traces to a
+ * `SemanticColors` slot via `Avatar`/`Badge`) — never color alone. Call/email
+ * `Button`s only render when the corresponding contact detail and handler are
+ * supplied. Token-bound throughout — no literal colors.
+ */
+function AgentContactCard({ name, title, agency, phone, email, avatarUrl, available, onCall, onEmail, style, }) {
+    const { colors, tokens } = (0, primitives_1.useXenitionTheme)();
+    return ((0, jsx_runtime_1.jsxs)(primitives_2.Card, { style: style, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md }, children: [(0, jsx_runtime_1.jsx)(primitives_2.Avatar, { src: avatarUrl, name: name, size: "lg", status: available == null ? undefined : available ? 'online' : 'offline' }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, gap: 2 }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { numberOfLines: 1, style: { color: colors.onSurface, fontSize: tokens.typography.scale.lg, fontWeight: '700' }, children: name }), title != null ? ((0, jsx_runtime_1.jsxs)(react_native_1.Text, { numberOfLines: 1, style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: [title, agency != null ? ` · ${agency}` : ''] })) : agency != null ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { numberOfLines: 1, style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: agency })) : null, available != null ? ((0, jsx_runtime_1.jsx)(primitives_2.Badge, { tone: available ? 'success' : 'neutral', variant: "soft", size: "sm", children: available ? '● Available' : '○ Offline' })) : null] })] }), phone != null || email != null ? ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { marginTop: tokens.spacing.md, gap: tokens.spacing.xs }, children: [phone != null ? ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(primitives_2.Icon, { glyph: "\uD83D\uDCDE", size: "sm", accessibilityLabel: "Phone" }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.onSurface, fontSize: tokens.typography.scale.sm }, children: phone })] })) : null, email != null ? ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(primitives_2.Icon, { glyph: "\u2709\uFE0F", size: "sm", accessibilityLabel: "Email" }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { numberOfLines: 1, style: { color: colors.onSurface, fontSize: tokens.typography.scale.sm }, children: email })] })) : null] })) : null, (phone != null && onCall != null) || (email != null && onEmail != null) ? ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { marginTop: tokens.spacing.md, flexDirection: 'row', gap: tokens.spacing.sm }, children: [phone != null && onCall != null ? ((0, jsx_runtime_1.jsx)(primitives_2.Button, { variant: "primary", size: "sm", onPress: onCall, style: { flex: 1 }, children: "Call" })) : null, email != null && onEmail != null ? ((0, jsx_runtime_1.jsx)(primitives_2.Button, { variant: "secondary", size: "sm", onPress: onEmail, style: { flex: 1 }, children: "Email" })) : null] })) : null] }));
+}
+//# sourceMappingURL=AgentContactCard.js.map
