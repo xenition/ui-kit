@@ -374,6 +374,36 @@
       "types": "./dist/travel/index.d.ts",
       "import": "./dist/travel/index.js",
       "require": "./dist/travel/index.js"
+    },
+    "./learning": {
+      "types": "./dist/learning/index.d.ts",
+      "import": "./dist/learning/index.js",
+      "require": "./dist/learning/index.js"
+    },
+    "./food": {
+      "types": "./dist/food/index.d.ts",
+      "import": "./dist/food/index.js",
+      "require": "./dist/food/index.js"
+    },
+    "./realestate": {
+      "types": "./dist/realestate/index.d.ts",
+      "import": "./dist/realestate/index.js",
+      "require": "./dist/realestate/index.js"
+    },
+    "./events": {
+      "types": "./dist/events/index.d.ts",
+      "import": "./dist/events/index.js",
+      "require": "./dist/events/index.js"
+    },
+    "./jobs": {
+      "types": "./dist/jobs/index.d.ts",
+      "import": "./dist/jobs/index.js",
+      "require": "./dist/jobs/index.js"
+    },
+    "./content": {
+      "types": "./dist/content/index.d.ts",
+      "import": "./dist/content/index.js",
+      "require": "./dist/content/index.js"
     }
   },
   "scripts": {
