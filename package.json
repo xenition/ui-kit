@@ -284,6 +284,36 @@
       "types": "./dist/native/utilities/index.d.ts",
       "import": "./dist/native/utilities/index.js",
       "require": "./dist/native/utilities/index.js"
+    },
+    "./native/government": {
+      "types": "./dist/native/government/index.d.ts",
+      "import": "./dist/native/government/index.js",
+      "require": "./dist/native/government/index.js"
+    },
+    "./native/hr": {
+      "types": "./dist/native/hr/index.d.ts",
+      "import": "./dist/native/hr/index.js",
+      "require": "./dist/native/hr/index.js"
+    },
+    "./native/survey": {
+      "types": "./dist/native/survey/index.d.ts",
+      "import": "./dist/native/survey/index.js",
+      "require": "./dist/native/survey/index.js"
+    },
+    "./native/calendar": {
+      "types": "./dist/native/calendar/index.d.ts",
+      "import": "./dist/native/calendar/index.js",
+      "require": "./dist/native/calendar/index.js"
+    },
+    "./native/email": {
+      "types": "./dist/native/email/index.d.ts",
+      "import": "./dist/native/email/index.js",
+      "require": "./dist/native/email/index.js"
+    },
+    "./native/music": {
+      "types": "./dist/native/music/index.d.ts",
+      "import": "./dist/native/music/index.js",
+      "require": "./dist/native/music/index.js"
     }
   },
   "scripts": {
