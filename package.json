@@ -524,6 +524,36 @@
       "types": "./dist/music/index.d.ts",
       "import": "./dist/music/index.js",
       "require": "./dist/music/index.js"
+    },
+    "./photography": {
+      "types": "./dist/photography/index.d.ts",
+      "import": "./dist/photography/index.js",
+      "require": "./dist/photography/index.js"
+    },
+    "./kids": {
+      "types": "./dist/kids/index.d.ts",
+      "import": "./dist/kids/index.js",
+      "require": "./dist/kids/index.js"
+    },
+    "./wellness": {
+      "types": "./dist/wellness/index.d.ts",
+      "import": "./dist/wellness/index.js",
+      "require": "./dist/wellness/index.js"
+    },
+    "./legal": {
+      "types": "./dist/legal/index.d.ts",
+      "import": "./dist/legal/index.js",
+      "require": "./dist/legal/index.js"
+    },
+    "./nonprofit": {
+      "types": "./dist/nonprofit/index.d.ts",
+      "import": "./dist/nonprofit/index.js",
+      "require": "./dist/nonprofit/index.js"
+    },
+    "./pos": {
+      "types": "./dist/pos/index.d.ts",
+      "import": "./dist/pos/index.js",
+      "require": "./dist/pos/index.js"
     }
   },
   "scripts": {
