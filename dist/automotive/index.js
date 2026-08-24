@@ -10,21 +10,37 @@
  * is always integer minor units (cents).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ServiceReminder = exports.VehicleHealthRow = exports.TripHistoryEmpty = exports.TripHistoryRow = exports.DriverRatingRow = exports.FareEstimate = exports.RideStatusBar = exports.ParkingSpot = exports.FuelChargeGauge = exports.VehicleCard = exports.TripRoute = exports.DriverCard = exports.RideRequestCard = void 0;
+exports.ServiceReminder = exports.VehicleHealthRow = exports.TripHistoryEmpty = exports.TripHistoryRow = exports.DriverRatingRow = exports.FareEstimate = exports.RideStatusBarV3 = exports.RideStatusBarV2 = exports.RideStatusBar = exports.ParkingSpot = exports.FuelChargeGauge = exports.VehicleCardV3 = exports.VehicleCardV2 = exports.VehicleCard = exports.TripRoute = exports.DriverCardV3 = exports.DriverCardV2 = exports.DriverCard = exports.RideRequestCardV3 = exports.RideRequestCardV2 = exports.RideRequestCard = void 0;
 var RideRequestCard_1 = require("./RideRequestCard");
 Object.defineProperty(exports, "RideRequestCard", { enumerable: true, get: function () { return RideRequestCard_1.RideRequestCard; } });
+var RideRequestCardV2_1 = require("./RideRequestCardV2");
+Object.defineProperty(exports, "RideRequestCardV2", { enumerable: true, get: function () { return RideRequestCardV2_1.RideRequestCardV2; } });
+var RideRequestCardV3_1 = require("./RideRequestCardV3");
+Object.defineProperty(exports, "RideRequestCardV3", { enumerable: true, get: function () { return RideRequestCardV3_1.RideRequestCardV3; } });
 var DriverCard_1 = require("./DriverCard");
 Object.defineProperty(exports, "DriverCard", { enumerable: true, get: function () { return DriverCard_1.DriverCard; } });
+var DriverCardV2_1 = require("./DriverCardV2");
+Object.defineProperty(exports, "DriverCardV2", { enumerable: true, get: function () { return DriverCardV2_1.DriverCardV2; } });
+var DriverCardV3_1 = require("./DriverCardV3");
+Object.defineProperty(exports, "DriverCardV3", { enumerable: true, get: function () { return DriverCardV3_1.DriverCardV3; } });
 var TripRoute_1 = require("./TripRoute");
 Object.defineProperty(exports, "TripRoute", { enumerable: true, get: function () { return TripRoute_1.TripRoute; } });
 var VehicleCard_1 = require("./VehicleCard");
 Object.defineProperty(exports, "VehicleCard", { enumerable: true, get: function () { return VehicleCard_1.VehicleCard; } });
+var VehicleCardV2_1 = require("./VehicleCardV2");
+Object.defineProperty(exports, "VehicleCardV2", { enumerable: true, get: function () { return VehicleCardV2_1.VehicleCardV2; } });
+var VehicleCardV3_1 = require("./VehicleCardV3");
+Object.defineProperty(exports, "VehicleCardV3", { enumerable: true, get: function () { return VehicleCardV3_1.VehicleCardV3; } });
 var FuelChargeGauge_1 = require("./FuelChargeGauge");
 Object.defineProperty(exports, "FuelChargeGauge", { enumerable: true, get: function () { return FuelChargeGauge_1.FuelChargeGauge; } });
 var ParkingSpot_1 = require("./ParkingSpot");
 Object.defineProperty(exports, "ParkingSpot", { enumerable: true, get: function () { return ParkingSpot_1.ParkingSpot; } });
 var RideStatusBar_1 = require("./RideStatusBar");
 Object.defineProperty(exports, "RideStatusBar", { enumerable: true, get: function () { return RideStatusBar_1.RideStatusBar; } });
+var RideStatusBarV2_1 = require("./RideStatusBarV2");
+Object.defineProperty(exports, "RideStatusBarV2", { enumerable: true, get: function () { return RideStatusBarV2_1.RideStatusBarV2; } });
+var RideStatusBarV3_1 = require("./RideStatusBarV3");
+Object.defineProperty(exports, "RideStatusBarV3", { enumerable: true, get: function () { return RideStatusBarV3_1.RideStatusBarV3; } });
 var FareEstimate_1 = require("./FareEstimate");
 Object.defineProperty(exports, "FareEstimate", { enumerable: true, get: function () { return FareEstimate_1.FareEstimate; } });
 var DriverRatingRow_1 = require("./DriverRatingRow");

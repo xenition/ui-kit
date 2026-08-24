@@ -13,18 +13,34 @@
 
 export { CropCard } from './CropCard';
 export type { CropCardProps, GrowthStage, CropHealth, CropCardVariant } from './CropCard';
+export { CropCardV2 } from './CropCardV2';
+export type { CropCardV2Props } from './CropCardV2';
+export { CropCardV3 } from './CropCardV3';
+export type { CropCardV3Props } from './CropCardV3';
 
 export { FieldCard } from './FieldCard';
 export type { FieldCardProps, FieldStatus, FieldCardVariant } from './FieldCard';
+export { FieldCardV2 } from './FieldCardV2';
+export type { FieldCardV2Props } from './FieldCardV2';
+export { FieldCardV3 } from './FieldCardV3';
+export type { FieldCardV3Props } from './FieldCardV3';
 
 export { LivestockRow } from './LivestockRow';
 export type { LivestockRowProps, LivestockHealth } from './LivestockRow';
 
 export { HarvestLog } from './HarvestLog';
 export type { HarvestLogProps, HarvestEntry } from './HarvestLog';
+export { HarvestLogV2 } from './HarvestLogV2';
+export type { HarvestLogV2Props } from './HarvestLogV2';
+export { HarvestLogV3 } from './HarvestLogV3';
+export type { HarvestLogV3Props } from './HarvestLogV3';
 
 export { WeatherAdvisory } from './WeatherAdvisory';
 export type { WeatherAdvisoryProps, AdvisoryKind, AdvisorySeverity } from './WeatherAdvisory';
+export { WeatherAdvisoryV2 } from './WeatherAdvisoryV2';
+export type { WeatherAdvisoryV2Props } from './WeatherAdvisoryV2';
+export { WeatherAdvisoryV3 } from './WeatherAdvisoryV3';
+export type { WeatherAdvisoryV3Props } from './WeatherAdvisoryV3';
 
 export { SoilMoistureCard } from './SoilMoistureCard';
 export type { SoilMoistureCardProps, SoilMoistureStatus } from './SoilMoistureCard';

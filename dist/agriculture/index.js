@@ -12,17 +12,33 @@
  * fetches or imports the SDK.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FarmTaskRow = exports.MarketPriceRow = exports.PestAlert = exports.EquipmentStatus = exports.YieldChart = exports.IrrigationSchedule = exports.SoilMoistureCard = exports.WeatherAdvisory = exports.HarvestLog = exports.LivestockRow = exports.FieldCard = exports.CropCard = void 0;
+exports.FarmTaskRow = exports.MarketPriceRow = exports.PestAlert = exports.EquipmentStatus = exports.YieldChart = exports.IrrigationSchedule = exports.SoilMoistureCard = exports.WeatherAdvisoryV3 = exports.WeatherAdvisoryV2 = exports.WeatherAdvisory = exports.HarvestLogV3 = exports.HarvestLogV2 = exports.HarvestLog = exports.LivestockRow = exports.FieldCardV3 = exports.FieldCardV2 = exports.FieldCard = exports.CropCardV3 = exports.CropCardV2 = exports.CropCard = void 0;
 var CropCard_1 = require("./CropCard");
 Object.defineProperty(exports, "CropCard", { enumerable: true, get: function () { return CropCard_1.CropCard; } });
+var CropCardV2_1 = require("./CropCardV2");
+Object.defineProperty(exports, "CropCardV2", { enumerable: true, get: function () { return CropCardV2_1.CropCardV2; } });
+var CropCardV3_1 = require("./CropCardV3");
+Object.defineProperty(exports, "CropCardV3", { enumerable: true, get: function () { return CropCardV3_1.CropCardV3; } });
 var FieldCard_1 = require("./FieldCard");
 Object.defineProperty(exports, "FieldCard", { enumerable: true, get: function () { return FieldCard_1.FieldCard; } });
+var FieldCardV2_1 = require("./FieldCardV2");
+Object.defineProperty(exports, "FieldCardV2", { enumerable: true, get: function () { return FieldCardV2_1.FieldCardV2; } });
+var FieldCardV3_1 = require("./FieldCardV3");
+Object.defineProperty(exports, "FieldCardV3", { enumerable: true, get: function () { return FieldCardV3_1.FieldCardV3; } });
 var LivestockRow_1 = require("./LivestockRow");
 Object.defineProperty(exports, "LivestockRow", { enumerable: true, get: function () { return LivestockRow_1.LivestockRow; } });
 var HarvestLog_1 = require("./HarvestLog");
 Object.defineProperty(exports, "HarvestLog", { enumerable: true, get: function () { return HarvestLog_1.HarvestLog; } });
+var HarvestLogV2_1 = require("./HarvestLogV2");
+Object.defineProperty(exports, "HarvestLogV2", { enumerable: true, get: function () { return HarvestLogV2_1.HarvestLogV2; } });
+var HarvestLogV3_1 = require("./HarvestLogV3");
+Object.defineProperty(exports, "HarvestLogV3", { enumerable: true, get: function () { return HarvestLogV3_1.HarvestLogV3; } });
 var WeatherAdvisory_1 = require("./WeatherAdvisory");
 Object.defineProperty(exports, "WeatherAdvisory", { enumerable: true, get: function () { return WeatherAdvisory_1.WeatherAdvisory; } });
+var WeatherAdvisoryV2_1 = require("./WeatherAdvisoryV2");
+Object.defineProperty(exports, "WeatherAdvisoryV2", { enumerable: true, get: function () { return WeatherAdvisoryV2_1.WeatherAdvisoryV2; } });
+var WeatherAdvisoryV3_1 = require("./WeatherAdvisoryV3");
+Object.defineProperty(exports, "WeatherAdvisoryV3", { enumerable: true, get: function () { return WeatherAdvisoryV3_1.WeatherAdvisoryV3; } });
 var SoilMoistureCard_1 = require("./SoilMoistureCard");
 Object.defineProperty(exports, "SoilMoistureCard", { enumerable: true, get: function () { return SoilMoistureCard_1.SoilMoistureCard; } });
 var IrrigationSchedule_1 = require("./IrrigationSchedule");
