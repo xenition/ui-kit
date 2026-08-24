@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 /** Presentation density for a {@link FlightCard}. */
 export type FlightCardVariant = 'default' | 'compact';
 /** One leg of a journey (origin → destination). */
@@ -30,6 +31,8 @@ export interface FlightCardProps {
     currency?: string;
     /** Density variant. */
     variant?: FlightCardVariant;
+    /** Surface treatment (visual diversity). Default `'classic'` — the original look. */
+    appearance?: Appearance;
     /** Fires when the card is pressed (e.g. to open fare details). */
     onPress?: () => void;
     /** Shows a shimmer-free skeleton recap instead of data. */
@@ -43,5 +46,5 @@ export interface FlightCardProps {
  * `useXenitionTheme()`. Pass `loading` for a placeholder recap and
  * `variant="compact"` for a denser list row.
  */
-export declare function FlightCard({ airline, flightNumber, from, to, duration, stops, priceCents, currency, variant, onPress, loading, style, }: FlightCardProps): React.ReactElement;
+export declare function FlightCard({ airline, flightNumber, from, to, duration, stops, priceCents, currency, variant, appearance, onPress, loading, style, }: FlightCardProps): React.ReactElement;
 //# sourceMappingURL=FlightCard.d.ts.map

@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
 import { Card, Icon } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 import { MoneyAmount } from './MoneyAmount';
 import { maskAccountNumber } from './internal/mask';
 
@@ -23,6 +25,11 @@ export interface AccountCardProps {
   icon?: string;
   /** Fires on card press. */
   onPress?: () => void;
+  /**
+   * Surface treatment (visual-diversity preset). Defaults to `classic` —
+   * byte-for-byte the historical bordered card, so this is opt-in only.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -50,13 +57,19 @@ export function AccountCard({
   accountNumber,
   icon,
   onPress,
+  appearance = 'classic',
   style,
 }: AccountCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const meta = VARIANT_META[variant];
+  const press = usePressScale();
+
+  // Appearance overrides the Card's default surface; classic → the Card's own
+  // outlined look, unchanged. Card keeps its radius/padding.
+  const surface = appearance === 'classic' ? undefined : appearanceStyle(appearance, colors, tokens);
 
   const body = (
-    <Card style={style}>
+    <Card style={[surface, style]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }}>
         <View
           style={{
@@ -93,13 +106,17 @@ export function AccountCard({
 
   if (!onPress) return body;
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`${name}, ${meta.label} account`}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
-    >
-      {body}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${name}, ${meta.label} account`}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+      >
+        {body}
+      </Pressable>
+    </Animated.View>
   );
 }

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Animated, Easing, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { useReducedMotion } from '../primitives/internal/useReducedMotion';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
 
 export interface TypingIndicatorProps {
   /**
@@ -13,6 +15,11 @@ export interface TypingIndicatorProps {
   bubble?: boolean;
   /** Dot diameter in px (default 6). */
   size?: number;
+  /**
+   * Visual treatment for the bubble surface (diversity system). Defaults to
+   * `classic` — the historical surface fill with a hairline border.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -76,11 +83,13 @@ export function TypingIndicator({
   name,
   bubble = true,
   size = 6,
+  appearance = 'classic',
   style,
 }: TypingIndicatorProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const reduced = useReducedMotion();
   const animate = !reduced;
+  const enter = useEnter();
 
   const dots = (
     <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: size * 0.6 }}>
@@ -91,10 +100,13 @@ export function TypingIndicator({
   );
 
   return (
-    <View
+    <Animated.View
       accessibilityLiveRegion="polite"
       accessibilityLabel={name ? `${name} is typing` : 'Typing'}
-      style={[{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }, style]}
+      style={[
+        { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm, opacity: enter.opacity, transform: enter.transform },
+        style,
+      ]}
     >
       {name ? (
         <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.xs }}>{name}</Text>
@@ -102,9 +114,8 @@ export function TypingIndicator({
       {bubble ? (
         <View
           style={{
-            backgroundColor: colors.surface,
-            borderColor: colors.border,
-            borderWidth: 1,
+            // Appearance FIRST (fill/border/elevation); classic == surface + hairline border.
+            ...appearanceStyle(appearance, colors, tokens),
             borderRadius: tokens.radius.lg,
             paddingVertical: tokens.spacing.sm,
             paddingHorizontal: tokens.spacing.md,
@@ -115,6 +126,6 @@ export function TypingIndicator({
       ) : (
         dots
       )}
-    </View>
+    </Animated.View>
   );
 }

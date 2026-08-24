@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Avatar, ChatBubble } from '../primitives';
+import { useEnter } from '../primitives/internal/motion';
 import { ReadReceipt, type ReceiptStatus } from './ReadReceipt';
 
 export interface GroupMessage {
@@ -48,15 +49,19 @@ export function MessageGroup({
   const me = side === 'me';
   const withAvatar = showAvatar ?? !me;
   const lastIndex = messages.length - 1;
+  // Incoming (and outgoing) message groups gently rise/fade in on mount.
+  const enter = useEnter();
 
   return (
-    <View
+    <Animated.View
       accessibilityLiveRegion={me ? 'none' : 'polite'}
       style={[
         {
           flexDirection: 'row',
           gap: tokens.spacing.sm,
           justifyContent: me ? 'flex-end' : 'flex-start',
+          opacity: enter.opacity,
+          transform: enter.transform,
         },
         style,
       ]}
@@ -86,6 +91,6 @@ export function MessageGroup({
           <ReadReceipt status={receipt} />
         ) : null}
       </View>
-    </View>
+    </Animated.View>
   );
 }

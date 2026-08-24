@@ -32,7 +32,7 @@ function parseMentions(text) {
  * link color and makes each tappable. Everything else renders in the base
  * color. Pure `Text` composition (so it wraps/clamps naturally); token-only.
  */
-function MentionText({ text, color = 'onSurface', linkColor = 'primary', size = 'base', numberOfLines, onPressMention, onPressHashtag, style, }) {
+function MentionText({ text, color = 'onSurface', linkColor = 'primaryText', size = 'base', numberOfLines, onPressMention, onPressHashtag, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const fontSize = tokens.typography.scale[size];
     const segments = parseMentions(text);

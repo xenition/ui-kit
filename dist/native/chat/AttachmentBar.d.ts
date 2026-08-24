@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 /** Kinds of staged attachment, driving the fallback glyph. */
 export type AttachmentKind = 'image' | 'video' | 'file' | 'audio';
 export interface StagedAttachment {
@@ -17,6 +18,11 @@ export interface AttachmentBarProps {
     attachments: StagedAttachment[];
     /** Called with an attachment id when its remove button is tapped. */
     onRemove?: (id: string) => void;
+    /**
+     * Visual treatment for each attachment tile (diversity system). Defaults to
+     * `classic` — the historical surface fill with a hairline border.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -24,5 +30,5 @@ export interface AttachmentBarProps {
  * message is sent. Each tile shows a thumbnail (or a kind glyph) and a remove
  * button. Scrolls horizontally; renders nothing when empty. No literal colors.
  */
-export declare function AttachmentBar({ attachments, onRemove, style, }: AttachmentBarProps): React.ReactElement | null;
+export declare function AttachmentBar({ attachments, onRemove, appearance, style, }: AttachmentBarProps): React.ReactElement | null;
 //# sourceMappingURL=AttachmentBar.d.ts.map

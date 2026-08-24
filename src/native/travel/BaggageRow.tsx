@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, Badge, PriceTag } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 
 /** The category of baggage. */
 export type BaggageKind = 'cabin' | 'personal' | 'checked';
@@ -18,6 +19,12 @@ export interface BaggageRowProps {
   priceCents?: number;
   /** ISO 4217 currency (default `USD`). */
   currency?: string;
+  /**
+   * Surface treatment (visual diversity). Default `'classic'` — the original
+   * borderless row. Any other value wraps the row in that surface (with
+   * padding + radius) so it can stand alone as a card-like tile.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -40,11 +47,15 @@ export function BaggageRow({
   included = false,
   priceCents,
   currency = 'USD',
+  appearance = 'classic',
   style,
 }: BaggageRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const meta = KIND[kind];
   const title = label ?? meta.label;
+  // 'classic' keeps the historical borderless row byte-for-byte; any other
+  // appearance opts into a standalone surface with matching padding + radius.
+  const surface = appearance === 'classic' ? null : appearanceStyle(appearance, colors, tokens);
 
   const trailing = included ? (
     <Badge tone="success">Included</Badge>
@@ -59,12 +70,16 @@ export function BaggageRow({
       accessible
       accessibilityLabel={`${title}${allowance ? `, ${allowance}` : ''}, ${included ? 'included' : 'extra'}`}
       style={[
+        surface,
         {
           flexDirection: 'row',
           alignItems: 'center',
           gap: tokens.spacing.md,
           paddingVertical: tokens.spacing.sm,
         },
+        surface
+          ? { paddingHorizontal: tokens.spacing.md, borderRadius: tokens.radius.md }
+          : null,
         style,
       ]}
     >

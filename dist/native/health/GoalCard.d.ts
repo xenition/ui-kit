@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import { type SemanticColors } from '../theme';
+import { type Appearance } from '../primitives/internal/appearance';
 export type GoalCardColor = keyof SemanticColors;
 export interface GoalCardProps {
     /** Goal title, e.g. "Weekly steps". */
@@ -16,12 +17,15 @@ export interface GoalCardProps {
     /** Optional icon/emoji slot. */
     icon?: React.ReactNode;
     onPress?: () => void;
+    /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
  * A goal-progress card: title, an emphasized `value / target` readout, and a
  * {@link MiniBar}. When the target is met the bar and readout switch to the
- * `success` tone and a "Goal met" note appears. Guards `target <= 0`. Token-only.
+ * `success` tone and a "Goal met" note appears. `appearance` selects the surface
+ * treatment (classic by default). Guards `target <= 0`. Token-only.
  */
-export declare function GoalCard({ title, value, target, unit, color, icon, onPress, style, }: GoalCardProps): React.ReactElement;
+export declare function GoalCard({ title, value, target, unit, color, icon, onPress, appearance, style, }: GoalCardProps): React.ReactElement;
 //# sourceMappingURL=GoalCard.d.ts.map

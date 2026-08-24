@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { type Appearance, appearanceStyle } from '../primitives/internal/appearance';
 
 export interface TimeTrackerProps {
   /** Pre-formatted elapsed label (e.g. `'01:24:07'`). */
@@ -11,6 +12,8 @@ export interface TimeTrackerProps {
   onToggle?: (running: boolean) => void;
   /** Optional context label (e.g. the task name being timed). */
   label?: string;
+  /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -25,6 +28,7 @@ export function TimeTracker({
   running = false,
   onToggle,
   label,
+  appearance = 'classic',
   style,
 }: TimeTrackerProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -34,15 +38,13 @@ export function TimeTracker({
   return (
     <View
       style={[
+        appearanceStyle(appearance, colors, tokens),
         {
           flexDirection: 'row',
           alignItems: 'center',
           gap: tokens.spacing.sm,
           padding: tokens.spacing.sm,
           borderRadius: tokens.radius.md,
-          borderWidth: 1,
-          borderColor: colors.border,
-          backgroundColor: colors.surface,
         },
         style,
       ]}

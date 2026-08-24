@@ -5,7 +5,20 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const EmptyState_1 = require("../commerce/EmptyState");
+const motion_1 = require("../primitives/internal/motion");
 const TransactionRow_1 = require("./TransactionRow");
+/**
+ * One statement row wrapped in a mount-enter transition (a subcomponent so the
+ * `useEnter` hook is called at a stable position, never inside a `.map`).
+ */
+function StatementRow({ entry, index, isLast, appearance, onSelectItem, }) {
+    const { colors } = (0, theme_1.useXenitionTheme)();
+    const enter = (0, motion_1.useEnter)();
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: [
+            enter,
+            isLast ? undefined : { borderBottomWidth: 1, borderBottomColor: colors.border },
+        ], children: (0, jsx_runtime_1.jsx)(TransactionRow_1.TransactionRow, { title: entry.title, subtitle: entry.subtitle, amountCents: entry.amountCents, currency: entry.currency, direction: entry.direction, date: entry.date, icon: entry.icon, appearance: appearance, onPress: onSelectItem ? () => onSelectItem(entry, index) : undefined }) }));
+}
 /**
  * A statement feed: an optional section header over a token-divided list of
  * {@link TransactionRow}s. Handles the three list states explicitly —
@@ -14,7 +27,7 @@ const TransactionRow_1 = require("./TransactionRow");
  * (row keys guard against a missing `id` by falling back to the index). No
  * fetching; purely presentational and token-bound.
  */
-function StatementList({ items, header, onSelectItem, loading = false, loadingRows = 4, emptyTitle = 'No transactions', emptyDescription, style, }) {
+function StatementList({ items, header, onSelectItem, loading = false, loadingRows = 4, emptyTitle = 'No transactions', emptyDescription, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const headerNode = header != null ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
             color: colors.muted,
@@ -36,8 +49,6 @@ function StatementList({ items, header, onSelectItem, loading = false, loadingRo
     if (items.length === 0) {
         return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: style, children: [headerNode, (0, jsx_runtime_1.jsx)(EmptyState_1.EmptyState, { title: emptyTitle, description: emptyDescription })] }));
     }
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: style, children: [headerNode, items.map((entry, index) => ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: index < items.length - 1
-                    ? { borderBottomWidth: 1, borderBottomColor: colors.border }
-                    : undefined, children: (0, jsx_runtime_1.jsx)(TransactionRow_1.TransactionRow, { title: entry.title, subtitle: entry.subtitle, amountCents: entry.amountCents, currency: entry.currency, direction: entry.direction, date: entry.date, icon: entry.icon, onPress: onSelectItem ? () => onSelectItem(entry, index) : undefined }) }, entry.id ?? String(index))))] }));
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: style, children: [headerNode, items.map((entry, index) => ((0, jsx_runtime_1.jsx)(StatementRow, { entry: entry, index: index, isLast: index === items.length - 1, appearance: appearance, onSelectItem: onSelectItem }, entry.id ?? String(index))))] }));
 }
 //# sourceMappingURL=StatementList.js.map

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import { type PriorityLevel } from './PriorityTag';
 import { type DueDateTone } from './DueDatePill';
 /**
@@ -26,6 +27,8 @@ export interface TaskRowProps {
     dueLabel?: string;
     /** Due-date urgency tone for the `dated` variant. */
     dueTone?: DueDateTone;
+    /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -34,5 +37,5 @@ export interface TaskRowProps {
  * pill). The checkbox carries its own `checkbox` a11y role; the row body is a
  * separate pressable. No literal colors.
  */
-export declare function TaskRow({ title, done, onToggle, onPress, variant, priority, dueLabel, dueTone, style, }: TaskRowProps): React.ReactElement;
+export declare function TaskRow({ title, done, onToggle, onPress, variant, priority, dueLabel, dueTone, appearance, style, }: TaskRowProps): React.ReactElement;
 //# sourceMappingURL=TaskRow.d.ts.map

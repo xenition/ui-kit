@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Avatar } from '../primitives/Avatar';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 import { FollowButton, type FollowState } from './FollowButton';
 import { ProfileStats, type ProfileStat } from './ProfileStats';
 
@@ -32,6 +34,12 @@ export interface UserCardProps {
   onFollow?: (state: FollowState) => void;
   /** Tapping the card/row (e.g. open the profile). */
   onPress?: () => void;
+  /**
+   * Surface treatment for the container — fill/border/elevation only;
+   * radius/padding are unchanged. Default `'classic'` (the historical look:
+   * a bare surface for `row`, a bordered surface for `card`).
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -49,9 +57,11 @@ export function UserCard({
   followLoading,
   onFollow,
   onPress,
+  appearance = 'classic',
   style,
 }: UserCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
   const isCard = variant === 'card';
 
   const identity = (
@@ -64,7 +74,7 @@ export function UserCard({
           {user.name}
         </Text>
         {user.verified ? (
-          <Text accessibilityLabel="Verified" style={{ color: colors.primary, fontSize: tokens.typography.scale.sm }}>
+          <Text accessibilityLabel="Verified" style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm }}>
             ✓
           </Text>
         ) : null}
@@ -104,26 +114,39 @@ export function UserCard({
     header
   );
 
+  // `classic` preserves the historical look exactly: a bare surface for `row`
+  // (no border) and a bordered surface for `card`. Any other appearance opts
+  // the container into that shared treatment (fill/border/elevation only).
+  const surface: ViewStyle =
+    appearance === 'classic'
+      ? isCard
+        ? appearanceStyle('classic', colors, tokens)
+        : { backgroundColor: colors.surface }
+      : appearanceStyle(appearance, colors, tokens);
+
   const containerStyle: StyleProp<ViewStyle> = [
     {
-      backgroundColor: colors.surface,
+      ...surface,
       borderRadius: tokens.radius.lg,
       padding: tokens.spacing.md,
-      ...(isCard ? { borderWidth: 1, borderColor: colors.border } : null),
     },
     style,
   ];
 
   if (onPress) {
     return (
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={user.name}
-        onPress={onPress}
-        style={({ pressed }) => [containerStyle, { opacity: pressed ? 0.9 : 1 }]}
-      >
-        {inner}
-      </Pressable>
+      <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={user.name}
+          onPress={onPress}
+          onPressIn={press.onPressIn}
+          onPressOut={press.onPressOut}
+          style={({ pressed }) => [containerStyle, { opacity: pressed ? 0.9 : 1 }]}
+        >
+          {inner}
+        </Pressable>
+      </Animated.View>
     );
   }
   return <View style={containerStyle}>{inner}</View>;

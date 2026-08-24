@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import { type FollowState } from './FollowButton';
 import { type ProfileStat } from './ProfileStats';
 export type UserCardVariant = 'row' | 'card';
@@ -27,6 +28,12 @@ export interface UserCardProps {
     onFollow?: (state: FollowState) => void;
     /** Tapping the card/row (e.g. open the profile). */
     onPress?: () => void;
+    /**
+     * Surface treatment for the container — fill/border/elevation only;
+     * radius/padding are unchanged. Default `'classic'` (the historical look:
+     * a bare surface for `row`, a bordered surface for `card`).
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -35,5 +42,5 @@ export interface UserCardProps {
  * profile previews. Includes an inline {@link FollowButton} when a
  * `followState` is given. Token-only.
  */
-export declare function UserCard({ user, variant, stats, followState, followLoading, onFollow, onPress, style, }: UserCardProps): React.ReactElement;
+export declare function UserCard({ user, variant, stats, followState, followLoading, onFollow, onPress, appearance, style, }: UserCardProps): React.ReactElement;
 //# sourceMappingURL=UserCard.d.ts.map

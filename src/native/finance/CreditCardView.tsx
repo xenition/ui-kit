@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 import { Gradient } from './internal/Gradient';
 import { maskCardNumber } from './internal/mask';
 
@@ -21,6 +22,12 @@ export interface CreditCardViewProps {
   brand?: CardBrand;
   /** Gradient ramp for the face (default `primary`). */
   variant?: CreditCardVariant;
+  /**
+   * Surface treatment applied to the card's OUTER container — the gradient face
+   * is always kept; this only adds an optional elevation / border frame around
+   * it. Defaults to `classic`, which adds nothing (the face is unchanged).
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -46,9 +53,14 @@ export function CreditCardView({
   expiry,
   brand = 'generic',
   variant = 'primary',
+  appearance = 'classic',
   style,
 }: CreditCardViewProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+
+  // Optional frame around the gradient face (elevation / border). The face
+  // itself is untouched; classic adds nothing. Radius/padding stay AFTER.
+  const surface = appearance === 'classic' ? undefined : appearanceStyle(appearance, colors, tokens);
 
   const ramp =
     variant === 'accent' ? tokens.ramps.accent : variant === 'dark' ? tokens.ramps.neutral : tokens.ramps.primary;
@@ -62,6 +74,7 @@ export function CreditCardView({
     <Gradient
       colors={stops}
       style={[
+        surface,
         {
           borderRadius: tokens.radius.lg,
           padding: tokens.spacing.lg,

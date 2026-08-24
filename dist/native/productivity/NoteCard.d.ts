@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export interface NoteCardProps {
     /** Note title / heading. */
     title: string;
@@ -13,6 +14,8 @@ export interface NoteCardProps {
     labels?: React.ReactNode;
     /** Fires when the card is pressed. */
     onPress?: () => void;
+    /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -20,5 +23,5 @@ export interface NoteCardProps {
  * a footer timestamp, an optional pin marker (primary), and a labels slot. When
  * `pinned`, a left accent edge in the primary token highlights it. No literals.
  */
-export declare function NoteCard({ title, body, timestamp, pinned, labels, onPress, style, }: NoteCardProps): React.ReactElement;
+export declare function NoteCard({ title, body, timestamp, pinned, labels, onPress, appearance, style, }: NoteCardProps): React.ReactElement;
 //# sourceMappingURL=NoteCard.d.ts.map

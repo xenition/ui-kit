@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import type { PriorityLevel } from './PriorityTag';
 import type { DueDateTone } from './DueDatePill';
 export interface BoardCard {
@@ -23,6 +24,8 @@ export interface BoardColumnProps {
     onAddCard?: () => void;
     /** Fixed column width in px (default 280). */
     width?: number;
+    /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -31,5 +34,5 @@ export interface BoardColumnProps {
  * "+ Add" footer, and a muted empty placeholder. Mirrors the primitive `Kanban`
  * column but with task-aware rows. Guards a missing array. No literal colors.
  */
-export declare function BoardColumn({ title, cards, onToggleCard, onCardPress, onAddCard, width, style, }: BoardColumnProps): React.ReactElement;
+export declare function BoardColumn({ title, cards, onToggleCard, onCardPress, onAddCard, width, appearance, style, }: BoardColumnProps): React.ReactElement;
 //# sourceMappingURL=BoardColumn.d.ts.map

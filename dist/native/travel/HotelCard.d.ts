@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 /** Layout for a {@link HotelCard}. */
 export type HotelCardVariant = 'stacked' | 'row';
 export interface HotelCardProps {
@@ -21,6 +22,8 @@ export interface HotelCardProps {
     compareAtCents?: number;
     /** Layout variant. */
     variant?: HotelCardVariant;
+    /** Surface treatment (visual diversity). Default `'classic'` — the original look. */
+    appearance?: Appearance;
     /** Fires when the card is pressed. */
     onPress?: () => void;
     style?: StyleProp<ViewStyle>;
@@ -31,5 +34,5 @@ export interface HotelCardProps {
  * dependency; the app can overlay its own `<Image>`). Data + `onPress` only.
  * Token-only colors.
  */
-export declare function HotelCard({ name, location, rating, reviewCount, priceCents, currency, tags, compareAtCents, variant, onPress, style, }: HotelCardProps): React.ReactElement;
+export declare function HotelCard({ name, location, rating, reviewCount, priceCents, currency, tags, compareAtCents, variant, appearance, onPress, style, }: HotelCardProps): React.ReactElement;
 //# sourceMappingURL=HotelCard.d.ts.map

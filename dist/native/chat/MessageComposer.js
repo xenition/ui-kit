@@ -5,6 +5,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const primitives_1 = require("../primitives");
+const appearance_1 = require("../primitives/internal/appearance");
 const AttachmentBar_1 = require("./AttachmentBar");
 /**
  * Message input bar — an attach button, a growing multiline field, and a send
@@ -12,7 +13,7 @@ const AttachmentBar_1 = require("./AttachmentBar");
  * attachment). Staged attachments preview above via `AttachmentBar`. Controlled
  * via `value`/`onChangeText`; emits `onSend`/`onAttach`. No literal colors.
  */
-function MessageComposer({ value = '', onChangeText, onSend, onAttach, attachments, onRemoveAttachment, placeholder = 'Message', disabled = false, style, }) {
+function MessageComposer({ value = '', onChangeText, onSend, onAttach, attachments, onRemoveAttachment, placeholder = 'Message', disabled = false, appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const hasAttachments = (attachments?.length ?? 0) > 0;
     const canSend = !disabled && (value.trim().length > 0 || hasAttachments);
@@ -22,10 +23,12 @@ function MessageComposer({ value = '', onChangeText, onSend, onAttach, attachmen
         onSend?.(value);
     };
     return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [
+            // Appearance FIRST; classic keeps the historical surface + top divider.
+            appearance === 'classic' ? null : (0, appearance_1.appearanceStyle)(appearance, colors, tokens),
             {
                 borderTopWidth: 1,
                 borderTopColor: colors.border,
-                backgroundColor: colors.surface,
+                backgroundColor: appearance === 'classic' ? colors.surface : undefined,
                 paddingVertical: tokens.spacing.sm,
             },
             style,

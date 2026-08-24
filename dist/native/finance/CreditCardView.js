@@ -4,6 +4,7 @@ exports.CreditCardView = CreditCardView;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
+const appearance_1 = require("../primitives/internal/appearance");
 const Gradient_1 = require("./internal/Gradient");
 const mask_1 = require("./internal/mask");
 const BRAND_LABEL = {
@@ -21,8 +22,11 @@ const BRAND_LABEL = {
  * the number is masked to the last four via {@link maskCardNumber}. Foreground
  * text uses the ramp's on-color token so it stays legible on the fill.
  */
-function CreditCardView({ holder, number, expiry, brand = 'generic', variant = 'primary', style, }) {
+function CreditCardView({ holder, number, expiry, brand = 'generic', variant = 'primary', appearance = 'classic', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    // Optional frame around the gradient face (elevation / border). The face
+    // itself is untouched; classic adds nothing. Radius/padding stay AFTER.
+    const surface = appearance === 'classic' ? undefined : (0, appearance_1.appearanceStyle)(appearance, colors, tokens);
     const ramp = variant === 'accent' ? tokens.ramps.accent : variant === 'dark' ? tokens.ramps.neutral : tokens.ramps.primary;
     // Two-stop diagonal from a mid ramp step to a darker one — all token hexes.
     const stops = [ramp[500], ramp[variant === 'dark' ? 900 : 700]];
@@ -30,6 +34,7 @@ function CreditCardView({ holder, number, expiry, brand = 'generic', variant = '
     const ink = variant === 'accent' ? colors.onAccent : variant === 'dark' ? colors.onSurface : colors.onPrimary;
     const inkMuted = ink;
     return ((0, jsx_runtime_1.jsxs)(Gradient_1.Gradient, { colors: stops, style: [
+            surface,
             {
                 borderRadius: tokens.radius.lg,
                 padding: tokens.spacing.lg,

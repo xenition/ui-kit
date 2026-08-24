@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import { type Presence } from './PresenceDot';
 export interface ConversationRowProps {
     /** Contact / group name. */
@@ -24,6 +25,11 @@ export interface ConversationRowProps {
     onPress?: () => void;
     /** Long-press handler (context actions). */
     onLongPress?: () => void;
+    /**
+     * Visual treatment for the row surface (diversity system). Defaults to
+     * `classic` — byte-for-byte the historical borderless row.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -32,5 +38,5 @@ export interface ConversationRowProps {
  * count badge), `muted` (dimmed + mute glyph), and `typing` (live indicator
  * replaces the preview) states. No literal colors.
  */
-export declare function ConversationRow({ name, lastMessage, timestamp, avatarUri, presence, unreadCount, muted, typing, selected, onPress, onLongPress, style, }: ConversationRowProps): React.ReactElement;
+export declare function ConversationRow({ name, lastMessage, timestamp, avatarUri, presence, unreadCount, muted, typing, selected, onPress, onLongPress, appearance, style, }: ConversationRowProps): React.ReactElement;
 //# sourceMappingURL=ConversationRow.d.ts.map

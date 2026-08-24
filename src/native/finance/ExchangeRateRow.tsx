@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 
 export interface ExchangeRateRowProps {
   /** Base (from) currency code, e.g. `"USD"`. */
@@ -15,6 +17,11 @@ export interface ExchangeRateRowProps {
   precision?: number;
   /** Fires on row press. */
   onPress?: () => void;
+  /**
+   * Surface treatment (visual-diversity preset). Defaults to `classic` — the
+   * historical borderless row, so this is opt-in only.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -32,18 +39,25 @@ export function ExchangeRateRow({
   changePct,
   precision = 4,
   onPress,
+  appearance = 'classic',
   style,
 }: ExchangeRateRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
 
   const safeRate = Number.isFinite(rate) ? rate : 0;
   const hasChange = typeof changePct === 'number' && Number.isFinite(changePct);
   const up = (changePct ?? 0) >= 0;
-  const changeColor = up ? colors.success : colors.danger;
+  // FILL-AS-TEXT: the change chip is TEXT, so it reads the AA-guaranteed *Text slots.
+  const changeColor = up ? colors.successText : colors.dangerText;
+
+  // Appearance surface FIRST; layout (radius/padding) stays AFTER. Classic → unchanged.
+  const surface = appearance === 'classic' ? undefined : appearanceStyle(appearance, colors, tokens);
 
   const body = (
     <View
       style={[
+        surface,
         { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md, paddingVertical: tokens.spacing.sm },
         style,
       ]}
@@ -72,13 +86,17 @@ export function ExchangeRateRow({
 
   if (!onPress) return body;
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`${baseCurrency} to ${quoteCurrency}, ${safeRate.toFixed(Math.max(0, Math.trunc(precision)))}`}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-    >
-      {body}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${baseCurrency} to ${quoteCurrency}, ${safeRate.toFixed(Math.max(0, Math.trunc(precision)))}`}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+      >
+        {body}
+      </Pressable>
+    </Animated.View>
   );
 }

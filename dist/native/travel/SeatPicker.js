@@ -38,6 +38,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const primitives_1 = require("../primitives");
+const motion_1 = require("../primitives/internal/motion");
 /** [background, foreground, border] token slots per resolved status. */
 const STATUS_SLOTS = {
     available: ['surface', 'onSurface', 'border'],
@@ -67,24 +68,31 @@ function SeatPicker({ rows, selectedIds = [], rowLabels, onSelect, maxSelectable
     };
     return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "none", style: [{ gap: tokens.spacing.sm, alignSelf: 'flex-start' }, style], children: [rows.map((seats, r) => {
                 const rowLabel = rowLabels && r < rowLabels.length ? rowLabels[r] : String(r + 1);
-                return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { width: 20, textAlign: 'center', color: colors.muted, fontSize: tokens.typography.scale.xs }, children: rowLabel }), seats.map((seat, c) => {
-                            const status = statusOf(seat);
-                            const [bg, fg, bd] = STATUS_SLOTS[status];
-                            const label = seat.label ?? seat.id;
-                            const disabled = status === 'occupied';
-                            const glyph = STATUS_GLYPH[status];
-                            return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `Seat ${label}, ${status === 'selected' ? 'selected' : status}`, accessibilityState: { selected: status === 'selected', disabled }, disabled: disabled, onPress: disabled ? undefined : () => onSelect?.(seat), style: ({ pressed }) => ({
-                                    width: 36,
-                                    height: 36,
-                                    borderRadius: tokens.radius.sm,
-                                    borderWidth: 1,
-                                    borderColor: colors[bd],
-                                    backgroundColor: colors[bg],
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    opacity: disabled ? 0.6 : pressed ? 0.85 : 1,
-                                }), children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors[fg], fontSize: tokens.typography.scale.xs, fontWeight: '600' }, children: glyph || label }) }, seat.id || `seat-${r}-${c}`));
-                        })] }, `row-${r}`));
+                return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { width: 20, textAlign: 'center', color: colors.muted, fontSize: tokens.typography.scale.xs }, children: rowLabel }), seats.map((seat, c) => ((0, jsx_runtime_1.jsx)(SeatButton, { seat: seat, status: statusOf(seat), onSelect: onSelect }, seat.id || `seat-${r}-${c}`)))] }, `row-${r}`));
             }), typeof maxSelectable === 'number' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.xs }, children: `Selected ${selected.size} of ${maxSelectable}` })) : null] }));
+}
+/**
+ * A single seat. Its own `usePressScale` gives the chosen seat a subtle tap
+ * scale; occupied seats stay disabled (no press feedback), and all a11y —
+ * label, selected/disabled state, status glyph — is preserved.
+ */
+function SeatButton({ seat, status, onSelect }) {
+    const { colors, tokens } = (0, primitives_1.useXenitionTheme)();
+    const press = (0, motion_1.usePressScale)();
+    const [bg, fg, bd] = STATUS_SLOTS[status];
+    const label = seat.label ?? seat.id;
+    const disabled = status === 'occupied';
+    const glyph = STATUS_GLYPH[status];
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: { transform: [{ scale: press.scale }] }, children: (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `Seat ${label}, ${status === 'selected' ? 'selected' : status}`, accessibilityState: { selected: status === 'selected', disabled }, disabled: disabled, onPress: disabled ? undefined : () => onSelect?.(seat), onPressIn: disabled ? undefined : press.onPressIn, onPressOut: disabled ? undefined : press.onPressOut, style: ({ pressed }) => ({
+                width: 36,
+                height: 36,
+                borderRadius: tokens.radius.sm,
+                borderWidth: 1,
+                borderColor: colors[bd],
+                backgroundColor: colors[bg],
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: disabled ? 0.6 : pressed ? 0.85 : 1,
+            }), children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors[fg], fontSize: tokens.typography.scale.xs, fontWeight: '600' }, children: glyph || label }) }) }));
 }
 //# sourceMappingURL=SeatPicker.js.map

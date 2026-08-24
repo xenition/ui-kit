@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export interface ExchangeRateRowProps {
     /** Base (from) currency code, e.g. `"USD"`. */
     baseCurrency: string;
@@ -13,6 +14,11 @@ export interface ExchangeRateRowProps {
     precision?: number;
     /** Fires on row press. */
     onPress?: () => void;
+    /**
+     * Surface treatment (visual-diversity preset). Defaults to `classic` — the
+     * historical borderless row, so this is opt-in only.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -22,5 +28,5 @@ export interface ExchangeRateRowProps {
  * shown value never drifts. Colors trace to tokens; becomes a button when
  * `onPress` is given.
  */
-export declare function ExchangeRateRow({ baseCurrency, quoteCurrency, rate, changePct, precision, onPress, style, }: ExchangeRateRowProps): React.ReactElement;
+export declare function ExchangeRateRow({ baseCurrency, quoteCurrency, rate, changePct, precision, onPress, appearance, style, }: ExchangeRateRowProps): React.ReactElement;
 //# sourceMappingURL=ExchangeRateRow.d.ts.map

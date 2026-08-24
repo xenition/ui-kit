@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter, usePressScale } from '../primitives/internal/motion';
 
 export interface ExerciseRowProps {
   /** Exercise name, e.g. "Bench press". */
@@ -17,13 +19,19 @@ export interface ExerciseRowProps {
   meta?: string;
   /** Fires with the next `done` state when toggled. */
   onToggle?: (next: boolean) => void;
+  /**
+   * Surface treatment for visual diversity; defaults to `classic`. For rows
+   * `classic` stays transparent (the historical look).
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
 /**
  * A workout-set row: exercise name, a `sets × reps` prescription, an optional
  * weight, and a completion toggle. Completed rows read muted with a success
- * check. `onToggle` receives the next boolean. Token-only.
+ * check. `onToggle` receives the next boolean. `appearance` selects an optional
+ * surface treatment. Token-only.
  */
 export function ExerciseRow({
   name,
@@ -33,9 +41,12 @@ export function ExerciseRow({
   done = false,
   meta,
   onToggle,
+  appearance = 'classic',
   style,
 }: ExerciseRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const enter = useEnter();
+  const press = usePressScale();
 
   const prescription =
     sets != null && reps != null ? `${sets} × ${reps}` : sets != null ? `${sets} sets` : reps != null ? `${reps} reps` : undefined;
@@ -46,6 +57,9 @@ export function ExerciseRow({
     <View
       style={[
         {
+          ...(appearance !== 'classic'
+            ? { ...appearanceStyle(appearance, colors, tokens), borderRadius: tokens.radius.md }
+            : null),
           flexDirection: 'row',
           alignItems: 'center',
           gap: tokens.spacing.md,
@@ -95,17 +109,25 @@ export function ExerciseRow({
   );
 
   if (!onToggle) {
-    return <View accessibilityLabel={a11y}>{content}</View>;
+    return (
+      <Animated.View accessibilityLabel={a11y} style={{ opacity: enter.opacity, transform: enter.transform }}>
+        {content}
+      </Animated.View>
+    );
   }
   return (
-    <Pressable
-      accessibilityRole="checkbox"
-      accessibilityState={{ checked: done }}
-      accessibilityLabel={a11y}
-      onPress={() => onToggle(!done)}
-      style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-    >
-      {content}
-    </Pressable>
+    <Animated.View style={{ opacity: enter.opacity, transform: [...enter.transform, { scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="checkbox"
+        accessibilityState={{ checked: done }}
+        accessibilityLabel={a11y}
+        onPress={() => onToggle(!done)}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+      >
+        {content}
+      </Pressable>
+    </Animated.View>
   );
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import { type MoneyFormatter } from '../primitives';
+import { type Appearance } from '../primitives/internal/appearance';
 /** A priced line in the trip cost breakdown. */
 export interface TripLineItem {
     /** Label, e.g. `'Flights'`. */
@@ -27,6 +28,8 @@ export interface TripSummaryProps {
     title?: React.ReactNode;
     /** Trailing action slot (e.g. a checkout button). */
     action?: React.ReactNode;
+    /** Surface treatment (visual diversity). Default `'classic'` — the original look. */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -35,5 +38,5 @@ export interface TripSummaryProps {
  * total is summed from `items` (guarded against an empty list). Money is
  * integer cents formatted through {@link formatMoney}. Token-only colors.
  */
-export declare function TripSummary({ destination, dates, travelers, items, totalCents, currency, formatMoney: format, title, action, style, }: TripSummaryProps): React.ReactElement;
+export declare function TripSummary({ destination, dates, travelers, items, totalCents, currency, formatMoney: format, title, action, appearance, style, }: TripSummaryProps): React.ReactElement;
 //# sourceMappingURL=TripSummary.d.ts.map

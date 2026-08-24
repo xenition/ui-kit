@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
 import { Icon } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 import { MoneyAmount } from './MoneyAmount';
 
 /** Credit (money in) vs debit (money out). */
@@ -29,6 +31,11 @@ export interface TransactionRowProps {
   iconColor?: keyof SemanticColors;
   /** Fires on row press. */
   onPress?: () => void;
+  /**
+   * Surface treatment (visual-diversity preset). Defaults to `classic` —
+   * byte-for-byte the historical borderless row, so this is opt-in only.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -37,7 +44,8 @@ export interface TransactionRowProps {
  * stack, and a right-aligned {@link MoneyAmount} over an optional date. The
  * amount tone follows `direction` (income = `success`, expense = `danger`) and
  * the magnitude is integer cents — no float drift. Fully token-bound; becomes a
- * button only when `onPress` is supplied.
+ * button only when `onPress` is supplied (which also enables a press-scale
+ * spring). `appearance` opts the row into an alternate surface treatment.
  */
 export function TransactionRow({
   title,
@@ -49,9 +57,11 @@ export function TransactionRow({
   icon,
   iconColor = 'primary',
   onPress,
+  appearance = 'classic',
   style,
 }: TransactionRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
 
   const signedCents = direction
     ? direction === 'expense'
@@ -59,9 +69,14 @@ export function TransactionRow({
       : Math.abs(amountCents)
     : amountCents;
 
+  // Appearance surface goes FIRST; layout (radius/padding) stays AFTER. Classic
+  // stays byte-for-byte identical (no surface layer added).
+  const surface = appearance === 'classic' ? undefined : appearanceStyle(appearance, colors, tokens);
+
   const row = (
     <View
       style={[
+        surface,
         { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md, paddingVertical: tokens.spacing.sm },
         style,
       ]}
@@ -112,13 +127,17 @@ export function TransactionRow({
 
   if (!onPress) return row;
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={title}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-    >
-      {row}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={title}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+      >
+        {row}
+      </Pressable>
+    </Animated.View>
   );
 }

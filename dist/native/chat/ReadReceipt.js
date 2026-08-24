@@ -26,7 +26,7 @@ const LABEL = {
 function ReadReceipt({ status = 'sent', size, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const fontSize = size ?? tokens.typography.scale.xs;
-    const color = status === 'read' ? colors.primary : status === 'failed' ? colors.danger : colors.muted;
+    const color = status === 'read' ? colors.primaryText : status === 'failed' ? colors.dangerText : colors.muted;
     return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessible: true, accessibilityRole: "image", accessibilityLabel: LABEL[status], style: style, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { allowFontScaling: false, style: { fontSize, lineHeight: fontSize * 1.2, color }, children: GLYPH[status] }) }));
 }
 //# sourceMappingURL=ReadReceipt.js.map

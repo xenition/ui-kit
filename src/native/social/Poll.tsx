@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
 
 export interface PollOption {
   id: string;
@@ -22,6 +24,11 @@ export interface PollProps {
   onVote?: (id: string) => void;
   /** Footer meta (e.g. `1,204 votes · 2d left`). Auto-derived if omitted. */
   meta?: string;
+  /**
+   * Surface treatment for the poll card — fill/border/elevation only;
+   * radius/padding are unchanged. Default `'classic'` (the historical look).
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -38,9 +45,11 @@ export function Poll({
   closed = false,
   onVote,
   meta,
+  appearance = 'classic',
   style,
 }: PollProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const enter = useEnter();
   const total = options.reduce((sum, o) => sum + (o.votes ?? 0), 0);
   const showResults = closed || votedOptionId != null;
   const leadVotes = options.reduce((max, o) => Math.max(max, o.votes ?? 0), 0);
@@ -50,15 +59,14 @@ export function Poll({
     `${total.toLocaleString()} ${total === 1 ? 'vote' : 'votes'}${closed ? ' · Final' : ''}`;
 
   return (
-    <View
+    <Animated.View
       accessibilityRole="radiogroup"
       style={[
+        { opacity: enter.opacity, transform: enter.transform },
         {
+          ...appearanceStyle(appearance, colors, tokens),
           gap: tokens.spacing.sm,
-          borderWidth: 1,
-          borderColor: colors.border,
           borderRadius: tokens.radius.lg,
-          backgroundColor: colors.surface,
           padding: tokens.spacing.md,
         },
         style,
@@ -131,7 +139,7 @@ export function Poll({
             })}
           >
             {({ pressed }) => (
-              <Text style={{ color: pressed ? colors.onPrimary : colors.primary, fontSize: tokens.typography.scale.sm, fontWeight: '600', textAlign: 'center' }}>
+              <Text style={{ color: pressed ? colors.onPrimary : colors.primaryText, fontSize: tokens.typography.scale.sm, fontWeight: '600', textAlign: 'center' }}>
                 {o.label}
               </Text>
             )}
@@ -140,6 +148,6 @@ export function Poll({
       })}
 
       <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.xs }}>{derivedMeta}</Text>
-    </View>
+    </Animated.View>
   );
 }

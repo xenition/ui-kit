@@ -9,7 +9,7 @@ export interface MentionTextProps {
   text: string;
   /** Base color slot for plain text. Default `'onSurface'`. */
   color?: keyof SemanticColors;
-  /** Highlight color slot for mentions/hashtags/links. Default `'primary'`. */
+  /** Highlight color slot for mentions/hashtags/links. Default `'primaryText'`. */
   linkColor?: keyof SemanticColors;
   /** Font size from the typography scale. Default `'base'`. */
   size?: TypeScaleKey;
@@ -55,7 +55,7 @@ export function parseMentions(text: string): Segment[] {
 export function MentionText({
   text,
   color = 'onSurface',
-  linkColor = 'primary',
+  linkColor = 'primaryText',
   size = 'base',
   numberOfLines,
   onPressMention,

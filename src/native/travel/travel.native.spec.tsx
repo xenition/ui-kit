@@ -16,6 +16,8 @@ import { PriceCalendar, type PriceDay } from './PriceCalendar';
 import { MapCard } from './MapCard';
 import { WeatherStrip } from './WeatherStrip';
 import { AmenityRow } from './AmenityRow';
+import { BoardingPass } from './BoardingPass';
+import { BaggageRow } from './BaggageRow';
 
 describe('FlightCard (native)', () => {
   it('renders route, nonstop label, and fires onPress', () => {
@@ -166,6 +168,55 @@ describe('WeatherStrip + AmenityRow (native)', () => {
     );
     expect(getByLabelText(/Mon today, Sunny, high 24/)).toBeTruthy();
     expect(getByLabelText('Parking, unavailable')).toBeTruthy();
+  });
+});
+
+describe('appearance diversity (native travel)', () => {
+  it('renders alternate appearances (elevated + others) token-pure in both seeds', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      const { root } = renderThemed(
+        <>
+          <FlightCard
+            airline="Xenition Air"
+            from={{ code: 'SFO', time: '08:15' }}
+            to={{ code: 'NRT', time: '13:40' }}
+            duration="10h 25m"
+            priceCents={78900}
+            appearance="elevated"
+          />
+          <HotelCard name="Park Tower" priceCents={21000} tags={['Pool']} appearance="soft" />
+          <TripSummary destination="Tokyo" items={[{ label: 'Flights', cents: 120000 }]} appearance="outline" />
+          <BoardingPass passenger="A. Traveler" from="SFO" to="NRT" flight="XN 482" appearance="filled" />
+          <MapCard label="Park Tower" appearance="elevated" />
+          <BaggageRow kind="checked" included appearance="soft" />
+        </>,
+        seed
+      );
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+});
+
+describe('motion (native travel)', () => {
+  it('mounts press-scale and enter-animated components without throwing', () => {
+    const { getByLabelText } = renderThemed(
+      <>
+        <FlightCard
+          airline="Xenition Air"
+          from={{ code: 'SFO', time: '08:15' }}
+          to={{ code: 'NRT', time: '13:40' }}
+          duration="10h 25m"
+          onPress={() => {}}
+        />
+        <ItineraryItem kind="flight" title="Depart" status="active" />
+      </>,
+      SEED_LIGHT
+    );
+    expect(getByLabelText(/Xenition Air SFO to NRT/)).toBeTruthy();
+    expect(getByLabelText('Depart, active')).toBeTruthy();
   });
 });
 

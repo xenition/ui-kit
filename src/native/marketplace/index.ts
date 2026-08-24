@@ -15,6 +15,32 @@ export type { ListingCardProps, ListingCardVariant } from './ListingCard';
 export { SellerCard } from './SellerCard';
 export type { SellerCardProps, SellerCardVariant } from './SellerCard';
 
+// ── Alternate designs ─────────────────────────────────────────────────
+// Drop-in redesigns of the high-traffic marketplace blocks: each `V2`/`V3`
+// takes the SAME props as its base component (`<Name>V2Props = <Name>Props`)
+// but renders a genuinely different layout, so an app can swap the visual
+// treatment without touching call sites. Presentational and token-pure like
+// the originals.
+export { ListingCardV2 } from './ListingCardV2';
+export type { ListingCardV2Props } from './ListingCardV2';
+export { ListingCardV3 } from './ListingCardV3';
+export type { ListingCardV3Props } from './ListingCardV3';
+
+export { SellerCardV2 } from './SellerCardV2';
+export type { SellerCardV2Props } from './SellerCardV2';
+export { SellerCardV3 } from './SellerCardV3';
+export type { SellerCardV3Props } from './SellerCardV3';
+
+export { AuctionCardV2 } from './AuctionCardV2';
+export type { AuctionCardV2Props } from './AuctionCardV2';
+export { AuctionCardV3 } from './AuctionCardV3';
+export type { AuctionCardV3Props } from './AuctionCardV3';
+
+export { WatchlistRowV2 } from './WatchlistRowV2';
+export type { WatchlistRowV2Props } from './WatchlistRowV2';
+export { WatchlistRowV3 } from './WatchlistRowV3';
+export type { WatchlistRowV3Props } from './WatchlistRowV3';
+
 export { OfferRow } from './OfferRow';
 export type { OfferRowProps, OfferStatus } from './OfferRow';
 

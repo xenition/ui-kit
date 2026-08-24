@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 /** Visual size for a {@link DestinationCard}. */
 export type DestinationCardVariant = 'default' | 'wide';
 export interface DestinationCardProps {
@@ -19,6 +20,8 @@ export interface DestinationCardProps {
     badge?: string;
     /** Size variant. */
     variant?: DestinationCardVariant;
+    /** Surface treatment (visual diversity). Default `'classic'` — the original look. */
+    appearance?: Appearance;
     /** Fires when the card is pressed. */
     onPress?: () => void;
     style?: StyleProp<ViewStyle>;
@@ -29,5 +32,5 @@ export interface DestinationCardProps {
  * tagline, a "from" price, and an optional badge ribbon. Data + `onPress`
  * only. Token-only colors.
  */
-export declare function DestinationCard({ name, country, tagline, glyph, fromCents, currency, badge, variant, onPress, style, }: DestinationCardProps): React.ReactElement;
+export declare function DestinationCard({ name, country, tagline, glyph, fromCents, currency, badge, variant, appearance, onPress, style, }: DestinationCardProps): React.ReactElement;
 //# sourceMappingURL=DestinationCard.d.ts.map

@@ -99,7 +99,7 @@ export function TransferForm({
       </Field>
 
       {sameAccount ? (
-        <Text style={{ color: colors.danger, fontSize: tokens.typography.scale.xs }}>
+        <Text style={{ color: colors.dangerText, fontSize: tokens.typography.scale.xs }}>
           Choose two different accounts.
         </Text>
       ) : null}

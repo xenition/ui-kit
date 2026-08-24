@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 import { type MoneyFormatter } from '../commerce/money';
 export interface BalanceHeaderProps {
     /** Caption above the figure (default `Total balance`). */
@@ -18,6 +19,11 @@ export interface BalanceHeaderProps {
     formatMoney?: MoneyFormatter;
     /** Show a loading placeholder instead of the figure. */
     loading?: boolean;
+    /**
+     * Surface treatment (visual-diversity preset). Defaults to `classic` — the
+     * historical borderless hero block, so this is opt-in only.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -27,5 +33,5 @@ export interface BalanceHeaderProps {
  * (formatted to two decimals, no drift); the change tone derives from its sign.
  * All colors trace to tokens.
  */
-export declare function BalanceHeader({ label, balanceCents, currency, changeCents, changePct, trend, formatMoney: format, loading, style, }: BalanceHeaderProps): React.ReactElement;
+export declare function BalanceHeader({ label, balanceCents, currency, changeCents, changePct, trend, formatMoney: format, loading, appearance, style, }: BalanceHeaderProps): React.ReactElement;
 //# sourceMappingURL=BalanceHeader.d.ts.map

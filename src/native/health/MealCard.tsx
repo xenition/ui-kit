@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter, usePressScale } from '../primitives/internal/motion';
 
 export type MealVariant = 'breakfast' | 'lunch' | 'dinner' | 'snack';
 
@@ -43,13 +45,16 @@ export interface MealCardProps {
   /** Optional time label, e.g. "8:30 AM". */
   time?: string;
   onPress?: () => void;
+  /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
 /**
  * A logged-meal card: meal-slot icon + tag, dish name, calories, and a
  * color-coded protein / carbs / fat macro strip. Macros with no value are
- * omitted. Pressable when `onPress` is set. Token-only colors.
+ * omitted. Pressable when `onPress` is set. `appearance` selects the surface
+ * treatment (classic by default). Token-only colors.
  */
 export function MealCard({
   name,
@@ -58,19 +63,20 @@ export function MealCard({
   macros,
   time,
   onPress,
+  appearance = 'classic',
   style,
 }: MealCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const meta = MEAL_META[variant];
   const shownMacros = MACRO_META.filter((m) => macros?.[m.key] != null);
+  const enter = useEnter();
+  const press = usePressScale();
 
   const inner = (
     <View
       style={[
         {
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          borderWidth: 1,
+          ...appearanceStyle(appearance, colors, tokens),
           borderRadius: tokens.radius.lg,
           padding: tokens.spacing.lg,
           gap: tokens.spacing.sm,
@@ -120,16 +126,24 @@ export function MealCard({
 
   const a11y = `${meta.label}: ${name}${calories != null ? `, ${calories} calories` : ''}`;
   if (!onPress) {
-    return <View accessibilityLabel={a11y}>{inner}</View>;
+    return (
+      <Animated.View accessibilityLabel={a11y} style={{ opacity: enter.opacity, transform: enter.transform }}>
+        {inner}
+      </Animated.View>
+    );
   }
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={a11y}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
-    >
-      {inner}
-    </Pressable>
+    <Animated.View style={{ opacity: enter.opacity, transform: [...enter.transform, { scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={a11y}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+      >
+        {inner}
+      </Pressable>
+    </Animated.View>
   );
 }

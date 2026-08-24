@@ -42,7 +42,7 @@ export function ReadReceipt({
   const { colors, tokens } = useXenitionTheme();
   const fontSize = size ?? tokens.typography.scale.xs;
   const color =
-    status === 'read' ? colors.primary : status === 'failed' ? colors.danger : colors.muted;
+    status === 'read' ? colors.primaryText : status === 'failed' ? colors.dangerText : colors.muted;
   return (
     <View
       accessible

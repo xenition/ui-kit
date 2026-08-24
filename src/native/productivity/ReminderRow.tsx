@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
+import { type Appearance, appearanceStyle } from '../primitives/internal/appearance';
 import { DueDatePill, type DueDateTone } from './DueDatePill';
 
 export interface ReminderRowProps {
@@ -16,6 +17,8 @@ export interface ReminderRowProps {
   onToggle?: (enabled: boolean) => void;
   /** Fires when the row body is pressed. */
   onPress?: () => void;
+  /** Surface treatment (visual-diversity preset). Defaults to `classic`. */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -31,6 +34,7 @@ export function ReminderRow({
   enabled = true,
   onToggle,
   onPress,
+  appearance = 'classic',
   style,
 }: ReminderRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -38,6 +42,7 @@ export function ReminderRow({
   return (
     <View
       style={[
+        appearance === 'classic' ? null : appearanceStyle(appearance, colors, tokens),
         {
           flexDirection: 'row',
           alignItems: 'center',
@@ -45,7 +50,6 @@ export function ReminderRow({
           paddingVertical: tokens.spacing.sm,
           paddingHorizontal: tokens.spacing.sm,
           borderRadius: tokens.radius.md,
-          backgroundColor: colors.surface,
         },
         style,
       ]}
@@ -78,7 +82,7 @@ export function ReminderRow({
         hitSlop={8}
         style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1, padding: tokens.spacing.xs })}
       >
-        <Text style={{ color: enabled ? colors.primary : colors.muted, fontSize: tokens.typography.scale.lg }}>
+        <Text style={{ color: enabled ? colors.primaryText : colors.muted, fontSize: tokens.typography.scale.lg }}>
           {enabled ? '🔔' : '🔕'}
         </Text>
       </Pressable>

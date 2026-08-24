@@ -5,6 +5,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const Avatar_1 = require("../primitives/Avatar");
+const motion_1 = require("../primitives/internal/motion");
 const DIAMETER = { xs: 32, sm: 44, md: 56, lg: 76, xl: 96 };
 /**
  * An avatar wrapped in a story ring. The ring color encodes state — unseen
@@ -13,6 +14,7 @@ const DIAMETER = { xs: 32, sm: 44, md: 56, lg: 76, xl: 96 };
  */
 function StoryRing({ src, name, state = 'unseen', size = 'md', label, onPress, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    const press = (0, motion_1.usePressScale)();
     const outer = DIAMETER[size];
     const ringColor = state === 'live' ? colors.danger : state === 'seen' ? colors.border : colors.primary;
     const caption = label ?? (state === 'add' ? 'Your story' : name);
@@ -42,6 +44,6 @@ function StoryRing({ src, name, state = 'unseen', size = 'md', label, onPress, s
                 }, children: caption })) : null] }));
     if (!onPress)
         return body;
-    return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: state === 'add' ? 'Add to your story' : `${name ?? 'Story'}${state === 'live' ? ', live' : ''}`, onPress: onPress, style: ({ pressed }) => ({ opacity: pressed ? 0.8 : 1 }), children: body }));
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: { transform: [{ scale: press.scale }] }, children: (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: state === 'add' ? 'Add to your story' : `${name ?? 'Story'}${state === 'live' ? ', live' : ''}`, onPress: onPress, onPressIn: press.onPressIn, onPressOut: press.onPressOut, style: ({ pressed }) => ({ opacity: pressed ? 0.8 : 1 }), children: body }) }));
 }
 //# sourceMappingURL=StoryRing.js.map

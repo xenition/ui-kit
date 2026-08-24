@@ -12,11 +12,13 @@ const SIZE_KEY = {
     xl: '3xl',
 };
 function toneColorKey(tone, cents) {
+    // FILL-AS-TEXT: the amount is TEXT, so it reads the AA-guaranteed *Text slots
+    // (successText / dangerText) rather than the fill-oriented success / danger.
     switch (tone) {
         case 'income':
-            return 'success';
+            return 'successText';
         case 'expense':
-            return 'danger';
+            return 'dangerText';
         case 'neutral':
             return 'onSurface';
         case 'muted':
@@ -24,9 +26,9 @@ function toneColorKey(tone, cents) {
         case 'auto':
         default:
             if (cents > 0)
-                return 'success';
+                return 'successText';
             if (cents < 0)
-                return 'danger';
+                return 'dangerText';
             return 'onSurface';
     }
 }

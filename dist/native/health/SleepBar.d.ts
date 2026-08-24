@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export type SleepQuality = 'poor' | 'fair' | 'good' | 'excellent';
 export interface SleepBarProps {
     /** Hours actually slept. */
@@ -12,12 +13,15 @@ export interface SleepBarProps {
     bedtime?: string;
     /** Optional wake time label, e.g. "6:45 AM". */
     wakeTime?: string;
+    /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
  * A sleep-duration summary: hours slept versus goal drawn as a single fill bar,
  * a color-coded quality tag, and optional bed / wake times. The bar color comes
- * from `quality` (falling back to `primary`). Guards `goal <= 0`. Token-only.
+ * from `quality` (falling back to `primary`). `appearance` selects the surface
+ * treatment (classic by default). Guards `goal <= 0`. Token-only.
  */
-export declare function SleepBar({ hours, goal, quality, bedtime, wakeTime, style, }: SleepBarProps): React.ReactElement;
+export declare function SleepBar({ hours, goal, quality, bedtime, wakeTime, appearance, style, }: SleepBarProps): React.ReactElement;
 //# sourceMappingURL=SleepBar.d.ts.map

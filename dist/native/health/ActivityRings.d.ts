@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import { type SemanticColors } from '../theme';
+import { type Appearance } from '../primitives/internal/appearance';
 export type ActivityRingColor = keyof SemanticColors;
 export interface ActivityRing {
     /** Ring name, e.g. "Move". */
@@ -27,6 +28,11 @@ export interface ActivityRingsProps {
     showLegend?: boolean;
     /** Accessible summary override; a per-ring summary is generated otherwise. */
     accessibilityLabel?: string;
+    /**
+     * Surface treatment for the outer container (the SVG rings are unaffected);
+     * defaults to `classic` (no surface, the historical look).
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -36,5 +42,5 @@ export interface ActivityRingsProps {
  * note when `rings` is empty. The whole figure exposes one `accessibilityLabel`
  * summarizing every ring. Token-only colors.
  */
-export declare function ActivityRings({ rings, size, strokeWidth, gap, showLegend, accessibilityLabel, style, }: ActivityRingsProps): React.ReactElement;
+export declare function ActivityRings({ rings, size, strokeWidth, gap, showLegend, accessibilityLabel, appearance, style, }: ActivityRingsProps): React.ReactElement;
 //# sourceMappingURL=ActivityRings.d.ts.map

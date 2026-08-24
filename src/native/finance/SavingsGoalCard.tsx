@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
 import { Card } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 import { ProgressRing } from '../charts';
 import { MoneyAmount } from './MoneyAmount';
 import { formatMoney, type MoneyFormatter } from '../commerce/money';
@@ -21,6 +22,11 @@ export interface SavingsGoalCardProps {
   color?: keyof SemanticColors;
   /** Override the cents → string formatter (locale control). */
   formatMoney?: MoneyFormatter;
+  /**
+   * Surface treatment (visual-diversity preset). Defaults to `classic` —
+   * byte-for-byte the historical bordered card, so this is opt-in only.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -39,6 +45,7 @@ export function SavingsGoalCard({
   deadline,
   color = 'success',
   formatMoney: format = formatMoney,
+  appearance = 'classic',
   style,
 }: SavingsGoalCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -48,8 +55,11 @@ export function SavingsGoalCard({
   const pct = target > 0 ? Math.min(saved / target, 1) : 0;
   const remaining = Math.max(target - saved, 0);
 
+  // Appearance overrides the Card's default surface; classic → unchanged.
+  const surface = appearance === 'classic' ? undefined : appearanceStyle(appearance, colors, tokens);
+
   return (
-    <Card style={style}>
+    <Card style={[surface, style]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg }}>
         <ProgressRing
           value={pct * 100}

@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../primitives';
 import { PriceTag } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale } from '../primitives/internal/motion';
 
 /** Presentation density for a {@link FlightCard}. */
 export type FlightCardVariant = 'default' | 'compact';
@@ -35,6 +37,8 @@ export interface FlightCardProps {
   currency?: string;
   /** Density variant. */
   variant?: FlightCardVariant;
+  /** Surface treatment (visual diversity). Default `'classic'` — the original look. */
+  appearance?: Appearance;
   /** Fires when the card is pressed (e.g. to open fare details). */
   onPress?: () => void;
   /** Shows a shimmer-free skeleton recap instead of data. */
@@ -59,11 +63,13 @@ export function FlightCard({
   priceCents,
   currency = 'USD',
   variant = 'default',
+  appearance = 'classic',
   onPress,
   loading = false,
   style,
 }: FlightCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const press = usePressScale();
   const compact = variant === 'compact';
 
   const stopLabel = stops <= 0 ? 'Nonstop' : `${stops} stop${stops > 1 ? 's' : ''}`;
@@ -71,12 +77,10 @@ export function FlightCard({
   const body = (
     <View
       style={[
+        appearanceStyle(appearance, colors, tokens),
         {
           gap: compact ? tokens.spacing.sm : tokens.spacing.md,
           borderRadius: tokens.radius.lg,
-          borderWidth: 1,
-          borderColor: colors.border,
-          backgroundColor: colors.surface,
           padding: compact ? tokens.spacing.md : tokens.spacing.lg,
         },
         style,
@@ -134,13 +138,17 @@ export function FlightCard({
 
   if (!onPress) return body;
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`${airline} ${from.code} to ${to.code}, ${duration}, ${stopLabel}`}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
-    >
-      {body}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${airline} ${from.code} to ${to.code}, ${duration}, ${stopLabel}`}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
+      >
+        {body}
+      </Pressable>
+    </Animated.View>
   );
 }

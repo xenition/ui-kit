@@ -10,11 +10,33 @@
  * dependencies.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReportListing = exports.RatingBreakdown = exports.WatchlistRow = exports.MakeOfferForm = exports.ShippingOption = exports.ConditionBadge = exports.CategoryTile = exports.AuctionCard = exports.BidRow = exports.OfferRow = exports.SellerCard = exports.ListingCard = void 0;
+exports.ReportListing = exports.RatingBreakdown = exports.WatchlistRow = exports.MakeOfferForm = exports.ShippingOption = exports.ConditionBadge = exports.CategoryTile = exports.AuctionCard = exports.BidRow = exports.OfferRow = exports.WatchlistRowV3 = exports.WatchlistRowV2 = exports.AuctionCardV3 = exports.AuctionCardV2 = exports.SellerCardV3 = exports.SellerCardV2 = exports.ListingCardV3 = exports.ListingCardV2 = exports.SellerCard = exports.ListingCard = void 0;
 var ListingCard_1 = require("./ListingCard");
 Object.defineProperty(exports, "ListingCard", { enumerable: true, get: function () { return ListingCard_1.ListingCard; } });
 var SellerCard_1 = require("./SellerCard");
 Object.defineProperty(exports, "SellerCard", { enumerable: true, get: function () { return SellerCard_1.SellerCard; } });
+// ── Alternate designs ─────────────────────────────────────────────────
+// Drop-in redesigns of the high-traffic marketplace blocks: each `V2`/`V3`
+// takes the SAME props as its base component (`<Name>V2Props = <Name>Props`)
+// but renders a genuinely different layout, so an app can swap the visual
+// treatment without touching call sites. Presentational and token-pure like
+// the originals.
+var ListingCardV2_1 = require("./ListingCardV2");
+Object.defineProperty(exports, "ListingCardV2", { enumerable: true, get: function () { return ListingCardV2_1.ListingCardV2; } });
+var ListingCardV3_1 = require("./ListingCardV3");
+Object.defineProperty(exports, "ListingCardV3", { enumerable: true, get: function () { return ListingCardV3_1.ListingCardV3; } });
+var SellerCardV2_1 = require("./SellerCardV2");
+Object.defineProperty(exports, "SellerCardV2", { enumerable: true, get: function () { return SellerCardV2_1.SellerCardV2; } });
+var SellerCardV3_1 = require("./SellerCardV3");
+Object.defineProperty(exports, "SellerCardV3", { enumerable: true, get: function () { return SellerCardV3_1.SellerCardV3; } });
+var AuctionCardV2_1 = require("./AuctionCardV2");
+Object.defineProperty(exports, "AuctionCardV2", { enumerable: true, get: function () { return AuctionCardV2_1.AuctionCardV2; } });
+var AuctionCardV3_1 = require("./AuctionCardV3");
+Object.defineProperty(exports, "AuctionCardV3", { enumerable: true, get: function () { return AuctionCardV3_1.AuctionCardV3; } });
+var WatchlistRowV2_1 = require("./WatchlistRowV2");
+Object.defineProperty(exports, "WatchlistRowV2", { enumerable: true, get: function () { return WatchlistRowV2_1.WatchlistRowV2; } });
+var WatchlistRowV3_1 = require("./WatchlistRowV3");
+Object.defineProperty(exports, "WatchlistRowV3", { enumerable: true, get: function () { return WatchlistRowV3_1.WatchlistRowV3; } });
 var OfferRow_1 = require("./OfferRow");
 Object.defineProperty(exports, "OfferRow", { enumerable: true, get: function () { return OfferRow_1.OfferRow; } });
 var BidRow_1 = require("./BidRow");

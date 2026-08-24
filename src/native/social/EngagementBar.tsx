@@ -9,7 +9,7 @@ interface ActionSpec {
   label: string;
   count?: number;
   active?: boolean;
-  /** Color slot used when `active`. Default `primary`. */
+  /** Color slot used when `active`. Default `primaryText` (readable on surface). */
   activeColor?: keyof SemanticColors;
   onPress?: () => void;
 }
@@ -40,8 +40,8 @@ function formatCount(n: number): string {
 /**
  * The like / comment / share (+ optional bookmark) action row under a post.
  * Each action is an icon with an optional count; `liked` turns the heart
- * `danger`, `bookmarked` turns the flag `primary`. Only the handlers you pass
- * become interactive. Token-only.
+ * `dangerText`, `bookmarked` turns the flag `primaryText` (the on-surface-
+ * readable variants). Only the handlers you pass become interactive. Token-only.
  */
 export function EngagementBar({
   likeCount = 0,
@@ -59,18 +59,18 @@ export function EngagementBar({
   const { colors, tokens } = useXenitionTheme();
 
   const actions: ActionSpec[] = [
-    { key: 'like', glyph: '♡', activeGlyph: '♥', label: 'Like', count: likeCount, active: liked, activeColor: 'danger', onPress: onLike },
+    { key: 'like', glyph: '♡', activeGlyph: '♥', label: 'Like', count: likeCount, active: liked, activeColor: 'dangerText', onPress: onLike },
     { key: 'comment', glyph: '💬', label: 'Comment', count: commentCount, onPress: onComment },
     { key: 'share', glyph: '↗', label: 'Share', count: shareCount, onPress: onShare },
   ];
   if (onBookmark) {
-    actions.push({ key: 'bookmark', glyph: '🔖', label: 'Bookmark', active: bookmarked, activeColor: 'primary', onPress: onBookmark });
+    actions.push({ key: 'bookmark', glyph: '🔖', label: 'Bookmark', active: bookmarked, activeColor: 'primaryText', onPress: onBookmark });
   }
 
   return (
     <View style={[{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.lg }, style]}>
       {actions.map((a) => {
-        const tint = a.active ? colors[a.activeColor ?? 'primary'] : colors.muted;
+        const tint = a.active ? colors[a.activeColor ?? 'primaryText'] : colors.muted;
         const showCount = a.count != null && !(hideZero && a.count === 0);
         return (
           <Pressable

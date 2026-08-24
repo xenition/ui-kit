@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Avatar } from '../primitives/Avatar';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
 import { MentionText } from './MentionText';
 
 export interface CommentItemProps {
@@ -20,6 +22,11 @@ export interface CommentItemProps {
   depth?: number;
   /** Pinned/highlighted comment (e.g. author's pick) — tints the surface. */
   pinned?: boolean;
+  /**
+   * Surface treatment applied when `pinned` — fill/border/elevation only;
+   * radius/padding are unchanged. Default `'classic'` (the historical look).
+   */
+  appearance?: Appearance;
   onLike?: () => void;
   onReply?: () => void;
   onPressAuthor?: () => void;
@@ -45,6 +52,7 @@ export function CommentItem({
   liked = false,
   depth = 0,
   pinned = false,
+  appearance = 'classic',
   onLike,
   onReply,
   onPressAuthor,
@@ -54,19 +62,20 @@ export function CommentItem({
   style,
 }: CommentItemProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const enter = useEnter();
   const indent = Math.max(0, depth) * tokens.spacing.xl;
 
   return (
-    <View style={[{ paddingLeft: indent }, style]}>
+    <Animated.View style={[{ opacity: enter.opacity, transform: enter.transform }, { paddingLeft: indent }, style]}>
       <View
         style={{
           flexDirection: 'row',
           gap: tokens.spacing.sm,
+          // A pinned comment gets a real surface (varies by `appearance`);
+          // an unpinned one stays bare, exactly as before.
+          ...(pinned ? appearanceStyle(appearance, colors, tokens) : null),
           borderRadius: tokens.radius.md,
           padding: pinned ? tokens.spacing.sm : 0,
-          backgroundColor: pinned ? colors.surface : 'transparent',
-          borderWidth: pinned ? 1 : 0,
-          borderColor: pinned ? colors.border : 'transparent',
         }}
       >
         <Pressable accessibilityRole="button" accessibilityLabel={author} disabled={!onPressAuthor} onPress={onPressAuthor}>
@@ -84,7 +93,7 @@ export function CommentItem({
               <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.xs }}>· {timestamp}</Text>
             ) : null}
             {pinned ? (
-              <Text style={{ color: colors.primary, fontSize: tokens.typography.scale.xs, fontWeight: '600' }}>
+              <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.xs, fontWeight: '600' }}>
                 · Pinned
               </Text>
             ) : null}
@@ -106,7 +115,7 @@ export function CommentItem({
               onPress={onLike}
               style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs, opacity: pressed ? 0.6 : 1 })}
             >
-              <Text style={{ color: liked ? colors.danger : colors.muted, fontSize: tokens.typography.scale.sm }}>
+              <Text style={{ color: liked ? colors.dangerText : colors.muted, fontSize: tokens.typography.scale.sm }}>
                 {liked ? '♥' : '♡'}
               </Text>
               {likeCount > 0 ? (
@@ -131,6 +140,6 @@ export function CommentItem({
         </View>
       </View>
       {children ? <View style={{ marginTop: tokens.spacing.sm, gap: tokens.spacing.sm }}>{children}</View> : null}
-    </View>
+    </Animated.View>
   );
 }

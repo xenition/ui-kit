@@ -21,6 +21,6 @@ function QuickReplies({ replies, onSelect, style, }) {
                 paddingVertical: tokens.spacing.xs,
                 paddingHorizontal: tokens.spacing.md,
                 opacity: pressed ? 0.7 : 1,
-            }), children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.primary, fontSize: tokens.typography.scale.sm, fontWeight: '500' }, children: reply.label }) }, reply.id))) }));
+            }), children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.primaryText, fontSize: tokens.typography.scale.sm, fontWeight: '500' }, children: reply.label }) }, reply.id))) }));
 }
 //# sourceMappingURL=QuickReplies.js.map

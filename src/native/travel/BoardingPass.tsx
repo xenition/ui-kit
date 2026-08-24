@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 
 /** A labelled field shown in the boarding-pass detail grid. */
 export interface BoardingField {
@@ -29,6 +30,12 @@ export interface BoardingPassProps {
   extraFields?: readonly BoardingField[];
   /** Barcode payload string, rendered as a token-styled placeholder (no scan lib). */
   barcode?: string;
+  /**
+   * Surface treatment for the OUTER card frame (visual diversity). Default
+   * `'classic'` — the original look. The primary header band and barcode
+   * placeholder keep their inner look regardless.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -49,6 +56,7 @@ export function BoardingPass({
   boardingTime,
   extraFields = [],
   barcode,
+  appearance = 'classic',
   style,
 }: BoardingPassProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -66,11 +74,9 @@ export function BoardingPass({
       accessible
       accessibilityLabel={`Boarding pass for ${passenger}, ${from} to ${to}, flight ${flight}`}
       style={[
+        appearanceStyle(appearance, colors, tokens),
         {
           borderRadius: tokens.radius.lg,
-          borderWidth: 1,
-          borderColor: colors.border,
-          backgroundColor: colors.surface,
           overflow: 'hidden',
         },
         style,

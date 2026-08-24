@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Sparkline } from '../charts';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter } from '../primitives/internal/motion';
 import { formatMoney, type MoneyFormatter } from '../commerce/money';
 
 export interface BalanceHeaderProps {
@@ -21,6 +23,11 @@ export interface BalanceHeaderProps {
   formatMoney?: MoneyFormatter;
   /** Show a loading placeholder instead of the figure. */
   loading?: boolean;
+  /**
+   * Surface treatment (visual-diversity preset). Defaults to `classic` — the
+   * historical borderless hero block, so this is opt-in only.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -40,17 +47,27 @@ export function BalanceHeader({
   trend,
   formatMoney: format = formatMoney,
   loading = false,
+  appearance = 'classic',
   style,
 }: BalanceHeaderProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const enter = useEnter();
 
   const hasChange = typeof changeCents === 'number' && Number.isFinite(changeCents);
   const up = (changeCents ?? 0) >= 0;
-  const changeColor = up ? colors.success : colors.danger;
+  // FILL-AS-TEXT: the change reads as TEXT (arrow + amount), so it uses the
+  // AA-guaranteed *Text slots. The Sparkline below stays a FILL (unchanged).
+  const changeColor = up ? colors.successText : colors.dangerText;
   const arrow = up ? '▲' : '▼';
 
+  // Appearance surface FIRST; the enter transition + gap layout stay AFTER.
+  const surface = appearance === 'classic' ? undefined : appearanceStyle(appearance, colors, tokens);
+
   return (
-    <View accessibilityRole="summary" style={[{ gap: tokens.spacing.xs }, style]}>
+    <Animated.View
+      accessibilityRole="summary"
+      style={[surface, { gap: tokens.spacing.xs }, enter, style]}
+    >
       <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>{label}</Text>
       {loading ? (
         <View
@@ -86,6 +103,6 @@ export function BalanceHeader({
       {trend != null && trend.length > 0 && !loading ? (
         <Sparkline data={trend} color={up ? 'success' : 'danger'} style={{ marginTop: tokens.spacing.xs }} />
       ) : null}
-    </View>
+    </Animated.View>
   );
 }

@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, type SemanticColors } from '../theme';
 import { MiniBar } from '../charts';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { useEnter, usePressScale } from '../primitives/internal/motion';
 
 export type GoalCardColor = keyof SemanticColors;
 
@@ -19,13 +21,16 @@ export interface GoalCardProps {
   /** Optional icon/emoji slot. */
   icon?: React.ReactNode;
   onPress?: () => void;
+  /** Surface treatment for visual diversity; defaults to `classic` (the historical look). */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
 /**
  * A goal-progress card: title, an emphasized `value / target` readout, and a
  * {@link MiniBar}. When the target is met the bar and readout switch to the
- * `success` tone and a "Goal met" note appears. Guards `target <= 0`. Token-only.
+ * `success` tone and a "Goal met" note appears. `appearance` selects the surface
+ * treatment (classic by default). Guards `target <= 0`. Token-only.
  */
 export function GoalCard({
   title,
@@ -35,9 +40,12 @@ export function GoalCard({
   color = 'primary',
   icon,
   onPress,
+  appearance = 'classic',
   style,
 }: GoalCardProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  const enter = useEnter();
+  const press = usePressScale();
 
   const hasTarget = target > 0;
   const clamped = hasTarget ? Math.min(Math.max(value, 0), target) : Math.max(value, 0);
@@ -52,9 +60,7 @@ export function GoalCard({
     <View
       style={[
         {
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          borderWidth: 1,
+          ...appearanceStyle(appearance, colors, tokens),
           borderRadius: tokens.radius.lg,
           padding: tokens.spacing.lg,
           gap: tokens.spacing.sm,
@@ -68,13 +74,13 @@ export function GoalCard({
           {title}
         </Text>
         {met ? (
-          <Text style={{ color: colors.success, fontSize: tokens.typography.scale.xs, fontWeight: '700' }}>
+          <Text style={{ color: colors.successText, fontSize: tokens.typography.scale.xs, fontWeight: '700' }}>
             ✓ Goal met
           </Text>
         ) : null}
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: tokens.spacing.xs }}>
-        <Text style={{ color: met ? colors.success : colors.onSurface, fontSize: tokens.typography.scale['2xl'], fontWeight: '700' }}>
+        <Text style={{ color: met ? colors.successText : colors.onSurface, fontSize: tokens.typography.scale['2xl'], fontWeight: '700' }}>
           {value}
         </Text>
         {hasTarget ? (
@@ -95,16 +101,24 @@ export function GoalCard({
   );
 
   if (!onPress) {
-    return <View accessibilityLabel={a11y}>{inner}</View>;
+    return (
+      <Animated.View accessibilityLabel={a11y} style={{ opacity: enter.opacity, transform: enter.transform }}>
+        {inner}
+      </Animated.View>
+    );
   }
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={a11y}
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
-    >
-      {inner}
-    </Pressable>
+    <Animated.View style={{ opacity: enter.opacity, transform: [...enter.transform, { scale: press.scale }] }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={a11y}
+        onPress={onPress}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+        style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+      >
+        {inner}
+      </Pressable>
+    </Animated.View>
   );
 }

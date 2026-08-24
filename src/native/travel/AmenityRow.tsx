@@ -50,7 +50,7 @@ export function AmenityRow({ amenities, variant = 'wrap', style }: AmenityRowPro
               accessibilityLabel={`${a.label}, ${available ? 'available' : 'unavailable'}`}
               style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }}
             >
-              <Text style={{ color: available ? colors.success : colors.muted, fontSize: tokens.typography.scale.sm }}>
+              <Text style={{ color: available ? colors.successText : colors.muted, fontSize: tokens.typography.scale.sm }}>
                 {available ? '✓' : '✕'}
               </Text>
               {a.glyph ? (

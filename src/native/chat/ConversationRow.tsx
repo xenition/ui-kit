@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Animated, Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import { Avatar, Badge, Icon } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
+import { usePressScale, useEnter } from '../primitives/internal/motion';
 import { PresenceDot, type Presence } from './PresenceDot';
 import { TypingIndicator } from './TypingIndicator';
 
@@ -28,6 +30,11 @@ export interface ConversationRowProps {
   onPress?: () => void;
   /** Long-press handler (context actions). */
   onLongPress?: () => void;
+  /**
+   * Visual treatment for the row surface (diversity system). Defaults to
+   * `classic` — byte-for-byte the historical borderless row.
+   */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -49,10 +56,13 @@ export function ConversationRow({
   selected = false,
   onPress,
   onLongPress,
+  appearance = 'classic',
   style,
 }: ConversationRowProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const unread = unreadCount > 0;
+  const press = usePressScale();
+  const enter = useEnter();
 
   const a11yLabel = [
     name,
@@ -64,20 +74,30 @@ export function ConversationRow({
     .join(', ');
 
   return (
+    <Animated.View style={{ opacity: enter.opacity, transform: [...enter.transform, { scale: press.scale }] }}>
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={a11yLabel}
       accessibilityState={{ selected }}
       onPress={onPress}
       onLongPress={onLongPress}
+      onPressIn={press.onPressIn}
+      onPressOut={press.onPressOut}
       style={({ pressed }) => [
+        // Appearance FIRST (fill/border/elevation); classic stays borderless as before.
+        appearance === 'classic' ? null : appearanceStyle(appearance, colors, tokens),
         {
           flexDirection: 'row',
           alignItems: 'center',
           gap: tokens.spacing.md,
           paddingHorizontal: tokens.spacing.md,
           paddingVertical: tokens.spacing.sm,
-          backgroundColor: selected ? colors.border : pressed ? colors.border : colors.surface,
+          backgroundColor:
+            selected || pressed
+              ? colors.border
+              : appearance === 'classic'
+                ? colors.surface
+                : undefined,
           opacity: muted && !unread ? 0.7 : 1,
         },
         style,
@@ -109,7 +129,7 @@ export function ConversationRow({
           {timestamp ? (
             <Text
               style={{
-                color: unread ? colors.primary : colors.muted,
+                color: unread ? colors.primaryText : colors.muted,
                 fontSize: tokens.typography.scale.xs,
                 fontWeight: unread ? '600' : '400',
               }}
@@ -141,5 +161,6 @@ export function ConversationRow({
         </View>
       </View>
     </Pressable>
+    </Animated.View>
   );
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import { type SemanticColors } from '../theme';
+import { type Appearance } from '../primitives/internal/appearance';
 /** Credit (money in) vs debit (money out). */
 export type TransactionDirection = 'income' | 'expense';
 export interface TransactionRowProps {
@@ -25,6 +26,11 @@ export interface TransactionRowProps {
     iconColor?: keyof SemanticColors;
     /** Fires on row press. */
     onPress?: () => void;
+    /**
+     * Surface treatment (visual-diversity preset). Defaults to `classic` —
+     * byte-for-byte the historical borderless row, so this is opt-in only.
+     */
+    appearance?: Appearance;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -32,7 +38,8 @@ export interface TransactionRowProps {
  * stack, and a right-aligned {@link MoneyAmount} over an optional date. The
  * amount tone follows `direction` (income = `success`, expense = `danger`) and
  * the magnitude is integer cents — no float drift. Fully token-bound; becomes a
- * button only when `onPress` is supplied.
+ * button only when `onPress` is supplied (which also enables a press-scale
+ * spring). `appearance` opts the row into an alternate surface treatment.
  */
-export declare function TransactionRow({ title, subtitle, amountCents, currency, direction, date, icon, iconColor, onPress, style, }: TransactionRowProps): React.ReactElement;
+export declare function TransactionRow({ title, subtitle, amountCents, currency, direction, date, icon, iconColor, onPress, appearance, style, }: TransactionRowProps): React.ReactElement;
 //# sourceMappingURL=TransactionRow.d.ts.map

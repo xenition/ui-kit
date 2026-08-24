@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme, formatMoney, type MoneyFormatter } from '../primitives';
+import { appearanceStyle, type Appearance } from '../primitives/internal/appearance';
 
 /** A priced line in the trip cost breakdown. */
 export interface TripLineItem {
@@ -29,6 +30,8 @@ export interface TripSummaryProps {
   title?: React.ReactNode;
   /** Trailing action slot (e.g. a checkout button). */
   action?: React.ReactNode;
+  /** Surface treatment (visual diversity). Default `'classic'` — the original look. */
+  appearance?: Appearance;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -48,6 +51,7 @@ export function TripSummary({
   formatMoney: format = formatMoney,
   title = 'Trip summary',
   action,
+  appearance = 'classic',
   style,
 }: TripSummaryProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
@@ -65,12 +69,10 @@ export function TripSummary({
   return (
     <View
       style={[
+        appearanceStyle(appearance, colors, tokens),
         {
           gap: tokens.spacing.md,
           borderRadius: tokens.radius.lg,
-          borderWidth: 1,
-          borderColor: colors.border,
-          backgroundColor: colors.surface,
           padding: tokens.spacing.lg,
         },
         style,
@@ -98,7 +100,7 @@ export function TripSummary({
               <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>{it.label}</Text>
               <Text
                 style={{
-                  color: it.cents < 0 ? colors.success : colors.onSurface,
+                  color: it.cents < 0 ? colors.successText : colors.onSurface,
                   fontSize: tokens.typography.scale.sm,
                 }}
               >

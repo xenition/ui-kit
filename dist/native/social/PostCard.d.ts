@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { type Appearance } from '../primitives/internal/appearance';
 export type PostVariant = 'text' | 'image' | 'link' | 'video';
 export interface PostAuthor {
     name: string;
@@ -53,6 +54,16 @@ export interface PostCardProps {
     onPressHashtag?: (tag: string) => void;
     /** Skeleton placeholder while the post loads. */
     loading?: boolean;
+    /**
+     * Surface treatment for the card container — fill/border/elevation only;
+     * radius/padding are unchanged. Default `'classic'` (the historical look).
+     */
+    appearance?: Appearance;
+    /**
+     * Layout density. `comfortable` (default) is the historical padding/gap;
+     * `compact` tightens both for denser feeds.
+     */
+    density?: 'comfortable' | 'compact';
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -61,5 +72,5 @@ export interface PostCardProps {
  * optional {@link EngagementBar} footer. Has a `loading` skeleton and tappable
  * author/menu/body affordances. Token-only.
  */
-export declare function PostCard({ variant, author, timestamp, text, imageUrl, imageAlt, link, video, showEngagement, likeCount, commentCount, shareCount, liked, bookmarked, onLike, onComment, onShare, onBookmark, onPress, onPressAuthor, onPressMenu, onPressMention, onPressHashtag, loading, style, }: PostCardProps): React.ReactElement;
+export declare function PostCard({ variant, author, timestamp, text, imageUrl, imageAlt, link, video, showEngagement, likeCount, commentCount, shareCount, liked, bookmarked, onLike, onComment, onShare, onBookmark, onPress, onPressAuthor, onPressMenu, onPressMention, onPressHashtag, loading, appearance, density, style, }: PostCardProps): React.ReactElement;
 //# sourceMappingURL=PostCard.d.ts.map

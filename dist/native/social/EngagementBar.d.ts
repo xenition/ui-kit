@@ -19,8 +19,8 @@ export interface EngagementBarProps {
 /**
  * The like / comment / share (+ optional bookmark) action row under a post.
  * Each action is an icon with an optional count; `liked` turns the heart
- * `danger`, `bookmarked` turns the flag `primary`. Only the handlers you pass
- * become interactive. Token-only.
+ * `dangerText`, `bookmarked` turns the flag `primaryText` (the on-surface-
+ * readable variants). Only the handlers you pass become interactive. Token-only.
  */
 export declare function EngagementBar({ likeCount, commentCount, shareCount, liked, bookmarked, onLike, onComment, onShare, onBookmark, hideZero, style, }: EngagementBarProps): React.ReactElement;
 //# sourceMappingURL=EngagementBar.d.ts.map

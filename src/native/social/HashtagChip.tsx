@@ -60,7 +60,7 @@ export function HashtagChip({
         style,
       ]}
     >
-      <Text style={{ color: active ? colors.onPrimary : colors.primary, fontSize, fontWeight: '600' }}>
+      <Text style={{ color: active ? colors.onPrimary : colors.primaryText, fontSize, fontWeight: '600' }}>
         {label}
       </Text>
       {count != null ? (

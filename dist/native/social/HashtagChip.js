@@ -30,6 +30,6 @@ function HashtagChip({ tag, active = false, count, size = 'md', onPress, style, 
                 opacity: pressed ? 0.85 : 1,
             },
             style,
-        ], children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: active ? colors.onPrimary : colors.primary, fontSize, fontWeight: '600' }, children: label }), count != null ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: active ? colors.onPrimary : colors.muted, fontSize }, children: String(count) })) : null] }));
+        ], children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: active ? colors.onPrimary : colors.primaryText, fontSize, fontWeight: '600' }, children: label }), count != null ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: active ? colors.onPrimary : colors.muted, fontSize }, children: String(count) })) : null] }));
 }
 //# sourceMappingURL=HashtagChip.js.map
