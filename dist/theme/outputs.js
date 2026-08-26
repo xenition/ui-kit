@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.toCssVars = toCssVars;
 exports.toTailwindPreset = toTailwindPreset;
 exports.toNativeTokens = toNativeTokens;
+const color_1 = require("./color");
 const types_1 = require("./types");
 const camelToKebab = (key) => key.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 const SEMANTIC_KEYS = [
@@ -35,6 +36,24 @@ const SEMANTIC_KEYS = [
     // a token added to SemanticColors and not added here silently exists on native
     // and not on web, which is the parity break this kit's rules forbid.
     'primaryText',
+    // `muted` with an actual contrast promise, and the one focus ring every
+    // control shares. Both added 2026-08-26 after reviewing shadcn/ui's token
+    // vocabulary, which carries `--muted-foreground` and `--ring` as
+    // first-class slots; the kit had neither, so components hand-corrected
+    // `muted` and each derived its own focus halo.
+    'mutedText',
+    'ring',
+    // A field outline distinct from a divider; raised and floating surfaces
+    // (which LIGHTEN in both schemes, the fix for flat dark mode); and the
+    // selected-row container. All six added 2026-08-26 from shadcn/ui's
+    // vocabulary — see SemanticColors for why each was missing.
+    'input',
+    'card',
+    'onCard',
+    'popover',
+    'onPopover',
+    'selected',
+    'onSelected',
     'accentText',
     'successText',
     'warnText',
@@ -70,6 +89,86 @@ function invertRamps(ramps) {
     };
 }
 const fontStack = (family) => `"${family}", ui-sans-serif, system-ui, sans-serif`;
+/*
+  The depth tokens on the web side.
+
+  `toNativeTokens` hands React Native the compiled `gradient`/`glass`/
+  `elevation` objects directly, because RN styles take resolved values. The web
+  layer has no equivalent: it styles through `var(--xen-*)`, so a token that is
+  never emitted as a custom property does not exist for a web component at all.
+  Emitting them here is what lets the web twin of a sheet or a glass panel be
+  the SAME design as the native one rather than a re-guess in Tailwind.
+
+  Each is emitted in the form the platform actually consumes — a gradient as a
+  ready `linear-gradient()`, an elevation as a ready `box-shadow` — so a
+  component writes `box-shadow: var(--xen-elevation-sheet)` and is done.
+*/
+/**
+ * `GradientToken.angle` is "degrees clockwise from up, 0 = bottom-to-top",
+ * which is exactly CSS's `<angle>` convention for `linear-gradient` — so the
+ * number passes through untranslated.
+ */
+function gradientValue(t) {
+    return `linear-gradient(${t.angle}deg, ${t.from}, ${t.to})`;
+}
+/** An elevation token as a ready-to-use `box-shadow`. */
+function elevationValue(t) {
+    const { r, g, b } = (0, color_1.hexToRgb)(t.color);
+    // Rounded so the emitted CSS is stable across platforms' float formatting —
+    // the same seed must always produce a byte-identical stylesheet.
+    const alpha = Math.round(t.opacity * 1000) / 1000;
+    return `0 ${t.offsetY}px ${t.radius}px rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+function depthVarLines(gradient, glass, elevation) {
+    return [
+        `--xen-gradient-brand: ${gradientValue(gradient.brand)};`,
+        `--xen-gradient-wash: ${gradientValue(gradient.wash)};`,
+        `--xen-gradient-muted: ${gradientValue(gradient.muted)};`,
+        `--xen-glass-tint: ${glass.tint};`,
+        `--xen-glass-border: ${glass.border};`,
+        `--xen-glass-blur: ${glass.blur}px;`,
+        /*
+          The bare shadow colour, separately from the shadows.
+    
+          An overlay scrim needs a colour that stays dark in BOTH schemes — a scrim
+          derived from `--xen-on-surface` or `--xen-neutral-950` inverts with the
+          ramp and turns into a white veil over a dark page. This one does not
+          invert, because a shadow does not invert either.
+        */
+        `--xen-elevation-color: ${elevation.sheet.color};`,
+        `--xen-elevation-card: ${elevationValue(elevation.card)};`,
+        `--xen-elevation-sheet: ${elevationValue(elevation.sheet)};`,
+        `--xen-elevation-action: ${elevationValue(elevation.action)};`,
+    ];
+}
+/**
+ * State layers, motion and ring geometry as CSS variables.
+ *
+ * These are seed-independent today, so every injected stylesheet imports the
+ * compile-time constants instead — which works, and hides a real limit: a
+ * theme that ever wanted to vary them could not reach the web layer at all.
+ * Emitting them costs nine declarations and removes that ceiling.
+ */
+function scaleVarLines(theme) {
+    const { state, motion, ring } = theme;
+    const bez = (c) => `cubic-bezier(${c[0]}, ${c[1]}, ${c[2]}, ${c[3]})`;
+    return [
+        `--xen-state-hover: ${state.hover};`,
+        `--xen-state-focus: ${state.focus};`,
+        `--xen-state-pressed: ${state.pressed};`,
+        `--xen-state-dragged: ${state.dragged};`,
+        `--xen-state-disabled-content: ${state.disabledContent};`,
+        `--xen-state-disabled-container: ${state.disabledContainer};`,
+        `--xen-motion-quick: ${motion.quick}ms;`,
+        `--xen-motion-standard: ${motion.standard}ms;`,
+        `--xen-motion-enter: ${motion.enter}ms;`,
+        `--xen-motion-easing-standard: ${bez(motion.easingStandard)};`,
+        `--xen-motion-easing-enter: ${bez(motion.easingEnter)};`,
+        `--xen-motion-easing-exit: ${bez(motion.easingExit)};`,
+        `--xen-ring-width: ${ring.width}px;`,
+        `--xen-ring-offset: ${ring.offset}px;`,
+    ];
+}
 /**
  * Render the theme as CSS custom properties.
  *
@@ -96,6 +195,10 @@ function toCssVars(theme) {
         ...Object.entries(theme.typography.scale).map(([key, px]) => `--xen-text-${key}: ${px}px;`),
         `--xen-font-heading: ${fontStack(theme.typography.fontHeading)};`,
         `--xen-font-body: ${fontStack(theme.typography.fontBody)};`,
+        ...depthVarLines(darkRoot ? theme.darkGradient : theme.lightGradient, darkRoot ? theme.darkGlass : theme.lightGlass, darkRoot ? theme.darkElevation : theme.lightElevation),
+        // Scheme-independent, so they go on :root once and are not repeated in
+        // the dark block below.
+        ...scaleVarLines(theme),
     ];
     let css = `:root {\n  ${rootLines.join('\n  ')}\n}`;
     if (theme.seed.mode === 'both') {
@@ -105,6 +208,7 @@ function toCssVars(theme) {
             ...rampVarLines('primary', darkRamps.primary),
             ...rampVarLines('accent', darkRamps.accent),
             ...rampVarLines('neutral', darkRamps.neutral),
+            ...depthVarLines(theme.darkGradient, theme.darkGlass, theme.darkElevation),
         ];
         css += `\n[data-theme="dark"] {\n  ${darkLines.join('\n  ')}\n}`;
     }
@@ -151,6 +255,15 @@ function toTailwindPreset(_theme) {
         // `text-primary` still resolves to the fill, because that is what it has
         // always meant and changing it under existing markup would be worse than the
         // bug. New work colouring text with a brand or status colour wants these.
+        'muted-text': 'var(--xen-muted-text)',
+        input: 'var(--xen-input)',
+        card: 'var(--xen-card)',
+        'on-card': 'var(--xen-on-card)',
+        popover: 'var(--xen-popover)',
+        'on-popover': 'var(--xen-on-popover)',
+        selected: 'var(--xen-selected)',
+        'on-selected': 'var(--xen-on-selected)',
+        ring: 'var(--xen-ring)',
         'primary-text': 'var(--xen-primary-text)',
         'accent-text': 'var(--xen-accent-text)',
         'success-text': 'var(--xen-success-text)',
@@ -211,6 +324,13 @@ function toNativeTokens(theme) {
         radius: { ...theme.radius },
         spacing: { ...theme.spacing },
         typography: { ...theme.typography, scale: { ...theme.typography.scale } },
+        depth: theme.depth,
+        gradient: { light: theme.lightGradient, dark: theme.darkGradient },
+        glass: { light: theme.lightGlass, dark: theme.darkGlass },
+        elevation: { light: theme.lightElevation, dark: theme.darkElevation },
+        state: theme.state,
+        motion: theme.motion,
+        ring: theme.ring,
     };
 }
 //# sourceMappingURL=outputs.js.map

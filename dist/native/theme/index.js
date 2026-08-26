@@ -33,6 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.useDesignLine = exports.resolveDesign = exports.designed = exports.DesignLineProvider = void 0;
 exports.XenitionNativeThemeProvider = XenitionNativeThemeProvider;
 exports.useXenitionTheme = useXenitionTheme;
 const jsx_runtime_1 = require("react/jsx-runtime");
@@ -48,6 +49,11 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const compile_1 = require("../../theme/compile");
 const outputs_1 = require("../../theme/outputs");
+var design_line_1 = require("./design-line");
+Object.defineProperty(exports, "DesignLineProvider", { enumerable: true, get: function () { return design_line_1.DesignLineProvider; } });
+Object.defineProperty(exports, "designed", { enumerable: true, get: function () { return design_line_1.designed; } });
+Object.defineProperty(exports, "resolveDesign", { enumerable: true, get: function () { return design_line_1.resolveDesign; } });
+Object.defineProperty(exports, "useDesignLine", { enumerable: true, get: function () { return design_line_1.useDesignLine; } });
 function isCompiledTheme(theme) {
     return typeof theme === 'object' && theme !== null && 'ramps' in theme && 'light' in theme;
 }
@@ -62,6 +68,13 @@ function XenitionNativeThemeProvider({ theme, scheme, children, }) {
             tokens,
             scheme: resolvedScheme,
             colors: tokens.colors[resolvedScheme],
+            gradient: tokens.gradient[resolvedScheme],
+            glass: tokens.glass[resolvedScheme],
+            elevation: tokens.elevation[resolvedScheme],
+            depth: tokens.depth,
+            state: tokens.state,
+            motion: tokens.motion,
+            ringGeometry: tokens.ring,
         };
     }, [theme, scheme]);
     return ((0, jsx_runtime_1.jsx)(XenitionNativeThemeContext.Provider, { value: value, children: children }));

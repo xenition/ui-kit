@@ -10,11 +10,14 @@
  * integer **cents**, formatted through the single {@link formatMoney} home.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EmptyState = exports.StatusBadge = exports.CheckoutSummaryV3 = exports.OrderSummaryV3 = exports.CheckoutSummaryV2 = exports.OrderSummaryV2 = exports.CheckoutSummary = exports.OrderSummary = exports.CartSummaryV3 = exports.CartSummaryV2 = exports.CartSummary = exports.CartLineItemV3 = exports.CartLineItemV2 = exports.CartLineItem = exports.QuantityStepper = exports.ProductGrid = exports.ProductCardV3 = exports.ProductCardV2 = exports.ProductCard = exports.PriceTag = exports.formatMoney = void 0;
+exports.EmptyState = exports.StatusBadge = exports.CheckoutSummaryV3 = exports.OrderSummaryV3 = exports.CheckoutSummaryV2 = exports.OrderSummaryV2 = exports.CheckoutSummary = exports.OrderSummary = exports.CartSummaryV3 = exports.CartSummaryV2 = exports.CartSummary = exports.CartLineItemV3 = exports.CartLineItemV2 = exports.CartLineItem = exports.QuantityStepper = exports.ProductGrid = exports.ProductCardV3 = exports.ProductCardV2 = exports.ProductCard = exports.PriceTagV4 = exports.PriceTag = exports.formatMoney = void 0;
 var money_1 = require("./money");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return money_1.formatMoney; } });
 var PriceTag_1 = require("./PriceTag");
 Object.defineProperty(exports, "PriceTag", { enumerable: true, get: function () { return PriceTag_1.PriceTag; } });
+// V4 design line — same props as `PriceTag`, a different design.
+var PriceTagV4_1 = require("./PriceTagV4");
+Object.defineProperty(exports, "PriceTagV4", { enumerable: true, get: function () { return PriceTagV4_1.PriceTagV4; } });
 var ProductCard_1 = require("./ProductCard");
 Object.defineProperty(exports, "ProductCard", { enumerable: true, get: function () { return ProductCard_1.ProductCard; } });
 var ProductCardV2_1 = require("./ProductCardV2");

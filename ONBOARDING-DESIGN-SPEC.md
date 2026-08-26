@@ -180,3 +180,41 @@ Give each line a distinct idea rather than a reskin:
 - Every changed component has a spec covering the new props AND its empty state.
 - Native and web twins at prop parity.
 - Nothing in the module renders a numbered-circle stepper any more.
+
+---
+
+## Addendum — V4 control metrics (settled 2026-08-26)
+
+Two contradictions in the briefs above surfaced once agents built against them. Both are settled
+here; a consistency pass applies them once the parallel work lands.
+
+**1. Control height is `spacing['2xl']` (48) with `radius.md` — not 56 / `radius.lg`.**
+
+§6 above says 56 and `radius.lg`. `InputV4` shipped first at `spacing['2xl']` + `radius.md`, and it
+is the anchor every other field is measured against. 56 is not on the spacing scale, so hitting it
+literally needs a composed number, and changing the anchor now would move sixty-odd components to
+match a number chosen in a screen spec rather than in the token scale.
+
+The stated reason for the rule was "consistency across a form is the single biggest quality
+signal". That reason argues for matching the shipped anchor, not the written number. So: **48 /
+`radius.md`**, held by `internal/field-v4.ts` on both twins so it cannot drift again.
+
+Known exceptions, both deliberate: `Switch` derives its track radius from its own height (a switch
+is a pill, and `radius.full` compiles to 0 on a `sharp` seed); `SearchInput` may stay a pill,
+because a search field reads as one and §31 says use familiar interactions.
+
+**2. A V4 may add `error?: string`. The "exactly the base props" rule yields to it.**
+
+§6 says errors are "border AND message, never colour alone". The parity rule says a V4 takes
+exactly its base's props. Not one of the eleven form-control bases has an error-text prop, so the
+two rules cannot both hold — `InputV4` broke parity to add `error`, the eleven form controls kept
+parity and dropped the message.
+
+**Parity yields.** An error a colour-blind user cannot perceive is an accessibility defect, and
+prop parity is a maintenance convenience. The exception is narrow and additive: `error?: string`
+only, optional, on field-shaped components only, and it must render the message — not just tint a
+border.
+
+Four bases cannot show an error at all today (`NumberInput`, `PinInput`, `RadioGroup`, `Switch`
+have no `invalid`). That is a gap in the bases, and it is worth closing there rather than only in
+V4.

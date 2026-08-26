@@ -61,6 +61,18 @@ export function tokenHexSet(seed: ThemeSeed): Set<string> {
   (['primary', 'accent', 'neutral'] as const).forEach((ramp) => {
     Object.values(tokens.ramps[ramp]).forEach(add);
   });
+  // The depth tokens are tokens too. They arrived after this helper did, and
+  // a component painting a compiled gradient stop or the elevation colour was
+  // failing purity for using the theme correctly.
+  (['light', 'dark'] as const).forEach((scheme) => {
+    Object.values(tokens.gradient[scheme]).forEach((g) => {
+      add(g.from);
+      add(g.to);
+    });
+    add(tokens.glass[scheme].tint);
+    add(tokens.glass[scheme].border);
+    Object.values(tokens.elevation[scheme]).forEach((e) => add(e.color));
+  });
   return set;
 }
 

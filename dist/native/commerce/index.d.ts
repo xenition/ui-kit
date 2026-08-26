@@ -11,6 +11,8 @@ export { formatMoney } from './money';
 export type { MoneyFormatter } from './money';
 export { PriceTag } from './PriceTag';
 export type { PriceTagProps } from './PriceTag';
+export { PriceTagV4 } from './PriceTagV4';
+export type { PriceTagV4Props } from './PriceTagV4';
 export { ProductCard } from './ProductCard';
 export type { ProductCardProps } from './ProductCard';
 export { ProductCardV2 } from './ProductCardV2';

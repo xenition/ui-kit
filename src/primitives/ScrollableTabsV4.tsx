@@ -1,0 +1,116 @@
+import * as React from 'react';
+import { injectStyleOnce } from '../motion/internal/inject';
+import { usePrefersReducedMotion } from '../motion/internal/reduced-motion';
+import { cn } from './cn';
+import { MIN_TAP_CLASS, NAV_V4_CSS, useMovingIndicator } from './internal/nav-v4';
+import type { ScrollableTabItem, ScrollableTabsProps } from './ScrollableTabs';
+
+export type { ScrollableTabsProps as ScrollableTabsV4Props, ScrollableTabItem };
+
+/**
+ * **V4 scrollable tabs** — the web twin of the native `ScrollableTabsV4`, same
+ * props as {@link ScrollableTabs}, a different design line.
+ *
+ * Everything `TabsV4` does, plus the two things that only matter once the row
+ * is longer than its container.
+ *
+ * ## The selected tab comes to you
+ *
+ * A scrolling tab bar can put the answer to "where am I" out of view, which
+ * makes §32 unsatisfiable: there is nothing to recognise. So the row scrolls
+ * the selected tab into view whenever the selection changes — including when
+ * it changes from somewhere else, which is the case the user cannot fix by
+ * scrolling because they never saw it happen.
+ *
+ * The scroll is smooth for the same reason the underline slides (§36.5): the
+ * bar moving under a stationary pointer explains where the content went, while
+ * a jump replaces one view with another and leaves the reader to work out what
+ * changed. `prefers-reduced-motion` switches it to an instant scroll (§36.10) —
+ * the tab still arrives.
+ *
+ * ## The count chip owns its ground
+ *
+ * The base bar filled the active chip with `bg-primary` and labelled it
+ * `text-surface` — two slots with no contrast relationship at all; on a pale
+ * primary that is white on near-white. The idle chip was worse: `bg-muted` as
+ * a FILL with `text-surface`, a contrast pair by coincidence in light and not
+ * at all in dark.
+ *
+ * V4 gives each chip a ground it owns, mixed in the injected sheet rather than
+ * borrowed: active is `primary` with its guaranteed `on-primary`, idle is
+ * `on-surface` stirred OPAQUELY into `surface` at 12% — one expression that
+ * moves correctly with the scheme instead of a light case and a dark one.
+ */
+export const ScrollableTabsV4 = React.forwardRef<HTMLDivElement, ScrollableTabsProps>(
+  function ScrollableTabsV4({ className, items, value, onValueChange, ...rest }, ref) {
+    injectStyleOnce('xen-v4-nav-styles', NAV_V4_CSS);
+    const reduced = usePrefersReducedMotion();
+    const indicator = useMovingIndicator<HTMLButtonElement>(value, items.length);
+    const tabs = React.useRef(new Map<string, HTMLButtonElement>()).current;
+
+    React.useEffect(() => {
+      const node = tabs.get(value);
+      // `scrollIntoView` is absent in jsdom and in older engines; a tab bar
+      // that cannot scroll itself is still a working tab bar.
+      if (node === undefined || typeof node.scrollIntoView !== 'function') return;
+      node.scrollIntoView({
+        block: 'nearest',
+        inline: 'nearest',
+        behavior: reduced ? 'auto' : 'smooth',
+      });
+    }, [value, reduced, tabs]);
+
+    return (
+      <div
+        ref={ref}
+        role="tablist"
+        className={cn('relative flex overflow-x-auto border-b border-border', className)}
+        {...rest}
+      >
+        {items.map((it) => {
+          const active = it.value === value;
+          return (
+            <button
+              key={it.value}
+              ref={(node) => {
+                if (node === null) tabs.delete(it.value);
+                else tabs.set(it.value, node);
+                indicator.itemRef(it.value)(node);
+              }}
+              type="button"
+              role="tab"
+              data-xen-v4-nav-item=""
+              aria-selected={active}
+              onClick={() => onValueChange(it.value)}
+              className={cn(
+                'inline-flex shrink-0 items-center justify-center gap-sm whitespace-nowrap',
+                'px-lg py-sm font-body text-sm focus-visible:outline-none',
+                MIN_TAP_CLASS,
+                active ? 'font-semibold text-primary-text' : 'font-medium text-muted-text'
+              )}
+            >
+              {it.label}
+              {it.badge != null ? (
+                <span
+                  data-xen-v4-nav-badge={active ? 'on' : ''}
+                  className="inline-flex min-w-lg items-center justify-center rounded-[var(--xen-radius-full)] px-xs text-xs font-semibold"
+                >
+                  {it.badge}
+                </span>
+              ) : null}
+            </button>
+          );
+        })}
+
+        {indicator.style !== null && (
+          <span
+            data-xen-v4-nav-indicator=""
+            aria-hidden="true"
+            className="absolute bottom-[-1px] left-0 h-0.5 rounded-[var(--xen-radius-full)] bg-primary"
+            style={indicator.style}
+          />
+        )}
+      </div>
+    );
+  }
+);

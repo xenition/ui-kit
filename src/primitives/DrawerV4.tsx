@@ -1,0 +1,125 @@
+import * as React from 'react';
+import { createPortal } from 'react-dom';
+import { injectStyleOnce } from '../motion/internal/inject';
+import { cn } from './cn';
+import type { DrawerProps, DrawerSide } from './Drawer';
+import {
+  SURFACE_V4_CSS,
+  SURFACE_V4_DRAWER_CSS,
+  panelKind,
+  useDepth,
+} from './internal/surface-v4';
+
+export type { DrawerProps as DrawerV4Props, DrawerSide };
+
+/**
+ * The panel's box per edge.
+ *
+ * The measure is `2xl × 7` off the spacing scale rather than the base's literal
+ * `w-80`, so a seed that widens its rhythm widens the drawer with it. `85vw` /
+ * `85vh` stays the cap: a drawer that covers the page is a screen, and the
+ * strip of scrim left showing is what tells the reader there is something
+ * behind it.
+ */
+const POS: Record<DrawerSide, string> = {
+  left: 'inset-y-0 left-0 h-full w-[calc(var(--xen-space-2xl)*7)] max-w-[85vw]',
+  right: 'inset-y-0 right-0 h-full w-[calc(var(--xen-space-2xl)*7)] max-w-[85vw]',
+  top: 'inset-x-0 top-0 w-full max-h-[85vh]',
+  bottom: 'inset-x-0 bottom-0 w-full max-h-[85vh]',
+};
+
+/**
+ * `Drawer`, V4 — the same props, given the depth and the rhythm of a real
+ * layer.
+ *
+ * ## What the depth is saying
+ *
+ * A side sheet is above the page and nothing is above it, so it takes
+ * `--xen-elevation-sheet` — the same altitude as `ModalV4`, `BottomSheetV4` and
+ * `MenuV4`, because all four are the same kind of object at different sizes and
+ * a kit where they drift apart has four depth systems instead of one. The
+ * content inside is flat: §8's "cards inside cards inside cards" is exactly
+ * what a drawer becomes when every section in it gains a surface. The base's
+ * `shadow-xl` is dropped with it — a Tailwind shadow is a fixed black at a
+ * fixed alpha and knows nothing about the scheme it is falling in.
+ *
+ * The scrim is `--xen-elevation-color`, shared with every other V4 overlay. The
+ * base's `bg-neutral-950/50` is the bug this fixes: the dark block re-emits the
+ * ramps mirrored, so that class paints a near-WHITE veil over a dark page. The
+ * native twin had the same defect and was fixed to black-at-a-fixed-alpha; this
+ * is the same convention, spelled in CSS. A shadow does not invert, so a scrim
+ * built from a shadow colour does not either.
+ *
+ * Glass applies only when the seed asked for `depth: 'glass'`. That is the one
+ * depth check here and it is necessary: `flatten()` neutralises gradients and
+ * elevation and stops there, so glass is live even under `depth: 'flat'`.
+ *
+ * ## Rhythm the caller does not have to supply
+ *
+ * The base drawer is one padded box with the title inside the scroll area, so a
+ * long list scrolls its own heading off the screen. V4 splits a pinned header
+ * from a scrolling body, separated by a hairline and each carrying its own
+ * padding — §11: the container earns its existence by holding a structure, not
+ * by drawing a box.
+ *
+ * ## Motion
+ *
+ * The panel travels the whole of itself, from the edge it is anchored to —
+ * §36.5's spatial continuity, so the movement says where the drawer came from
+ * and where dismissing it sends it back. 280ms is §36.2's band for a
+ * screen-sized transition, and the easing decelerates so the sheet settles
+ * rather than stopping dead (§36.3). Under `prefers-reduced-motion` the travel
+ * becomes a fade rather than nothing at all, because an overlay that appears
+ * with no transition reads as a glitch (§36.10).
+ */
+export function DrawerV4({
+  open,
+  onClose,
+  side = 'right',
+  title,
+  children,
+  className,
+}: DrawerProps): React.ReactElement | null {
+  const kind = panelKind(useDepth());
+
+  injectStyleOnce('xen-surface-v4-styles', SURFACE_V4_CSS);
+  injectStyleOnce('xen-surface-v4-drawer-styles', SURFACE_V4_DRAWER_CSS);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
+
+  if (!open || typeof document === 'undefined') return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true">
+      <div data-xen-v4-scrim="" className="absolute inset-0" onClick={onClose} />
+      <div
+        data-xen-v4-drawer={side}
+        data-xen-v4-panel={kind}
+        className={cn(
+          'absolute flex flex-col overflow-hidden text-on-surface',
+          POS[side],
+          className
+        )}
+      >
+        {title != null && (
+          <div className="shrink-0 border-b border-border px-lg pb-md pt-lg">
+            {/*
+              `text-on-surface`, never `text-muted` — over glass, `muted`
+              measurably falls below AA. See `theme/glass-legibility.spec.ts`.
+            */}
+            <h2 className="font-heading text-xl font-semibold text-on-surface">{title}</h2>
+          </div>
+        )}
+        <div className="min-h-0 flex-1 overflow-auto p-lg">{children}</div>
+      </div>
+    </div>,
+    document.body
+  );
+}

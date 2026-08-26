@@ -6,6 +6,19 @@ const react_native_1 = require("react-native");
 const react_native_safe_area_context_1 = require("react-native-safe-area-context");
 const theme_1 = require("../theme");
 /**
+ * The scrim.
+ *
+ * NOT a semantic token. `onSurface` inverts with the scheme — it is near-black
+ * on a light page and near-WHITE on a dark one — so a scrim built from it
+ * paints a 50% white veil over a dark app. Verified: at the warm-neutral seed,
+ * dark `onSurface` compiles to `#eeeded`.
+ *
+ * A scrim is not "the text colour, faded". It is the absence of light, and
+ * absence does not invert. Black at a fixed alpha in both schemes.
+ */
+const SCRIM = '#000000';
+const SCRIM_OPACITY = 0.5;
+/**
  * iOS-style action sheet — a bottom-anchored `Modal` presenting a token-bound
  * list of choices plus a separated Cancel affordance, over a translucent
  * `onSurface` scrim. Distinct from `Drawer(side="bottom")` (arbitrary content)
@@ -17,7 +30,7 @@ function ActionSheet({ open, onClose, title, actions, cancelLabel = 'Cancel', })
     // Clear the home indicator by adding the bottom safe-area inset to the bottom
     // container's padding. Needs a `SafeAreaProvider` above it (Expo default).
     const insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
-    return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "slide", onRequestClose: onClose, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, justifyContent: 'flex-end' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityLabel: "Close", onPress: onClose, style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: colors.onSurface, opacity: 0.5 } }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "slide", onRequestClose: onClose, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, justifyContent: 'flex-end' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityLabel: "Close", onPress: onClose, style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: SCRIM, opacity: SCRIM_OPACITY } }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
                         padding: tokens.spacing.md,
                         paddingBottom: tokens.spacing.md + insets.bottom,
                         gap: tokens.spacing.sm,

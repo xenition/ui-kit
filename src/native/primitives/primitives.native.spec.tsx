@@ -186,13 +186,16 @@ describe('Eyebrow / GradientText / GlassPanel (native)', () => {
     expect(style.letterSpacing).toBeGreaterThan(0);
   });
 
-  it('GradientText renders a solid token-colored fallback', () => {
+  it('GradientText paints a solid taken from the brand gradient, readable on the page', () => {
     const { getByText } = renderThemed(<GradientText ramp="accent">faster</GradientText>, SEED_LIGHT);
     const style = flatten(getByText('faster').props.style);
-    const tokens = require('../../theme/outputs').toNativeTokens(
-      require('../../theme/compile').compileTheme(SEED_LIGHT)
-    );
-    expect(String(style.color).toLowerCase()).toBe(tokens.ramps.accent[500].toLowerCase());
+    const theme = require('../../theme/compile').compileTheme(SEED_LIGHT);
+    const tokens = require('../../theme/outputs').toNativeTokens(theme);
+    // It used to be `ramps.accent[500]` — the LIGHT orientation in both
+    // schemes, and a fill step whose contrast nobody had measured.
+    expect(String(style.color).toLowerCase()).not.toBe(tokens.ramps.accent[500].toLowerCase());
+    const { contrastRatio } = require('../../theme/color');
+    expect(contrastRatio(String(style.color), theme.light.surface)).toBeGreaterThanOrEqual(4.5);
   });
 
   it('GlassPanel derives a translucent rgba from the surface token (no raw hex)', () => {

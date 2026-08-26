@@ -1,14 +1,19 @@
 import * as React from 'react';
 import { View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
-import { withAlpha } from './internal/color';
+import { composeGlass } from '../../theme/glass';
+import type { GlassIntensity } from '../../theme/glass';
 
-export type GlassIntensity = 'soft' | 'regular' | 'strong';
+export type { GlassIntensity };
 
 export interface GlassPanelProps extends ViewProps {
   /**
-   * How opaque the panel reads: `soft` (45% surface), `regular` (65%, default),
-   * `strong` (82%) — mirrors the web `intensity` scale.
+   * How much of the ground shows through.
+   *
+   * `soft` is the theme's own `glass.tint`, untouched — the most translucent
+   * this theme's contrast budget allows. `regular` (default) and `strong` mix
+   * that tint toward the opaque `surface`. The scale only travels one way, and
+   * that is not an oversight: see the note on legibility below.
    */
   intensity?: GlassIntensity;
   /** Draw the translucent token border (default true). */
@@ -17,20 +22,48 @@ export interface GlassPanelProps extends ViewProps {
   children?: React.ReactNode;
 }
 
-const SURFACE_ALPHA: Record<GlassIntensity, number> = {
-  soft: 0.45,
-  regular: 0.65,
-  strong: 0.82,
-};
-
 /**
- * Translucent surface — the native mirror of the web `GlassPanel`. React
- * Native has no `color-mix()`/`backdrop-filter`, so the frosted look is
- * approximated by an `rgba()` derived from the **`surface` token** at the
- * intensity's alpha (plus a translucent `border` token edge). The color always
- * originates from a theme token — no literal colors. On iOS a
- * `blurRadius`-style backdrop would need a native blur view; this keeps the
- * kit dependency-free and restyle-by-seed.
+ * A translucent panel, built from the compiled `glass` tokens.
+ *
+ * ## There is no real blur here, and that is deliberate
+ *
+ * React Native has no `backdrop-filter`. A true frosted panel needs a host
+ * `BlurView` (`expo-blur`, `@react-native-community/blur`), and a kit component
+ * that mounted one would crash in every app that has not installed it.
+ *
+ * So the compiler pre-composites `glass.tint` against the scheme's surface: the
+ * panel reads as glass with no blur at all, and an app that HAS a blur view can
+ * wrap this one and pass the blur radius the token already carries:
+ *
+ * ```tsx
+ * const { glass } = useXenitionTheme();
+ * <BlurView intensity={glass.blur}>
+ *   <GlassPanel>…</GlassPanel>
+ * </BlurView>
+ * ```
+ *
+ * That is the honest trade. A blurred backdrop is nicer; a panel that only
+ * works in some apps is not a design-system component.
+ *
+ * ## Legibility
+ *
+ * A panel over unknown artwork is where text quietly stops being readable, so
+ * the alpha is not a taste knob. `theme/glass-legibility.spec.ts` composites
+ * the tint over pure black and pure white — the extremes any real image sits
+ * between — and measures `onSurface` against the result. The compiler's tint
+ * clears WCAG AA with roughly 5.6:1 at worst, and loses that margin once it is
+ * thinned by 12%. `intensity` therefore starts at the token and can only get
+ * more opaque.
+ *
+ * The corollary: put `onSurface` on a glass panel, not `muted`. `muted` carries
+ * no contrast promise even on an opaque surface and measurably fails on glass.
+ *
+ * ## §8
+ *
+ * `design.md` bans "glassmorphism without purpose". This component is the
+ * purpose-built exception, not a default background — it earns its place when
+ * something is genuinely layered over something else. It is reached for by the
+ * V4 surfaces only when the seed asks for `depth: 'glass'`.
  */
 export function GlassPanel({
   intensity = 'regular',
@@ -39,16 +72,19 @@ export function GlassPanel({
   children,
   ...rest
 }: GlassPanelProps): React.ReactElement {
-  const { colors, tokens } = useXenitionTheme();
+  const { colors, glass, tokens } = useXenitionTheme();
+  const composed = React.useMemo(
+    () => composeGlass(glass, colors.surface, intensity),
+    [glass, colors.surface, intensity]
+  );
+
   return (
     <View
       style={[
         {
-          backgroundColor: withAlpha(colors.surface, SURFACE_ALPHA[intensity]),
+          backgroundColor: composed.backgroundColor,
           borderRadius: tokens.radius.lg,
-          ...(bordered
-            ? { borderWidth: 1, borderColor: withAlpha(colors.border, 0.6) }
-            : null),
+          ...(bordered ? { borderWidth: 1, borderColor: composed.borderColor } : null),
         },
         style,
       ]}

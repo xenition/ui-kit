@@ -3,6 +3,20 @@ import { Modal, Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useXenitionTheme } from '../theme';
 
+/**
+ * The scrim.
+ *
+ * NOT a semantic token. `onSurface` inverts with the scheme — it is near-black
+ * on a light page and near-WHITE on a dark one — so a scrim built from it
+ * paints a 50% white veil over a dark app. Verified: at the warm-neutral seed,
+ * dark `onSurface` compiles to `#eeeded`.
+ *
+ * A scrim is not "the text colour, faded". It is the absence of light, and
+ * absence does not invert. Black at a fixed alpha in both schemes.
+ */
+const SCRIM = '#000000';
+const SCRIM_OPACITY = 0.5;
+
 export interface ActionSheetAction {
   label: string;
   onSelect?: () => void;
@@ -46,7 +60,7 @@ export function ActionSheet({
         <Pressable
           accessibilityLabel="Close"
           onPress={onClose}
-          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: colors.onSurface, opacity: 0.5 }}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: SCRIM, opacity: SCRIM_OPACITY }}
         />
         <View
           style={{

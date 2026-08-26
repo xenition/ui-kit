@@ -14,7 +14,7 @@ const theme_1 = require("../theme");
  * </XenitionUIProvider>
  * ```
  */
-function XenitionUIProvider({ theme, scheme, children, }) {
-    return ((0, jsx_runtime_1.jsx)(theme_1.XenitionNativeThemeProvider, { theme: theme, scheme: scheme, children: children }));
+function XenitionUIProvider({ theme, scheme, design = 'base', children, }) {
+    return ((0, jsx_runtime_1.jsx)(theme_1.XenitionNativeThemeProvider, { theme: theme, scheme: scheme, children: (0, jsx_runtime_1.jsx)(theme_1.DesignLineProvider, { design: design, children: children }) }));
 }
 //# sourceMappingURL=XenitionUIProvider.js.map
