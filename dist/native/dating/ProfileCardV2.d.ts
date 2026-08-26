@@ -10,6 +10,9 @@ export type ProfileCardV2Props = ProfileCardProps;
  * slim detail strip beneath surfaces bio/interests. Same `ProfileCardProps`, so
  * it is a genuine drop-in. Token-pure (scrims are `withAlpha` of the neutral
  * ramp); explicit loading/empty states; array access is guarded.
+ * Stays inside its own design line: the meter is {@link CompatibilityMeterV2},
+ * not the base one, because an app that picks V2 picks it for every surface it
+ * sees.
  */
 export declare function ProfileCardV2({ profile, variant, showActions, onAction, onPressInterest, loading, emptyLabel, style, }: ProfileCardV2Props): React.ReactElement;
 //# sourceMappingURL=ProfileCardV2.d.ts.map

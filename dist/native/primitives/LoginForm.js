@@ -39,9 +39,7 @@ const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const AuthCard_1 = require("./AuthCard");
-const Field_1 = require("./Field");
-const Input_1 = require("./Input");
-const Button_1 = require("./Button");
+const Text_1 = require("./Text");
 const Alert_1 = require("./Alert");
 const useForm_1 = require("../../primitives/useForm");
 /**
@@ -49,9 +47,19 @@ const useForm_1 = require("../../primitives/useForm");
  * `LoginForm`. Composed from the kit, themed, with validation, loading and
  * error states. SDK-agnostic: wire `onSubmit` to `@xenition/sdk` auth (or
  * anything). Just `<LoginForm onSubmit={…} />`. No literal colors.
+ *
+ * Drawn from the same parts as the screen-level `SignInScreen` (§6/§9): 56px
+ * fields with a muted leading icon, a `primary` focus border, errors as a
+ * `danger` border **and** a message in `dangerText`, and the 56px `radius.full`
+ * CTA with its trailing `→`. That is the point of sharing them — a screen
+ * assembled from this form and a screen assembled from `SignInScreen` are the
+ * same product, not two.
+ *
+ * Everything past `onSubmit`/`onForgotPassword`/`onSignupClick`/`title` is
+ * optional copy; with none of it passed the form reads exactly as it did.
  */
-function LoginForm({ onSubmit, onForgotPassword, onSignupClick, title = 'Sign in', }) {
-    const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+function LoginForm({ onSubmit, onForgotPassword, onSignupClick, title = 'Sign in', subtitle, brandGlyph, submitLabel = 'Sign in', submittingLabel = 'Signing in…', emailLabel = 'Email', emailPlaceholder = 'you@example.com', passwordLabel = 'Password', passwordPlaceholder = 'Your password', forgotLabel = 'Forgot password?', switchPrompt = 'No account?', switchLabel = 'Sign up', }) {
+    const { tokens } = (0, theme_1.useXenitionTheme)();
     const [submitError, setSubmitError] = React.useState(null);
     const form = (0, useForm_1.useForm)({
         initialValues: { email: '', password: '' },
@@ -73,6 +81,9 @@ function LoginForm({ onSubmit, onForgotPassword, onSignupClick, title = 'Sign in
             }
         },
     });
-    return ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthCard, { title: title, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.md }, children: [submitError ? (0, jsx_runtime_1.jsx)(Alert_1.Alert, { tone: "danger", children: submitError }) : null, (0, jsx_runtime_1.jsx)(Field_1.Field, { label: "Email", error: form.errors.email, children: (0, jsx_runtime_1.jsx)(Input_1.Input, { keyboardType: "email-address", autoCapitalize: "none", autoComplete: "email", textContentType: "emailAddress", invalid: !!form.errors.email, value: form.values.email, onChangeText: (t) => form.setValue('email', t), placeholder: "you@example.com" }) }), (0, jsx_runtime_1.jsx)(Field_1.Field, { label: "Password", error: form.errors.password, children: (0, jsx_runtime_1.jsx)(Input_1.Input, { secureTextEntry: true, autoCapitalize: "none", autoComplete: "password", textContentType: "password", invalid: !!form.errors.password, value: form.values.password, onChangeText: (t) => form.setValue('password', t) }) }), onForgotPassword ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", onPress: onForgotPassword, style: { alignSelf: 'flex-start' }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.primaryText, fontSize: tokens.typography.scale.sm }, children: "Forgot password?" }) })) : null, (0, jsx_runtime_1.jsx)(Button_1.Button, { onPress: () => form.handleSubmit(), disabled: form.submitting, loading: form.submitting, children: form.submitting ? 'Signing in…' : 'Sign in' }), onSignupClick ? ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'center', gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "No account?" }), (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", onPress: onSignupClick, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.primaryText, fontSize: tokens.typography.scale.sm }, children: "Sign up" }) })] })) : null] }) }));
+    return ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthCard, { title: title, subtitle: subtitle, brandGlyph: brandGlyph, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.md }, children: [submitError ? (0, jsx_runtime_1.jsx)(Alert_1.Alert, { tone: "danger", children: submitError }) : null, (0, jsx_runtime_1.jsx)(AuthCard_1.AuthField, { label: emailLabel, icon: "mail", accessibilityLabel: emailLabel, keyboardType: "email-address", autoCapitalize: "none", autoComplete: "email", textContentType: "emailAddress", error: form.errors.email, value: form.values.email, onChangeText: (t) => form.setValue('email', t), placeholder: emailPlaceholder }), (0, jsx_runtime_1.jsx)(AuthCard_1.AuthField, { secure: true, label: passwordLabel, icon: "lock", accessibilityLabel: passwordLabel, autoCapitalize: "none", autoComplete: "password", textContentType: "password", error: form.errors.password, value: form.values.password, onChangeText: (t) => form.setValue('password', t), placeholder: passwordPlaceholder }), onForgotPassword ? (
+                // §9 right-aligns it: the link belongs to the field above it, not to
+                // the margin on the other side of the card.
+                (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: forgotLabel, onPress: onForgotPassword, hitSlop: tokens.spacing.sm, style: { alignSelf: 'flex-end', justifyContent: 'center', minHeight: AuthCard_1.AUTH_TAP_TARGET }, children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", weight: "medium", tone: "primaryText", children: forgotLabel }) })) : null, (0, jsx_runtime_1.jsx)(AuthCard_1.AuthSubmitButton, { label: form.submitting ? submittingLabel : submitLabel, onPress: () => form.handleSubmit(), loading: form.submitting }), onSignupClick ? ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthSwitchFooter, { prompt: switchPrompt, label: switchLabel, onPress: onSignupClick })) : null] }) }));
 }
 //# sourceMappingURL=LoginForm.js.map

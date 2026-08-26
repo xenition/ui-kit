@@ -1,6 +1,6 @@
 import * as React from 'react';
 export type VolumeFaderVariant = 'labeled' | 'bare';
-export interface VolumeFaderProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface VolumeFaderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
     /** Current fader position in `[min, max]`. */
     value: number;
     /** Range bounds (default `0`…`100`). */
@@ -21,8 +21,15 @@ export interface VolumeFaderProps extends React.HTMLAttributes<HTMLDivElement> {
     unit?: string;
     /** Disable the fader. */
     disabled?: boolean;
-    /** Fires with the new value as the user drags. */
+    /**
+     * Fires with the new value as the user drags. Prefer `onChange` — that is the
+     * kit's one canonical name for "the value changed". `onValueChange` is this
+     * component's original spelling, kept so existing callers keep working; if
+     * both are passed this one wins.
+     */
     onValueChange?: (value: number) => void;
+    /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+    onChange?: (value: number) => void;
 }
 /**
  * A labelled volume fader — a thin wrapper over the `Slider` primitive that adds

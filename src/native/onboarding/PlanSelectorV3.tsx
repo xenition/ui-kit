@@ -1,16 +1,22 @@
 import * as React from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Animated, Pressable, View } from 'react-native';
 import { useXenitionTheme } from '../theme';
-import { Badge, Icon, Segmented } from '../primitives';
+import { Badge, Icon, Text } from '../primitives';
 import { withAlpha } from '../primitives/internal/color';
 import { usePressScale } from '../primitives/internal/motion';
-import type { PlanSelectorProps } from './PlanSelector';
-import type { BillingPeriod, PlanTier } from './types';
+import { BillingToggle, chunkPlans, type PlanSelectorProps } from './PlanSelector';
+import type { PlanTier } from './types';
 
 /** Drop-in for {@link PlanSelector} — identical props, different design. */
 export type PlanSelectorV3Props = PlanSelectorProps;
 
-/** One full-width comparison row. */
+/* §10.1 geometry: 2px selection ring, 1px hairline outline, 44 tap target. */
+const RING = 2;
+const HAIRLINE = 1;
+const CONTROL = 44;
+const COLUMNS = 2;
+
+/** One dense comparison row. */
 function PlanRow({
   plan,
   price,
@@ -38,51 +44,55 @@ function PlanRow({
           flexDirection: 'row',
           alignItems: 'center',
           gap: tokens.spacing.md,
-          padding: tokens.spacing.lg,
+          minHeight: CONTROL,
+          paddingHorizontal: tokens.spacing.md,
+          paddingVertical: tokens.spacing.sm,
           borderRadius: tokens.radius.lg,
           backgroundColor: selected ? withAlpha(colors.primary, 0.08) : colors.surface,
-          borderWidth: 1,
+          borderWidth: selected ? RING : HAIRLINE,
           borderColor: selected ? colors.primary : colors.border,
         }}
       >
         {/* Radio indicator. */}
         <View
           style={{
-            width: 22,
-            height: 22,
+            width: tokens.spacing.lg,
+            height: tokens.spacing.lg,
             borderRadius: tokens.radius.full,
-            borderWidth: 2,
+            borderWidth: RING,
             borderColor: selected ? colors.primary : colors.border,
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: selected ? colors.primary : 'transparent',
+            backgroundColor: selected ? colors.primary : colors.surface,
           }}
         >
-          {selected ? <Icon glyph="✓" size="xs" color="onPrimary" /> : null}
+          {selected ? <Icon name="check" size="xs" color="onPrimary" /> : null}
         </View>
 
-        {/* Name + features summary. */}
         <View style={{ flex: 1, gap: tokens.spacing.xs }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }}>
-            <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale.lg, fontWeight: '700' }}>
+            <Text size="base" weight="semibold">
               {plan.name}
             </Text>
-            {plan.badge ? <Badge tone="primary">{plan.badge}</Badge> : null}
+            {plan.badge ? (
+              <Badge tone="success" size="sm">
+                {plan.badge}
+              </Badge>
+            ) : null}
           </View>
           {plan.features?.length ? (
-            <Text numberOfLines={1} style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>
+            <Text size="sm" tone="muted" numberOfLines={1}>
               {plan.features.join(' · ')}
             </Text>
           ) : null}
         </View>
 
-        {/* Price column. */}
         <View style={{ alignItems: 'flex-end' }}>
-          <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale.xl, fontWeight: '800' }}>
+          <Text size="lg" weight="bold">
             {price}
           </Text>
           {plan.priceCaption ? (
-            <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.xs }}>
+            <Text size="xs" tone="muted">
               {plan.priceCaption}
             </Text>
           ) : null}
@@ -92,13 +102,69 @@ function PlanRow({
   );
 }
 
+/** One §7 card, used when a V3 host explicitly asks for `layout="cards"`. */
+function TierCard({
+  plan,
+  price,
+  selected,
+  onPress,
+}: {
+  plan: PlanTier;
+  price: string;
+  selected: boolean;
+  onPress: () => void;
+}): React.ReactElement {
+  const { colors, tokens } = useXenitionTheme();
+  const fg = selected ? 'onPrimary' : 'onSurface';
+
+  return (
+    <Pressable
+      accessibilityRole="radio"
+      accessibilityState={{ selected }}
+      accessibilityLabel={`${plan.name}, ${price}`}
+      onPress={onPress}
+      style={{
+        flex: 1,
+        borderRadius: tokens.radius.lg,
+        padding: tokens.spacing.md,
+        gap: tokens.spacing.xs,
+        backgroundColor: selected ? colors.primary : colors.surface,
+        borderWidth: selected ? RING : HAIRLINE,
+        borderColor: selected ? colors.primary : colors.border,
+      }}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: tokens.spacing.xs }}>
+        <Text size="sm" weight="semibold" tone={fg} style={{ flexShrink: 1 }}>
+          {plan.name}
+        </Text>
+        {plan.badge ? (
+          <Badge tone="success" size="sm">
+            {plan.badge}
+          </Badge>
+        ) : null}
+      </View>
+      <Text size="lg" weight="bold" tone={fg}>
+        {price}
+      </Text>
+      {plan.priceCaption ? (
+        <Text size="xs" tone={selected ? 'onPrimary' : 'muted'}>
+          {plan.priceCaption}
+        </Text>
+      ) : null}
+    </Pressable>
+  );
+}
+
 /**
- * Subscription tier picker — V3. A stacked comparison layout: a monthly/annual
- * {@link Segmented} toggle over full-width rows that align name, feature summary
- * and price into columns for easy scanning, each row a `radio` with a circular
- * indicator. The selected row fills with a faint primary tint. Same
- * `radiogroup` semantics and caller-formatted prices as {@link PlanSelector};
- * empty list guarded. Token-pure.
+ * Subscription tier picker — V3, the compact line. Dense selectable rows that
+ * align a radio indicator, the name (+ its badge), a one-line feature summary
+ * and the price into scannable columns; the selected row keeps the 2px ring and
+ * a faint primary tint. This is the one selector whose `layout` defaults to
+ * `'list'` — a dense sheet is what the V3 line is *for* — and passing
+ * `layout="cards"` gives the §7 pair at compact sizing.
+ *
+ * Same `radiogroup` semantics and caller-formatted prices as
+ * {@link PlanSelector}; empty list guarded. Token-pure.
  */
 export function PlanSelectorV3({
   plans,
@@ -108,48 +174,61 @@ export function PlanSelectorV3({
   onBillingPeriodChange,
   showBillingToggle = true,
   annualSavingsLabel,
+  layout = 'list',
   style,
 }: PlanSelectorV3Props): React.ReactElement {
-  const { colors, tokens } = useXenitionTheme();
+  const { tokens } = useXenitionTheme();
 
   if (plans.length === 0) {
     return (
       <View accessibilityRole="summary" style={[{ padding: tokens.spacing.lg, alignItems: 'center' }, style]}>
-        <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.base }}>
+        <Text size="base" tone="muted">
           No plans available.
         </Text>
       </View>
     );
   }
 
+  const priceOf = (plan: PlanTier): string =>
+    billingPeriod === 'annual' ? plan.annualPrice : plan.monthlyPrice;
+  const columns = plans.length === 1 ? 1 : COLUMNS;
+
   return (
     <View style={[{ gap: tokens.spacing.md }, style]}>
       {showBillingToggle ? (
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: tokens.spacing.sm }}>
-          <Segmented
-            options={[
-              { label: 'Monthly', value: 'monthly' },
-              { label: 'Annual', value: 'annual' },
-            ]}
-            value={billingPeriod}
-            onChange={(v) => onBillingPeriodChange?.(v as BillingPeriod)}
-          />
-          {annualSavingsLabel && billingPeriod === 'annual' ? (
-            <Badge tone="success">{annualSavingsLabel}</Badge>
-          ) : null}
-        </View>
+        <BillingToggle
+          billingPeriod={billingPeriod}
+          onBillingPeriodChange={onBillingPeriodChange}
+          annualSavingsLabel={annualSavingsLabel}
+          spread
+        />
       ) : null}
 
       <View accessibilityRole="radiogroup" accessibilityLabel="Choose a plan" style={{ gap: tokens.spacing.sm }}>
-        {plans.map((plan) => (
-          <PlanRow
-            key={plan.id}
-            plan={plan}
-            price={billingPeriod === 'annual' ? plan.annualPrice : plan.monthlyPrice}
-            selected={plan.id === selectedPlanId}
-            onPress={() => onSelectPlan?.(plan.id)}
-          />
-        ))}
+        {layout === 'cards'
+          ? chunkPlans(plans, columns).map((row, i) => (
+              <View key={i} style={{ flexDirection: 'row', alignItems: 'stretch', gap: tokens.spacing.sm }}>
+                {row.map((plan) => (
+                  <TierCard
+                    key={plan.id}
+                    plan={plan}
+                    price={priceOf(plan)}
+                    selected={plan.id === selectedPlanId}
+                    onPress={() => onSelectPlan?.(plan.id)}
+                  />
+                ))}
+                {row.length < columns ? <View style={{ flex: 1 }} /> : null}
+              </View>
+            ))
+          : plans.map((plan) => (
+              <PlanRow
+                key={plan.id}
+                plan={plan}
+                price={priceOf(plan)}
+                selected={plan.id === selectedPlanId}
+                onPress={() => onSelectPlan?.(plan.id)}
+              />
+            ))}
       </View>
     </View>
   );

@@ -11,8 +11,11 @@ const INNER = 10;
  * token-bound `Pressable` row per option with a filled dot for the selection.
  * No literal colors.
  */
-function RadioGroup({ options, value, onValueChange, orientation = 'vertical', style, }) {
+function RadioGroup({ options, value, onValueChange, onChange, orientation = 'vertical', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onValueChange ?? onChange;
     return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "radiogroup", style: [
             {
                 flexDirection: orientation === 'vertical' ? 'column' : 'row',
@@ -22,7 +25,7 @@ function RadioGroup({ options, value, onValueChange, orientation = 'vertical', s
             style,
         ], children: options.map((o) => {
             const selected = o.value === value;
-            return ((0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { accessibilityRole: "radio", accessibilityState: { selected, disabled: o.disabled }, disabled: o.disabled, onPress: () => onValueChange?.(o.value), style: {
+            return ((0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { accessibilityRole: "radio", accessibilityState: { selected, disabled: o.disabled }, disabled: o.disabled, onPress: () => emit?.(o.value), style: {
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: tokens.spacing.sm,

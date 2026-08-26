@@ -10,7 +10,8 @@ const commerce_1 = require("../commerce");
 /**
  * A single menu item — the food-domain sibling of `ProductCard`. Renders a
  * photo (or a token-tinted placeholder), name, description, an optional star
- * rating and dietary `badges`, a {@link PriceTag}, and an optional add button.
+ * rating and dietary `badges`, a {@link PriceTag} when `priceCents` is given,
+ * and an optional add button.
  * `variant` switches between a horizontal `list` row, a vertical `grid` tile,
  * and a larger `featured` hero. `soldOut` dims the card and disables adding;
  * `loading` shows a token-only skeleton. Colors come only from theme tokens.
@@ -53,7 +54,7 @@ function DishCard({ name, description, priceCents, currency = 'USD', imageUrl, r
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                }, children: [(0, jsx_runtime_1.jsx)(commerce_1.PriceTag, { cents: priceCents, currency: currency, formatMoney: formatMoney }), soldOut ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.danger, fontSize: tokens.typography.scale.sm, fontWeight: '600' }, children: soldOutLabel })) : onAdd ? ((0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", onPress: onAdd, disabled: soldOut, children: addLabel })) : null] })] }));
+                }, children: [typeof priceCents === 'number' ? ((0, jsx_runtime_1.jsx)(commerce_1.PriceTag, { cents: priceCents, currency: currency, formatMoney: formatMoney })) : ((0, jsx_runtime_1.jsx)(react_native_1.View, {})), soldOut ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.danger, fontSize: tokens.typography.scale.sm, fontWeight: '600' }, children: soldOutLabel })) : onAdd ? ((0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", onPress: onAdd, disabled: soldOut, children: addLabel })) : null] })] }));
     const inner = ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [media, body] }));
     if (onPress) {
         return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: name, accessibilityState: { disabled: soldOut }, onPress: onPress, style: ({ pressed }) => [containerStyle, { opacity: pressed ? 0.9 : soldOut ? 0.6 : 1 }], children: inner }));

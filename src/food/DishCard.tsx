@@ -13,8 +13,10 @@ export interface DishCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   name: string;
   /** Short description / ingredients line. */
   description?: string;
-  /** Price in integer cents. */
-  priceCents: number;
+  /** Price in integer cents. Omit for an unpriced dish — a recipe, a saved
+   * dish, a menu line that carries no price — and the price element is left
+   * out entirely rather than reading `$0.00`. */
+  priceCents?: number;
   /** ISO 4217 currency code (default `USD`). */
   currency?: string;
   /** Dish photo URL. When absent a token-tinted placeholder is drawn. */
@@ -128,7 +130,14 @@ export const DishCard = React.forwardRef<HTMLDivElement, DishCardProps>(function
       {typeof rating === 'number' ? <Rating value={rating} size="sm" showValue /> : null}
       {badges ? <div className="flex flex-wrap gap-[var(--xen-space-xs)]">{badges}</div> : null}
       <div className="mt-[var(--xen-space-xs)] flex items-center justify-between">
-        <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} />
+        {/* No price, no price element — a recipe or an unpriced menu line must
+            not read `$0.00`. The empty spacer keeps `justify-between` pushing the
+            add button to the trailing edge where it always sits. */}
+        {typeof priceCents === 'number' ? (
+          <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} />
+        ) : (
+          <span />
+        )}
         {soldOut ? (
           <span className="text-sm font-semibold text-danger">{soldOutLabel}</span>
         ) : onAdd ? (

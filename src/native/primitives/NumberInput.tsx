@@ -11,8 +11,15 @@ import { useXenitionTheme } from '../theme';
 
 export interface NumberInputProps {
   value: number;
-  /** Fires with the clamped value (web `onChange`, renamed for native). */
+  /**
+   * Fires with the clamped value. Prefer `onChange` — that is the kit's one
+   * canonical name for "the value changed", and what the web twin has always
+   * called this. `onValueChange` is the original native spelling, kept so
+   * existing callers keep working; if both are passed this one wins.
+   */
   onValueChange?: (value: number) => void;
+  /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+  onChange?: (value: number) => void;
   min?: number;
   max?: number;
   step?: number;
@@ -28,6 +35,7 @@ export interface NumberInputProps {
 export function NumberInput({
   value,
   onValueChange,
+  onChange,
   min,
   max,
   step = 1,
@@ -35,10 +43,13 @@ export function NumberInput({
   style,
 }: NumberInputProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onValueChange ?? onChange;
   const clamp = (v: number): number =>
     Math.max(min ?? -Infinity, Math.min(max ?? Infinity, v));
   const set = (v: number): void => {
-    if (!Number.isNaN(v)) onValueChange?.(clamp(v));
+    if (!Number.isNaN(v)) emit?.(clamp(v));
   };
   const atMin = min != null && value <= min;
   const atMax = max != null && value >= max;

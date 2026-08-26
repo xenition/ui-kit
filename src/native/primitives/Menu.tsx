@@ -1,6 +1,18 @@
 import * as React from 'react';
-import { Modal, Pressable, ScrollView, Text, View } from 'react-native';
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+  type GestureResponderEvent,
+} from 'react-native';
 import { useXenitionTheme } from '../theme';
+
+/** The one prop Menu injects into an element trigger. */
+interface TriggerProps {
+  onPress?: (event: GestureResponderEvent) => void;
+}
 
 export interface MenuItem {
   label: React.ReactNode;
@@ -13,7 +25,15 @@ export interface MenuItem {
 }
 
 export interface MenuProps {
-  /** Pressable trigger (e.g. a Button or icon). */
+  /**
+   * The control that opens the menu — normally a kit `<Button>` or an icon
+   * button. Menu does not wrap it in a second pressable; it clones the element
+   * and injects its own `onPress` (see the note below), so the trigger stays
+   * the real button: its `disabled` state still blocks the menu, and any
+   * `onPress` it already carries still runs. A trigger that cannot take an
+   * `onPress` — a bare string, or a component that drops the prop — should be
+   * wrapped by the caller in a `<Pressable>`, which can.
+   */
   trigger: React.ReactNode;
   items: MenuItem[];
   align?: 'start' | 'end';
@@ -30,26 +50,42 @@ export function Menu({ trigger, items, align = 'start' }: MenuProps): React.Reac
   const { colors, tokens } = useXenitionTheme();
   const [open, setOpen] = React.useState(false);
 
+  /*
+    The trigger IS the button. Menu does not wrap it in one.
+
+    On native the deepest `Pressable` under the finger wins the touch responder,
+    and it wins it whether or not it has an `onPress` of its own. So wrapping the
+    trigger in Menu's own `Pressable` only ever worked while the trigger was
+    inert: pass the obvious thing — a kit `<Button>`, which is a `Pressable` — and
+    the Button claims the responder, the wrapper's `onPress` never fires, and the
+    menu never opens. The kit's own test hid it for one reason: it passed a bare
+    `<Text>`, which has no responder to steal.
+
+    Cloning the trigger and injecting `onPress` fixes it at the root. There is one
+    pressable instead of two nested ones, so there is no responder to lose; a
+    `disabled` trigger stays disabled, because the press dies in the trigger's own
+    `Pressable`, which is what `disabled` means; and the `<button>`-inside-a-
+    `<button>` nesting the old wrapper was careful to avoid under react-native-web
+    cannot arise at all now, because there is no wrapper left to be a button.
+
+    Anything the trigger already does on press runs first, then the menu opens.
+    A non-element trigger (a bare string) has nothing to clone onto — and nothing
+    that could steal the responder either — so it keeps the transparent wrapper.
+  */
+  const renderedTrigger = React.isValidElement<TriggerProps>(trigger) ? (
+    React.cloneElement(trigger, {
+      onPress: (event: GestureResponderEvent) => {
+        trigger.props.onPress?.(event);
+        setOpen(true);
+      },
+    })
+  ) : (
+    <Pressable onPress={() => setOpen(true)}>{trigger}</Pressable>
+  );
+
   return (
     <>
-      {/*
-        A transparent tap surface, and deliberately NOT a `button`.
-
-        This wraps whatever the caller passed as `trigger`, and the natural thing
-        to pass is a `<Button>` — which is itself a `Pressable`. Give this wrapper
-        `accessibilityRole="button"` and react-native-web renders both as real
-        `<button>` elements, so the trigger becomes a `<button>` inside a
-        `<button>`: invalid HTML, two React `validateDOMNesting` errors on every
-        mount, and an unpredictable click target. On native it is just as wrong,
-        announcing "button" twice to a screen reader.
-
-        The web twin does the same thing for the same reason — it wraps the
-        trigger in a plain `<span onClick>`. The role belongs to the trigger,
-        which already declares its own; this layer only needs to catch the press.
-      */}
-      <Pressable onPress={() => setOpen(true)}>
-        {trigger}
-      </Pressable>
+      {renderedTrigger}
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         <View
           style={{

@@ -19,6 +19,7 @@ import { CartSummary } from './CartSummary';
 import { OrderSummary, CheckoutSummary } from './OrderSummary';
 import { StatusBadge } from './StatusBadge';
 import { EmptyState } from './EmptyState';
+import { EmptyState as EmptyStateFromPrimitives } from '../primitives/EmptyState';
 
 const HEX_LITERAL = /#[0-9a-fA-F]{3,8}\b/;
 
@@ -279,5 +280,13 @@ describe('EmptyState', () => {
     expect(getByText('Nothing here')).toBeTruthy();
     expect(getByText('Add something.')).toBeTruthy();
     expect(getByText('Shop')).toBeTruthy();
+  });
+
+  // It used to live here, which made an empty state look like a commerce
+  // concept and left `dist/primitives/EmptyState.d.ts` missing for the one
+  // component nearly every screen uses. It is a primitive now; this path stays
+  // as a re-export of the very same component.
+  it('is the same component `primitives` exports', () => {
+    expect(EmptyState).toBe(EmptyStateFromPrimitives);
   });
 });

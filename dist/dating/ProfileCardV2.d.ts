@@ -10,6 +10,9 @@ export type ProfileCardV2Props = ProfileCardProps;
  * top-right on a surface chip, and a slim detail strip beneath surfaces
  * bio/interests/actions. Same `ProfileCardProps`, so it is a genuine drop-in.
  * Token classes only; explicit loading/empty states; array access is guarded.
+ * Stays inside its own design line: the meter is {@link CompatibilityMeterV2},
+ * not the base one, because an app that picks V2 picks it for every surface it
+ * sees.
  */
 export declare const ProfileCardV2: React.ForwardRefExoticComponent<ProfileCardProps & React.RefAttributes<HTMLDivElement>>;
 //# sourceMappingURL=ProfileCardV2.d.ts.map

@@ -21,8 +21,15 @@ export interface VolumeFaderProps {
     /** Suffix for the numeric read-out, e.g. `'dB'`, `'%'`. */
     unit?: string;
     disabled?: boolean;
-    /** Fires with the new value as the user drags. */
+    /**
+     * Fires with the new value as the user drags. Prefer `onChange` — that is the
+     * kit's one canonical name for "the value changed". `onValueChange` is this
+     * component's original spelling, kept so existing callers keep working; if
+     * both are passed this one wins.
+     */
     onValueChange?: (value: number) => void;
+    /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+    onChange?: (value: number) => void;
     style?: StyleProp<ViewStyle>;
 }
 /**
@@ -31,5 +38,5 @@ export interface VolumeFaderProps {
  * both the dimming *and* the a11y label (never color alone). It owns no audio;
  * drags report out through `onValueChange`. Token-only styling.
  */
-export declare function VolumeFader({ value, min, max, step, label, variant, muted, unit, disabled, onValueChange, style, }: VolumeFaderProps): React.ReactElement;
+export declare function VolumeFader({ value, min, max, step, label, variant, muted, unit, disabled, onValueChange, onChange, style, }: VolumeFaderProps): React.ReactElement;
 //# sourceMappingURL=VolumeFader.d.ts.map

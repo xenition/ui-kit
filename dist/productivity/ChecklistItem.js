@@ -43,7 +43,10 @@ const cn_1 = require("../primitives/cn");
  * and strikes through its label. Exposes the `checkbox` a11y role/state. Web
  * parity of the native `ChecklistItem` (`onPress` → `onClick`). No literal colors.
  */
-exports.ChecklistItem = React.forwardRef(function ChecklistItem({ label, checked = false, onCheckedChange, disabled = false, className }, ref) {
-    return ((0, jsx_runtime_1.jsxs)("button", { ref: ref, type: "button", role: "checkbox", "aria-checked": checked, "aria-label": label, disabled: disabled, onClick: () => onCheckedChange?.(!checked), className: (0, cn_1.cn)('flex w-full items-center gap-2 py-1 text-left transition-opacity', 'disabled:pointer-events-none disabled:opacity-50', className), children: [(0, jsx_runtime_1.jsx)("span", { "aria-hidden": true, className: (0, cn_1.cn)('inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs font-bold', checked ? 'border-success bg-success text-on-success' : 'border-border bg-surface'), children: checked ? '✓' : '' }), (0, jsx_runtime_1.jsx)("span", { className: (0, cn_1.cn)('flex-1 text-sm', checked ? 'text-muted line-through' : 'text-on-surface'), children: label })] }));
+exports.ChecklistItem = React.forwardRef(function ChecklistItem({ label, checked = false, onCheckedChange, onChange, disabled = false, className }, ref) {
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onCheckedChange ?? onChange;
+    return ((0, jsx_runtime_1.jsxs)("button", { ref: ref, type: "button", role: "checkbox", "aria-checked": checked, "aria-label": label, disabled: disabled, onClick: () => emit?.(!checked), className: (0, cn_1.cn)('flex w-full items-center gap-2 py-1 text-left transition-opacity', 'disabled:pointer-events-none disabled:opacity-50', className), children: [(0, jsx_runtime_1.jsx)("span", { "aria-hidden": true, className: (0, cn_1.cn)('inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs font-bold', checked ? 'border-success bg-success text-on-success' : 'border-border bg-surface'), children: checked ? '✓' : '' }), (0, jsx_runtime_1.jsx)("span", { className: (0, cn_1.cn)('flex-1 text-sm', checked ? 'text-muted line-through' : 'text-on-surface'), children: label })] }));
 });
 //# sourceMappingURL=ChecklistItem.js.map

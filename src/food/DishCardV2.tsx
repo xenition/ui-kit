@@ -64,10 +64,13 @@ export const DishCardV2 = React.forwardRef<HTMLDivElement, DishCardV2Props>(func
         ) : null}
       </div>
 
-      {/* Frosted price pill, overlaid bottom-left. */}
-      <span className="absolute bottom-[var(--xen-space-sm)] left-[var(--xen-space-sm)] rounded-full bg-surface/90 px-[var(--xen-space-sm)] py-[var(--xen-space-xs)] shadow-sm backdrop-blur-sm">
-        <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} size="sm" />
-      </span>
+      {/* Frosted price pill, overlaid bottom-left. Unpriced dishes get no pill
+          at all — an empty frosted disc over the photo reads as a bug. */}
+      {typeof priceCents === 'number' ? (
+        <span className="absolute bottom-[var(--xen-space-sm)] left-[var(--xen-space-sm)] rounded-full bg-surface/90 px-[var(--xen-space-sm)] py-[var(--xen-space-xs)] shadow-sm backdrop-blur-sm">
+          <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} size="sm" />
+        </span>
+      ) : null}
 
       {soldOut ? (
         <span className="absolute left-[var(--xen-space-sm)] top-[var(--xen-space-sm)] rounded-full bg-danger/10 px-[var(--xen-space-sm)] py-[var(--xen-space-xs)] text-xs font-bold text-danger">

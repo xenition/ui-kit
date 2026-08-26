@@ -5,8 +5,9 @@
  * literal colors are forbidden in this package (CI lint rule).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Breadcrumb = exports.List = exports.Pagination = exports.Tag = exports.Popconfirm = exports.Drawer = exports.Accordion = exports.Menu = exports.Popover = exports.Tooltip = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.MessageList = exports.ChatBubble = exports.Table = exports.Modal = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.GlassPanel = exports.Eyebrow = exports.GradientText = exports.Stack = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Card = exports.Button = void 0;
-exports.ScrollableTabs = exports.SplitButton = exports.Toolbar = exports.JsonViewer = exports.CodeBlock = exports.VirtualList = exports.Kanban = exports.Calendar = exports.Statistic = exports.Tree = exports.Watermark = exports.ButtonGroup = exports.LoadingOverlay = exports.Result = exports.Callout = exports.Banner = exports.BottomSheet = exports.ActionSheet = exports.ContextMenu = exports.BottomNav = exports.FloatButton = exports.Icon = exports.ColorPicker = exports.CurrencyInput = exports.PhoneInput = exports.ToggleGroup = exports.RangeSlider = exports.AutoComplete = exports.TagInput = exports.MultiSelect = exports.DateRangePicker = exports.TimePicker = exports.PasswordInput = exports.SearchInput = exports.Wordmark = exports.Sidebar = exports.AppShell = exports.cn = exports.DatePicker = exports.Upload = exports.Combobox = exports.CrudTable = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = void 0;
+exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.StepList = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Breadcrumb = exports.List = exports.Pagination = exports.Tag = exports.Popconfirm = exports.Drawer = exports.Accordion = exports.Menu = exports.Popover = exports.Tooltip = exports.useToast = exports.ToastProvider = exports.EmptyState = exports.Skeleton = exports.Progress = exports.Alert = exports.MessageList = exports.ChatBubble = exports.Table = exports.Modal = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.GlassPanel = exports.Eyebrow = exports.GradientText = exports.Stack = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Card = exports.Button = void 0;
+exports.Banner = exports.BottomSheet = exports.ActionSheet = exports.ContextMenu = exports.BottomNav = exports.FloatButton = exports.resolveIconGlyph = exports.isIconName = exports.ICON_GLYPHS = exports.Icon = exports.Text = exports.ColorPicker = exports.CurrencyInput = exports.PhoneInput = exports.ToggleGroup = exports.RangeSlider = exports.AutoComplete = exports.TagInput = exports.MultiSelect = exports.DateRangePicker = exports.TimePicker = exports.PasswordInput = exports.SearchInput = exports.Wordmark = exports.Sidebar = exports.AppShell = exports.cn = exports.DatePicker = exports.Upload = exports.Combobox = exports.CrudTable = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthTermsCard = exports.AuthSwitchFooter = exports.AuthSubmitButton = exports.AuthStickyFooter = exports.AuthProviderButton = exports.AuthHeading = exports.AuthField = exports.AuthDivider = exports.AuthBrandTile = exports.AUTH_DEFAULT_TERMS_LINKS = exports.AUTH_TAP_TARGET = exports.AUTH_CONTROL_HEIGHT = exports.AuthCard = exports.useForm = exports.Form = void 0;
+exports.ScrollableTabs = exports.SplitButton = exports.Toolbar = exports.JsonViewer = exports.CodeBlock = exports.VirtualList = exports.Kanban = exports.Calendar = exports.Statistic = exports.Tree = exports.Watermark = exports.ButtonGroup = exports.LoadingOverlay = exports.Result = exports.Callout = void 0;
 var Button_1 = require("./Button");
 Object.defineProperty(exports, "Button", { enumerable: true, get: function () { return Button_1.Button; } });
 var Card_1 = require("./Card");
@@ -61,6 +62,10 @@ var Progress_1 = require("./Progress");
 Object.defineProperty(exports, "Progress", { enumerable: true, get: function () { return Progress_1.Progress; } });
 var Skeleton_1 = require("./Skeleton");
 Object.defineProperty(exports, "Skeleton", { enumerable: true, get: function () { return Skeleton_1.Skeleton; } });
+// Nearly every screen in the kit renders an empty state, so it belongs here
+// rather than in a vertical. `commerce` re-exports it for the older path.
+var EmptyState_1 = require("./EmptyState");
+Object.defineProperty(exports, "EmptyState", { enumerable: true, get: function () { return EmptyState_1.EmptyState; } });
 var Toast_1 = require("./Toast");
 Object.defineProperty(exports, "ToastProvider", { enumerable: true, get: function () { return Toast_1.ToastProvider; } });
 Object.defineProperty(exports, "useToast", { enumerable: true, get: function () { return Toast_1.useToast; } });
@@ -94,6 +99,11 @@ var Segmented_1 = require("./Segmented");
 Object.defineProperty(exports, "Segmented", { enumerable: true, get: function () { return Segmented_1.Segmented; } });
 var Steps_1 = require("./Steps");
 Object.defineProperty(exports, "Steps", { enumerable: true, get: function () { return Steps_1.Steps; } });
+// `Steps` is the horizontal progress indicator; `StepList` is the vertical,
+// content-bearing instruction list. Pick by the question you are answering:
+// "where am I in this flow" vs "here are the instructions".
+var StepList_1 = require("./StepList");
+Object.defineProperty(exports, "StepList", { enumerable: true, get: function () { return StepList_1.StepList; } });
 var RadioGroup_1 = require("./RadioGroup");
 Object.defineProperty(exports, "RadioGroup", { enumerable: true, get: function () { return RadioGroup_1.RadioGroup; } });
 var Slider_1 = require("./Slider");
@@ -108,6 +118,23 @@ var useForm_1 = require("./useForm");
 Object.defineProperty(exports, "useForm", { enumerable: true, get: function () { return useForm_1.useForm; } });
 var AuthCard_1 = require("./AuthCard");
 Object.defineProperty(exports, "AuthCard", { enumerable: true, get: function () { return AuthCard_1.AuthCard; } });
+// The shared auth anatomy (ONBOARDING-DESIGN-SPEC §5/§6/§9) — the same parts
+// `SignInScreen` and the three composed forms are drawn from, so an app that
+// assembles its own auth surface gets the identical 56px field, CTA and
+// provider row rather than a near-miss.
+var AuthCard_2 = require("./AuthCard");
+Object.defineProperty(exports, "AUTH_CONTROL_HEIGHT", { enumerable: true, get: function () { return AuthCard_2.AUTH_CONTROL_HEIGHT; } });
+Object.defineProperty(exports, "AUTH_TAP_TARGET", { enumerable: true, get: function () { return AuthCard_2.AUTH_TAP_TARGET; } });
+Object.defineProperty(exports, "AUTH_DEFAULT_TERMS_LINKS", { enumerable: true, get: function () { return AuthCard_2.AUTH_DEFAULT_TERMS_LINKS; } });
+Object.defineProperty(exports, "AuthBrandTile", { enumerable: true, get: function () { return AuthCard_2.AuthBrandTile; } });
+Object.defineProperty(exports, "AuthDivider", { enumerable: true, get: function () { return AuthCard_2.AuthDivider; } });
+Object.defineProperty(exports, "AuthField", { enumerable: true, get: function () { return AuthCard_2.AuthField; } });
+Object.defineProperty(exports, "AuthHeading", { enumerable: true, get: function () { return AuthCard_2.AuthHeading; } });
+Object.defineProperty(exports, "AuthProviderButton", { enumerable: true, get: function () { return AuthCard_2.AuthProviderButton; } });
+Object.defineProperty(exports, "AuthStickyFooter", { enumerable: true, get: function () { return AuthCard_2.AuthStickyFooter; } });
+Object.defineProperty(exports, "AuthSubmitButton", { enumerable: true, get: function () { return AuthCard_2.AuthSubmitButton; } });
+Object.defineProperty(exports, "AuthSwitchFooter", { enumerable: true, get: function () { return AuthCard_2.AuthSwitchFooter; } });
+Object.defineProperty(exports, "AuthTermsCard", { enumerable: true, get: function () { return AuthCard_2.AuthTermsCard; } });
 var LoginForm_1 = require("./LoginForm");
 Object.defineProperty(exports, "LoginForm", { enumerable: true, get: function () { return LoginForm_1.LoginForm; } });
 var SignupForm_1 = require("./SignupForm");
@@ -160,8 +187,18 @@ Object.defineProperty(exports, "CurrencyInput", { enumerable: true, get: functio
 var ColorPicker_1 = require("./ColorPicker");
 Object.defineProperty(exports, "ColorPicker", { enumerable: true, get: function () { return ColorPicker_1.ColorPicker; } });
 // ── web parity: patterns + feedback ───────────────────────────────────
+// The way to render text: `variant` (type scale) + `tone` (semantic slot)
+// instead of a hand-assembled class string. A raw `fontSize` in an app is a bug.
+var Text_1 = require("./Text");
+Object.defineProperty(exports, "Text", { enumerable: true, get: function () { return Text_1.Text; } });
 var Icon_1 = require("./Icon");
 Object.defineProperty(exports, "Icon", { enumerable: true, get: function () { return Icon_1.Icon; } });
+// The named icon set behind `Icon`'s `name` — a stable semantic vocabulary so
+// two screens never pick different glyphs for the same idea.
+var icon_names_1 = require("./icon-names");
+Object.defineProperty(exports, "ICON_GLYPHS", { enumerable: true, get: function () { return icon_names_1.ICON_GLYPHS; } });
+Object.defineProperty(exports, "isIconName", { enumerable: true, get: function () { return icon_names_1.isIconName; } });
+Object.defineProperty(exports, "resolveIconGlyph", { enumerable: true, get: function () { return icon_names_1.resolveIconGlyph; } });
 var FloatButton_1 = require("./FloatButton");
 Object.defineProperty(exports, "FloatButton", { enumerable: true, get: function () { return FloatButton_1.FloatButton; } });
 var BottomNav_1 = require("./BottomNav");

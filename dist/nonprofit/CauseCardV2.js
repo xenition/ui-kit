@@ -38,12 +38,14 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
 const Badge_1 = require("../primitives/Badge");
-const CampaignProgress_1 = require("./CampaignProgress");
+const CampaignProgressV2_1 = require("./CampaignProgressV2");
 /**
  * CauseCard, redesigned (v2): a **full-bleed cover hero**. The image fills the
  * card; the category badge floats top-left and the title/description sit on a
  * gradient scrim at the bottom, with a mini progress meter when funding data is
  * present. Elevated, hover-lift. Same props as {@link CauseCard}, token-only.
+ * Stays inside its own design line: the meter is {@link CampaignProgressV2}, not
+ * the base one, because an app that picks V2 picks it for every surface it sees.
  */
 exports.CauseCardV2 = React.forwardRef(function CauseCardV2({ title, description, imageUrl, imageAlt, category, raisedCents, goalCents, currency = 'USD', variant, onClick, loading = false, className, ...rest }, ref) {
     void variant;
@@ -58,6 +60,6 @@ exports.CauseCardV2 = React.forwardRef(function CauseCardV2({ title, description
             onClick?.();
         }
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "data-xen-cause-card": "", role: interactive ? 'button' : undefined, tabIndex: interactive ? 0 : undefined, "aria-label": title, onClick: interactive ? () => onClick?.() : undefined, onKeyDown: interactive ? handleKeyDown : undefined, className: (0, cn_1.cn)('relative flex h-56 flex-col justify-end overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-transform', interactive && 'cursor-pointer hover:-translate-y-0.5 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0', className), ...rest, children: [imageUrl ? ((0, jsx_runtime_1.jsx)("img", { src: imageUrl, alt: imageAlt ?? title, className: "absolute inset-0 h-full w-full object-cover" })) : ((0, jsx_runtime_1.jsx)("div", { className: "absolute inset-0 flex items-center justify-center text-4xl", children: "\uD83E\uDD1D" })), category ? (0, jsx_runtime_1.jsx)("div", { className: "absolute left-2 top-2", children: (0, jsx_runtime_1.jsx)(Badge_1.Badge, { tone: "primary", children: category }) }) : null, (0, jsx_runtime_1.jsxs)("div", { className: "relative bg-gradient-to-t from-neutral-900/75 to-transparent p-3 pt-10", children: [(0, jsx_runtime_1.jsx)("p", { className: "text-base font-bold text-neutral-50", children: title }), description ? (0, jsx_runtime_1.jsx)("p", { className: "mt-0.5 line-clamp-2 text-xs text-neutral-200", children: description }) : null, hasGoal ? ((0, jsx_runtime_1.jsx)("div", { className: "mt-2", children: (0, jsx_runtime_1.jsx)(CampaignProgress_1.CampaignProgress, { raisedCents: raisedCents, goalCents: goalCents, currency: currency, hideAmounts: true }) })) : null] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "data-xen-cause-card": "", role: interactive ? 'button' : undefined, tabIndex: interactive ? 0 : undefined, "aria-label": title, onClick: interactive ? () => onClick?.() : undefined, onKeyDown: interactive ? handleKeyDown : undefined, className: (0, cn_1.cn)('relative flex h-56 flex-col justify-end overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-transform', interactive && 'cursor-pointer hover:-translate-y-0.5 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0', className), ...rest, children: [imageUrl ? ((0, jsx_runtime_1.jsx)("img", { src: imageUrl, alt: imageAlt ?? title, className: "absolute inset-0 h-full w-full object-cover" })) : ((0, jsx_runtime_1.jsx)("div", { className: "absolute inset-0 flex items-center justify-center text-4xl", children: "\uD83E\uDD1D" })), category ? (0, jsx_runtime_1.jsx)("div", { className: "absolute left-2 top-2", children: (0, jsx_runtime_1.jsx)(Badge_1.Badge, { tone: "primary", children: category }) }) : null, (0, jsx_runtime_1.jsxs)("div", { className: "relative bg-gradient-to-t from-neutral-900/75 to-transparent p-3 pt-10", children: [(0, jsx_runtime_1.jsx)("p", { className: "text-base font-bold text-neutral-50", children: title }), description ? (0, jsx_runtime_1.jsx)("p", { className: "mt-0.5 line-clamp-2 text-xs text-neutral-200", children: description }) : null, hasGoal ? ((0, jsx_runtime_1.jsx)("div", { className: "mt-2", children: (0, jsx_runtime_1.jsx)(CampaignProgressV2_1.CampaignProgressV2, { raisedCents: raisedCents, goalCents: goalCents, currency: currency, hideAmounts: true }) })) : null] })] }));
 });
 //# sourceMappingURL=CauseCardV2.js.map

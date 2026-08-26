@@ -1,40 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.EmptyState = EmptyState;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const react_native_1 = require("react-native");
-const theme_1 = require("../theme");
 /**
- * Generic empty / no-results state — the native mirror of the web
- * `EmptyState`. Centered icon slot, muted copy, optional action. Token-only
- * (dashed `border`, `surface` background, `muted` text). Domain-agnostic.
+ * `EmptyState` moved to `../primitives` — it is a primitive, not a commerce
+ * concept: an empty cart is one of its cases, not its definition, and nearly
+ * every screen in the kit renders one. This file stays behind as a re-export so
+ * every `import { EmptyState } from '.../commerce/EmptyState'` already in the
+ * wild keeps resolving. New code should import from `native/primitives`.
  */
-function EmptyState({ icon, title, description, action, style, }) {
-    const { colors, tokens } = (0, theme_1.useXenitionTheme)();
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [
-            {
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: tokens.spacing.sm,
-                borderRadius: tokens.radius.lg,
-                borderWidth: 1,
-                borderStyle: 'dashed',
-                borderColor: colors.border,
-                backgroundColor: colors.surface,
-                paddingHorizontal: tokens.spacing.lg,
-                paddingVertical: tokens.spacing['2xl'],
-            },
-            style,
-        ], children: [icon ? (0, jsx_runtime_1.jsx)(react_native_1.View, { children: icon }) : null, typeof title === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                    color: colors.onSurface,
-                    fontSize: tokens.typography.scale.base,
-                    fontWeight: '600',
-                    textAlign: 'center',
-                }, children: title })) : (title), description ? (typeof description === 'string' ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                    color: colors.muted,
-                    fontSize: tokens.typography.scale.sm,
-                    textAlign: 'center',
-                    maxWidth: 320,
-                }, children: description })) : (description)) : null, action ? (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { marginTop: tokens.spacing.sm }, children: action }) : null] }));
-}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EmptyState = void 0;
+var EmptyState_1 = require("../primitives/EmptyState");
+Object.defineProperty(exports, "EmptyState", { enumerable: true, get: function () { return EmptyState_1.EmptyState; } });
 //# sourceMappingURL=EmptyState.js.map

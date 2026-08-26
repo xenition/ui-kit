@@ -47,8 +47,11 @@ const theme_1 = require("../theme");
  * `onChange` becomes the native `onValueChange`, and (like the native `Select`)
  * it adds `invalid`/`disabled`. No literal colors.
  */
-function Combobox({ options, value, onValueChange, placeholder = 'Search…', invalid = false, disabled = false, accessibilityLabel, style, }) {
+function Combobox({ options, value, onValueChange, onChange, placeholder = 'Search…', invalid = false, disabled = false, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onValueChange ?? onChange;
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
     const selected = options.find((o) => o.value === value);
@@ -112,7 +115,7 @@ function Combobox({ options, value, onValueChange, placeholder = 'Search…', in
                                         }, children: "No matches" })) : (filtered.map((opt) => {
                                         const active = opt.value === value;
                                         return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "menuitem", accessibilityState: { selected: active }, onPress: () => {
-                                                onValueChange?.(opt.value);
+                                                emit?.(opt.value);
                                                 close();
                                             }, style: ({ pressed }) => ({
                                                 paddingVertical: tokens.spacing.md,

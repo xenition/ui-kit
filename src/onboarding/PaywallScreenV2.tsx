@@ -1,64 +1,124 @@
 import * as React from 'react';
 import { cn } from '../primitives/cn';
 import { Icon } from '../primitives/Icon';
-import { GetStartedButton } from './GetStartedButton';
-import { PlanSelector } from './PlanSelector';
+import { Text } from '../primitives/Text';
+import { PlanSelectorV2 } from './PlanSelectorV2';
 import { TrialBanner } from './TrialBanner';
-import type { PaywallScreenProps } from './PaywallScreen';
+import {
+  PaywallFeatureRows,
+  PaywallFooter,
+  toFeatureRows,
+  toValueFramingRows,
+  type PaywallScreenProps,
+} from './PaywallScreen';
 
 /** Same public contract as {@link PaywallScreen} — a drop-in alternate design. */
 export type PaywallScreenV2Props = PaywallScreenProps;
 
 /**
- * PaywallScreen, redesigned (v2): a **hero paywall**. A primary-tinted hero band
- * carries the value-first headline + subtitle; below sit the trial banner, the
- * "why upgrade" list, the inline {@link PlanSelector}, a full-width CTA, footnote,
- * and a quiet dismiss. Bolder framing than v1, same paywall-after-value order.
- * Same props, token-only.
+ * PaywallScreen, redesigned (v2): the **editorial** line. The hero runs
+ * full-bleed to the top edge with no inset panel, and the content sheet rises
+ * over it with a rounded lip so the headline overlaps the artwork. Below sit the
+ * trial strip, the §8 feature rows, the value-framing block and the v2 plan
+ * cards, with the CTA pinned (§5).
+ *
+ * The plan cards are the v2 selector, not the base one — an app that picks v2
+ * picks it for every surface it sees, and a composite that reaches back into v1
+ * breaks that line. {@link TrialBanner} has no alternate, so the base one is the
+ * whole line — that is correct, not a gap. Same props, token-only.
  */
 export const PaywallScreenV2 = React.forwardRef<HTMLDivElement, PaywallScreenV2Props>(
   function PaywallScreenV2(
-    { title, subtitle, valueProps = [], plans, selectedPlanId, onSelectPlan, billingPeriod = 'annual', onBillingPeriodChange, annualSavingsLabel, trial, ctaLabel = 'Start free trial', onSubscribe, loading = false, footnote, dismissLabel, onDismiss, className, ...rest },
+    {
+      title,
+      subtitle,
+      illustration,
+      logoGlyph = '✦',
+      showHero = true,
+      features,
+      featuresTitle,
+      featureRail,
+      valueFraming,
+      valueProps = [],
+      plans,
+      selectedPlanId,
+      onSelectPlan,
+      billingPeriod = 'annual',
+      onBillingPeriodChange,
+      annualSavingsLabel,
+      trial,
+      ctaLabel = 'Start free trial',
+      onSubscribe,
+      loading = false,
+      footnote,
+      dismissLabel,
+      onDismiss,
+      className,
+      ...rest
+    },
     ref
   ) {
+    const rows = toFeatureRows(features, valueProps);
+    const framingRows = toValueFramingRows(valueFraming);
+
     return (
       <div ref={ref} className={cn('flex min-h-full flex-col bg-surface', className)} {...rest}>
-        <div className="rounded-b-3xl bg-primary/10 px-6 pb-8 pt-12 text-center">
-          <h1 className="text-2xl font-bold text-on-surface">{title}</h1>
-          {subtitle ? <p className="mt-1 text-base text-muted">{subtitle}</p> : null}
+        <div className="flex flex-1 flex-col overflow-y-auto">
+          {showHero ? (
+            <div className="flex h-[34vh] min-h-[10rem] w-full items-center justify-center overflow-hidden bg-primary-50">
+              {illustration ?? (
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary">
+                  <Icon glyph={logoGlyph} size="2xl" color="onPrimary" />
+                </span>
+              )}
+            </div>
+          ) : null}
+
+          {/* The sheet rises over the hero — its rounded lip is the overlap. */}
+          <div
+            className={cn(
+              'flex flex-col gap-6 rounded-t-[var(--xen-radius-lg)] bg-surface px-6 pb-8 pt-8',
+              showHero && '-mt-6'
+            )}
+          >
+            <div className="flex flex-col items-center gap-2">
+              <h1 className="text-center text-2xl font-bold leading-tight text-on-surface">{title}</h1>
+              {subtitle ? (
+                <Text size="base" tone="muted" align="center" className="max-w-prose">
+                  {subtitle}
+                </Text>
+              ) : null}
+            </div>
+
+            {trial ? (
+              <TrialBanner title={trial.title} subtitle={trial.subtitle} daysLeft={trial.daysLeft} />
+            ) : null}
+
+            <PaywallFeatureRows rows={rows} heading={featuresTitle} rail={featureRail} />
+
+            <PaywallFeatureRows rows={framingRows} heading={valueFraming?.title} />
+
+            {plans && plans.length > 0 ? (
+              <PlanSelectorV2
+                plans={plans}
+                selectedPlanId={selectedPlanId}
+                onSelectPlan={onSelectPlan}
+                billingPeriod={billingPeriod}
+                onBillingPeriodChange={onBillingPeriodChange}
+                annualSavingsLabel={annualSavingsLabel}
+              />
+            ) : null}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 p-6">
-          {trial ? <TrialBanner title={trial.title} subtitle={trial.subtitle} daysLeft={trial.daysLeft} /> : null}
-          {valueProps.length > 0 ? (
-            <ul className="flex flex-col gap-2">
-              {valueProps.map((vp, i) => (
-                <li key={i} className="flex items-center gap-2 text-sm text-on-surface">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                    <Icon glyph={vp.icon ?? '✓'} size="sm" color="primary" />
-                  </span>
-                  {vp.text}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          {plans && plans.length > 0 ? (
-            <PlanSelector
-              plans={plans}
-              selectedPlanId={selectedPlanId}
-              onSelectPlan={onSelectPlan}
-              billingPeriod={billingPeriod}
-              onBillingPeriodChange={onBillingPeriodChange}
-              annualSavingsLabel={annualSavingsLabel}
-            />
-          ) : null}
-          <GetStartedButton label={ctaLabel} onClick={onSubscribe} loading={loading} />
-          {footnote ? <p className="text-center text-xs text-muted">{footnote}</p> : null}
-          {dismissLabel && onDismiss ? (
-            <button type="button" onClick={onDismiss} className="py-1 text-center text-sm font-semibold text-muted">
-              {dismissLabel}
-            </button>
-          ) : null}
-        </div>
+
+        <PaywallFooter
+          ctaLabel={ctaLabel}
+          onSubscribe={onSubscribe}
+          loading={loading}
+          footnote={footnote}
+          dismissLabel={dismissLabel}
+          onDismiss={onDismiss}
+        />
       </div>
     );
   }

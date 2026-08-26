@@ -38,14 +38,24 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const AuthCard_1 = require("./AuthCard");
 const Form_1 = require("./Form");
-const Field_1 = require("./Field");
-const Input_1 = require("./Input");
-const Button_1 = require("./Button");
+const Text_1 = require("./Text");
 const Alert_1 = require("./Alert");
 const StatusMessage_1 = require("./StatusMessage");
 const useForm_1 = require("./useForm");
-/** Drop-in "reset password" request form — composed, themed, with a sent confirmation state. */
-function ForgotPasswordForm({ onSubmit, onLoginClick, title = 'Reset password', }) {
+/**
+ * Drop-in "reset password" request form — composed, themed, with a sent
+ * confirmation state.
+ *
+ * Drawn from the same parts as the screen-level `SignInScreen` (§6/§9): a 56px
+ * field with a muted `mail` icon, a `primary` focus border, errors as a
+ * `danger` border **and** a message in `danger-text`, and the 56px
+ * `radius.full` CTA.
+ *
+ * The CTA carries no trailing arrow: §5 reserves the `→` for a forward action,
+ * and sending a reset link is a terminal one — the next thing the user does is
+ * leave for their inbox.
+ */
+function ForgotPasswordForm({ onSubmit, onLoginClick, title = 'Reset password', subtitle, brandGlyph, submitLabel = 'Send reset link', submittingLabel = 'Sending…', sentMessage = 'Check your email for a reset link.', emailLabel = 'Email', emailPlaceholder = 'you@example.com', backLabel = 'Back to sign in', }) {
     const [submitError, setSubmitError] = React.useState(null);
     const [sent, setSent] = React.useState(false);
     const form = (0, useForm_1.useForm)({
@@ -62,6 +72,6 @@ function ForgotPasswordForm({ onSubmit, onLoginClick, title = 'Reset password', 
             }
         },
     });
-    return ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthCard, { title: title, footer: onLoginClick && ((0, jsx_runtime_1.jsx)("button", { type: "button", onClick: onLoginClick, className: "text-primary", children: "Back to sign in" })), children: sent ? ((0, jsx_runtime_1.jsx)(StatusMessage_1.StatusMessage, { state: "empty", message: "Check your email for a reset link." })) : ((0, jsx_runtime_1.jsxs)(Form_1.Form, { onSubmit: form.handleSubmit, children: [submitError && (0, jsx_runtime_1.jsx)(Alert_1.Alert, { tone: "danger", children: submitError }), (0, jsx_runtime_1.jsx)(Field_1.Field, { label: "Email", error: form.errors.email, children: (0, jsx_runtime_1.jsx)(Input_1.Input, { type: "email", autoComplete: "email", value: form.values.email, onChange: (e) => form.setValue('email', e.target.value), placeholder: "you@example.com" }) }), (0, jsx_runtime_1.jsx)(Button_1.Button, { type: "submit", disabled: form.submitting, children: form.submitting ? 'Sending…' : 'Send reset link' })] })) }));
+    return ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthCard, { title: title, subtitle: subtitle, brandGlyph: brandGlyph, footer: onLoginClick && ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": backLabel, onClick: onLoginClick, children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", weight: "semibold", tone: "primaryText", children: backLabel }) })), children: sent ? ((0, jsx_runtime_1.jsx)(StatusMessage_1.StatusMessage, { state: "empty", message: sentMessage })) : ((0, jsx_runtime_1.jsxs)(Form_1.Form, { onSubmit: form.handleSubmit, children: [submitError && (0, jsx_runtime_1.jsx)(Alert_1.Alert, { tone: "danger", children: submitError }), (0, jsx_runtime_1.jsx)(AuthCard_1.AuthField, { label: emailLabel, icon: "mail", inputType: "email", "aria-label": emailLabel, autoComplete: "email", error: form.errors.email, value: form.values.email, onChangeText: (t) => form.setValue('email', t), placeholder: emailPlaceholder }), (0, jsx_runtime_1.jsx)(AuthCard_1.AuthSubmitButton, { type: "submit", label: form.submitting ? submittingLabel : submitLabel, loading: form.submitting, trailingArrow: false })] })) }));
 }
 //# sourceMappingURL=ForgotPasswordForm.js.map

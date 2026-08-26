@@ -11,10 +11,13 @@ const motion_1 = require("../primitives/internal/motion");
  * and strikes through its label. Exposes the `checkbox` a11y role/state. No
  * literal colors.
  */
-function ChecklistItem({ label, checked = false, onCheckedChange, disabled = false, style, }) {
+function ChecklistItem({ label, checked = false, onCheckedChange, onChange, disabled = false, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const press = (0, motion_1.usePressScale)();
-    return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: { transform: [{ scale: press.scale }] }, children: (0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { accessibilityRole: "checkbox", accessibilityState: { checked, disabled }, accessibilityLabel: label, disabled: disabled, onPress: () => onCheckedChange?.(!checked), onPressIn: press.onPressIn, onPressOut: press.onPressOut, style: ({ pressed }) => [
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onCheckedChange ?? onChange;
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: { transform: [{ scale: press.scale }] }, children: (0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { accessibilityRole: "checkbox", accessibilityState: { checked, disabled }, accessibilityLabel: label, disabled: disabled, onPress: () => emit?.(!checked), onPressIn: press.onPressIn, onPressOut: press.onPressOut, style: ({ pressed }) => [
                 {
                     flexDirection: 'row',
                     alignItems: 'center',

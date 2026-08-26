@@ -5,7 +5,10 @@ import { clamp } from './types';
 
 export type VolumeFaderVariant = 'labeled' | 'bare';
 
-export interface VolumeFaderProps extends React.HTMLAttributes<HTMLDivElement> {
+// `onChange` is reclaimed from the inherited div props (as `Tabs` and
+// `FilterChips` do) so it can mean the kit's "the value changed", not a form
+// event nobody attaches to a wrapper div.
+export interface VolumeFaderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** Current fader position in `[min, max]`. */
   value: number;
   /** Range bounds (default `0`…`100`). */
@@ -26,8 +29,15 @@ export interface VolumeFaderProps extends React.HTMLAttributes<HTMLDivElement> {
   unit?: string;
   /** Disable the fader. */
   disabled?: boolean;
-  /** Fires with the new value as the user drags. */
+  /**
+   * Fires with the new value as the user drags. Prefer `onChange` — that is the
+   * kit's one canonical name for "the value changed". `onValueChange` is this
+   * component's original spelling, kept so existing callers keep working; if
+   * both are passed this one wins.
+   */
   onValueChange?: (value: number) => void;
+  /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+  onChange?: (value: number) => void;
 }
 
 /**
@@ -49,11 +59,15 @@ export const VolumeFader = React.forwardRef<HTMLDivElement, VolumeFaderProps>(fu
     unit,
     disabled = false,
     onValueChange,
+    onChange,
     className,
     ...rest
   },
   ref
 ) {
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onValueChange ?? onChange;
   const safe = clamp(value, min, max);
   const readout = `${Math.round(safe)}${unit ? ` ${unit}` : ''}`;
 
@@ -82,7 +96,7 @@ export const VolumeFader = React.forwardRef<HTMLDivElement, VolumeFaderProps>(fu
         max={max}
         step={step}
         disabled={disabled}
-        onChange={(v) => onValueChange?.(v)}
+        onChange={(v) => emit?.(v)}
       />
     </div>
   );

@@ -7,8 +7,10 @@ export interface DishCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>
     name: string;
     /** Short description / ingredients line. */
     description?: string;
-    /** Price in integer cents. */
-    priceCents: number;
+    /** Price in integer cents. Omit for an unpriced dish — a recipe, a saved
+     * dish, a menu line that carries no price — and the price element is left
+     * out entirely rather than reading `$0.00`. */
+    priceCents?: number;
     /** ISO 4217 currency code (default `USD`). */
     currency?: string;
     /** Dish photo URL. When absent a token-tinted placeholder is drawn. */

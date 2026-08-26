@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cn } from '../primitives/cn';
 import { Icon } from '../primitives';
 import { DistanceBadge } from './DistanceBadge';
-import { CompatibilityMeter } from './CompatibilityMeter';
+import { CompatibilityMeterV3 } from './CompatibilityMeterV3';
 import { ProfilePrompt } from './ProfilePrompt';
 import { IcebreakerChip } from './IcebreakerChip';
 import { LikePassButtons } from './LikePassButtons';
@@ -19,6 +19,9 @@ export type ProfileCardV3Props = ProfileCardProps;
  * raised card — followed by a labelled interest rail. Airy, type-led, and
  * unmistakably distinct from the base summary card and the full-bleed V2. Same
  * `ProfileCardProps`; token classes only; guarded; loading/empty states included.
+ * Stays inside its own design line: the meter is {@link CompatibilityMeterV3},
+ * not the base one, because an app that picks V3 picks it for every surface it
+ * sees.
  */
 export const ProfileCardV3 = React.forwardRef<HTMLDivElement, ProfileCardV3Props>(function ProfileCardV3(
   { profile, variant = 'full', showActions = false, onAction, onClickInterest, loading = false, emptyLabel = 'No profile to show', className, ...rest },
@@ -90,7 +93,7 @@ export const ProfileCardV3 = React.forwardRef<HTMLDivElement, ProfileCardV3Props
         ) : null}
       </div>
 
-      {profile.compatibility != null ? <CompatibilityMeter score={profile.compatibility} /> : null}
+      {profile.compatibility != null ? <CompatibilityMeterV3 score={profile.compatibility} /> : null}
 
       {profile.bio ? <p className="text-base leading-relaxed text-on-surface">{profile.bio}</p> : null}
 

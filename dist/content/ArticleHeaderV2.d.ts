@@ -13,6 +13,8 @@ export type ArticleHeaderV2Props = ArticleHeaderProps;
  * Token-pure: the scrim is a `neutral-900` overlay, reversed text is
  * `text-neutral-50`. With no cover image it degrades to a centered header on the
  * normal surface with on-surface text.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV2}, not
+ * the base one, because an app that picks V2 picks it for every surface it sees.
  */
 export declare const ArticleHeaderV2: React.ForwardRefExoticComponent<ArticleHeaderProps & React.RefAttributes<HTMLElement>>;
 //# sourceMappingURL=ArticleHeaderV2.d.ts.map

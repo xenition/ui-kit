@@ -6,8 +6,15 @@ export interface ChecklistItemProps {
   label: string;
   /** Controlled checked state. */
   checked?: boolean;
-  /** Fires with the next checked value on click. */
+  /**
+   * Fires with the next checked value on click. Prefer `onChange` — that is the
+   * kit's one canonical name for "the value changed". `onCheckedChange` is this
+   * component's original spelling, kept so existing callers keep working; if
+   * both are passed this one wins.
+   */
   onCheckedChange?: (checked: boolean) => void;
+  /** Canonical spelling of `onCheckedChange` (see it for the precedence rule). */
+  onChange?: (checked: boolean) => void;
   disabled?: boolean;
   className?: string;
 }
@@ -19,7 +26,13 @@ export interface ChecklistItemProps {
  * parity of the native `ChecklistItem` (`onPress` → `onClick`). No literal colors.
  */
 export const ChecklistItem = React.forwardRef<HTMLButtonElement, ChecklistItemProps>(
-  function ChecklistItem({ label, checked = false, onCheckedChange, disabled = false, className }, ref) {
+  function ChecklistItem(
+    { label, checked = false, onCheckedChange, onChange, disabled = false, className },
+    ref
+  ) {
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onCheckedChange ?? onChange;
     return (
       <button
         ref={ref}
@@ -28,7 +41,7 @@ export const ChecklistItem = React.forwardRef<HTMLButtonElement, ChecklistItemPr
         aria-checked={checked}
         aria-label={label}
         disabled={disabled}
-        onClick={() => onCheckedChange?.(!checked)}
+        onClick={() => emit?.(!checked)}
         className={cn(
           'flex w-full items-center gap-2 py-1 text-left transition-opacity',
           'disabled:pointer-events-none disabled:opacity-50',

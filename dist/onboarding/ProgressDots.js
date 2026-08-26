@@ -42,22 +42,46 @@ const DOT = {
     md: { base: 'h-2 w-2', active: 'h-2 w-5' },
 };
 /**
- * Paged-progress indicator — a row of token-bound dots where the active step is
- * a widened "pill" in the primary color and the rest are muted. Shared by
- * {@link OnboardingSlides} and the welcome/paywall flow so every screen
- * advertises its position identically. Dots are decorative unless `onDotClick`
- * is supplied, in which case each becomes a labelled button. Guards an
- * empty/negative `count`. No literal colors.
+ * Segment thickness for `'bars'`. Geometric, not a colour or a spacing token
+ * (spec §10.1): `h-1` is 4px, `h-1.5` is 6px — the native twin's `BAR` table.
  */
-exports.ProgressDots = React.forwardRef(function ProgressDots({ count, activeIndex, size = 'md', onDotClick, className, ...rest }, ref) {
+const BAR = { sm: 'h-1', md: 'h-1.5' };
+/**
+ * Paged-progress indicator — two treatments of the same idea, chosen with
+ * `variant`.
+ *
+ * `'dots'` (the default, and everything that shipped before this prop existed)
+ * is a slide-position indicator: a row of token-bound dots where the active
+ * step is a widened "pill" in the primary color and the rest are muted.
+ *
+ * `'bars'` is the onboarding step indicator the design spec calls for (§2):
+ * equal-width segments spanning the header, filled up to and including the
+ * current step, fully rounded, `gap-xs` apart. It carries no numbers and no
+ * captions on purpose — the numbered circles it replaces were the single worst
+ * offender on the shipped screens, cramped at the top with labels too small to
+ * read.
+ *
+ * Both treatments are decorative unless `onDotClick` is supplied, in which case
+ * each step becomes a labelled button. An empty or negative `count` renders an
+ * empty row rather than crashing, and a `count` of one renders a single full
+ * bar. No literal colors.
+ */
+exports.ProgressDots = React.forwardRef(function ProgressDots({ count, activeIndex, size = 'md', variant = 'dots', onDotClick, className, ...rest }, ref) {
     const total = Math.max(0, Math.floor(count));
+    const bars = variant === 'bars';
     const scale = DOT[size];
-    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, role: "progressbar", "aria-valuemin": 0, "aria-valuemax": Math.max(0, total - 1), "aria-valuenow": activeIndex, "aria-label": `Step ${Math.min(activeIndex + 1, total)} of ${total}`, className: (0, cn_1.cn)('flex items-center gap-1.5', className), ...rest, children: Array.from({ length: total }, (_, i) => {
+    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, role: "progressbar", "aria-valuemin": 0, "aria-valuemax": Math.max(0, total - 1), "aria-valuenow": activeIndex, "aria-label": `Step ${Math.min(activeIndex + 1, total)} of ${total}`, className: (0, cn_1.cn)('flex items-center gap-xs', bars && 'w-full', className), ...rest, children: Array.from({ length: total }, (_, i) => {
             const active = i === activeIndex;
-            const dotClass = (0, cn_1.cn)('rounded-full transition-all', active ? (0, cn_1.cn)(scale.active, 'bg-primary') : (0, cn_1.cn)(scale.base, 'bg-border'));
-            if (!onDotClick)
-                return (0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: dotClass }, i);
-            return ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": `Go to step ${i + 1}`, "aria-current": active || undefined, onClick: () => onDotClick(i), className: "inline-flex items-center justify-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full", children: (0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: dotClass }) }, i));
+            // In `'bars'` a step already walked past stays filled — the bar reads
+            // as "how far through am I", not "which one is selected".
+            const filled = bars ? i <= activeIndex : active;
+            const dotClass = bars
+                ? (0, cn_1.cn)('block w-full rounded-full transition-colors', BAR[size], filled ? 'bg-primary' : 'bg-border')
+                : (0, cn_1.cn)('rounded-full transition-all', active ? (0, cn_1.cn)(scale.active, 'bg-primary') : (0, cn_1.cn)(scale.base, 'bg-border'));
+            if (!onDotClick) {
+                return bars ? ((0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: "flex-1", children: (0, jsx_runtime_1.jsx)("span", { className: dotClass }) }, i)) : ((0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: dotClass }, i));
+            }
+            return ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": `Go to step ${i + 1}`, "aria-current": active || undefined, onClick: () => onDotClick(i), className: (0, cn_1.cn)('inline-flex items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary', bars ? 'flex-1 py-1' : 'p-1'), children: (0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: dotClass }) }, i));
         }) }));
 });
 //# sourceMappingURL=ProgressDots.js.map

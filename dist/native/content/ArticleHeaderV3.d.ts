@@ -12,6 +12,8 @@ export type ArticleHeaderV3Props = ArticleHeaderProps;
  *
  * Token-pure: the eyebrow rule and label use `colors.accent` / `accentText`,
  * the divider uses `colors.border`. No literal colors.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 export declare function ArticleHeaderV3({ title, deck, category, coverImageUrl, author, date, readingTime, variant, loading, style, }: ArticleHeaderV3Props): React.ReactElement;
 //# sourceMappingURL=ArticleHeaderV3.d.ts.map

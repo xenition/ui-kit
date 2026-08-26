@@ -1,19 +1,42 @@
 import * as React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useXenitionTheme } from '../theme';
-import { Button } from '../primitives';
-import { withAlpha } from '../primitives/internal/color';
+import { Icon, Text } from '../primitives';
+import { GetStartedButton } from './GetStartedButton';
+import { ProgressDots } from './ProgressDots';
 import type { OnboardingSlidesProps } from './OnboardingSlides';
 
 /** Drop-in for {@link OnboardingSlides} — identical props, different design. */
 export type OnboardingSlidesV3Props = OnboardingSlidesProps;
 
+/** 44×44 header tap targets (spec §2). Geometric — §10.1 permits the constant. */
+const TAP_TARGET = 44;
+
 /**
- * Onboarding intro — V3. A minimal, text-forward take: a slim top progress bar
- * (fraction of slides completed) with a "Skip" link, centered headline/body, and
- * a Back / Next(Done) control pair at the base. No hero medallion — quieter and
- * faster to read. Same indexing/clamping and empty guard as
- * {@link OnboardingSlides}. Token-pure.
+ * The compact line has no hero panel; the slide glyph shrinks to a leading
+ * badge beside the headline (spec §11, V3), on the same 44 module as the header
+ * controls.
+ */
+const LEADING_BADGE = 44;
+
+/** Comfortable measure for the description, ~60 characters (spec §4). */
+const MEASURE_MAX_WIDTH = 420;
+
+/**
+ * Onboarding intro — V3, the **compact** line.
+ *
+ * No hero panel. The slide glyph drops to a small leading badge beside the
+ * headline and the screen collapses to header · title row · sticky footer — for
+ * a sheet presentation, or a short intro where a 38%-tall illustration would
+ * push the CTA off the fold. Same shell, different idea (§11), not a reskin.
+ *
+ * The "STEP 1 / 3" caption this line used to carry is gone: §2 replaced it with
+ * the header's segmented bars, which say the same thing without asking anyone
+ * to read 12px of tracking-heavy uppercase.
+ *
+ * Identical props to {@link OnboardingSlides}. An `illustration` is honoured
+ * (§3) — it takes the leading badge rather than a hero panel — and the slide
+ * glyph is the fallback. Same indexing/clamping and empty guard. Token-pure.
  */
 export function OnboardingSlidesV3({
   slides,
@@ -21,11 +44,13 @@ export function OnboardingSlidesV3({
   onIndexChange,
   onSkip,
   onComplete,
+  illustration,
+  onBack,
   showSkip = true,
   finishLabel = 'Get started',
   style,
 }: OnboardingSlidesV3Props): React.ReactElement {
-  const { colors, tokens } = useXenitionTheme();
+  const { colors, tokens, scheme } = useXenitionTheme();
   const [internal, setInternal] = React.useState(0);
   const count = slides.length;
 
@@ -49,13 +74,21 @@ export function OnboardingSlidesV3({
     goTo(active + 1);
   };
 
+  const goBack = (): void => {
+    if (onBack) {
+      onBack();
+      return;
+    }
+    goTo(active - 1);
+  };
+
   if (count === 0) {
     return (
       <View
         accessibilityRole="summary"
         style={[{ padding: tokens.spacing.xl, alignItems: 'center' }, style]}
       >
-        <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.base }}>
+        <Text size="base" tone="muted" align="center">
           Nothing to show yet.
         </Text>
       </View>
@@ -65,95 +98,105 @@ export function OnboardingSlidesV3({
   const slide = slides[active];
   if (!slide) return <></>;
 
-  const filled = active + 1;
-  const remaining = Math.max(0, count - filled);
+  /* See {@link OnboardingSlides}: `tokens.ramps` is not scheme-inverted. */
+  const badgeGround = scheme === 'dark' ? tokens.ramps.primary[900] : tokens.ramps.primary[50];
+  const showBack = onBack != null || !isFirst;
 
   return (
-    <View
-      style={[
-        { flex: 1, paddingHorizontal: tokens.spacing.xl, paddingVertical: tokens.spacing.lg, backgroundColor: colors.surface },
-        style,
-      ]}
-    >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md }}>
-        <View
-          accessibilityRole="progressbar"
-          accessibilityValue={{ min: 0, max: count, now: filled }}
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            height: 4,
-            borderRadius: tokens.radius.full,
-            backgroundColor: withAlpha(colors.primary, 0.14),
-            overflow: 'hidden',
-          }}
-        >
-          <View style={{ flex: filled, height: 4, borderRadius: tokens.radius.full, backgroundColor: colors.primary }} />
-          {remaining > 0 ? <View style={{ flex: remaining }} /> : null}
+    <View style={[{ flex: 1, backgroundColor: colors.surface }, style]}>
+      {/* ── header: back · progress bars · dismiss (§1, §2) ──────────── */}
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: tokens.spacing.md,
+          paddingHorizontal: tokens.spacing.lg,
+          paddingTop: tokens.spacing.md,
+        }}
+      >
+        {showBack ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Previous slide"
+            onPress={goBack}
+            style={{ width: TAP_TARGET, height: TAP_TARGET, alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Icon name="chevron-left" size="xl" color="onSurface" />
+          </Pressable>
+        ) : (
+          <View style={{ width: TAP_TARGET, height: TAP_TARGET }} />
+        )}
+
+        <View style={{ flex: 1 }}>
+          <ProgressDots variant="bars" count={count} activeIndex={active} />
         </View>
+
         {showSkip ? (
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Skip intro"
             onPress={onSkip}
-            hitSlop={tokens.spacing.sm}
+            style={{ width: TAP_TARGET, height: TAP_TARGET, alignItems: 'center', justifyContent: 'center' }}
           >
-            <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.sm, fontWeight: '600' }}>
-              Skip
-            </Text>
+            <Icon name="close" size="lg" color="muted" />
           </Pressable>
-        ) : null}
+        ) : (
+          <View style={{ width: TAP_TARGET, height: TAP_TARGET }} />
+        )}
       </View>
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: tokens.spacing.md }}>
-        <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm, fontWeight: '700', letterSpacing: 1 }}>
-          {`STEP ${active + 1} / ${count}`}
-        </Text>
-        <Text
-          accessibilityRole="header"
-          style={{
-            color: colors.onSurface,
-            fontSize: tokens.typography.scale['2xl'],
-            fontWeight: '700',
-            textAlign: 'center',
-          }}
-        >
-          {slide.title}
-        </Text>
-        {slide.description ? (
-          <Text
+      {/* ── headline row: leading badge beside the copy (§11 V3) ─────── */}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          paddingHorizontal: tokens.spacing.lg,
+          paddingVertical: tokens.spacing.md,
+        }}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md }}>
+          <View
             style={{
-              color: colors.muted,
-              fontSize: tokens.typography.scale.base,
-              textAlign: 'center',
-              lineHeight: tokens.typography.scale.base * 1.6,
+              width: LEADING_BADGE,
+              height: LEADING_BADGE,
+              borderRadius: tokens.radius.full,
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden',
+              backgroundColor: illustration ? badgeGround : colors.primary,
             }}
           >
-            {slide.description}
-          </Text>
-        ) : null}
+            {illustration ?? <Icon glyph={slide.icon ?? '✦'} size="xl" color="onPrimary" />}
+          </View>
+          <View style={{ flex: 1, gap: tokens.spacing.xs }}>
+            <Text accessibilityRole="header" size="2xl" weight="bold" tone="onSurface" numberOfLines={2}>
+              {slide.title}
+            </Text>
+            {slide.description ? (
+              <Text size="base" tone="muted" numberOfLines={3} style={{ maxWidth: MEASURE_MAX_WIDTH }}>
+                {slide.description}
+              </Text>
+            ) : null}
+          </View>
+        </View>
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md }}>
-        <Button
-          variant="ghost"
-          size="lg"
-          onPress={() => goTo(active - 1)}
-          disabled={isFirst}
-          accessibilityLabel="Previous slide"
-          style={{ flex: 1 }}
-        >
-          Back
-        </Button>
-        <Button
-          variant="primary"
-          size="lg"
-          onPress={onNext}
+      {/* ── sticky footer (§5) ───────────────────────────────────────── */}
+      <View
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: colors.border,
+          backgroundColor: colors.surface,
+          paddingHorizontal: tokens.spacing.lg,
+          paddingTop: tokens.spacing.md,
+          paddingBottom: tokens.spacing.lg,
+        }}
+      >
+        <GetStartedButton
+          label={isLast ? finishLabel : 'Next'}
           accessibilityLabel={isLast ? finishLabel : 'Next slide'}
-          style={{ flex: 1 }}
-        >
-          {isLast ? finishLabel : 'Next'}
-        </Button>
+          onPress={onNext}
+        />
       </View>
     </View>
   );

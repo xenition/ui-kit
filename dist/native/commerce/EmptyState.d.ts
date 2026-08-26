@@ -1,20 +1,10 @@
-import * as React from 'react';
-import { type StyleProp, type ViewStyle } from 'react-native';
-export interface EmptyStateProps {
-    /** Optional decorative icon/illustration slot. */
-    icon?: React.ReactNode;
-    /** Headline (e.g. "Your cart is empty"). */
-    title: React.ReactNode;
-    /** Supporting line under the title. */
-    description?: React.ReactNode;
-    /** Primary action slot (e.g. a "Browse products" button). */
-    action?: React.ReactNode;
-    style?: StyleProp<ViewStyle>;
-}
 /**
- * Generic empty / no-results state — the native mirror of the web
- * `EmptyState`. Centered icon slot, muted copy, optional action. Token-only
- * (dashed `border`, `surface` background, `muted` text). Domain-agnostic.
+ * `EmptyState` moved to `../primitives` — it is a primitive, not a commerce
+ * concept: an empty cart is one of its cases, not its definition, and nearly
+ * every screen in the kit renders one. This file stays behind as a re-export so
+ * every `import { EmptyState } from '.../commerce/EmptyState'` already in the
+ * wild keeps resolving. New code should import from `native/primitives`.
  */
-export declare function EmptyState({ icon, title, description, action, style, }: EmptyStateProps): React.ReactElement;
+export { EmptyState } from '../primitives/EmptyState';
+export type { EmptyStateProps } from '../primitives/EmptyState';
 //# sourceMappingURL=EmptyState.d.ts.map

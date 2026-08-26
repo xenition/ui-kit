@@ -9,14 +9,26 @@ export interface TabItem {
 export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   items: TabItem[];
   value: string;
-  onValueChange: (value: string) => void;
+  /**
+   * Fires with the value of the tab that was clicked. Prefer `onChange` — that
+   * is the kit's one canonical name for "the value changed". `onValueChange` is
+   * this component's original spelling, kept so existing callers keep working;
+   * if both are passed this one wins. One of the two is required in practice —
+   * both are optional in the type so either spelling satisfies it on its own.
+   */
+  onValueChange?: (value: string) => void;
+  /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+  onChange?: (value: string) => void;
 }
 
 /** Themed tab bar (controlled). Render the active panel yourself based on `value`. */
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(
-  { className, items, value, onValueChange, ...rest },
+  { className, items, value, onValueChange, onChange, ...rest },
   ref
 ) {
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onValueChange ?? onChange;
   return (
     <div
       ref={ref}
@@ -32,7 +44,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(
             type="button"
             role="tab"
             aria-selected={active}
-            onClick={() => onValueChange(it.value)}
+            onClick={() => emit?.(it.value)}
             className={cn(
               '-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors',
               active

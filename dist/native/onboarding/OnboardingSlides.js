@@ -39,23 +39,45 @@ const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const primitives_1 = require("../primitives");
+const GetStartedButton_1 = require("./GetStartedButton");
 const ProgressDots_1 = require("./ProgressDots");
+/** 44×44 header tap targets (spec §2). Geometric — §10.1 permits the constant. */
+const TAP_TARGET = 44;
+/** The hero panel is roughly 4:3 (spec §3). */
+const HERO_ASPECT = 4 / 3;
+/** …capped at ~38% of screen height so the CTA never leaves the fold (spec §3). */
+const HERO_MAX_HEIGHT_RATIO = 0.38;
+/** The slide glyph promoted to hero size (spec §3). */
+const HERO_MEDALLION = 96;
+/** Comfortable measure for the description, ~60 characters (spec §4). */
+const MEASURE_MAX_WIDTH = 420;
 /**
- * Paged intro carousel — the first-run "here's the value" sequence
- * (design.md §41-42). Renders one {@link OnboardingSlide} at a time with a
- * hero medallion, a {@link ProgressDots} indicator, a "Skip" escape hatch and a
- * Next/Done primary action that walks to `onComplete` on the last slide. Works
- * controlled (`index` + `onIndexChange`) or uncontrolled. All indexing is
- * clamped so an out-of-range `index` can't crash. No literal colors.
+ * Paged intro carousel — the first-run "here's the value" sequence, rebuilt on
+ * the shell from §1 of the onboarding spec.
+ *
+ * The version this replaces put a "Skip" link alone at the top, a medallion and
+ * two lines of text in the middle, and dots above a button at the bottom. The
+ * shell gives it structure instead: a **header** carrying back · segmented
+ * progress · dismiss (§1–2), a **hero slot** that takes the caller's
+ * `illustration` or falls back to the slide's glyph at hero size (§3), a
+ * **centred headline block** on a readable measure (§4), and the **sticky
+ * footer CTA** every other screen in the funnel ends on (§5). The numbered
+ * position captions are gone: the bars say where you are without them.
+ *
+ * Works controlled (`index` + `onIndexChange`) or uncontrolled. All indexing is
+ * clamped so an out-of-range `index` can't crash, and an empty `slides` list
+ * renders the empty state rather than a blank screen. No literal colors.
  */
-function OnboardingSlides({ slides, index, onIndexChange, onSkip, onComplete, showSkip = true, finishLabel = 'Get started', variant = 'default', style, }) {
-    const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+function OnboardingSlides({ slides, index, onIndexChange, onSkip, onComplete, illustration, onBack, showSkip = true, finishLabel = 'Get started', variant = 'default', style, }) {
+    const { colors, tokens, scheme } = (0, theme_1.useXenitionTheme)();
+    const { height } = (0, react_native_1.useWindowDimensions)();
     const [internal, setInternal] = React.useState(0);
     const count = slides.length;
     const controlled = index != null;
     const rawActive = controlled ? index : internal;
     const active = count === 0 ? 0 : Math.min(Math.max(0, rawActive), count - 1);
     const isLast = active >= count - 1;
+    const isFirst = active <= 0;
     const goTo = (next) => {
         const clamped = Math.min(Math.max(0, next), Math.max(0, count - 1));
         if (!controlled)
@@ -69,29 +91,63 @@ function OnboardingSlides({ slides, index, onIndexChange, onSkip, onComplete, sh
         }
         goTo(active + 1);
     };
+    const goBack = () => {
+        if (onBack) {
+            onBack();
+            return;
+        }
+        goTo(active - 1);
+    };
     if (count === 0) {
-        return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "summary", style: [{ padding: tokens.spacing.xl, alignItems: 'center' }, style], children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.base }, children: "Nothing to show yet." }) }));
+        return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "summary", style: [{ padding: tokens.spacing.xl, alignItems: 'center' }, style], children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "base", tone: "muted", align: "center", children: "Nothing to show yet." }) }));
     }
     const slide = slides[active];
     if (!slide)
         return (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {});
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "none", style: [{ flex: 1, paddingHorizontal: tokens.spacing.xl, paddingVertical: tokens.spacing.lg }, style], children: [showSkip ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'flex-end' }, children: (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: "Skip intro", onPress: onSkip, hitSlop: tokens.spacing.sm, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm, fontWeight: '500' }, children: "Skip" }) }) })) : null, (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: tokens.spacing.lg }, children: [variant === 'default' && slide.icon ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
-                            width: 96,
-                            height: 96,
-                            borderRadius: tokens.radius.full,
+    /*
+      §3's `primary[50]` ground, read for the dark scheme too: `tokens.ramps` is
+      not scheme-inverted, so step 50 would be near-white on a near-black page.
+    */
+    const heroGround = scheme === 'dark' ? tokens.ramps.primary[900] : tokens.ramps.primary[50];
+    const showBack = onBack != null || !isFirst;
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "none", style: [{ flex: 1, backgroundColor: colors.surface }, style], children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: tokens.spacing.md,
+                    paddingHorizontal: tokens.spacing.lg,
+                    paddingTop: tokens.spacing.lg,
+                }, children: [showBack ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: "Previous slide", onPress: goBack, style: { width: TAP_TARGET, height: TAP_TARGET, alignItems: 'center', justifyContent: 'center' }, children: (0, jsx_runtime_1.jsx)(primitives_1.Icon, { name: "chevron-left", size: "xl", color: "onSurface" }) })) : (
+                    // A spacer, not a missing element — the bars must not jump sideways
+                    // the moment the back chevron appears on slide two.
+                    (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: TAP_TARGET, height: TAP_TARGET } })), (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flex: 1 }, children: (0, jsx_runtime_1.jsx)(ProgressDots_1.ProgressDots, { variant: "bars", count: count, activeIndex: active }) }), showSkip ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: "Skip intro", onPress: onSkip, style: { width: TAP_TARGET, height: TAP_TARGET, alignItems: 'center', justifyContent: 'center' }, children: (0, jsx_runtime_1.jsx)(primitives_1.Icon, { name: "close", size: "lg", color: "muted" }) })) : ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: TAP_TARGET, height: TAP_TARGET } }))] }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingHorizontal: tokens.spacing.lg,
+                    gap: tokens.spacing.lg,
+                }, children: [variant === 'default' ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                            alignSelf: 'stretch',
+                            aspectRatio: HERO_ASPECT,
+                            maxHeight: height * HERO_MAX_HEIGHT_RATIO,
+                            borderRadius: tokens.radius.lg,
+                            backgroundColor: heroGround,
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: colors.accent,
-                        }, children: (0, jsx_runtime_1.jsx)(primitives_1.Icon, { glyph: slide.icon, size: "3xl", color: "onAccent" }) })) : null, (0, jsx_runtime_1.jsx)(react_native_1.Text, { accessibilityRole: "header", style: {
-                            color: colors.onSurface,
-                            fontSize: tokens.typography.scale['2xl'],
-                            fontWeight: '700',
-                            textAlign: 'center',
-                        }, children: slide.title }), slide.description ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                            color: colors.muted,
-                            fontSize: tokens.typography.scale.base,
-                            textAlign: 'center',
-                            lineHeight: tokens.typography.scale.base * 1.5,
-                        }, children: slide.description })) : null] }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.lg, alignItems: 'center' }, children: [(0, jsx_runtime_1.jsx)(ProgressDots_1.ProgressDots, { count: count, activeIndex: active, onDotPress: goTo }), (0, jsx_runtime_1.jsx)(primitives_1.Button, { variant: "primary", size: "lg", onPress: onNext, accessibilityLabel: isLast ? finishLabel : 'Next slide', style: { alignSelf: 'stretch' }, children: isLast ? finishLabel : 'Next' })] })] }));
+                            overflow: 'hidden',
+                        }, children: illustration ?? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                                width: HERO_MEDALLION,
+                                height: HERO_MEDALLION,
+                                borderRadius: tokens.radius.full,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: colors.primary,
+                            }, children: (0, jsx_runtime_1.jsx)(primitives_1.Icon, { glyph: slide.icon ?? '✦', size: "3xl", color: "onPrimary" }) })) })) : null, (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { alignSelf: 'stretch', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { accessibilityRole: "header", size: "2xl", weight: "bold", tone: "onSurface", align: "center", numberOfLines: 2, children: slide.title }), slide.description ? ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "base", tone: "muted", align: "center", numberOfLines: 3, style: { maxWidth: MEASURE_MAX_WIDTH, alignSelf: 'center' }, children: slide.description })) : null] })] }), (0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                    borderTopWidth: 1,
+                    borderTopColor: colors.border,
+                    backgroundColor: colors.surface,
+                    paddingHorizontal: tokens.spacing.lg,
+                    paddingTop: tokens.spacing.md,
+                    paddingBottom: tokens.spacing.lg,
+                }, children: (0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: isLast ? finishLabel : 'Next', accessibilityLabel: isLast ? finishLabel : 'Next slide', onPress: onNext }) })] }));
 }
 //# sourceMappingURL=OnboardingSlides.js.map

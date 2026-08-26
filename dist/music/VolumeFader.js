@@ -46,9 +46,12 @@ const types_1 = require("./types");
  * `native/music`'s `VolumeFader`: it owns no audio; drags report out through
  * `onValueChange`. Token-only styling.
  */
-exports.VolumeFader = React.forwardRef(function VolumeFader({ value, min = 0, max = 100, step = 1, label, variant = 'labeled', muted = false, unit, disabled = false, onValueChange, className, ...rest }, ref) {
+exports.VolumeFader = React.forwardRef(function VolumeFader({ value, min = 0, max = 100, step = 1, label, variant = 'labeled', muted = false, unit, disabled = false, onValueChange, onChange, className, ...rest }, ref) {
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onValueChange ?? onChange;
     const safe = (0, types_1.clamp)(value, min, max);
     const readout = `${Math.round(safe)}${unit ? ` ${unit}` : ''}`;
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "aria-label": label ? `${label} volume ${Math.round(safe)}${muted ? ', muted' : ''}` : undefined, className: (0, cn_1.cn)('flex flex-col gap-[var(--xen-space-xs)]', (muted || disabled) && 'opacity-55', className), ...rest, children: [variant === 'labeled' ? ((0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between", children: [label ? ((0, jsx_runtime_1.jsx)("span", { className: "truncate text-sm font-semibold text-on-surface", children: muted ? `${label} (muted)` : label })) : ((0, jsx_runtime_1.jsx)("span", {})), (0, jsx_runtime_1.jsx)("span", { className: "text-xs font-semibold text-muted", children: readout })] })) : null, (0, jsx_runtime_1.jsx)(Slider_1.Slider, { value: safe, min: min, max: max, step: step, disabled: disabled, onChange: (v) => onValueChange?.(v) })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "aria-label": label ? `${label} volume ${Math.round(safe)}${muted ? ', muted' : ''}` : undefined, className: (0, cn_1.cn)('flex flex-col gap-[var(--xen-space-xs)]', (muted || disabled) && 'opacity-55', className), ...rest, children: [variant === 'labeled' ? ((0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between", children: [label ? ((0, jsx_runtime_1.jsx)("span", { className: "truncate text-sm font-semibold text-on-surface", children: muted ? `${label} (muted)` : label })) : ((0, jsx_runtime_1.jsx)("span", {})), (0, jsx_runtime_1.jsx)("span", { className: "text-xs font-semibold text-muted", children: readout })] })) : null, (0, jsx_runtime_1.jsx)(Slider_1.Slider, { value: safe, min: min, max: max, step: step, disabled: disabled, onChange: (v) => emit?.(v) })] }));
 });
 //# sourceMappingURL=VolumeFader.js.map

@@ -89,6 +89,29 @@ describe('NumberInput (native)', () => {
     fireEvent.press(getByLabelText('Decrease'));
     expect(onValueChange).not.toHaveBeenCalled();
   });
+
+  /*
+    `onChange` is the kit-canonical name for "the value changed" and every
+    component that spelled it differently now answers to it too — here that also
+    closes a twin gap, because the web `NumberInput` never called it anything
+    else. Both names on one component fire once, through the original.
+  */
+  it('accepts the canonical onChange, and prefers onValueChange when given both', () => {
+    const onChange = jest.fn();
+    const alias = renderThemed(<NumberInput value={1} onChange={onChange} />, SEED_LIGHT);
+    fireEvent.press(alias.getByLabelText('Increase'));
+    expect(onChange).toHaveBeenCalledWith(2);
+
+    const onValueChange = jest.fn();
+    onChange.mockClear();
+    const both = renderThemed(
+      <NumberInput value={1} onValueChange={onValueChange} onChange={onChange} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(both.getByLabelText('Increase'));
+    expect(onValueChange).toHaveBeenCalledWith(2);
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });
 
 describe('PinInput (native)', () => {

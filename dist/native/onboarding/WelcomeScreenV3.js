@@ -6,40 +6,66 @@ const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const primitives_1 = require("../primitives");
 const GetStartedButton_1 = require("./GetStartedButton");
-const elevation_1 = require("../primitives/internal/elevation");
-const color_1 = require("../primitives/internal/color");
+const ProgressDots_1 = require("./ProgressDots");
+/** 44×44 header tap targets (spec §2). Geometric — §10.1 permits the constant. */
+const TAP_TARGET = 44;
 /**
- * First-launch welcome — V3. A split composition: the top half is an art panel
- * (tinted stage + brand medallion), the bottom half is an elevated CTA card that
- * overlaps the seam and stacks the headline, value line and primary action. Same
- * props as {@link WelcomeScreen}. Token-pure.
+ * The compact line has no hero panel; the brand mark shrinks to a leading badge
+ * beside the headline (spec §11, V3). 44 is the same tap-target module the
+ * header controls use, so the three sit on one grid.
  */
-function WelcomeScreenV3({ title, subtitle, logoGlyph, primaryLabel = 'Get started', onGetStarted, secondaryLabel, onSecondary, loading = false, style, }) {
-    const { colors, tokens } = (0, theme_1.useXenitionTheme)();
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ flex: 1, backgroundColor: colors.surface }, style], children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
-                    flex: 1,
+const LEADING_BADGE = 44;
+/** Comfortable measure for the subhead, ~60 characters (spec §4). */
+const MEASURE_MAX_WIDTH = 420;
+/**
+ * First-launch welcome — V3, the **compact** line.
+ *
+ * No hero panel at all. The brand mark drops to a small leading badge beside
+ * the headline and the whole screen collapses to header · title row · sticky
+ * footer, for a bottom-sheet presentation or a short screen where a 38%-tall
+ * illustration would push the CTA off the fold. That is the §11 idea: the three
+ * lines differ in what they *are*, not in how they are painted.
+ *
+ * Identical props to {@link WelcomeScreen}. An `illustration` is still honoured
+ * (§3) — it just occupies the leading badge rather than a hero panel, clipped
+ * to the badge's circle — and the medallion is the fallback when there is none,
+ * so an empty hero slot still reads as composed. Token-pure.
+ */
+function WelcomeScreenV3({ title, subtitle, logoGlyph, illustration, primaryLabel = 'Get started', onGetStarted, secondaryLabel, onSecondary, onBack, onDismiss, stepCount, stepIndex = 0, loading = false, style, }) {
+    const { colors, tokens, scheme } = (0, theme_1.useXenitionTheme)();
+    /*
+      §3's `primary[50]` ground, read for the dark scheme too: `tokens.ramps` is
+      not scheme-inverted, so 50 would be near-white on a near-black page.
+    */
+    const badgeGround = scheme === 'dark' ? tokens.ramps.primary[900] : tokens.ramps.primary[50];
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ flex: 1, backgroundColor: colors.surface }, style], children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+                    flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: (0, color_1.withAlpha)(colors.primary, 0.12),
-                }, children: (0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
-                        width: 96,
-                        height: 96,
-                        borderRadius: tokens.radius.full,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: colors.primary,
-                    }, children: (0, jsx_runtime_1.jsx)(primitives_1.Icon, { glyph: logoGlyph ?? '✦', size: "3xl", color: "onPrimary" }) }) }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
-                    marginTop: -tokens.spacing.xl,
-                    padding: tokens.spacing.xl,
                     gap: tokens.spacing.md,
+                    paddingHorizontal: tokens.spacing.lg,
+                    paddingTop: tokens.spacing.md,
+                }, children: [onBack ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: "Go back", onPress: onBack, style: { width: TAP_TARGET, height: TAP_TARGET, alignItems: 'center', justifyContent: 'center' }, children: (0, jsx_runtime_1.jsx)(primitives_1.Icon, { name: "chevron-left", size: "xl", color: "onSurface" }) })) : ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: TAP_TARGET, height: TAP_TARGET } })), (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flex: 1 }, children: stepCount != null && stepCount > 0 ? ((0, jsx_runtime_1.jsx)(ProgressDots_1.ProgressDots, { variant: "bars", count: stepCount, activeIndex: stepIndex })) : null }), onDismiss ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: "Dismiss", onPress: onDismiss, style: { width: TAP_TARGET, height: TAP_TARGET, alignItems: 'center', justifyContent: 'center' }, children: (0, jsx_runtime_1.jsx)(primitives_1.Icon, { name: "close", size: "lg", color: "muted" }) })) : ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: TAP_TARGET, height: TAP_TARGET } }))] }), (0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                    flex: 1,
+                    justifyContent: 'center',
+                    paddingHorizontal: tokens.spacing.lg,
+                    paddingVertical: tokens.spacing.md,
+                    gap: tokens.spacing.md,
+                }, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.md }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                                width: LEADING_BADGE,
+                                height: LEADING_BADGE,
+                                borderRadius: tokens.radius.full,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                overflow: 'hidden',
+                                backgroundColor: illustration ? badgeGround : colors.primary,
+                            }, children: illustration ?? (0, jsx_runtime_1.jsx)(primitives_1.Icon, { glyph: logoGlyph ?? '✦', size: "xl", color: "onPrimary" }) }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { accessibilityRole: "header", size: "2xl", weight: "bold", tone: "onSurface", numberOfLines: 2, children: title }), subtitle ? ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "base", tone: "muted", numberOfLines: 3, style: { maxWidth: MEASURE_MAX_WIDTH }, children: subtitle })) : null] })] }) }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+                    borderTopWidth: 1,
+                    borderTopColor: colors.border,
                     backgroundColor: colors.surface,
-                    borderTopLeftRadius: tokens.radius.lg,
-                    borderTopRightRadius: tokens.radius.lg,
-                    ...(0, elevation_1.shadow)('lg', tokens),
-                }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { accessibilityRole: "header", style: { color: colors.onSurface, fontSize: tokens.typography.scale['2xl'], fontWeight: '800' }, children: title }), subtitle ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                            color: colors.muted,
-                            fontSize: tokens.typography.scale.base,
-                            lineHeight: tokens.typography.scale.base * 1.5,
-                        }, children: subtitle })) : null, (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.md, marginTop: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: primaryLabel, onPress: onGetStarted, loading: loading }), secondaryLabel && onSecondary ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: secondaryLabel, onPress: onSecondary, style: { alignItems: 'center', paddingVertical: tokens.spacing.sm }, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.primaryText, fontSize: tokens.typography.scale.base, fontWeight: '600' }, children: secondaryLabel }) })) : null] })] })] }));
+                    paddingHorizontal: tokens.spacing.lg,
+                    paddingTop: tokens.spacing.md,
+                    paddingBottom: tokens.spacing.lg,
+                    gap: tokens.spacing.sm,
+                }, children: [(0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: primaryLabel, onPress: onGetStarted, loading: loading }), secondaryLabel && onSecondary ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: secondaryLabel, onPress: onSecondary, style: { alignItems: 'center', justifyContent: 'center', minHeight: TAP_TARGET }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "base", weight: "medium", tone: "muted", align: "center", children: secondaryLabel }) })) : null] })] }));
 }
 //# sourceMappingURL=WelcomeScreenV3.js.map

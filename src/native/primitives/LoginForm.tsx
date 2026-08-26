@@ -1,10 +1,14 @@
 import * as React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useXenitionTheme } from '../theme';
-import { AuthCard } from './AuthCard';
-import { Field } from './Field';
-import { Input } from './Input';
-import { Button } from './Button';
+import {
+  AUTH_TAP_TARGET,
+  AuthCard,
+  AuthField,
+  AuthSubmitButton,
+  AuthSwitchFooter,
+} from './AuthCard';
+import { Text } from './Text';
 import { Alert } from './Alert';
 import { useForm } from '../../primitives/useForm';
 
@@ -19,6 +23,22 @@ export interface LoginFormProps {
   onForgotPassword?: () => void;
   onSignupClick?: () => void;
   title?: React.ReactNode;
+  /** Supporting line under the title. */
+  subtitle?: React.ReactNode;
+  /** Brand glyph for the §9 tile above the headline. Nothing renders without one. */
+  brandGlyph?: string;
+  /** Primary CTA copy. Default `'Sign in'`. */
+  submitLabel?: string;
+  /** Copy for the pending CTA. Default `'Signing in…'`. */
+  submittingLabel?: string;
+  /** Field copy — the host owns every string a user reads. */
+  emailLabel?: string;
+  emailPlaceholder?: string;
+  passwordLabel?: string;
+  passwordPlaceholder?: string;
+  forgotLabel?: string;
+  switchPrompt?: string;
+  switchLabel?: string;
 }
 
 /**
@@ -26,14 +46,35 @@ export interface LoginFormProps {
  * `LoginForm`. Composed from the kit, themed, with validation, loading and
  * error states. SDK-agnostic: wire `onSubmit` to `@xenition/sdk` auth (or
  * anything). Just `<LoginForm onSubmit={…} />`. No literal colors.
+ *
+ * Drawn from the same parts as the screen-level `SignInScreen` (§6/§9): 56px
+ * fields with a muted leading icon, a `primary` focus border, errors as a
+ * `danger` border **and** a message in `dangerText`, and the 56px `radius.full`
+ * CTA with its trailing `→`. That is the point of sharing them — a screen
+ * assembled from this form and a screen assembled from `SignInScreen` are the
+ * same product, not two.
+ *
+ * Everything past `onSubmit`/`onForgotPassword`/`onSignupClick`/`title` is
+ * optional copy; with none of it passed the form reads exactly as it did.
  */
 export function LoginForm({
   onSubmit,
   onForgotPassword,
   onSignupClick,
   title = 'Sign in',
+  subtitle,
+  brandGlyph,
+  submitLabel = 'Sign in',
+  submittingLabel = 'Signing in…',
+  emailLabel = 'Email',
+  emailPlaceholder = 'you@example.com',
+  passwordLabel = 'Password',
+  passwordPlaceholder = 'Your password',
+  forgotLabel = 'Forgot password?',
+  switchPrompt = 'No account?',
+  switchLabel = 'Sign up',
 }: LoginFormProps): React.ReactElement {
-  const { colors, tokens } = useXenitionTheme();
+  const { tokens } = useXenitionTheme();
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const form = useForm<LoginValues>({
     initialValues: { email: '', password: '' },
@@ -54,57 +95,57 @@ export function LoginForm({
   });
 
   return (
-    <AuthCard title={title}>
+    <AuthCard title={title} subtitle={subtitle} brandGlyph={brandGlyph}>
       <View style={{ gap: tokens.spacing.md }}>
         {submitError ? <Alert tone="danger">{submitError}</Alert> : null}
-        <Field label="Email" error={form.errors.email}>
-          <Input
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoComplete="email"
-            textContentType="emailAddress"
-            invalid={!!form.errors.email}
-            value={form.values.email}
-            onChangeText={(t) => form.setValue('email', t)}
-            placeholder="you@example.com"
-          />
-        </Field>
-        <Field label="Password" error={form.errors.password}>
-          <Input
-            secureTextEntry
-            autoCapitalize="none"
-            autoComplete="password"
-            textContentType="password"
-            invalid={!!form.errors.password}
-            value={form.values.password}
-            onChangeText={(t) => form.setValue('password', t)}
-          />
-        </Field>
+        <AuthField
+          label={emailLabel}
+          icon="mail"
+          accessibilityLabel={emailLabel}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoComplete="email"
+          textContentType="emailAddress"
+          error={form.errors.email}
+          value={form.values.email}
+          onChangeText={(t) => form.setValue('email', t)}
+          placeholder={emailPlaceholder}
+        />
+        <AuthField
+          secure
+          label={passwordLabel}
+          icon="lock"
+          accessibilityLabel={passwordLabel}
+          autoCapitalize="none"
+          autoComplete="password"
+          textContentType="password"
+          error={form.errors.password}
+          value={form.values.password}
+          onChangeText={(t) => form.setValue('password', t)}
+          placeholder={passwordPlaceholder}
+        />
         {onForgotPassword ? (
+          // §9 right-aligns it: the link belongs to the field above it, not to
+          // the margin on the other side of the card.
           <Pressable
             accessibilityRole="button"
+            accessibilityLabel={forgotLabel}
             onPress={onForgotPassword}
-            style={{ alignSelf: 'flex-start' }}
+            hitSlop={tokens.spacing.sm}
+            style={{ alignSelf: 'flex-end', justifyContent: 'center', minHeight: AUTH_TAP_TARGET }}
           >
-            <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm }}>
-              Forgot password?
+            <Text size="sm" weight="medium" tone="primaryText">
+              {forgotLabel}
             </Text>
           </Pressable>
         ) : null}
-        <Button onPress={() => form.handleSubmit()} disabled={form.submitting} loading={form.submitting}>
-          {form.submitting ? 'Signing in…' : 'Sign in'}
-        </Button>
+        <AuthSubmitButton
+          label={form.submitting ? submittingLabel : submitLabel}
+          onPress={() => form.handleSubmit()}
+          loading={form.submitting}
+        />
         {onSignupClick ? (
-          <View style={{ flexDirection: 'row', justifyContent: 'center', gap: tokens.spacing.xs }}>
-            <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>
-              No account?
-            </Text>
-            <Pressable accessibilityRole="button" onPress={onSignupClick}>
-              <Text style={{ color: colors.primaryText, fontSize: tokens.typography.scale.sm }}>
-                Sign up
-              </Text>
-            </Pressable>
-          </View>
+          <AuthSwitchFooter prompt={switchPrompt} label={switchLabel} onPress={onSignupClick} />
         ) : null}
       </View>
     </AuthCard>

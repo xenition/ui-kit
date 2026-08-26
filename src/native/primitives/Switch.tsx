@@ -4,7 +4,15 @@ import { useXenitionTheme } from '../theme';
 
 export interface SwitchProps {
   checked?: boolean;
+  /**
+   * Fires with the requested checked state. Prefer `onChange` — that is the
+   * kit's one canonical name for "the value changed". `onCheckedChange` is this
+   * component's original spelling, kept so existing callers keep working; if
+   * both are passed this one wins.
+   */
   onCheckedChange?: (checked: boolean) => void;
+  /** Canonical spelling of `onCheckedChange` (see it for the precedence rule). */
+  onChange?: (checked: boolean) => void;
   disabled?: boolean;
   accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
@@ -24,11 +32,15 @@ const PAD = 2;
 export function Switch({
   checked = false,
   onCheckedChange,
+  onChange,
   disabled = false,
   accessibilityLabel,
   style,
 }: SwitchProps): React.ReactElement {
   const { colors } = useXenitionTheme();
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onCheckedChange ?? onChange;
   const anim = React.useRef(new Animated.Value(checked ? 1 : 0)).current;
 
   React.useEffect(() => {
@@ -50,7 +62,7 @@ export function Switch({
       accessibilityState={{ checked, disabled }}
       accessibilityLabel={accessibilityLabel}
       disabled={disabled}
-      onPress={() => onCheckedChange?.(!checked)}
+      onPress={() => emit?.(!checked)}
       style={[
         {
           width: TRACK_W,

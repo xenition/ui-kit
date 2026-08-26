@@ -56,6 +56,12 @@ describe('DishCard V2/V3 (native)', () => {
     expect(getByText('$15.50')).toBeTruthy();
   });
 
+  it('both DishCard variants omit the price when priceCents is absent', () => {
+    expect(renderThemed(<DishCardV2 name="Grandma's ragu" />, SEED_LIGHT).queryByText('$0.00')).toBeNull();
+    expect(renderThemed(<DishCardV3 name="Grandma's ragu" />, SEED_DARK).queryByText('$0.00')).toBeNull();
+    expect(renderThemed(<DishCardV3 name="Grandma's ragu" />, SEED_LIGHT).getByText("Grandma's ragu")).toBeTruthy();
+  });
+
   it('both DishCard variants render loading skeletons', () => {
     expect(renderThemed(<DishCardV2 name="X" priceCents={1000} loading />, SEED_LIGHT).getByLabelText('Loading dish')).toBeTruthy();
     expect(renderThemed(<DishCardV3 name="X" priceCents={1000} loading />, SEED_DARK).getByLabelText('Loading dish')).toBeTruthy();

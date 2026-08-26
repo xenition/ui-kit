@@ -21,7 +21,8 @@ import { Rating } from './Rating';
 import { StatusMessage } from './StatusMessage';
 import { GlassPanel } from './GlassPanel';
 import { GradientText } from './GradientText';
-import { EmptyState } from '../commerce/EmptyState';
+import { EmptyState } from './EmptyState';
+import { EmptyState as EmptyStateFromCommerce } from '../commerce/EmptyState';
 import { Textarea } from './Textarea';
 import { Checkbox } from './Checkbox';
 import { Select } from './Select';
@@ -238,6 +239,14 @@ describe('EmptyState (native)', () => {
     expect(getByText('Browse the catalog to get started.')).toBeTruthy();
     expect(getByText('Browse')).toBeTruthy();
   });
+
+  // It used to live in `commerce`, which made an empty state look like a
+  // commerce concept and left `dist/native/primitives/EmptyState.d.ts` missing
+  // for the one component nearly every screen uses. It is a primitive now; the
+  // commerce path stays as a re-export of the very same component.
+  it('is the same component the commerce re-export hands back', () => {
+    expect(EmptyStateFromCommerce).toBe(EmptyState);
+  });
 });
 
 describe('Rating (native)', () => {
@@ -453,6 +462,33 @@ describe('app-UI primitives (native)', () => {
     );
     fireEvent.press(getByText('B'));
     expect(onValueChange).toHaveBeenCalledWith('b');
+  });
+
+  // `onChange` is the kit-canonical name for "the value changed"; the older
+  // per-component spellings still work and still win if both are passed.
+  it('Switch and Tabs also answer to the canonical onChange', () => {
+    const onSwitchChange = jest.fn();
+    const sw = renderThemed(
+      <Switch checked={false} onChange={onSwitchChange} accessibilityLabel="Notify" />,
+      SEED_LIGHT
+    );
+    fireEvent.press(sw.getByRole('switch'));
+    expect(onSwitchChange).toHaveBeenCalledWith(true);
+
+    const onTabChange = jest.fn();
+    const tabs = renderThemed(
+      <Tabs
+        items={[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]}
+        value="a"
+        onChange={onTabChange}
+      />,
+      SEED_LIGHT
+    );
+    fireEvent.press(tabs.getByText('B'));
+    expect(onTabChange).toHaveBeenCalledWith('b');
   });
 
   it('ChatBubble + MessageList render message content', () => {

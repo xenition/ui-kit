@@ -8,8 +8,15 @@ export interface ChecklistItemProps {
   label: string;
   /** Controlled checked state. */
   checked?: boolean;
-  /** Fires with the next checked value on press. */
+  /**
+   * Fires with the next checked value on press. Prefer `onChange` — that is the
+   * kit's one canonical name for "the value changed". `onCheckedChange` is this
+   * component's original spelling, kept so existing callers keep working; if
+   * both are passed this one wins.
+   */
   onCheckedChange?: (checked: boolean) => void;
+  /** Canonical spelling of `onCheckedChange` (see it for the precedence rule). */
+  onChange?: (checked: boolean) => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
 }
@@ -24,11 +31,15 @@ export function ChecklistItem({
   label,
   checked = false,
   onCheckedChange,
+  onChange,
   disabled = false,
   style,
 }: ChecklistItemProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const press = usePressScale();
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onCheckedChange ?? onChange;
 
   return (
     <Animated.View style={{ transform: [{ scale: press.scale }] }}>
@@ -37,7 +48,7 @@ export function ChecklistItem({
         accessibilityState={{ checked, disabled }}
         accessibilityLabel={label}
         disabled={disabled}
-        onPress={() => onCheckedChange?.(!checked)}
+        onPress={() => emit?.(!checked)}
         onPressIn={press.onPressIn}
         onPressOut={press.onPressOut}
         style={({ pressed }) => [

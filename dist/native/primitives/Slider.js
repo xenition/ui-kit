@@ -46,8 +46,11 @@ const TRACK_H = 4;
  * driven by `PanResponder`, snapping to `step` within `[min, max]`. No literal
  * colors.
  */
-function Slider({ value, min = 0, max = 100, step = 1, onValueChange, disabled = false, style, }) {
+function Slider({ value, min = 0, max = 100, step = 1, onValueChange, onChange, disabled = false, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onValueChange ?? onChange;
     const [width, setWidth] = React.useState(0);
     const widthRef = React.useRef(0);
     const clampSnap = (v) => {
@@ -62,7 +65,7 @@ function Slider({ value, min = 0, max = 100, step = 1, onValueChange, disabled =
             return;
         const usable = Math.max(0, widthRef.current - THUMB);
         const ratio = usable > 0 ? Math.max(0, Math.min(1, (x - THUMB / 2) / usable)) : 0;
-        onValueChange?.(clampSnap(min + ratio * (max - min)));
+        emit?.(clampSnap(min + ratio * (max - min)));
     };
     const responder = React.useMemo(() => react_native_1.PanResponder.create({
         onStartShouldSetPanResponder: () => true,

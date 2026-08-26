@@ -4,8 +4,15 @@ export interface ChecklistItemProps {
     label: string;
     /** Controlled checked state. */
     checked?: boolean;
-    /** Fires with the next checked value on click. */
+    /**
+     * Fires with the next checked value on click. Prefer `onChange` — that is the
+     * kit's one canonical name for "the value changed". `onCheckedChange` is this
+     * component's original spelling, kept so existing callers keep working; if
+     * both are passed this one wins.
+     */
     onCheckedChange?: (checked: boolean) => void;
+    /** Canonical spelling of `onCheckedChange` (see it for the precedence rule). */
+    onChange?: (checked: boolean) => void;
     disabled?: boolean;
     className?: string;
 }

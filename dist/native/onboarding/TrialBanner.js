@@ -11,6 +11,12 @@ const primitives_1 = require("../primitives");
  * atop the paywall (value-first framing, design.md §27) or in-app once a trial
  * is running. Tone maps to the accent/warn/success token pairs. No literal
  * colors.
+ *
+ * **There is deliberately no `TrialBannerV2`/`V3`.** A strip this small has one
+ * correct shape, so the base component *is* its whole design line — which is
+ * why a V2 or V3 paywall composing this base banner is correct rather than a
+ * cross-line leak. `design-line-composition.native.spec.tsx` documents the same
+ * conclusion from the other side.
  */
 function TrialBanner({ title, subtitle, daysLeft, tone = 'info', actionLabel, onActionPress, icon = '✨', style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
@@ -27,11 +33,11 @@ function TrialBanner({ title, subtitle, daysLeft, tone = 'info', actionLabel, on
                 paddingHorizontal: tokens.spacing.md,
             },
             style,
-        ], children: [(0, jsx_runtime_1.jsx)(primitives_1.Icon, { glyph: icon, size: "lg", color: fgKey }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1 }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors[fgKey], fontSize: tokens.typography.scale.base, fontWeight: '700' }, children: title }), subtitle ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors[fgKey], fontSize: tokens.typography.scale.sm, opacity: 0.9 }, children: subtitle })) : null] }), typeof daysLeft === 'number' ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+        ], children: [(0, jsx_runtime_1.jsx)(primitives_1.Icon, { glyph: icon, size: "lg", color: fgKey }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1 }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "base", weight: "bold", tone: fgKey, children: title }), subtitle ? ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", tone: fgKey, style: { opacity: 0.9 }, children: subtitle })) : null] }), typeof daysLeft === 'number' ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                     borderRadius: tokens.radius.full,
-                    paddingVertical: 2,
+                    paddingVertical: tokens.spacing.xs,
                     paddingHorizontal: tokens.spacing.sm,
                     backgroundColor: colors.surface,
-                }, children: (0, jsx_runtime_1.jsxs)(react_native_1.Text, { style: { color: colors.onSurface, fontSize: tokens.typography.scale.xs, fontWeight: '700' }, children: [Math.max(0, daysLeft), " ", Math.max(0, daysLeft) === 1 ? 'day' : 'days', " left"] }) })) : null, actionLabel && onActionPress ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: actionLabel, onPress: onActionPress, hitSlop: tokens.spacing.sm, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors[fgKey], fontSize: tokens.typography.scale.sm, fontWeight: '700', textDecorationLine: 'underline' }, children: actionLabel }) })) : null] }));
+                }, children: (0, jsx_runtime_1.jsxs)(primitives_1.Text, { size: "xs", weight: "bold", children: [Math.max(0, daysLeft), " ", Math.max(0, daysLeft) === 1 ? 'day' : 'days', " left"] }) })) : null, actionLabel && onActionPress ? ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: actionLabel, onPress: onActionPress, hitSlop: tokens.spacing.sm, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: "bold", tone: fgKey, style: { textDecorationLine: 'underline' }, children: actionLabel }) })) : null] }));
 }
 //# sourceMappingURL=TrialBanner.js.map

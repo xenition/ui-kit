@@ -1,16 +1,21 @@
 import * as React from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Animated, Pressable, View } from 'react-native';
 import { useXenitionTheme } from '../theme';
-import { Badge, Icon, Segmented } from '../primitives';
+import { Badge, Icon, Text } from '../primitives';
 import { shadow } from '../primitives/internal/elevation';
 import { usePressScale } from '../primitives/internal/motion';
-import type { PlanSelectorProps } from './PlanSelector';
-import type { BillingPeriod, PlanTier } from './types';
+import { BillingToggle, chunkPlans, type PlanSelectorProps } from './PlanSelector';
+import type { PlanTier } from './types';
 
 /** Drop-in for {@link PlanSelector} — identical props, different design. */
 export type PlanSelectorV2Props = PlanSelectorProps;
 
-/** One elevated tier card in the side-by-side row. */
+/* §10.1 geometry: 2px selection ring, 1px hairline outline. */
+const RING = 2;
+const HAIRLINE = 1;
+const COLUMNS = 2;
+
+/** One elevated §7 tier card in the side-by-side pair. */
 function TierCard({
   plan,
   price,
@@ -24,7 +29,7 @@ function TierCard({
 }): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const press = usePressScale();
-  const emphasized = selected || plan.highlighted;
+  const fg = selected ? 'onPrimary' : 'onSurface';
 
   return (
     <Animated.View style={{ flex: 1, transform: [{ scale: press.scale }] }}>
@@ -39,42 +44,43 @@ function TierCard({
           borderRadius: tokens.radius.lg,
           padding: tokens.spacing.lg,
           gap: tokens.spacing.sm,
-          backgroundColor: colors.surface,
-          borderWidth: emphasized ? 2 : 1,
+          backgroundColor: selected ? colors.primary : colors.surface,
+          borderWidth: selected ? RING : HAIRLINE,
           borderColor: selected ? colors.primary : plan.highlighted ? colors.accent : colors.border,
-          ...shadow(plan.highlighted ? 'lg' : 'md', tokens),
+          ...shadow(plan.highlighted || selected ? 'lg' : 'md', tokens),
         }}
       >
-        {plan.badge ? (
-          <View style={{ alignSelf: 'flex-start' }}>
-            <Badge tone="primary">{plan.badge}</Badge>
-          </View>
-        ) : null}
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale.lg, fontWeight: '700' }}>
+        {/* Name left, badge top-right of its own card (§7). */}
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: tokens.spacing.xs }}>
+          <Text size="base" weight="semibold" tone={fg} style={{ flexShrink: 1 }}>
             {plan.name}
           </Text>
-          {selected ? <Icon glyph="✓" size="base" color="primary" accessibilityLabel="Selected" /> : null}
+          {plan.badge ? (
+            <Badge tone="success" size="sm">
+              {plan.badge}
+            </Badge>
+          ) : null}
         </View>
 
         <View style={{ gap: tokens.spacing.xs }}>
-          <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale['3xl'], fontWeight: '800' }}>
+          <Text size="2xl" weight="bold" tone={fg}>
             {price}
           </Text>
           {plan.priceCaption ? (
-            <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>
+            <Text size="sm" tone={selected ? 'onPrimary' : 'muted'}>
               {plan.priceCaption}
             </Text>
           ) : null}
         </View>
 
         {plan.features?.length ? (
-          <View style={{ gap: tokens.spacing.xs, marginTop: tokens.spacing.xs }}>
+          <View style={{ gap: tokens.spacing.xs }}>
             {plan.features.map((f, i) => (
               <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: tokens.spacing.xs }}>
-                <Icon glyph="✓" size="sm" color="success" />
-                <Text style={{ flex: 1, color: colors.muted, fontSize: tokens.typography.scale.sm }}>{f}</Text>
+                <Icon name="check" size="sm" color={selected ? 'onPrimary' : 'success'} />
+                <Text size="sm" tone={selected ? 'onPrimary' : 'muted'} style={{ flex: 1 }}>
+                  {f}
+                </Text>
               </View>
             ))}
           </View>
@@ -85,11 +91,14 @@ function TierCard({
 }
 
 /**
- * Subscription tier picker — V2. The tiers sit side-by-side as elevated,
- * shadowed cards (rather than a stacked list), with the "popular"/highlighted
- * tier lifted by a stronger shadow, an accent border and its ribbon badge. Keeps
- * the monthly/annual {@link Segmented} toggle and the `radiogroup`/`radio`
- * semantics; prices stay caller-formatted. Guards an empty list. Token-pure.
+ * Subscription tier picker — V2, the editorial line. The §7 card pair, lifted:
+ * two-up and equal width like the base selector, but shadowed and press-scaled,
+ * with the selected card taking the `primary` fill, the 2px ring and the
+ * stronger elevation. A lone plan takes the full width rather than half a grid.
+ *
+ * `layout="list"` still stacks the same cards for a dense context. Keeps the
+ * monthly/annual toggle and the `radiogroup`/`radio` semantics; prices stay
+ * caller-formatted. Guards an empty list. Token-pure.
  */
 export function PlanSelectorV2({
   plans,
@@ -99,51 +108,50 @@ export function PlanSelectorV2({
   onBillingPeriodChange,
   showBillingToggle = true,
   annualSavingsLabel,
+  layout = 'cards',
   style,
 }: PlanSelectorV2Props): React.ReactElement {
-  const { colors, tokens } = useXenitionTheme();
+  const { tokens } = useXenitionTheme();
 
   if (plans.length === 0) {
     return (
       <View accessibilityRole="summary" style={[{ padding: tokens.spacing.lg, alignItems: 'center' }, style]}>
-        <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.base }}>
+        <Text size="base" tone="muted">
           No plans available.
         </Text>
       </View>
     );
   }
 
+  const priceOf = (plan: PlanTier): string =>
+    billingPeriod === 'annual' ? plan.annualPrice : plan.monthlyPrice;
+  const columns = layout === 'list' || plans.length === 1 ? 1 : COLUMNS;
+
   return (
     <View style={[{ gap: tokens.spacing.lg }, style]}>
       {showBillingToggle ? (
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }}>
-          <Segmented
-            options={[
-              { label: 'Monthly', value: 'monthly' },
-              { label: 'Annual', value: 'annual' },
-            ]}
-            value={billingPeriod}
-            onChange={(v) => onBillingPeriodChange?.(v as BillingPeriod)}
-          />
-          {annualSavingsLabel && billingPeriod === 'annual' ? (
-            <Badge tone="success">{annualSavingsLabel}</Badge>
-          ) : null}
-        </View>
+        <BillingToggle
+          billingPeriod={billingPeriod}
+          onBillingPeriodChange={onBillingPeriodChange}
+          annualSavingsLabel={annualSavingsLabel}
+        />
       ) : null}
 
-      <View
-        accessibilityRole="radiogroup"
-        accessibilityLabel="Choose a plan"
-        style={{ flexDirection: 'row', alignItems: 'stretch', gap: tokens.spacing.md }}
-      >
-        {plans.map((plan) => (
-          <TierCard
-            key={plan.id}
-            plan={plan}
-            price={billingPeriod === 'annual' ? plan.annualPrice : plan.monthlyPrice}
-            selected={plan.id === selectedPlanId}
-            onPress={() => onSelectPlan?.(plan.id)}
-          />
+      <View accessibilityRole="radiogroup" accessibilityLabel="Choose a plan" style={{ gap: tokens.spacing.md }}>
+        {chunkPlans(plans, columns).map((row, i) => (
+          <View key={i} style={{ flexDirection: 'row', alignItems: 'stretch', gap: tokens.spacing.md }}>
+            {row.map((plan) => (
+              <TierCard
+                key={plan.id}
+                plan={plan}
+                price={priceOf(plan)}
+                selected={plan.id === selectedPlanId}
+                onPress={() => onSelectPlan?.(plan.id)}
+              />
+            ))}
+            {/* Keeps the last card the same width as the others. */}
+            {row.length < columns ? <View style={{ flex: 1 }} /> : null}
+          </View>
         ))}
       </View>
     </View>

@@ -4,7 +4,7 @@ exports.ArticleHeaderV3 = ArticleHeaderV3;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const primitives_1 = require("../primitives");
-const AuthorByline_1 = require("./AuthorByline");
+const AuthorBylineV3_1 = require("./AuthorBylineV3");
 /**
  * ArticleHeader — **left-aligned editorial** alternate design.
  *
@@ -15,6 +15,8 @@ const AuthorByline_1 = require("./AuthorByline");
  *
  * Token-pure: the eyebrow rule and label use `colors.accent` / `accentText`,
  * the divider uses `colors.border`. No literal colors.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 function ArticleHeaderV3({ title, deck, category, coverImageUrl, author, date, readingTime, variant = 'standard', loading = false, style, }) {
     const { colors, tokens } = (0, primitives_1.useXenitionTheme)();
@@ -41,7 +43,7 @@ function ArticleHeaderV3({ title, deck, category, coverImageUrl, author, date, r
                     color: colors.muted,
                     fontSize: tokens.typography.scale.lg,
                     lineHeight: tokens.typography.scale.lg * 1.45,
-                }, children: deck })) : null, (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { alignSelf: 'stretch', height: 1, backgroundColor: colors.border } }), author ? ((0, jsx_runtime_1.jsx)(AuthorByline_1.AuthorByline, { author: author, date: date, readingTime: readingTime, variant: "full" })) : meta ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: meta })) : null, coverImageUrl ? ((0, jsx_runtime_1.jsx)(react_native_1.Image, { source: { uri: coverImageUrl }, accessibilityIgnoresInvertColors: true, resizeMode: "cover", style: {
+                }, children: deck })) : null, (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { alignSelf: 'stretch', height: 1, backgroundColor: colors.border } }), author ? ((0, jsx_runtime_1.jsx)(AuthorBylineV3_1.AuthorBylineV3, { author: author, date: date, readingTime: readingTime, variant: "full" })) : meta ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: meta })) : null, coverImageUrl ? ((0, jsx_runtime_1.jsx)(react_native_1.Image, { source: { uri: coverImageUrl }, accessibilityIgnoresInvertColors: true, resizeMode: "cover", style: {
                     width: '100%',
                     height: variant === 'hero' ? 240 : 200,
                     borderRadius: tokens.radius.lg,

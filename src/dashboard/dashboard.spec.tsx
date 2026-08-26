@@ -122,6 +122,17 @@ describe('dashboard (web)', () => {
     expect(onChange).toHaveBeenCalledWith('Open');
   });
 
+  // Clicking the active chip used to re-fire the same value, so a single-select
+  // row could never get back to "no filter" without a fake "All" option.
+  it('FilterChips clears the single selection when the active chip is clicked', () => {
+    const onChange = jest.fn();
+    const { getByRole } = render(
+      <FilterChips options={['Open', 'Done']} selected="Open" onChange={onChange} />
+    );
+    fireEvent.click(getByRole('button', { name: 'Open' }));
+    expect(onChange).toHaveBeenCalledWith('');
+  });
+
   it('SearchHeader is controlled and can be cleared', () => {
     const onChangeText = jest.fn();
     const { getByLabelText, getByRole } = render(

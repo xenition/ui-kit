@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '../primitives/cn';
 import { Skeleton } from '../primitives/Skeleton';
-import { AuthorByline } from './AuthorByline';
+import { AuthorBylineV3 } from './AuthorBylineV3';
 import type { ArticleHeaderProps } from './ArticleHeader';
 
 /** Drop-in replacement for {@link ArticleHeader} — identical props. */
@@ -17,6 +17,8 @@ export type ArticleHeaderV3Props = ArticleHeaderProps;
  *
  * Token-pure: the eyebrow rule and label use `bg-accent` / `text-accent`, the
  * divider uses `bg-border`. No literal colors.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 export const ArticleHeaderV3 = React.forwardRef<HTMLElement, ArticleHeaderV3Props>(
   function ArticleHeaderV3(
@@ -88,7 +90,7 @@ export const ArticleHeaderV3 = React.forwardRef<HTMLElement, ArticleHeaderV3Prop
         <div aria-hidden className="h-px w-full self-stretch bg-border" />
 
         {author ? (
-          <AuthorByline author={author} date={date} readingTime={readingTime} variant="full" />
+          <AuthorBylineV3 author={author} date={date} readingTime={readingTime} variant="full" />
         ) : meta ? (
           <p className="text-sm text-muted">{meta}</p>
         ) : null}

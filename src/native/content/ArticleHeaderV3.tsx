@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Image, Text, View } from 'react-native';
 import { Skeleton, useXenitionTheme } from '../primitives';
-import { AuthorByline } from './AuthorByline';
+import { AuthorBylineV3 } from './AuthorBylineV3';
 import type { ArticleHeaderProps } from './ArticleHeader';
 
 /** Drop-in replacement for {@link ArticleHeader} — identical props. */
@@ -17,6 +17,8 @@ export type ArticleHeaderV3Props = ArticleHeaderProps;
  *
  * Token-pure: the eyebrow rule and label use `colors.accent` / `accentText`,
  * the divider uses `colors.border`. No literal colors.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 export function ArticleHeaderV3({
   title,
@@ -99,7 +101,7 @@ export function ArticleHeaderV3({
       <View style={{ alignSelf: 'stretch', height: 1, backgroundColor: colors.border }} />
 
       {author ? (
-        <AuthorByline author={author} date={date} readingTime={readingTime} variant="full" />
+        <AuthorBylineV3 author={author} date={date} readingTime={readingTime} variant="full" />
       ) : meta ? (
         <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>{meta}</Text>
       ) : null}

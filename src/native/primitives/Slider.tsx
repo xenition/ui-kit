@@ -13,8 +13,15 @@ export interface SliderProps {
   min?: number;
   max?: number;
   step?: number;
-  /** Fires with the new value (web `onChange`, renamed for native). */
+  /**
+   * Fires with the new value. Prefer `onChange` — that is the kit's one
+   * canonical name for "the value changed", and what the web twin has always
+   * called this. `onValueChange` is the original native spelling, kept so
+   * existing callers keep working; if both are passed this one wins.
+   */
   onValueChange?: (value: number) => void;
+  /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+  onChange?: (value: number) => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
 }
@@ -34,10 +41,14 @@ export function Slider({
   max = 100,
   step = 1,
   onValueChange,
+  onChange,
   disabled = false,
   style,
 }: SliderProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onValueChange ?? onChange;
   const [width, setWidth] = React.useState(0);
   const widthRef = React.useRef(0);
 
@@ -53,7 +64,7 @@ export function Slider({
     if (disabled) return;
     const usable = Math.max(0, widthRef.current - THUMB);
     const ratio = usable > 0 ? Math.max(0, Math.min(1, (x - THUMB / 2) / usable)) : 0;
-    onValueChange?.(clampSnap(min + ratio * (max - min)));
+    emit?.(clampSnap(min + ratio * (max - min)));
   };
 
   const responder = React.useMemo(

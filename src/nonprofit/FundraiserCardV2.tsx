@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cn } from '../primitives/cn';
 import { Avatar } from '../primitives/Avatar';
 import { Button } from '../primitives/Button';
-import { CampaignProgress } from './CampaignProgress';
+import { CampaignProgressV2 } from './CampaignProgressV2';
 import type { FundraiserCardProps } from './FundraiserCard';
 
 /** Same public contract as {@link FundraiserCard} — a drop-in alternate design. */
@@ -13,6 +13,8 @@ export type FundraiserCardV2Props = FundraiserCardProps;
  * with the organizer's avatar + name overlapping its lower edge, then the title,
  * a progress meter, and Donate/Share actions on the surface below. Elevated.
  * Distinct from v1's stacked card. Same props, token-only.
+ * Stays inside its own design line: the meter is {@link CampaignProgressV2}, not
+ * the base one, because an app that picks V2 picks it for every surface it sees.
  */
 export const FundraiserCardV2 = React.forwardRef<HTMLDivElement, FundraiserCardV2Props>(
   function FundraiserCardV2(
@@ -53,7 +55,7 @@ export const FundraiserCardV2 = React.forwardRef<HTMLDivElement, FundraiserCardV
             <p className="text-base font-bold text-on-surface">{title}</p>
             <p className="text-xs text-muted">by {organizerName}</p>
           </div>
-          <CampaignProgress raisedCents={raisedCents} goalCents={goalCents} currency={currency} donorCount={donorCount} />
+          <CampaignProgressV2 raisedCents={raisedCents} goalCents={goalCents} currency={currency} donorCount={donorCount} />
           <div className="flex gap-2">
             {onDonate ? (
               <Button size="md" variant="primary" className="flex-1" onClick={onDonate}>

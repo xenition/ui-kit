@@ -6,7 +6,7 @@ import { shadow } from '../primitives/internal/elevation';
 import { useEnter } from '../primitives/internal/motion';
 import { DistanceBadge } from './DistanceBadge';
 import { IcebreakerChip } from './IcebreakerChip';
-import { CompatibilityMeter } from './CompatibilityMeter';
+import { CompatibilityMeterV3 } from './CompatibilityMeterV3';
 import { ProfilePrompt } from './ProfilePrompt';
 import { LikePassButtons } from './LikePassButtons';
 import type { ProfileCardProps } from './ProfileCard';
@@ -22,6 +22,9 @@ export type ProfileCardV3Props = ProfileCardProps;
  * Airy, type-led, and unmistakably distinct from the summary (V1) and full-bleed
  * (V2) layouts. Same `ProfileCardProps`. Token-pure; guarded; loading/empty
  * states included.
+ * Stays inside its own design line: the meter is {@link CompatibilityMeterV3},
+ * not the base one, because an app that picks V3 picks it for every surface it
+ * sees.
  */
 export function ProfileCardV3({
   profile,
@@ -133,7 +136,7 @@ export function ProfileCardV3({
         ) : null}
       </View>
 
-      {profile.compatibility != null ? <CompatibilityMeter score={profile.compatibility} /> : null}
+      {profile.compatibility != null ? <CompatibilityMeterV3 score={profile.compatibility} /> : null}
 
       {profile.bio ? (
         <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale.base, lineHeight: tokens.typography.scale.base * 1.5 }}>

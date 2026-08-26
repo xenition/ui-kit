@@ -24,6 +24,12 @@ export interface TrialBannerProps {
  * atop the paywall (value-first framing, design.md §27) or in-app once a trial
  * is running. Tone maps to the accent/warn/success token pairs. No literal
  * colors.
+ *
+ * **There is deliberately no `TrialBannerV2`/`V3`.** A strip this small has one
+ * correct shape, so the base component *is* its whole design line — which is
+ * why a V2 or V3 paywall composing this base banner is correct rather than a
+ * cross-line leak. `design-line-composition.native.spec.tsx` documents the same
+ * conclusion from the other side.
  */
 export declare function TrialBanner({ title, subtitle, daysLeft, tone, actionLabel, onActionPress, icon, style, }: TrialBannerProps): React.ReactElement;
 //# sourceMappingURL=TrialBanner.d.ts.map

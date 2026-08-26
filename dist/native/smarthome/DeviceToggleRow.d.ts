@@ -11,8 +11,15 @@ export interface DeviceToggleRowProps {
     checked?: boolean;
     /** Device is unreachable — disables the switch and shows an offline label. */
     offline?: boolean;
-    /** Fires with the requested on/off value. */
+    /**
+     * Fires with the requested on/off value. Prefer `onChange` — that is the
+     * kit's one canonical name for "the value changed". `onCheckedChange` is this
+     * component's original spelling, kept so existing callers keep working; if
+     * both are passed this one wins.
+     */
     onCheckedChange?: (next: boolean) => void;
+    /** Canonical spelling of `onCheckedChange` (see it for the precedence rule). */
+    onChange?: (next: boolean) => void;
     /** Hide the bottom divider (e.g. last row in a group). */
     last?: boolean;
     style?: StyleProp<ViewStyle>;
@@ -24,5 +31,5 @@ export interface DeviceToggleRowProps {
  * "Offline" note so unreachability is textual, not color-only. A hairline
  * `border` divider separates rows unless `last`. Token-bound throughout.
  */
-export declare function DeviceToggleRow({ label, icon, subtitle, checked, offline, onCheckedChange, last, style, }: DeviceToggleRowProps): React.ReactElement;
+export declare function DeviceToggleRow({ label, icon, subtitle, checked, offline, onCheckedChange, onChange, last, style, }: DeviceToggleRowProps): React.ReactElement;
 //# sourceMappingURL=DeviceToggleRow.d.ts.map

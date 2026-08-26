@@ -22,6 +22,12 @@ export interface TrialBannerProps extends Omit<React.HTMLAttributes<HTMLDivEleme
  * atop the paywall (value-first framing, design.md §27) or in-app once a trial
  * is running. Tone maps to the primary/warn/success token pairs. No literal
  * colors.
+ *
+ * **There is deliberately no `TrialBannerV2`/`V3`.** A strip this small has one
+ * correct shape, so the base component *is* its whole design line — which is
+ * why a v2 or v3 paywall composing this base banner is correct rather than a
+ * cross-line leak. `design-line-composition.spec.tsx` documents the same
+ * conclusion from the other side.
  */
 export declare const TrialBanner: React.ForwardRefExoticComponent<TrialBannerProps & React.RefAttributes<HTMLDivElement>>;
 //# sourceMappingURL=TrialBanner.d.ts.map

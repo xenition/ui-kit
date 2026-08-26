@@ -9,12 +9,15 @@ const theme_1 = require("../theme");
  * A numeric `TextInput` flanked by token-bound `Pressable` steppers; clamps to
  * `[min, max]`. No literal colors.
  */
-function NumberInput({ value, onValueChange, min, max, step = 1, disabled = false, style, }) {
+function NumberInput({ value, onValueChange, onChange, min, max, step = 1, disabled = false, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onValueChange ?? onChange;
     const clamp = (v) => Math.max(min ?? -Infinity, Math.min(max ?? Infinity, v));
     const set = (v) => {
         if (!Number.isNaN(v))
-            onValueChange?.(clamp(v));
+            emit?.(clamp(v));
     };
     const atMin = min != null && value <= min;
     const atMax = max != null && value >= max;

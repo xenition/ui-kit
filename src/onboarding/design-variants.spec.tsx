@@ -52,7 +52,7 @@ describe('OnboardingSlides alternates (web)', () => {
     const onIndexChange = jest.fn();
     const { getByLabelText, container } = render(<OnboardingSlidesV2 slides={SLIDES} onIndexChange={onIndexChange} />);
     expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
-    fireEvent.click(getByLabelText('Next'));
+    fireEvent.click(getByLabelText('Next slide'));
     expect(onIndexChange).toHaveBeenCalledWith(1);
   });
   it('V3 completes on the last slide', () => {

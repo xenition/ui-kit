@@ -7,9 +7,9 @@
  * `useXenitionTheme()` — no literal colors, no DOM.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Tag = exports.Tooltip = exports.Popconfirm = exports.Accordion = exports.Menu = exports.Popover = exports.Drawer = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.formatMoney = exports.EmptyState = exports.PriceTag = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Wordmark = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
-exports.JsonViewer = exports.CodeBlock = exports.VirtualList = exports.Kanban = exports.Calendar = exports.Statistic = exports.Tree = exports.Watermark = exports.ButtonGroup = exports.LoadingOverlay = exports.Result = exports.Callout = exports.Banner = exports.BottomSheet = exports.ActionSheet = exports.ContextMenu = exports.BottomNav = exports.FloatButton = exports.Icon = exports.ColorPicker = exports.CurrencyInput = exports.PhoneInput = exports.ToggleGroup = exports.RangeSlider = exports.AutoComplete = exports.TagInput = exports.MultiSelect = exports.DateRangePicker = exports.TimePicker = exports.PasswordInput = exports.SearchInput = exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthCard = exports.Breadcrumb = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = exports.List = void 0;
-exports.ScrollableTabs = exports.SplitButton = exports.Toolbar = void 0;
+exports.Tag = exports.Tooltip = exports.Popconfirm = exports.Accordion = exports.Menu = exports.Popover = exports.Drawer = exports.useToast = exports.ToastProvider = exports.Skeleton = exports.Progress = exports.Alert = exports.useForm = exports.Form = exports.PinInput = exports.NumberInput = exports.Slider = exports.RadioGroup = exports.formatMoney = exports.PriceTag = exports.EmptyState = exports.useReducedMotion = exports.GradientText = exports.GlassPanel = exports.StatusMessage = exports.Rating = exports.StatusDot = exports.Eyebrow = exports.Modal = exports.Table = exports.MessageList = exports.ChatBubble = exports.Tabs = exports.Spinner = exports.Switch = exports.Avatar = exports.Badge = exports.Field = exports.Label = exports.Select = exports.Checkbox = exports.Textarea = exports.Input = exports.Stack = exports.Card = exports.Wordmark = exports.Button = exports.useXenitionTheme = exports.XenitionNativeThemeProvider = exports.XenitionUIProvider = void 0;
+exports.FloatButton = exports.resolveIconGlyph = exports.isIconName = exports.ICON_GLYPHS = exports.Icon = exports.Text = exports.ColorPicker = exports.CurrencyInput = exports.PhoneInput = exports.ToggleGroup = exports.RangeSlider = exports.AutoComplete = exports.TagInput = exports.MultiSelect = exports.DateRangePicker = exports.TimePicker = exports.PasswordInput = exports.SearchInput = exports.Upload = exports.DatePicker = exports.Combobox = exports.CrudTable = exports.DataTable = exports.Sidebar = exports.AppShell = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthTermsCard = exports.AuthSwitchFooter = exports.AuthSubmitButton = exports.AuthStickyFooter = exports.AuthProviderButton = exports.AuthHeading = exports.AuthField = exports.AuthDivider = exports.AuthBrandTile = exports.AUTH_DEFAULT_TERMS_LINKS = exports.AUTH_TAP_TARGET = exports.AUTH_CONTROL_HEIGHT = exports.AuthCard = exports.Breadcrumb = exports.StepList = exports.Steps = exports.Segmented = exports.AvatarGroup = exports.Descriptions = exports.Timeline = exports.Pagination = exports.List = void 0;
+exports.ScrollableTabs = exports.SplitButton = exports.Toolbar = exports.JsonViewer = exports.CodeBlock = exports.VirtualList = exports.Kanban = exports.Calendar = exports.Statistic = exports.Tree = exports.Watermark = exports.ButtonGroup = exports.LoadingOverlay = exports.Result = exports.Callout = exports.Banner = exports.BottomSheet = exports.ActionSheet = exports.ContextMenu = exports.BottomNav = void 0;
 var XenitionUIProvider_1 = require("./XenitionUIProvider");
 Object.defineProperty(exports, "XenitionUIProvider", { enumerable: true, get: function () { return XenitionUIProvider_1.XenitionUIProvider; } });
 // Re-export the theme access hook so a mobile app can `useXenitionTheme()`
@@ -69,13 +69,14 @@ var GradientText_1 = require("./GradientText");
 Object.defineProperty(exports, "GradientText", { enumerable: true, get: function () { return GradientText_1.GradientText; } });
 var useReducedMotion_1 = require("./internal/useReducedMotion");
 Object.defineProperty(exports, "useReducedMotion", { enumerable: true, get: function () { return useReducedMotion_1.useReducedMotion; } });
-// PriceTag, EmptyState, and the single `formatMoney` home live in the commerce
-// module (matching the web `@xenition/ui/commerce`) and are re-exported here
-// for primitive-level ergonomics.
+var EmptyState_1 = require("./EmptyState");
+Object.defineProperty(exports, "EmptyState", { enumerable: true, get: function () { return EmptyState_1.EmptyState; } });
+// PriceTag and the single `formatMoney` home live in the commerce module
+// (matching the web `@xenition/ui/commerce`) and are re-exported here for
+// primitive-level ergonomics. Money is a commerce concept, so the file stays
+// there; `EmptyState` was not, so it moved here and `commerce` re-exports it.
 var PriceTag_1 = require("../commerce/PriceTag");
 Object.defineProperty(exports, "PriceTag", { enumerable: true, get: function () { return PriceTag_1.PriceTag; } });
-var EmptyState_1 = require("../commerce/EmptyState");
-Object.defineProperty(exports, "EmptyState", { enumerable: true, get: function () { return EmptyState_1.EmptyState; } });
 var money_1 = require("../commerce/money");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return money_1.formatMoney; } });
 // ── native parity: forms ──────────────────────────────────────────────
@@ -130,11 +131,33 @@ var Segmented_1 = require("./Segmented");
 Object.defineProperty(exports, "Segmented", { enumerable: true, get: function () { return Segmented_1.Segmented; } });
 var Steps_1 = require("./Steps");
 Object.defineProperty(exports, "Steps", { enumerable: true, get: function () { return Steps_1.Steps; } });
+// `Steps` is the horizontal progress indicator; `StepList` is the vertical,
+// content-bearing instruction list. Pick by the question you are answering:
+// "where am I in this flow" vs "here are the instructions".
+var StepList_1 = require("./StepList");
+Object.defineProperty(exports, "StepList", { enumerable: true, get: function () { return StepList_1.StepList; } });
 var Breadcrumb_1 = require("./Breadcrumb");
 Object.defineProperty(exports, "Breadcrumb", { enumerable: true, get: function () { return Breadcrumb_1.Breadcrumb; } });
 // ── native parity: composed auth ──────────────────────────────────────
 var AuthCard_1 = require("./AuthCard");
 Object.defineProperty(exports, "AuthCard", { enumerable: true, get: function () { return AuthCard_1.AuthCard; } });
+// The shared auth anatomy (ONBOARDING-DESIGN-SPEC §5/§6/§9) — the same parts
+// `SignInScreen` and the three composed forms are drawn from, so an app that
+// assembles its own auth surface gets the identical 56px field, CTA and
+// provider row rather than a near-miss.
+var AuthCard_2 = require("./AuthCard");
+Object.defineProperty(exports, "AUTH_CONTROL_HEIGHT", { enumerable: true, get: function () { return AuthCard_2.AUTH_CONTROL_HEIGHT; } });
+Object.defineProperty(exports, "AUTH_TAP_TARGET", { enumerable: true, get: function () { return AuthCard_2.AUTH_TAP_TARGET; } });
+Object.defineProperty(exports, "AUTH_DEFAULT_TERMS_LINKS", { enumerable: true, get: function () { return AuthCard_2.AUTH_DEFAULT_TERMS_LINKS; } });
+Object.defineProperty(exports, "AuthBrandTile", { enumerable: true, get: function () { return AuthCard_2.AuthBrandTile; } });
+Object.defineProperty(exports, "AuthDivider", { enumerable: true, get: function () { return AuthCard_2.AuthDivider; } });
+Object.defineProperty(exports, "AuthField", { enumerable: true, get: function () { return AuthCard_2.AuthField; } });
+Object.defineProperty(exports, "AuthHeading", { enumerable: true, get: function () { return AuthCard_2.AuthHeading; } });
+Object.defineProperty(exports, "AuthProviderButton", { enumerable: true, get: function () { return AuthCard_2.AuthProviderButton; } });
+Object.defineProperty(exports, "AuthStickyFooter", { enumerable: true, get: function () { return AuthCard_2.AuthStickyFooter; } });
+Object.defineProperty(exports, "AuthSubmitButton", { enumerable: true, get: function () { return AuthCard_2.AuthSubmitButton; } });
+Object.defineProperty(exports, "AuthSwitchFooter", { enumerable: true, get: function () { return AuthCard_2.AuthSwitchFooter; } });
+Object.defineProperty(exports, "AuthTermsCard", { enumerable: true, get: function () { return AuthCard_2.AuthTermsCard; } });
 var LoginForm_1 = require("./LoginForm");
 Object.defineProperty(exports, "LoginForm", { enumerable: true, get: function () { return LoginForm_1.LoginForm; } });
 var SignupForm_1 = require("./SignupForm");
@@ -183,8 +206,18 @@ Object.defineProperty(exports, "CurrencyInput", { enumerable: true, get: functio
 var ColorPicker_1 = require("./ColorPicker");
 Object.defineProperty(exports, "ColorPicker", { enumerable: true, get: function () { return ColorPicker_1.ColorPicker; } });
 // ── native parity: mobile patterns + feedback ─────────────────────────
+// The way to render text: `variant` (type scale) + `tone` (semantic slot)
+// instead of a hand-assembled style. A raw `fontSize` in an app is a bug.
+var Text_1 = require("./Text");
+Object.defineProperty(exports, "Text", { enumerable: true, get: function () { return Text_1.Text; } });
 var Icon_1 = require("./Icon");
 Object.defineProperty(exports, "Icon", { enumerable: true, get: function () { return Icon_1.Icon; } });
+// The named icon set behind `Icon`'s `name`. One shared file backs both twins,
+// so the vocabulary cannot drift between web and native.
+var icon_names_1 = require("../../primitives/icon-names");
+Object.defineProperty(exports, "ICON_GLYPHS", { enumerable: true, get: function () { return icon_names_1.ICON_GLYPHS; } });
+Object.defineProperty(exports, "isIconName", { enumerable: true, get: function () { return icon_names_1.isIconName; } });
+Object.defineProperty(exports, "resolveIconGlyph", { enumerable: true, get: function () { return icon_names_1.resolveIconGlyph; } });
 var FloatButton_1 = require("./FloatButton");
 Object.defineProperty(exports, "FloatButton", { enumerable: true, get: function () { return FloatButton_1.FloatButton; } });
 var BottomNav_1 = require("./BottomNav");

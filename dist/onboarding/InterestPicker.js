@@ -38,17 +38,40 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
 const Icon_1 = require("../primitives/Icon");
+const Text_1 = require("../primitives/Text");
 const commerce_1 = require("../commerce");
+const GetStartedButton_1 = require("./GetStartedButton");
+/*
+  Geometry, not theme. ONBOARDING-DESIGN-SPEC §10 allows exactly these bare
+  numbers: the 44px minimum tap target a chip and a header control must clear
+  (§7) — Tailwind's `min-h-11`/`h-11` — and the 56 (`h-14`) the §6 fields and the
+  sticky CTA stand at. Every colour, radius, gap and font size here is a token
+  class.
+*/
+const TAP_TARGET_CLASS = 'min-h-11';
 /**
- * Multi-select interest chips — the "personalize your feed" onboarding step. A
- * wrap of toggleable chips where a selected chip fills with the primary token
- * and shows a check; selection state is announced per-chip (`aria-checked`) and
- * the running count is exposed on the group label plus a polite live region, so
- * screen-reader users hear their progress. Enforces an optional `maxSelections`
- * cap. Guards an empty option list with the {@link EmptyState}. No literal
- * colors.
+ * Multi-select interest chips — the "personalize your feed" onboarding step,
+ * built to the step anatomy in `ONBOARDING-DESIGN-SPEC.md`: an optional header
+ * (back · progress · dismiss), a hero slot, a centred headline block, the chip
+ * field, and an optional sticky CTA footer.
+ *
+ * **The chips wrap and are never clipped.** The shipped screen scrolled its
+ * options horizontally and cut the last one off the right edge —
+ * "Pace / Filler words / Clarity / Structure / Confiden…" — which made that
+ * option impossible to choose at all, not merely hard to read. §7 is therefore
+ * a hard rule here: `flex-wrap` with token gaps and no `overflow-x` container
+ * anywhere in this file. A user cannot choose what they cannot see.
+ *
+ * Selected chips take the `primary` fill with an `on-primary` label; unselected
+ * chips are `surface` with a `border` outline; both clear the 44px tap target.
+ * Selection state is announced per-chip (`aria-checked`) and the running count
+ * is exposed on the group label plus a polite live region. Enforces an optional
+ * `maxSelections` cap and guards an empty option list with {@link EmptyState}.
+ * Every new prop is optional — a caller passing only the original
+ * `options`/`selectedIds`/`onChange` gets the same component it always had, in
+ * better clothes. No literal colors.
  */
-exports.InterestPicker = React.forwardRef(function InterestPicker({ options, selectedIds, onChange, title, helper, maxSelections, groupLabel = 'Interests', className, ...rest }, ref) {
+exports.InterestPicker = React.forwardRef(function InterestPicker({ options, selectedIds, onChange, title, helper, maxSelections, groupLabel = 'Interests', subtitle, illustration, logoGlyph, progress, onBack, onDismiss, error, ctaLabel = 'Continue', onContinue, loading = false, secondaryLabel, onSecondary, emptyMessage = 'No topics to choose from.', className, ...rest }, ref) {
     const selectedSet = React.useMemo(() => new Set(selectedIds), [selectedIds]);
     const atCap = maxSelections != null && selectedSet.size >= maxSelections;
     const toggle = (id) => {
@@ -62,15 +85,21 @@ exports.InterestPicker = React.forwardRef(function InterestPicker({ options, sel
         }
         onChange(Array.from(next));
     };
-    if (options.length === 0) {
-        return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: className, ...rest, children: (0, jsx_runtime_1.jsx)(commerce_1.EmptyState, { title: "No topics to choose from." }) }));
-    }
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex flex-col gap-4', className), ...rest, children: [title ? (0, jsx_runtime_1.jsx)("h2", { className: "text-xl font-bold text-on-surface", children: title }) : null, helper ? (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-muted", children: helper }) : null, (0, jsx_runtime_1.jsx)("div", { role: "group", "aria-label": `${groupLabel}, ${selectedSet.size} selected`, className: "flex flex-wrap gap-2", children: options.map((opt) => {
+    const subhead = subtitle ?? helper;
+    // `helper` keeps its own slot only when it is not already doing the
+    // subhead's job, so the two never print the same sentence twice.
+    const caption = subtitle != null ? helper : undefined;
+    const showHeader = onBack != null || onDismiss != null || progress != null;
+    const showHero = illustration != null || logoGlyph != null;
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex flex-col gap-lg', className), ...rest, children: [showHeader ? ((0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-sm", children: [onBack ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Back", onClick: onBack, className: "flex h-11 w-11 items-center justify-center", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "chevron-left", size: "xl", color: "onSurface" }) })) : ((0, jsx_runtime_1.jsx)("span", { className: "h-11 w-11" })), (0, jsx_runtime_1.jsx)("div", { className: "flex flex-1 justify-center", children: progress }), onDismiss ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Dismiss", onClick: onDismiss, className: "flex h-11 w-11 items-center justify-center", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "close", size: "lg", color: "muted" }) })) : ((0, jsx_runtime_1.jsx)("span", { className: "h-11 w-11" }))] })) : null, showHero ? ((0, jsx_runtime_1.jsx)("div", { className: "flex aspect-[4/3] max-h-[38vh] items-center justify-center overflow-hidden rounded-[var(--xen-radius-lg)] bg-primary-50 p-lg", children: illustration ?? ((0, jsx_runtime_1.jsx)("span", { className: "flex h-[88px] w-[88px] items-center justify-center rounded-full bg-primary", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: logoGlyph, size: "3xl", color: "onPrimary" }) })) })) : null, title != null || subhead != null ? ((0, jsx_runtime_1.jsxs)("div", { className: "flex flex-col gap-sm", children: [title ? ((0, jsx_runtime_1.jsx)("h2", { children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "2xl", weight: "bold", tone: "onSurface", align: "center", numberOfLines: 2, className: "block", children: title }) })) : null, subhead ? ((0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", tone: "muted", align: "center", numberOfLines: 3, children: subhead })) : null] })) : null, caption ? ((0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", tone: "muted", align: "center", children: caption })) : null, options.length === 0 ? ((0, jsx_runtime_1.jsx)(commerce_1.EmptyState, { title: emptyMessage })) : ((0, jsx_runtime_1.jsx)("div", { role: "group", "aria-label": `${groupLabel}, ${selectedSet.size} selected`, 
+                // §7 — wrap, never scroll. This one class is the fix for an option
+                // the user could not reach.
+                className: "flex flex-wrap justify-center gap-sm", children: options.map((opt) => {
                     const selected = selectedSet.has(opt.id);
                     const disabled = !selected && atCap;
-                    return ((0, jsx_runtime_1.jsxs)("button", { type: "button", role: "checkbox", "aria-checked": selected, "aria-label": opt.label, disabled: disabled, onClick: () => toggle(opt.id), className: (0, cn_1.cn)('inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-semibold transition-colors', 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary', 'disabled:pointer-events-none disabled:opacity-45', selected
+                    return ((0, jsx_runtime_1.jsxs)("button", { type: "button", role: "checkbox", "aria-checked": selected, "aria-label": opt.label, disabled: disabled, onClick: () => toggle(opt.id), className: (0, cn_1.cn)('inline-flex items-center justify-center gap-xs rounded-full border px-md py-sm text-sm font-semibold transition-colors', TAP_TARGET_CLASS, 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary', 'disabled:pointer-events-none disabled:opacity-45', selected
                             ? 'border-primary bg-primary text-on-primary'
-                            : 'border-border bg-surface text-on-surface'), children: [selected ? ((0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: "\u2713", size: "sm", color: "onPrimary" })) : opt.icon ? ((0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: opt.icon, size: "sm", color: "onSurface" })) : null, opt.label] }, opt.id));
-                }) }), (0, jsx_runtime_1.jsxs)("p", { "aria-live": "polite", className: "sr-only", children: [selectedSet.size, " selected"] })] }));
+                            : 'border-border bg-surface text-on-surface'), children: [selected ? ((0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "check", size: "sm", color: "onPrimary" })) : opt.icon ? ((0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: opt.icon, size: "sm", color: "onSurface" })) : null, opt.label] }, opt.id));
+                }) })), error ? ((0, jsx_runtime_1.jsxs)("p", { role: "alert", className: "flex items-center justify-center gap-xs", children: [(0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "error", size: "sm", color: "danger" }), (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", tone: "dangerText", children: error })] })) : null, (0, jsx_runtime_1.jsxs)("p", { "aria-live": "polite", className: "sr-only", children: [selectedSet.size, " selected"] }), onContinue ? ((0, jsx_runtime_1.jsxs)("div", { className: "mt-auto flex flex-col gap-sm border-t border-border bg-surface pb-lg pt-md", children: [(0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: ctaLabel, loading: loading, onClick: onContinue }), secondaryLabel && onSecondary ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": secondaryLabel, onClick: onSecondary, className: (0, cn_1.cn)('flex items-center justify-center text-center', TAP_TARGET_CLASS), children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", weight: "medium", tone: "muted", children: secondaryLabel }) })) : null] })) : null] }));
 });
 //# sourceMappingURL=InterestPicker.js.map

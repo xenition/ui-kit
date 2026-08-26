@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import type { BillingPeriod, PlanTier } from './types';
+/** Two-up cards (§7) or the original stacked list. */
+export type PlanSelectorLayout = 'cards' | 'list';
 export interface PlanSelectorProps {
     /** Tiers to choose from. Empty renders the empty state. */
     plans: PlanTier[];
@@ -16,15 +18,40 @@ export interface PlanSelectorProps {
     showBillingToggle?: boolean;
     /** Savings pill copy shown beside the annual toggle (e.g. `'Save 20%'`). */
     annualSavingsLabel?: string;
+    /**
+     * `'cards'` is the reference paywall pair — two-up, equal width, the selected
+     * one filled (§7). `'list'` is the older stacked rendering, still the right
+     * shape for a settings screen. Default `'cards'`; the compact V3 line
+     * defaults to `'list'` instead.
+     */
+    layout?: PlanSelectorLayout;
     style?: StyleProp<ViewStyle>;
 }
+/** Split `plans` into rows of `columns`, so every card keeps an equal width. */
+export declare function chunkPlans(plans: PlanTier[], columns: number): PlanTier[][];
 /**
- * Subscription tier picker — a `radiogroup` of pressable plan cards plus an
- * optional monthly/annual {@link Segmented} toggle that swaps every card's
- * price. The selected card lifts to the primary border and shows a check; each
- * card is a `radio` announcing its `selected` state to screen readers. Prices
- * are caller-formatted strings so the component never does currency math. Guards
- * an empty plan list. No literal colors.
+ * The monthly/annual cadence toggle plus its savings pill — identical across
+ * the three lines, so it lives in one place.
  */
-export declare function PlanSelector({ plans, selectedPlanId, onSelectPlan, billingPeriod, onBillingPeriodChange, showBillingToggle, annualSavingsLabel, style, }: PlanSelectorProps): React.ReactElement;
+export declare function BillingToggle({ billingPeriod, onBillingPeriodChange, annualSavingsLabel, spread, }: {
+    billingPeriod: BillingPeriod;
+    onBillingPeriodChange?: (period: BillingPeriod) => void;
+    annualSavingsLabel?: string;
+    spread?: boolean;
+}): React.ReactElement;
+/**
+ * Subscription tier picker — a `radiogroup` of plan cards plus an optional
+ * monthly/annual {@link Segmented} toggle that swaps every card's price.
+ *
+ * The default is the reference pair (§7): two-up, equal width, `radius.lg`,
+ * the selected card taking the `primary` fill and a 2px ring while the others
+ * stay outlined, with a tier's "BEST"/"SAVE 20%" badge top-right of its own
+ * card. A lone plan takes the full width rather than sitting in half a grid.
+ * `layout="list"` restores the older stacked rows for dense contexts.
+ *
+ * Each card is a `radio` announcing its `selected` state; prices are
+ * caller-formatted strings so the component never does currency math. Guards an
+ * empty plan list. No literal colors.
+ */
+export declare function PlanSelector({ plans, selectedPlanId, onSelectPlan, billingPeriod, onBillingPeriodChange, showBillingToggle, annualSavingsLabel, layout, style, }: PlanSelectorProps): React.ReactElement;
 //# sourceMappingURL=PlanSelector.d.ts.map

@@ -58,6 +58,10 @@ export { Progress } from './Progress';
 export type { ProgressProps, ProgressTone } from './Progress';
 export { Skeleton } from './Skeleton';
 export type { SkeletonProps } from './Skeleton';
+// Nearly every screen in the kit renders an empty state, so it belongs here
+// rather than in a vertical. `commerce` re-exports it for the older path.
+export { EmptyState } from './EmptyState';
+export type { EmptyStateProps } from './EmptyState';
 export { ToastProvider, useToast } from './Toast';
 export type { ToastOptions, ToastTone } from './Toast';
 export { Tooltip } from './Tooltip';
@@ -90,6 +94,11 @@ export { Segmented } from './Segmented';
 export type { SegmentedProps, SegmentedOption } from './Segmented';
 export { Steps } from './Steps';
 export type { StepsProps, StepItem } from './Steps';
+// `Steps` is the horizontal progress indicator; `StepList` is the vertical,
+// content-bearing instruction list. Pick by the question you are answering:
+// "where am I in this flow" vs "here are the instructions".
+export { StepList } from './StepList';
+export type { StepListProps, StepListItem } from './StepList';
 export { RadioGroup } from './RadioGroup';
 export type { RadioGroupProps, RadioOption } from './RadioGroup';
 export { Slider } from './Slider';
@@ -104,6 +113,37 @@ export { useForm } from './useForm';
 export type { UseFormOptions, UseFormReturn } from './useForm';
 export { AuthCard } from './AuthCard';
 export type { AuthCardProps } from './AuthCard';
+// The shared auth anatomy (ONBOARDING-DESIGN-SPEC §5/§6/§9) — the same parts
+// `SignInScreen` and the three composed forms are drawn from, so an app that
+// assembles its own auth surface gets the identical 56px field, CTA and
+// provider row rather than a near-miss.
+export {
+  AUTH_CONTROL_HEIGHT,
+  AUTH_TAP_TARGET,
+  AUTH_DEFAULT_TERMS_LINKS,
+  AuthBrandTile,
+  AuthDivider,
+  AuthField,
+  AuthHeading,
+  AuthProviderButton,
+  AuthStickyFooter,
+  AuthSubmitButton,
+  AuthSwitchFooter,
+  AuthTermsCard,
+} from './AuthCard';
+export type {
+  AuthAlign,
+  AuthBrandTileProps,
+  AuthDividerProps,
+  AuthFieldProps,
+  AuthHeadingProps,
+  AuthProviderButtonProps,
+  AuthStickyFooterProps,
+  AuthSubmitButtonProps,
+  AuthSwitchFooterProps,
+  AuthTermsCardProps,
+  AuthTermsLink,
+} from './AuthCard';
 export { LoginForm } from './LoginForm';
 export type { LoginFormProps, LoginValues } from './LoginForm';
 export { SignupForm } from './SignupForm';
@@ -159,8 +199,16 @@ export { ColorPicker } from './ColorPicker';
 export type { ColorPickerProps, ColorSwatch } from './ColorPicker';
 
 // ── web parity: patterns + feedback ───────────────────────────────────
+// The way to render text: `variant` (type scale) + `tone` (semantic slot)
+// instead of a hand-assembled class string. A raw `fontSize` in an app is a bug.
+export { Text } from './Text';
+export type { TextProps, TextSize, TextTone, TextWeight, TextAlign } from './Text';
 export { Icon } from './Icon';
 export type { IconProps, IconSize, IconColor } from './Icon';
+// The named icon set behind `Icon`'s `name` — a stable semantic vocabulary so
+// two screens never pick different glyphs for the same idea.
+export { ICON_GLYPHS, isIconName, resolveIconGlyph } from './icon-names';
+export type { IconName } from './icon-names';
 export { FloatButton } from './FloatButton';
 export type { FloatButtonProps, FloatButtonPlacement } from './FloatButton';
 export { BottomNav } from './BottomNav';

@@ -13,6 +13,8 @@ export type ArticleHeaderV2Props = ArticleHeaderProps;
  * Token-pure: scrim is `withAlpha(ramps.neutral[900], …)`, reversed text is
  * `ramps.neutral[50]`. With no cover image it degrades to a centered header on
  * the normal surface with on-surface text.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV2}, not
+ * the base one, because an app that picks V2 picks it for every surface it sees.
  */
 export declare function ArticleHeaderV2({ title, deck, category, coverImageUrl, author, date, readingTime, variant, loading, style, }: ArticleHeaderV2Props): React.ReactElement;
 //# sourceMappingURL=ArticleHeaderV2.d.ts.map

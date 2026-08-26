@@ -38,16 +38,26 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
 const Icon_1 = require("../primitives/Icon");
-const GetStartedButton_1 = require("./GetStartedButton");
-const PlanSelector_1 = require("./PlanSelector");
+const Text_1 = require("../primitives/Text");
+const PlanSelectorV3_1 = require("./PlanSelectorV3");
+const TrialBanner_1 = require("./TrialBanner");
+const PaywallScreen_1 = require("./PaywallScreen");
 /**
- * PaywallScreen, redesigned (v3): a **compact upgrade sheet**. A tight title +
- * subtitle, a condensed inline value list, the {@link PlanSelector}, and the CTA
- * + dismiss — sized for a modal/bottom sheet rather than a full page. The
- * opposite of v2's hero paywall. Same props, token-only.
+ * PaywallScreen, redesigned (v3): the **compact** line. No hero panel — a small
+ * leading brand tile sits beside a left-aligned headline, the §8 rows run dense,
+ * and the tiers stack as {@link PlanSelectorV3} rows. Sized for a modal or
+ * bottom sheet rather than a full page; the CTA closes the sheet, which is the
+ * fold here, so the ask still never scrolls away (§5).
+ *
+ * `showHero` is honoured as an opt-*in* on this line (it defaults to off).
+ *
+ * The plan rows are the v3 selector, not the base one — an app that picks v3
+ * picks it for every surface it sees. {@link TrialBanner} has no alternate, so
+ * the base one is the whole line. Same props, token-only.
  */
-exports.PaywallScreenV3 = React.forwardRef(function PaywallScreenV3({ title, subtitle, valueProps = [], plans, selectedPlanId, onSelectPlan, billingPeriod = 'annual', onBillingPeriodChange, annualSavingsLabel, trial, ctaLabel = 'Start free trial', onSubscribe, loading = false, footnote, dismissLabel, onDismiss, className, ...rest }, ref) {
-    void trial;
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex flex-col gap-3 rounded-lg bg-surface p-5 shadow-sm', className), ...rest, children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h1", { className: "text-lg font-bold text-on-surface", children: title }), subtitle ? (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-muted", children: subtitle }) : null] }), valueProps.length > 0 ? ((0, jsx_runtime_1.jsx)("ul", { className: "flex flex-wrap gap-x-4 gap-y-1", children: valueProps.map((vp, i) => ((0, jsx_runtime_1.jsxs)("li", { className: "flex items-center gap-1 text-xs text-on-surface", children: [(0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: vp.icon ?? '✓', size: "xs", color: "primary" }), " ", vp.text] }, i))) })) : null, plans && plans.length > 0 ? ((0, jsx_runtime_1.jsx)(PlanSelector_1.PlanSelector, { plans: plans, selectedPlanId: selectedPlanId, onSelectPlan: onSelectPlan, billingPeriod: billingPeriod, onBillingPeriodChange: onBillingPeriodChange, annualSavingsLabel: annualSavingsLabel })) : null, (0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: ctaLabel, onClick: onSubscribe, loading: loading }), footnote ? (0, jsx_runtime_1.jsx)("p", { className: "text-center text-xs text-muted", children: footnote }) : null, dismissLabel && onDismiss ? ((0, jsx_runtime_1.jsx)("button", { type: "button", onClick: onDismiss, className: "text-center text-sm font-semibold text-muted", children: dismissLabel })) : null] }));
+exports.PaywallScreenV3 = React.forwardRef(function PaywallScreenV3({ title, subtitle, illustration, logoGlyph = '✦', showHero = false, features, featuresTitle, featureRail, valueFraming, valueProps = [], plans, selectedPlanId, onSelectPlan, billingPeriod = 'annual', onBillingPeriodChange, annualSavingsLabel, trial, ctaLabel = 'Start free trial', onSubscribe, loading = false, footnote, dismissLabel, onDismiss, className, ...rest }, ref) {
+    const rows = (0, PaywallScreen_1.toFeatureRows)(features, valueProps);
+    const framingRows = (0, PaywallScreen_1.toValueFramingRows)(valueFraming);
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex flex-col overflow-hidden rounded-[var(--xen-radius-lg)] bg-surface shadow-sm', className), ...rest, children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex flex-col gap-4 p-5", children: [trial ? ((0, jsx_runtime_1.jsx)(TrialBanner_1.TrialBanner, { title: trial.title, subtitle: trial.subtitle, daysLeft: trial.daysLeft })) : null, (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-4", children: [(0, jsx_runtime_1.jsx)("span", { className: (0, cn_1.cn)('flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[var(--xen-radius-lg)]', showHero ? 'bg-primary-50' : 'bg-primary'), children: illustration ?? ((0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: logoGlyph, size: "lg", color: showHero ? 'primary' : 'onPrimary' })) }), (0, jsx_runtime_1.jsxs)("span", { className: "flex min-w-0 flex-1 flex-col gap-1", children: [(0, jsx_runtime_1.jsx)("h1", { className: "text-xl font-bold leading-tight text-on-surface", children: title }), subtitle ? ((0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", tone: "muted", children: subtitle })) : null] })] }), (0, jsx_runtime_1.jsx)(PaywallScreen_1.PaywallFeatureRows, { rows: rows, heading: featuresTitle, rail: featureRail, dense: true }), (0, jsx_runtime_1.jsx)(PaywallScreen_1.PaywallFeatureRows, { rows: framingRows, heading: valueFraming?.title, dense: true }), plans && plans.length > 0 ? ((0, jsx_runtime_1.jsx)(PlanSelectorV3_1.PlanSelectorV3, { plans: plans, selectedPlanId: selectedPlanId, onSelectPlan: onSelectPlan, billingPeriod: billingPeriod, onBillingPeriodChange: onBillingPeriodChange, annualSavingsLabel: annualSavingsLabel })) : null] }), (0, jsx_runtime_1.jsx)(PaywallScreen_1.PaywallFooter, { ctaLabel: ctaLabel, onSubscribe: onSubscribe, loading: loading, footnote: footnote, dismissLabel: dismissLabel, onDismiss: onDismiss, sticky: false })] }));
 });
 //# sourceMappingURL=PaywallScreenV3.js.map

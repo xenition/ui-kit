@@ -1,0 +1,1 @@
+{"version":3,"file":"SignInScreenV3.d.ts","sourceRoot":"","sources":["../../../src/native/onboarding/SignInScreenV3.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAG/B,OAAO,EAAkB,KAAK,iBAAiB,EAAE,MAAM,gBAAgB,CAAC;AAExE,4EAA4E;AAC5E,MAAM,MAAM,mBAAmB,GAAG,iBAAiB,CAAC;AAEpD;;;;;;;;;;;;;;;;;GAiBG;AACH,wBAAgB,cAAc,CAAC,KAAK,EAAE,mBAAmB,GAAG,KAAK,CAAC,YAAY,CA4B7E"}

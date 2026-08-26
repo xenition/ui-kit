@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cn } from '../primitives/cn';
-import { CampaignProgress } from './CampaignProgress';
+import { CampaignProgressV3 } from './CampaignProgressV3';
 import type { CauseCardProps } from './CauseCard';
 
 /** Same public contract as {@link CauseCard} — a drop-in alternate design. */
@@ -11,6 +11,8 @@ export type CauseCardV3Props = CauseCardProps;
  * the title over a category·description line, and a thin progress meter beneath —
  * hairline-bordered for a dense causes list. The opposite of v2's cover hero.
  * Same props, token-only.
+ * Stays inside its own design line: the meter is {@link CampaignProgressV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 export const CauseCardV3 = React.forwardRef<HTMLDivElement, CauseCardV3Props>(function CauseCardV3(
   { title, description, imageUrl, imageAlt, category, raisedCents, goalCents, currency = 'USD', variant, onClick, loading = false, className, ...rest },
@@ -61,7 +63,7 @@ export const CauseCardV3 = React.forwardRef<HTMLDivElement, CauseCardV3Props>(fu
         {sub ? <p className="truncate text-xs text-muted">{sub}</p> : null}
         {hasGoal ? (
           <div className="mt-1">
-            <CampaignProgress raisedCents={raisedCents!} goalCents={goalCents!} currency={currency} hideAmounts />
+            <CampaignProgressV3 raisedCents={raisedCents!} goalCents={goalCents!} currency={currency} hideAmounts />
           </div>
         ) : null}
       </div>

@@ -32,7 +32,7 @@ function DishCardV2({ name, description, priceCents, currency = 'USD', imageUrl,
     if (loading) {
         return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityLabel: "Loading dish", style: containerStyle, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: '100%', height: 168, backgroundColor: tokens.ramps.neutral[200] } }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.sm, padding: tokens.spacing.md }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: { height: 14, width: '55%', borderRadius: tokens.radius.sm, backgroundColor: tokens.ramps.neutral[200] } }), (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { height: 12, width: '85%', borderRadius: tokens.radius.sm, backgroundColor: tokens.ramps.neutral[100] } })] })] }));
     }
-    const hero = ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { width: '100%', height: 168, backgroundColor: tokens.ramps.neutral[100] }, children: [imageUrl ? ((0, jsx_runtime_1.jsx)(react_native_1.Image, { source: { uri: imageUrl }, accessible: true, accessibilityLabel: name, resizeMode: "cover", style: { width: '100%', height: '100%' } })) : null, (0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+    const hero = ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { width: '100%', height: 168, backgroundColor: tokens.ramps.neutral[100] }, children: [imageUrl ? ((0, jsx_runtime_1.jsx)(react_native_1.Image, { source: { uri: imageUrl }, accessible: true, accessibilityLabel: name, resizeMode: "cover", style: { width: '100%', height: '100%' } })) : null, typeof priceCents === 'number' ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                     position: 'absolute',
                     left: tokens.spacing.sm,
                     bottom: tokens.spacing.sm,
@@ -40,7 +40,7 @@ function DishCardV2({ name, description, priceCents, currency = 'USD', imageUrl,
                     paddingVertical: tokens.spacing.xs,
                     borderRadius: tokens.radius.full,
                     backgroundColor: (0, color_1.withAlpha)(colors.surface, 0.92),
-                }, children: (0, jsx_runtime_1.jsx)(commerce_1.PriceTag, { cents: priceCents, currency: currency, formatMoney: formatMoney, size: "sm" }) }), soldOut ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                }, children: (0, jsx_runtime_1.jsx)(commerce_1.PriceTag, { cents: priceCents, currency: currency, formatMoney: formatMoney, size: "sm" }) })) : null, soldOut ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                     position: 'absolute',
                     top: tokens.spacing.sm,
                     left: tokens.spacing.sm,

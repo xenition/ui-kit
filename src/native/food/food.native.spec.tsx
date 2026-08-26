@@ -49,6 +49,21 @@ describe('DishCard (native)', () => {
     const allowed = tokenHexSet(SEED_LIGHT);
     renderedStyleHexes(root).forEach((hex) => expect(allowed.has(hex)).toBe(true));
   });
+
+  // A recipe, a saved dish, a menu line with no pricing: an absent price is a
+  // real state, not a zero. Rendering `$0.00` reads as "free" and is wrong.
+  it('omits the price entirely when priceCents is absent (unpriced dish)', () => {
+    const onAdd = jest.fn();
+    const { getByText, queryByText } = renderThemed(
+      <DishCard name="Grandma's ragu" description="Slow cooked" onAdd={onAdd} addLabel="Add" />,
+      SEED_LIGHT
+    );
+    expect(getByText("Grandma's ragu")).toBeTruthy();
+    expect(queryByText('$0.00')).toBeNull();
+    // Everything else on the card is untouched by the missing price.
+    fireEvent.press(getByText('Add'));
+    expect(onAdd).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('MenuSection (native)', () => {

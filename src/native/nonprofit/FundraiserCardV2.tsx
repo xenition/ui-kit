@@ -5,7 +5,7 @@ import { Avatar } from '../primitives/Avatar';
 import { Button } from '../primitives/Button';
 import { Icon } from '../primitives/Icon';
 import { shadow } from '../primitives/internal/elevation';
-import { CampaignProgress } from './CampaignProgress';
+import { CampaignProgressV2 } from './CampaignProgressV2';
 import { withAlpha } from './internal';
 import type { FundraiserCardProps } from './FundraiserCard';
 
@@ -16,9 +16,11 @@ export type FundraiserCardV2Props = FundraiserCardProps;
  * FundraiserCard — design variant **V2**: an **organizer-forward profile card**.
  * Instead of a cover photo up top, V2 leads with the organizer's identity — a
  * large avatar over a tinted banner, an "Organized by" line, the title, the
- * `CampaignProgress` meter (raised/goal in integer cents, divide-by-zero guarded
+ * progress meter (raised/goal in integer cents, divide-by-zero guarded
  * downstream), and donate / share actions. Floats on a drop shadow (no border).
  * Same props as {@link FundraiserCardProps}. Token-only.
+ * Stays inside its own design line: the meter is {@link CampaignProgressV2}, not
+ * the base one, because an app that picks V2 picks it for every surface it sees.
  */
 export function FundraiserCardV2({
   title,
@@ -72,7 +74,7 @@ export function FundraiserCardV2({
           {title}
         </Text>
 
-        <CampaignProgress raisedCents={raisedCents} goalCents={goalCents} currency={currency} donorCount={donorCount} />
+        <CampaignProgressV2 raisedCents={raisedCents} goalCents={goalCents} currency={currency} donorCount={donorCount} />
 
         <View style={{ flexDirection: 'row', gap: tokens.spacing.sm, marginTop: tokens.spacing.xs }}>
           <View style={{ flex: 1 }}>

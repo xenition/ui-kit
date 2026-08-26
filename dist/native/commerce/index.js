@@ -47,6 +47,9 @@ Object.defineProperty(exports, "OrderSummaryV3", { enumerable: true, get: functi
 Object.defineProperty(exports, "CheckoutSummaryV3", { enumerable: true, get: function () { return OrderSummaryV3_1.CheckoutSummaryV3; } });
 var StatusBadge_1 = require("./StatusBadge");
 Object.defineProperty(exports, "StatusBadge", { enumerable: true, get: function () { return StatusBadge_1.StatusBadge; } });
+// EmptyState is a primitive and now lives in `native/primitives`; `./EmptyState`
+// is the re-export that keeps the commerce entry point (and every existing
+// import of it) working.
 var EmptyState_1 = require("./EmptyState");
 Object.defineProperty(exports, "EmptyState", { enumerable: true, get: function () { return EmptyState_1.EmptyState; } });
 var GenerativeCover_1 = require("./GenerativeCover");
