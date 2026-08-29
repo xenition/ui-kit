@@ -23,7 +23,7 @@ design pattern.
 | ⚠️ **0.8.0** | V2/V3 composition fixed, but predates the 0.9.0 shell |
 | ❌ **0.7.0** | last touched at the V2/V3 rollout — **needs the pattern applied** |
 
-**42 of 53 modules are on ❌.** They have their alternate designs but not the shell, spacing or
+**40 of 53 modules are on ❌.** They have their alternate designs but not the shell, spacing or
 control-height rules from 0.9.0, so a vertical screen next to an onboarding screen does not yet read
 as the same app. The pattern to apply is in `ONBOARDING-DESIGN-SPEC.md`; the worked example is the
 `onboarding` module.
@@ -35,7 +35,7 @@ fixing them lifts everything), then the verticals you actually ship.
 
 ### `primitives` — 109 components · last updated **0.9.0** ✅
 
-**Progress: 90 / 109 upgraded.** ✅ = has a V4 on the current design pattern. ⬜ = still on the old design.
+**Progress: 109 / 109 upgraded.** ✅ = has a V4 on the current design pattern. ⬜ = still on the old design.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
@@ -43,16 +43,16 @@ fixing them lifts everything), then the verticals you actually ship.
 | 2 | `ActionSheet` | `V4` | ✅ |
 | 3 | `Alert` | `V4` | ✅ |
 | 4 | `AppShell` | `AppShellV4` | ✅ |
-| 5 | `AuthBrandTile` | — | ⬜ |
-| 6 | `AuthCard` | — | ⬜ |
-| 7 | `AuthDivider` | — | ⬜ |
-| 8 | `AuthField` | — | ⬜ |
-| 9 | `AuthHeading` | — | ⬜ |
-| 10 | `AuthProviderButton` | — | ⬜ |
-| 11 | `AuthStickyFooter` | — | ⬜ |
-| 12 | `AuthSubmitButton` | — | ⬜ |
-| 13 | `AuthSwitchFooter` | — | ⬜ |
-| 14 | `AuthTermsCard` | — | ⬜ |
+| 5 | `AuthBrandTile` | `AuthBrandTileV4` | ✅ |
+| 6 | `AuthCard` | `AuthCardV4` | ✅ |
+| 7 | `AuthDivider` | `AuthDividerV4` | ✅ |
+| 8 | `AuthField` | `AuthFieldV4` | ✅ |
+| 9 | `AuthHeading` | `AuthHeadingV4` | ✅ |
+| 10 | `AuthProviderButton` | `AuthProviderButtonV4` | ✅ |
+| 11 | `AuthStickyFooter` | `AuthStickyFooterV4` | ✅ |
+| 12 | `AuthSubmitButton` | `AuthSubmitButtonV4` | ✅ |
+| 13 | `AuthSwitchFooter` | `AuthSwitchFooterV4` | ✅ |
+| 14 | `AuthTermsCard` | `AuthTermsCardV4` | ✅ |
 | 15 | `AutoComplete` | `AutoCompleteV4` | ✅ |
 | 16 | `Avatar` | `AvatarV4` | ✅ |
 | 17 | `AvatarGroup` | `AvatarGroupV4` | ✅ |
@@ -83,18 +83,18 @@ fixing them lifts everything), then the verticals you actually ship.
 | 42 | `Eyebrow` | `EyebrowV4` | ✅ |
 | 43 | `Field` | `FieldV4` | ✅ |
 | 44 | `FloatButton` | `FloatButtonV4` | ✅ |
-| 45 | `ForgotPasswordForm` | — | ⬜ |
+| 45 | `ForgotPasswordForm` | `ForgotPasswordFormV4` | ✅ |
 | 46 | `Form` | `FormV4` | ✅ |
 | 47 | `GlassPanel` | — | ✅ |
 | 48 | `GradientText` | — | ✅ |
-| 49 | `Icon` | — | ⬜ |
+| 49 | `Icon` | `IconV4` | ✅ |
 | 50 | `Input` | `InputV4` | ✅ |
 | 51 | `JsonViewer` | `JsonViewerV4` | ✅ |
 | 52 | `Kanban` | `KanbanV4` | ✅ |
 | 53 | `Label` | `LabelV4` | ✅ |
 | 54 | `List` | `ListV4` | ✅ |
 | 55 | `LoadingOverlay` | `V4` | ✅ |
-| 56 | `LoginForm` | — | ⬜ |
+| 56 | `LoginForm` | `LoginFormV4` | ✅ |
 | 57 | `Menu` | `MenuV4` | ✅ |
 | 58 | `MessageList` | `MessageListV4` | ✅ |
 | 59 | `Modal` | `V4` | ✅ |
@@ -117,7 +117,7 @@ fixing them lifts everything), then the verticals you actually ship.
 | 76 | `Segmented` | `SegmentedV4` | ✅ |
 | 77 | `Select` | `SelectV4` | ✅ |
 | 78 | `Sidebar` | `SidebarV4` | ✅ |
-| 79 | `SignupForm` | — | ⬜ |
+| 79 | `SignupForm` | `SignupFormV4` | ✅ |
 | 80 | `Skeleton` | `V4` | ✅ |
 | 81 | `Slider` | `SliderV4` | ✅ |
 | 82 | `Spinner` | `V4` | ✅ |
@@ -126,18 +126,18 @@ fixing them lifts everything), then the verticals you actually ship.
 | 85 | `Statistic` | `StatisticV4` | ✅ |
 | 86 | `StatusDot` | `V4` | ✅ |
 | 87 | `StatusMessage` | `V4` | ✅ |
-| 88 | `StepList` | — | ⬜ |
+| 88 | `StepList` | `StepListV4` | ✅ |
 | 89 | `Steps` | `StepsV4` | ✅ |
 | 90 | `Switch` | `SwitchV4` | ✅ |
 | 91 | `Table` | `TableV4` | ✅ |
 | 92 | `Tabs` | `TabsV4` | ✅ |
 | 93 | `Tag` | `TagV4` | ✅ |
 | 94 | `TagInput` | `TagInputV4` | ✅ |
-| 95 | `Text` | — | ⬜ |
+| 95 | `Text` | `TextV4` | ✅ |
 | 96 | `Textarea` | `TextareaV4` | ✅ |
 | 97 | `TimePicker` | `TimePickerV4` | ✅ |
 | 98 | `Timeline` | `TimelineV4` | ✅ |
-| 99 | `ToastProvider` | — | ⬜ |
+| 99 | `ToastProvider` | `ToastProviderV4` | ✅ |
 | 100 | `ToggleGroup` | `ToggleGroupV4` | ✅ |
 | 101 | `Toolbar` | `ToolbarV4` | ✅ |
 | 102 | `Tooltip` | `TooltipV4` | ✅ |
@@ -146,52 +146,58 @@ fixing them lifts everything), then the verticals you actually ship.
 | 105 | `VirtualList` | `VirtualListV4` | ✅ |
 | 106 | `Watermark` | `WatermarkV4` | ✅ |
 | 107 | `Wordmark` | `WordmarkV4` | ✅ |
-| 108 | `XenitionNativeThemeProvider` | — | ⬜ |
-| 109 | `XenitionUIProvider` | — | ⬜ |
+| 108 | `XenitionNativeThemeProvider` | `XenitionNativeThemeProviderV4` | ✅ |
+| 109 | `XenitionUIProvider` | `XenitionUIProviderV4` | ✅ |
 
 *helpers:* `AUTH_CONTROL_HEIGHT`, `AUTH_DEFAULT_TERMS_LINKS`, `AUTH_TAP_TARGET`, `ICON_GLYPHS`, `formatMoney`, `isIconName`, `resolveIconGlyph`, `useForm`, `useReducedMotion`, `useToast`, `useXenitionTheme`
 
-### `layout` — 16 components · last updated **0.7.0** ❌
+### `layout` — 18 components · last updated **0.7.0** ✅
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `AspectRatio` | — | ⬜ |
-| 2 | `Bleed` | — | ⬜ |
-| 3 | `Center` | — | ⬜ |
-| 4 | `Column` | — | ⬜ |
-| 5 | `Container` | — | ⬜ |
-| 6 | `Divider` | — | ⬜ |
-| 7 | `Flex` | — | ⬜ |
-| 8 | `Grid` | — | ⬜ |
-| 9 | `Inset` | — | ⬜ |
-| 10 | `KeyboardAvoider` | — | ⬜ |
-| 11 | `ListSeparator` | — | ⬜ |
-| 12 | `PageHeader` | — | ⬜ |
-| 13 | `Row` | — | ⬜ |
-| 14 | `ScrollArea` | — | ⬜ |
-| 15 | `Section` | — | ⬜ |
-| 16 | `Spacer` | — | ⬜ |
+| 1 | `AspectRatio` | `AspectRatioV4` | ✅ |
+| 2 | `Bleed` | `BleedV4` | ✅ |
+| 3 | `Center` | `CenterV4` | ✅ |
+| 4 | `Cluster` | `ClusterV4` | ✅ |
+| 5 | `Column` | `ColumnV4` | ✅ |
+| 6 | `Container` | `ContainerV4` | ✅ |
+| 7 | `Divider` | `DividerV4` | ✅ |
+| 8 | `Flex` | `FlexV4` | ✅ |
+| 9 | `Grid` | `GridV4` | ✅ |
+| 10 | `Inset` | `InsetV4` | ✅ |
+| 11 | `KeyboardAvoider` | `KeyboardAvoiderV4` | ✅ |
+| 12 | `ListSeparator` | `ListSeparatorV4` | ✅ |
+| 13 | `PageHeader` | `PageHeaderV4` | ✅ |
+| 14 | `Row` | `RowV4` | ✅ |
+| 15 | `ScrollArea` | `ScrollAreaV4` | ✅ |
+| 16 | `Section` | `SectionV4` | ✅ |
+| 17 | `Spacer` | `SpacerV4` | ✅ |
+| 18 | `Sticky` | `StickyV4` | ✅ |
 
-### `dashboard` — 16 components · last updated **0.8.0** ⚠️
+*Four are single-platform, matching their bases:* `Cluster` and `Sticky` are web
+only (`position: sticky` has no native equivalent); `KeyboardAvoider` and
+`ListSeparator` are native only. The other fourteen are twinned.
+
+### `dashboard` — 16 components · last updated **0.8.0** ✅
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `ActivityFeed` | — | ⬜ |
-| 2 | `EmptyDashboard` | — | ⬜ |
-| 3 | `FilterChips` | — | ⬜ |
-| 4 | `KpiRow` | — | ⬜ |
-| 5 | `ListRow` | — | ⬜ |
-| 6 | `MetricTile` | — | ⬜ |
-| 7 | `NotificationItem` | — | ⬜ |
-| 8 | `OnboardingChecklist` | — | ⬜ |
-| 9 | `PageContainer` | — | ⬜ |
-| 10 | `ProfileHeader` | — | ⬜ |
-| 11 | `QuickActions` | — | ⬜ |
-| 12 | `SearchHeader` | — | ⬜ |
-| 13 | `SectionCard` | — | ⬜ |
-| 14 | `SettingsRow` | — | ⬜ |
-| 15 | `SettingsSection` | — | ⬜ |
-| 16 | `StatCard` | — | ⬜ |
+| 1 | `ActivityFeed` | `ActivityFeedV4` | ✅ |
+| 2 | `EmptyDashboard` | `EmptyDashboardV4` | ✅ |
+| 3 | `FilterChips` | `FilterChipsV4` | ✅ |
+| 4 | `KpiRow` | `KpiRowV4` | ✅ |
+| 5 | `ListRow` | `ListRowV4` | ✅ |
+| 6 | `MetricTile` | `MetricTileV4` | ✅ |
+| 7 | `NotificationItem` | `NotificationItemV4` | ✅ |
+| 8 | `OnboardingChecklist` | `OnboardingChecklistV4` | ✅ |
+| 9 | `PageContainer` | `PageContainerV4` | ✅ |
+| 10 | `ProfileHeader` | `ProfileHeaderV4` | ✅ |
+| 11 | `QuickActions` | `QuickActionsV4` | ✅ |
+| 12 | `SearchHeader` | `SearchHeaderV4` | ✅ |
+| 13 | `SectionCard` | `SectionCardV4` | ✅ |
+| 14 | `SettingsRow` | `SettingsRowV4` | ✅ |
+| 15 | `SettingsSection` | `SettingsSectionV4` | ✅ |
+| 16 | `StatCard` | `StatCardV4` | ✅ |
 
 ### `charts` — 20 components · last updated **0.7.0** ❌
 
@@ -258,7 +264,7 @@ fixing them lifts everything), then the verticals you actually ship.
 | 4 | `EmptyState` | — | ⬜ |
 | 5 | `GenerativeCover` | — | ⬜ |
 | 6 | `OrderSummary` | `OrderSummaryV2` · `OrderSummaryV3` | ⬜ |
-| 7 | `PriceTag` | — | ⬜ |
+| 7 | `PriceTag` | `PriceTagV4` | ✅ |
 | 8 | `ProductCard` | `ProductCardV2` · `ProductCardV3` | ⬜ |
 | 9 | `ProductGrid` | — | ⬜ |
 | 10 | `QuantityStepper` | — | ⬜ |

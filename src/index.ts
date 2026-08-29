@@ -24,3 +24,5 @@ export * from './theme';
 export * from './primitives';
 export { XenitionUIProvider, useXenitionCompiledTheme, isCompiledTheme } from './provider';
 export type { XenitionUIProviderProps } from './provider';
+export { XenitionUIProviderV4, V4_SHARED_SHEETS } from './XenitionUIProviderV4';
+export type { XenitionUIProviderV4Props } from './XenitionUIProviderV4';

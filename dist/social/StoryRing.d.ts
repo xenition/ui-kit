@@ -24,5 +24,5 @@ export interface StoryRingProps {
  * variant renders a dashed ring with a `+` for the viewer's own tile. Web
  * parity of the native `StoryRing`; token-only.
  */
-export declare const StoryRing: React.ForwardRefExoticComponent<StoryRingProps & React.RefAttributes<HTMLButtonElement | HTMLDivElement>>;
+export declare const StoryRing: React.ForwardRefExoticComponent<StoryRingProps & React.RefAttributes<HTMLDivElement | HTMLButtonElement>>;
 //# sourceMappingURL=StoryRing.d.ts.map

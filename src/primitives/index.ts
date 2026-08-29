@@ -142,6 +142,8 @@ export { EmptyStateV4 } from './EmptyStateV4';
 export type { EmptyStateV4Props } from './EmptyStateV4';
 export { ToastProvider, useToast } from './Toast';
 export type { ToastOptions, ToastTone } from './Toast';
+export { ToastProviderV4 } from './ToastProviderV4';
+export type { ToastProviderV4Props } from './ToastProviderV4';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps, TooltipSide } from './Tooltip';
 // V4 design line — same props as `Tooltip`, a different design.
@@ -222,6 +224,8 @@ export type { StepsV4Props } from './StepsV4';
 // "where am I in this flow" vs "here are the instructions".
 export { StepList } from './StepList';
 export type { StepListProps, StepListItem } from './StepList';
+export { StepListV4, RAIL_MIN_ROWS } from './StepListV4';
+export type { StepListV4Props, StepListV4Item } from './StepListV4';
 export { RadioGroup } from './RadioGroup';
 export type { RadioGroupProps, RadioOption } from './RadioGroup';
 // V4 design line — same props as `RadioGroup`, a different design.
@@ -282,6 +286,32 @@ export type {
   AuthTermsCardProps,
   AuthTermsLink,
 } from './AuthCard';
+export { AuthFieldV4 } from './AuthFieldV4';
+export type { AuthFieldV4Props } from './AuthFieldV4';
+export { AuthTermsCardV4 } from './AuthTermsCardV4';
+export type { AuthTermsCardV4Props, AuthTermsCardV4Align } from './AuthTermsCardV4';
+export { AuthSwitchFooterV4 } from './AuthSwitchFooterV4';
+export type { AuthSwitchFooterV4Props, AuthSwitchTone } from './AuthSwitchFooterV4';
+export { AuthStickyFooterV4 } from './AuthStickyFooterV4';
+export type { AuthStickyFooterV4Props } from './AuthStickyFooterV4';
+export { AuthSubmitButtonV4, AUTH_SUBMIT_HEIGHT_V4 } from './AuthSubmitButtonV4';
+export type { AuthSubmitButtonV4Props } from './AuthSubmitButtonV4';
+export { AuthDividerV4 } from './AuthDividerV4';
+export type { AuthDividerV4Props, AuthDividerV4Align } from './AuthDividerV4';
+export { AuthProviderButtonV4 } from './AuthProviderButtonV4';
+export type { AuthProviderButtonV4Props } from './AuthProviderButtonV4';
+export { AuthBrandTileV4 } from './AuthBrandTileV4';
+export type { AuthBrandTileV4Props, AuthBrandTileSize, AuthBrandTileShape } from './AuthBrandTileV4';
+export { AuthHeadingV4 } from './AuthHeadingV4';
+export type { AuthHeadingV4Props } from './AuthHeadingV4';
+export { AuthCardV4 } from './AuthCardV4';
+export type { AuthCardV4Props, AuthCardWidth } from './AuthCardV4';
+export { ForgotPasswordFormV4 } from './ForgotPasswordFormV4';
+export type { ForgotPasswordFormV4Props } from './ForgotPasswordFormV4';
+export { SignupFormV4 } from './SignupFormV4';
+export type { SignupFormV4Props, SignupProviderV4 } from './SignupFormV4';
+export { LoginFormV4 } from './LoginFormV4';
+export type { LoginFormV4Props, LoginProviderV4 } from './LoginFormV4';
 export { LoginForm } from './LoginForm';
 export type { LoginFormProps, LoginValues } from './LoginForm';
 export { SignupForm } from './SignupForm';
@@ -401,8 +431,12 @@ export type { ColorPickerV4Props } from './ColorPickerV4';
 // instead of a hand-assembled class string. A raw `fontSize` in an app is a bug.
 export { Text } from './Text';
 export type { TextProps, TextSize, TextTone, TextWeight, TextAlign } from './Text';
+export { TextV4 } from './TextV4';
+export type { TextV4Props, TextV4Face, TextV4Numeric } from './TextV4';
 export { Icon } from './Icon';
 export type { IconProps, IconSize, IconColor } from './Icon';
+export { IconV4 } from './IconV4';
+export type { IconV4Props, IconBadge, IconBadgeShape } from './IconV4';
 // The named icon set behind `Icon`'s `name` — a stable semantic vocabulary so
 // two screens never pick different glyphs for the same idea.
 export { ICON_GLYPHS, isIconName, resolveIconGlyph } from './icon-names';

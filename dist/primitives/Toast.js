@@ -33,16 +33,26 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToastContext = void 0;
 exports.useToast = useToast;
 exports.ToastProvider = ToastProvider;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_dom_1 = require("react-dom");
 const cn_1 = require("./cn");
-const ToastContext = React.createContext(null);
+/**
+ * The one toast context in the kit.
+ *
+ * Exported so `ToastProviderV4` can provide THIS context rather than declaring
+ * a second one. Two contexts for one API is not a styling difference — every
+ * component already calling `useToast()` would read this one, find nothing, and
+ * throw. Deliberately kept out of the package barrel: it is shared with the V4
+ * twin, not part of the public surface.
+ */
+exports.ToastContext = React.createContext(null);
 /** Access the toast API. Must be used within a `<ToastProvider>`. */
 function useToast() {
-    const ctx = React.useContext(ToastContext);
+    const ctx = React.useContext(exports.ToastContext);
     if (!ctx)
         throw new Error('useToast must be used within <ToastProvider>.');
     return ctx;
@@ -73,7 +83,7 @@ function ToastProvider({ children }) {
         return id;
     }, [dismiss]);
     const value = React.useMemo(() => ({ toast, dismiss }), [toast, dismiss]);
-    return ((0, jsx_runtime_1.jsxs)(ToastContext.Provider, { value: value, children: [children, typeof document !== 'undefined' &&
+    return ((0, jsx_runtime_1.jsxs)(exports.ToastContext.Provider, { value: value, children: [children, typeof document !== 'undefined' &&
                 (0, react_dom_1.createPortal)((0, jsx_runtime_1.jsx)("div", { className: "pointer-events-none fixed inset-x-0 top-4 z-[100] flex flex-col items-center gap-2 px-4", children: items.map((t) => ((0, jsx_runtime_1.jsxs)("div", { role: "status", className: (0, cn_1.cn)('pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-[var(--xen-radius-md)]', 'border-l-4 bg-surface p-3 shadow-lg', TONE[t.tone ?? 'info']), children: [(0, jsx_runtime_1.jsxs)("div", { className: "min-w-0 flex-1", children: [t.title != null && ((0, jsx_runtime_1.jsx)("div", { className: "text-sm font-semibold text-on-surface", children: t.title })), t.description != null && ((0, jsx_runtime_1.jsx)("div", { className: "text-sm text-muted", children: t.description }))] }), (0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Dismiss", onClick: () => dismiss(t.id), className: "shrink-0 text-muted transition-colors hover:text-on-surface", children: "\u00D7" })] }, t.id))) }), document.body)] }));
 }
 //# sourceMappingURL=Toast.js.map
