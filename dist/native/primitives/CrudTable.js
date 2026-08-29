@@ -106,13 +106,15 @@ function CrudTable({ title, columns, rows, fields, getId, onCreate, onUpdate, on
     const actionsCol = {
         key: '__actions',
         header: '',
-        render: (row) => ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'flex-end', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "ghost", onPress: () => openEdit(row), children: "Edit" }), (0, jsx_runtime_1.jsx)(Popconfirm_1.Popconfirm, { trigger: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
-                            color: colors.dangerText,
-                            fontSize: tokens.typography.scale.sm,
-                            fontWeight: '600',
-                            paddingHorizontal: tokens.spacing.sm,
-                            paddingVertical: tokens.spacing.xs,
-                        }, children: "Delete" }), message: "Delete this item?", confirmLabel: "Delete", onConfirm: () => onDelete(getId(row)) })] })),
+        render: (row) => ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'flex-end', gap: tokens.spacing.sm }, children: [(0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "ghost", onPress: () => openEdit(row), children: "Edit" }), (0, jsx_runtime_1.jsx)(Popconfirm_1.Popconfirm, { trigger: 
+                    // A real Button, matching the web twin. This used to be a styled
+                    // `<Text>` — the only way to get the tap through while Popconfirm
+                    // wrapped its trigger in a `Pressable` that a Button would have
+                    // swallowed. That is fixed (Popconfirm clones the trigger now), so
+                    // the workaround goes and the twins render the same control: a ghost
+                    // button in the danger tone, which reads as a control instead of as
+                    // red text that happens to be tappable.
+                    (0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "ghost", tone: "danger", children: "Delete" }), message: "Delete this item?", confirmLabel: "Delete", onConfirm: () => onDelete(getId(row)) })] })),
     };
     return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.lg }, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
                     flexDirection: 'row',

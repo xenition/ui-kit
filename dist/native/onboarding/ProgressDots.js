@@ -38,30 +38,57 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
+/** Dot diameter per size — geometric, not a spacing token (spec §10.1). */
 const DOT = { sm: 6, md: 8 };
+/** Segment thickness for `'bars'` — geometric, same rule as {@link DOT}. */
+const BAR = { sm: 4, md: 6 };
 /**
- * Paged-progress indicator — a row of token-bound dots where the active step is
- * a widened "pill" in the primary color and the rest are muted. Shared by
- * {@link OnboardingSlides}, {@link WelcomeScreen} and the paywall flow so every
- * screen advertises its position identically. Dots are decorative unless
- * `onDotPress` is supplied, in which case each becomes a labelled button. Guards
- * an empty/negative `count`. No literal colors.
+ * Paged-progress indicator — two treatments of the same idea, chosen with
+ * `variant`.
+ *
+ * `'dots'` (the default, and everything that shipped before this prop existed)
+ * is a slide-position indicator: a row of token-bound dots where the active
+ * step is a widened "pill" in the primary color and the rest are muted.
+ *
+ * `'bars'` is the onboarding step indicator the design spec calls for (§2):
+ * equal-width segments spanning the header, filled up to and including the
+ * current step, `radius.full`, `spacing.xs` apart. It carries no numbers and no
+ * captions on purpose — the numbered circles it replaces were the single worst
+ * offender on the shipped screens, cramped at the top with labels too small to
+ * read.
+ *
+ * Both treatments are decorative unless `onDotPress` is supplied, in which case
+ * each step becomes a labelled button. An empty or negative `count` renders an
+ * empty row rather than crashing, and a `count` of one renders a single full
+ * bar. No literal colors.
  */
-function ProgressDots({ count, activeIndex, size = 'md', onDotPress, accessibilityLabel, style, }) {
+function ProgressDots({ count, activeIndex, size = 'md', variant = 'dots', onDotPress, accessibilityLabel, style, }) {
     const { colors, tokens } = (0, theme_1.useXenitionTheme)();
     const total = Math.max(0, Math.floor(count));
-    const d = DOT[size];
-    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "progressbar", accessibilityValue: { min: 0, max: Math.max(0, total - 1), now: activeIndex }, accessibilityLabel: accessibilityLabel ?? `Step ${Math.min(activeIndex + 1, total)} of ${total}`, style: [{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs }, style], children: Array.from({ length: total }, (_, i) => {
+    const bars = variant === 'bars';
+    const thickness = bars ? BAR[size] : DOT[size];
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityRole: "progressbar", accessibilityValue: { min: 0, max: Math.max(0, total - 1), now: activeIndex }, accessibilityLabel: accessibilityLabel ?? `Step ${Math.min(activeIndex + 1, total)} of ${total}`, style: [
+            { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs },
+            bars ? { alignSelf: 'stretch' } : null,
+            style,
+        ], children: Array.from({ length: total }, (_, i) => {
             const active = i === activeIndex;
-            const dot = ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
-                    width: active ? d * 2.5 : d,
-                    height: d,
+            // In `'bars'` a step already walked past stays filled — the bar reads as
+            // "how far through am I", not "which one is selected".
+            const filled = bars ? i <= activeIndex : active;
+            const segment = ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                    // Bars share the row equally; dots keep their fixed diameter and
+                    // the active one stretches into a pill.
+                    width: bars ? undefined : active ? thickness * 2.5 : thickness,
+                    alignSelf: bars ? 'stretch' : undefined,
+                    height: thickness,
                     borderRadius: tokens.radius.full,
-                    backgroundColor: active ? colors.primary : colors.border,
+                    backgroundColor: filled ? colors.primary : colors.border,
                 } }));
-            if (!onDotPress)
-                return (0, jsx_runtime_1.jsx)(React.Fragment, { children: dot }, i);
-            return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `Go to step ${i + 1}`, accessibilityState: { selected: active }, hitSlop: tokens.spacing.sm, onPress: () => onDotPress(i), children: dot }, i));
+            if (!onDotPress) {
+                return bars ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { flex: 1 }, children: segment }, i)) : ((0, jsx_runtime_1.jsx)(React.Fragment, { children: segment }, i));
+            }
+            return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", accessibilityLabel: `Go to step ${i + 1}`, accessibilityState: { selected: active }, hitSlop: tokens.spacing.sm, onPress: () => onDotPress(i), style: bars ? { flex: 1 } : undefined, children: segment }, i));
         }) }));
 }
 //# sourceMappingURL=ProgressDots.js.map

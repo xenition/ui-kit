@@ -39,7 +39,19 @@ const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
 const Card_1 = require("../primitives/Card");
 const Icon_1 = require("../primitives/Icon");
+const Text_1 = require("../primitives/Text");
 const GetStartedButton_1 = require("./GetStartedButton");
+/*
+  Geometry, not theme. ONBOARDING-DESIGN-SPEC §10 allows exactly these bare
+  numbers: 44 (`h-11`) — the minimum tap target for a header control or a text
+  link (§7) and the diameter of a feature-row badge (§8) — and the medallion
+  diameters below. Every colour, radius, gap and font size here is a token class.
+*/
+const TAP_TARGET_CLASS = 'min-h-11';
+/** The card form's medallion — unchanged from the original screen. */
+const MEDALLION_CLASS = 'h-[72px] w-[72px]';
+/** The full-screen form's medallion, sized to fill the hero panel (§3). */
+const HERO_MEDALLION_CLASS = 'h-[88px] w-[88px]';
 const KIND_GLYPH = {
     notifications: '🔔',
     location: '📍',
@@ -52,14 +64,33 @@ const KIND_GLYPH = {
 /**
  * Contextual permission pre-prompt — the in-app "explain, then ask" screen that
  * precedes the real OS/browser dialog so the system prompt only fires once the
- * user has already said yes (design.md §17). Renders a rationale, an
- * `Allow`/`Not now` pair, and reflects `requesting`/`granted`/`denied` states
- * (granted shows a success line in a polite live region; denied shows a recovery
- * hint). Colors come from the success and primary tokens. No literal colors.
+ * user has already said yes (design.md §17). **This screen must never trigger a
+ * permission dialog on mount**: `onAllow` is what the host hangs the real
+ * request on, and it fires only from a deliberate click.
+ *
+ * Two forms, one set of props. By default it is the inline **card** it has
+ * always been — for a settings list, a sheet, a mid-flow nudge. With
+ * `fullScreen` it becomes a step screen in the shell from
+ * `ONBOARDING-DESIGN-SPEC.md` §1: header (back · progress · dismiss), hero slot,
+ * centred headline block, benefit rows, and the sticky CTA footer with the
+ * decline link beneath — never beside — the primary action.
+ *
+ * Reflects `requesting`/`granted`/`denied` (granted replaces the actions with a
+ * success line in a polite live region; denied keeps them and adds the recovery
+ * hint). Every new prop is optional. No literal colors.
  */
-exports.PermissionPrompt = React.forwardRef(function PermissionPrompt({ kind = 'generic', icon, title, rationale, allowLabel = 'Allow', denyLabel = 'Not now', onAllow, onDeny, state = 'idle', deniedMessage = 'You can enable this later in Settings.', className, ...rest }, ref) {
+exports.PermissionPrompt = React.forwardRef(function PermissionPrompt({ kind = 'generic', icon, title, rationale, allowLabel = 'Allow', denyLabel = 'Not now', onAllow, onDeny, state = 'idle', deniedMessage = 'You can enable this later in Settings.', fullScreen = false, illustration, benefits = [], progress, onBack, onDismiss, grantedMessage = "You're all set.", className, ...rest }, ref) {
     const glyph = icon ?? KIND_GLYPH[kind];
     const granted = state === 'granted';
-    return ((0, jsx_runtime_1.jsxs)(Card_1.Card, { ref: ref, className: (0, cn_1.cn)('flex flex-col items-center gap-3 text-center', className), ...rest, children: [(0, jsx_runtime_1.jsx)("div", { className: (0, cn_1.cn)('flex h-[72px] w-[72px] items-center justify-center rounded-full', granted ? 'bg-success' : 'bg-primary'), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: granted ? '✓' : glyph, size: "2xl", color: granted ? 'onSuccess' : 'onPrimary' }) }), (0, jsx_runtime_1.jsx)("h2", { className: "text-xl font-bold text-on-surface", children: title }), (0, jsx_runtime_1.jsx)("p", { className: "text-base leading-relaxed text-muted", children: rationale }), granted ? ((0, jsx_runtime_1.jsx)("p", { "aria-live": "polite", className: "text-sm font-semibold text-success", children: "You're all set." })) : ((0, jsx_runtime_1.jsxs)("div", { className: "mt-1 flex w-full flex-col gap-2", children: [(0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: allowLabel, loading: state === 'requesting', onClick: onAllow }), (0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": denyLabel, onClick: onDeny, className: "py-2 text-center text-base font-medium text-muted", children: denyLabel }), state === 'denied' ? ((0, jsx_runtime_1.jsx)("p", { "aria-live": "polite", className: "text-center text-sm text-muted", children: deniedMessage })) : null] }))] }));
+    const showHeader = fullScreen && (onBack != null || onDismiss != null || progress != null);
+    const medallion = (sizeClass) => ((0, jsx_runtime_1.jsx)("span", { className: (0, cn_1.cn)('flex items-center justify-center rounded-full', sizeClass, granted ? 'bg-success' : 'bg-primary'), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: granted ? '✓' : glyph, size: "2xl", color: granted ? 'onSuccess' : 'onPrimary' }) }));
+    const headline = ((0, jsx_runtime_1.jsxs)("div", { className: "flex flex-col gap-sm", children: [(0, jsx_runtime_1.jsx)("h2", { children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "2xl", weight: "bold", tone: "onSurface", align: "center", numberOfLines: 2, className: "block", children: title }) }), (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", tone: "muted", align: "center", className: "block", children: rationale })] }));
+    const rows = benefits.length > 0 ? ((0, jsx_runtime_1.jsx)("ul", { className: "flex flex-col gap-md", children: benefits.map((benefit) => ((0, jsx_runtime_1.jsxs)("li", { className: "flex items-center gap-md text-left", children: [(0, jsx_runtime_1.jsx)("span", { className: "flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-50", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: benefit.icon ?? '✓', size: "base", color: "primary" }) }), (0, jsx_runtime_1.jsxs)("span", { className: "flex min-w-0 flex-1 flex-col gap-xs", children: [(0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", weight: "semibold", tone: "onSurface", children: benefit.title }), benefit.description ? ((0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", tone: "muted", children: benefit.description })) : null] })] }, benefit.id))) })) : null;
+    const grantedLine = ((0, jsx_runtime_1.jsxs)("p", { "aria-live": "polite", className: "flex items-center justify-center gap-xs", children: [(0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "check", size: "sm", color: "success" }), (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", weight: "semibold", tone: "successText", children: grantedMessage })] }));
+    const actions = ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: allowLabel, trailingArrow: false, loading: state === 'requesting', onClick: onAllow }), (0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": denyLabel, onClick: onDeny, className: (0, cn_1.cn)('flex items-center justify-center text-center', TAP_TARGET_CLASS), children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", weight: "medium", tone: "muted", children: denyLabel }) }), state === 'denied' ? ((0, jsx_runtime_1.jsxs)("p", { "aria-live": "polite", className: "flex items-center justify-center gap-xs", children: [(0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "info", size: "sm", color: "muted" }), (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", tone: "muted", align: "center", children: deniedMessage })] })) : null] }));
+    if (!fullScreen) {
+        return ((0, jsx_runtime_1.jsxs)(Card_1.Card, { ref: ref, className: (0, cn_1.cn)('flex flex-col gap-md text-center', className), ...rest, children: [(0, jsx_runtime_1.jsx)("div", { className: "flex justify-center", children: medallion(MEDALLION_CLASS) }), headline, rows, granted ? grantedLine : (0, jsx_runtime_1.jsx)("div", { className: "mt-xs flex w-full flex-col gap-sm", children: actions })] }));
+    }
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex min-h-full flex-col gap-lg bg-surface', className), ...rest, children: [showHeader ? ((0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-sm", children: [onBack ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Back", onClick: onBack, className: "flex h-11 w-11 items-center justify-center", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "chevron-left", size: "xl", color: "onSurface" }) })) : ((0, jsx_runtime_1.jsx)("span", { className: "h-11 w-11" })), (0, jsx_runtime_1.jsx)("div", { className: "flex flex-1 justify-center", children: progress }), onDismiss ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Dismiss", onClick: onDismiss, className: "flex h-11 w-11 items-center justify-center", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "close", size: "lg", color: "muted" }) })) : ((0, jsx_runtime_1.jsx)("span", { className: "h-11 w-11" }))] })) : null, (0, jsx_runtime_1.jsx)("div", { className: "flex aspect-[4/3] max-h-[38vh] items-center justify-center overflow-hidden rounded-[var(--xen-radius-lg)] bg-primary-50 p-lg", children: illustration ?? medallion(HERO_MEDALLION_CLASS) }), headline, rows, (0, jsx_runtime_1.jsx)("div", { className: "mt-auto flex flex-col gap-sm border-t border-border bg-surface pb-lg pt-md", children: granted ? grantedLine : actions })] }));
 });
 //# sourceMappingURL=PermissionPrompt.js.map

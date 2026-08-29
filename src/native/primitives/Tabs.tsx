@@ -10,7 +10,16 @@ export interface TabItem {
 export interface TabsProps {
   items: TabItem[];
   value: string;
-  onValueChange: (value: string) => void;
+  /**
+   * Fires with the value of the tab that was pressed. Prefer `onChange` — that
+   * is the kit's one canonical name for "the value changed". `onValueChange` is
+   * this component's original spelling, kept so existing callers keep working;
+   * if both are passed this one wins. One of the two is required in practice —
+   * both are optional in the type so either spelling satisfies it on its own.
+   */
+  onValueChange?: (value: string) => void;
+  /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+  onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -19,8 +28,17 @@ export interface TabsProps {
  * `Pressable` tabs with a token-bound active underline; render the active panel
  * yourself based on `value`. No literal colors.
  */
-export function Tabs({ items, value, onValueChange, style }: TabsProps): React.ReactElement {
+export function Tabs({
+  items,
+  value,
+  onValueChange,
+  onChange,
+  style,
+}: TabsProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onValueChange ?? onChange;
   return (
     <View
       accessibilityRole="tablist"
@@ -36,7 +54,7 @@ export function Tabs({ items, value, onValueChange, style }: TabsProps): React.R
             key={it.value}
             accessibilityRole="tab"
             accessibilityState={{ selected: active }}
-            onPress={() => onValueChange(it.value)}
+            onPress={() => emit?.(it.value)}
             style={{
               paddingHorizontal: tokens.spacing.lg,
               paddingVertical: tokens.spacing.sm,

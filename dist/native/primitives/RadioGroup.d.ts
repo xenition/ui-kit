@@ -10,8 +10,15 @@ export interface RadioGroupProps {
     options: RadioOption[];
     /** Controlled selected value. */
     value: string;
-    /** Fires with the chosen option's value (web `onChange`, renamed for native). */
+    /**
+     * Fires with the chosen option's value. Prefer `onChange` — that is the kit's
+     * one canonical name for "the value changed", and what the web twin has
+     * always called this. `onValueChange` is the original native spelling, kept
+     * so existing callers keep working; if both are passed this one wins.
+     */
     onValueChange?: (value: string) => void;
+    /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+    onChange?: (value: string) => void;
     /** Accepted for web parity; native has no form-name semantics (no-op). */
     name?: string;
     orientation?: 'vertical' | 'horizontal';
@@ -22,5 +29,5 @@ export interface RadioGroupProps {
  * token-bound `Pressable` row per option with a filled dot for the selection.
  * No literal colors.
  */
-export declare function RadioGroup({ options, value, onValueChange, orientation, style, }: RadioGroupProps): React.ReactElement;
+export declare function RadioGroup({ options, value, onValueChange, onChange, orientation, style, }: RadioGroupProps): React.ReactElement;
 //# sourceMappingURL=RadioGroup.d.ts.map

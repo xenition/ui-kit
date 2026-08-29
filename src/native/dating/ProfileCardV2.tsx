@@ -6,7 +6,7 @@ import { shadow } from '../primitives/internal/elevation';
 import { useEnter } from '../primitives/internal/motion';
 import { DistanceBadge } from './DistanceBadge';
 import { IcebreakerChip } from './IcebreakerChip';
-import { CompatibilityMeter } from './CompatibilityMeter';
+import { CompatibilityMeterV2 } from './CompatibilityMeterV2';
 import { LikePassButtons } from './LikePassButtons';
 import type { ProfileCardProps } from './ProfileCard';
 
@@ -21,6 +21,9 @@ export type ProfileCardV2Props = ProfileCardProps;
  * slim detail strip beneath surfaces bio/interests. Same `ProfileCardProps`, so
  * it is a genuine drop-in. Token-pure (scrims are `withAlpha` of the neutral
  * ramp); explicit loading/empty states; array access is guarded.
+ * Stays inside its own design line: the meter is {@link CompatibilityMeterV2},
+ * not the base one, because an app that picks V2 picks it for every surface it
+ * sees.
  */
 export function ProfileCardV2({
   profile,
@@ -120,7 +123,7 @@ export function ProfileCardV2({
               ...shadow('sm', tokens),
             }}
           >
-            <CompatibilityMeter score={profile.compatibility} variant="compact" showValue />
+            <CompatibilityMeterV2 score={profile.compatibility} variant="compact" showValue />
           </View>
         ) : null}
 

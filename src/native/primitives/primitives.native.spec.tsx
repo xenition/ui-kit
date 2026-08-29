@@ -21,7 +21,8 @@ import { Rating } from './Rating';
 import { StatusMessage } from './StatusMessage';
 import { GlassPanel } from './GlassPanel';
 import { GradientText } from './GradientText';
-import { EmptyState } from '../commerce/EmptyState';
+import { EmptyState } from './EmptyState';
+import { EmptyState as EmptyStateFromCommerce } from '../commerce/EmptyState';
 import { Textarea } from './Textarea';
 import { Checkbox } from './Checkbox';
 import { Select } from './Select';
@@ -185,13 +186,16 @@ describe('Eyebrow / GradientText / GlassPanel (native)', () => {
     expect(style.letterSpacing).toBeGreaterThan(0);
   });
 
-  it('GradientText renders a solid token-colored fallback', () => {
+  it('GradientText paints a solid taken from the brand gradient, readable on the page', () => {
     const { getByText } = renderThemed(<GradientText ramp="accent">faster</GradientText>, SEED_LIGHT);
     const style = flatten(getByText('faster').props.style);
-    const tokens = require('../../theme/outputs').toNativeTokens(
-      require('../../theme/compile').compileTheme(SEED_LIGHT)
-    );
-    expect(String(style.color).toLowerCase()).toBe(tokens.ramps.accent[500].toLowerCase());
+    const theme = require('../../theme/compile').compileTheme(SEED_LIGHT);
+    const tokens = require('../../theme/outputs').toNativeTokens(theme);
+    // It used to be `ramps.accent[500]` — the LIGHT orientation in both
+    // schemes, and a fill step whose contrast nobody had measured.
+    expect(String(style.color).toLowerCase()).not.toBe(tokens.ramps.accent[500].toLowerCase());
+    const { contrastRatio } = require('../../theme/color');
+    expect(contrastRatio(String(style.color), theme.light.surface)).toBeGreaterThanOrEqual(4.5);
   });
 
   it('GlassPanel derives a translucent rgba from the surface token (no raw hex)', () => {
@@ -237,6 +241,14 @@ describe('EmptyState (native)', () => {
     expect(getByText('Your cart is empty')).toBeTruthy();
     expect(getByText('Browse the catalog to get started.')).toBeTruthy();
     expect(getByText('Browse')).toBeTruthy();
+  });
+
+  // It used to live in `commerce`, which made an empty state look like a
+  // commerce concept and left `dist/native/primitives/EmptyState.d.ts` missing
+  // for the one component nearly every screen uses. It is a primitive now; the
+  // commerce path stays as a re-export of the very same component.
+  it('is the same component the commerce re-export hands back', () => {
+    expect(EmptyStateFromCommerce).toBe(EmptyState);
   });
 });
 
@@ -453,6 +465,33 @@ describe('app-UI primitives (native)', () => {
     );
     fireEvent.press(getByText('B'));
     expect(onValueChange).toHaveBeenCalledWith('b');
+  });
+
+  // `onChange` is the kit-canonical name for "the value changed"; the older
+  // per-component spellings still work and still win if both are passed.
+  it('Switch and Tabs also answer to the canonical onChange', () => {
+    const onSwitchChange = jest.fn();
+    const sw = renderThemed(
+      <Switch checked={false} onChange={onSwitchChange} accessibilityLabel="Notify" />,
+      SEED_LIGHT
+    );
+    fireEvent.press(sw.getByRole('switch'));
+    expect(onSwitchChange).toHaveBeenCalledWith(true);
+
+    const onTabChange = jest.fn();
+    const tabs = renderThemed(
+      <Tabs
+        items={[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]}
+        value="a"
+        onChange={onTabChange}
+      />,
+      SEED_LIGHT
+    );
+    fireEvent.press(tabs.getByText('B'));
+    expect(onTabChange).toHaveBeenCalledWith('b');
   });
 
   it('ChatBubble + MessageList render message content', () => {

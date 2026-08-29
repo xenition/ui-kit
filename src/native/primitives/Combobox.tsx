@@ -21,8 +21,15 @@ export interface ComboboxProps {
   options: ComboboxOption[];
   /** Controlled selected value. */
   value?: string;
-  /** Fires with the chosen option's value. */
+  /**
+   * Fires with the chosen option's value. Prefer `onChange` — that is the kit's
+   * one canonical name for "the value changed", and what the web twin has
+   * always called this. `onValueChange` is the original native spelling, kept
+   * so existing callers keep working; if both are passed this one wins.
+   */
   onValueChange?: (value: string) => void;
+  /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+  onChange?: (value: string) => void;
   /** Shown on the trigger when nothing is selected, and as the search hint. */
   placeholder?: string;
   /** Renders the danger border state. */
@@ -45,6 +52,7 @@ export function Combobox({
   options,
   value,
   onValueChange,
+  onChange,
   placeholder = 'Search…',
   invalid = false,
   disabled = false,
@@ -52,6 +60,9 @@ export function Combobox({
   style,
 }: ComboboxProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onValueChange ?? onChange;
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
   const selected = options.find((o) => o.value === value);
@@ -171,7 +182,7 @@ export function Combobox({
                       accessibilityRole="menuitem"
                       accessibilityState={{ selected: active }}
                       onPress={() => {
-                        onValueChange?.(opt.value);
+                        emit?.(opt.value);
                         close();
                       }}
                       style={({ pressed }) => ({

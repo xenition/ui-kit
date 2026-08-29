@@ -13,6 +13,9 @@ export { formatMoney } from './money';
 export type { MoneyFormatter } from './money';
 export { PriceTag } from './PriceTag';
 export type { PriceTagProps } from './PriceTag';
+// V4 design line — same props as `PriceTag`, a different design.
+export { PriceTagV4 } from './PriceTagV4';
+export type { PriceTagV4Props } from './PriceTagV4';
 export { ProductCard } from './ProductCard';
 export type { ProductCardProps } from './ProductCard';
 export { ProductCardV2 } from './ProductCardV2';
@@ -43,5 +46,8 @@ export { OrderSummaryV3, CheckoutSummaryV3 } from './OrderSummaryV3';
 export type { OrderSummaryV3Props } from './OrderSummaryV3';
 export { StatusBadge } from './StatusBadge';
 export type { StatusBadgeProps, OrderStatus } from './StatusBadge';
+// EmptyState is a primitive and now lives in `primitives`; `./EmptyState` is
+// the re-export that keeps the commerce entry point (and every existing import
+// of it) working.
 export { EmptyState } from './EmptyState';
 export type { EmptyStateProps } from './EmptyState';

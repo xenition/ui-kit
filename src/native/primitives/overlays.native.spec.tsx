@@ -6,6 +6,7 @@ import { Drawer } from './Drawer';
 import { Popover } from './Popover';
 import { Menu } from './Menu';
 import { Accordion } from './Accordion';
+import { Button } from './Button';
 import { Popconfirm } from './Popconfirm';
 import { Tooltip } from './Tooltip';
 
@@ -73,6 +74,39 @@ describe('Popover (native)', () => {
     fireEvent.press(getByText('Open'));
     expect(onOpenChange).toHaveBeenCalledWith(true);
   });
+
+  /*
+    The two tests above pass a bare `<Text>`, and that is exactly why the real bug
+    shipped. A kit `Button` is itself a `Pressable`, and on native the deepest
+    `Pressable` under the finger wins the touch responder — so while Popover
+    wrapped the trigger in its own `Pressable`, a `Button` trigger swallowed the
+    tap and the panel never opened. Anything the kit ships as a trigger has to be
+    exercised as a trigger; a `<Text>` proves only that inert children work.
+  */
+  it('opens from a kit Button trigger, and still runs the trigger own onPress', () => {
+    const onPress = jest.fn();
+    const { getByText, queryByText } = renderThemed(
+      <Popover trigger={<Button onPress={onPress}>Open</Button>}>
+        <Text>popover panel</Text>
+      </Popover>,
+      SEED_LIGHT
+    );
+    expect(queryByText('popover panel')).toBeNull();
+    fireEvent.press(getByText('Open'));
+    expect(getByText('popover panel')).toBeTruthy();
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not open from a disabled trigger', () => {
+    const { getByText, queryByText } = renderThemed(
+      <Popover trigger={<Button disabled>Open</Button>}>
+        <Text>popover panel</Text>
+      </Popover>,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByText('Open'));
+    expect(queryByText('popover panel')).toBeNull();
+  });
 });
 
 describe('Menu (native)', () => {
@@ -93,6 +127,30 @@ describe('Menu (native)', () => {
     expect(getByText('Edit')).toBeTruthy();
     fireEvent.press(getByText('Edit'));
     expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+
+  // Same regression as Popover/Popconfirm: the test above passes a bare `<Text>`,
+  // which cannot steal the touch responder, so it never saw that a kit `Button`
+  // trigger did — and left the menu unopenable.
+  it('opens from a kit Button trigger, and still runs the trigger own onPress', () => {
+    const onPress = jest.fn();
+    const { getByText, queryByText } = renderThemed(
+      <Menu trigger={<Button onPress={onPress}>Actions</Button>} items={[{ label: 'Edit' }]} />,
+      SEED_LIGHT
+    );
+    expect(queryByText('Edit')).toBeNull();
+    fireEvent.press(getByText('Actions'));
+    expect(getByText('Edit')).toBeTruthy();
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not open from a disabled trigger', () => {
+    const { getByText, queryByText } = renderThemed(
+      <Menu trigger={<Button disabled>Actions</Button>} items={[{ label: 'Edit' }]} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByText('Actions'));
+    expect(queryByText('Edit')).toBeNull();
   });
 });
 
@@ -129,10 +187,47 @@ describe('Popconfirm (native)', () => {
     fireEvent.press(getByText('Confirm'));
     expect(onConfirm).toHaveBeenCalledTimes(1);
   });
+
+  /*
+    The test above passes a bare `<Text>`, and that is exactly why the real bug
+    shipped. A kit `Button` is itself a `Pressable`, and on native the deepest
+    `Pressable` under the finger wins the touch responder — so while Popconfirm
+    wrapped the trigger in its own `Pressable`, a `Button` trigger swallowed the
+    tap and the bubble never opened. Anything the kit ships as a trigger has to be
+    exercised as a trigger; a `<Text>` proves only that inert children work.
+  */
+  it('opens from a kit Button trigger, and still runs the trigger own onPress', () => {
+    const onPress = jest.fn();
+    const { getByText, queryByText } = renderThemed(
+      <Popconfirm
+        trigger={<Button onPress={onPress}>Delete</Button>}
+        message="Are you sure?"
+        onConfirm={() => {}}
+      />,
+      SEED_LIGHT
+    );
+    expect(queryByText('Are you sure?')).toBeNull();
+    fireEvent.press(getByText('Delete'));
+    expect(getByText('Are you sure?')).toBeTruthy();
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not open from a disabled trigger', () => {
+    const { getByText, queryByText } = renderThemed(
+      <Popconfirm
+        trigger={<Button disabled>Delete</Button>}
+        message="Are you sure?"
+        onConfirm={() => {}}
+      />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByText('Delete'));
+    expect(queryByText('Are you sure?')).toBeNull();
+  });
 });
 
 describe('Tooltip (native)', () => {
-  it('reveals its label on press (native press-vs-hover)', () => {
+  it('reveals its label on long-press (native long-press-vs-hover)', () => {
     const { getByText, queryByText } = renderThemed(
       <Tooltip label="Helpful tip">
         <Text>info</Text>
@@ -140,7 +235,43 @@ describe('Tooltip (native)', () => {
       SEED_LIGHT
     );
     expect(queryByText('Helpful tip')).toBeNull();
-    fireEvent.press(getByText('info'));
+    fireEvent(getByText('info'), 'longPress');
     expect(getByText('Helpful tip')).toBeTruthy();
+  });
+
+  /*
+    Tooltip had the same swallowed-tap bug as its three siblings — a kit `Button`
+    child took the touch responder and the tip never appeared — but not the same
+    fix. A tooltip is not an action: on web it comes up on hover, which activates
+    nothing, so on native it comes up on long-press and the control keeps its own
+    press. These two tests pin both halves of that.
+  */
+  it('reveals its label from a kit Button child without stealing its press', () => {
+    const onPress = jest.fn();
+    const { getByText, queryByText } = renderThemed(
+      <Tooltip label="Helpful tip">
+        <Button onPress={onPress}>Save</Button>
+      </Tooltip>,
+      SEED_LIGHT
+    );
+    // A plain press is the control's own — it acts, and no tip appears over it.
+    fireEvent.press(getByText('Save'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(queryByText('Helpful tip')).toBeNull();
+    // Long-press is the tooltip's gesture.
+    fireEvent(getByText('Save'), 'longPress');
+    expect(getByText('Helpful tip')).toBeTruthy();
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows nothing from a disabled child', () => {
+    const { getByText, queryByText } = renderThemed(
+      <Tooltip label="Helpful tip">
+        <Button disabled>Save</Button>
+      </Tooltip>,
+      SEED_LIGHT
+    );
+    fireEvent(getByText('Save'), 'longPress');
+    expect(queryByText('Helpful tip')).toBeNull();
   });
 });

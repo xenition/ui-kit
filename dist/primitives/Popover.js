@@ -43,6 +43,29 @@ function Popover({ trigger, children, align = 'start', className }) {
     const [open, setOpen] = React.useState(false);
     const ref = (0, useDismiss_1.useDismiss)(open, () => setOpen(false));
     const alignCls = align === 'end' ? 'right-0' : align === 'center' ? 'left-1/2 -translate-x-1/2' : 'left-0';
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: "relative inline-block", children: [(0, jsx_runtime_1.jsx)("span", { onClick: () => setOpen((o) => !o), children: trigger }), open && ((0, jsx_runtime_1.jsx)("div", { className: (0, cn_1.cn)('absolute z-50 mt-1 min-w-[12rem] rounded-[var(--xen-radius-md)] border border-border', 'bg-surface p-2 text-on-surface shadow-lg', alignCls, className), children: children }))] }));
+    /*
+      The trigger IS the button. Popover does not wrap it in a click catcher.
+  
+      This mirrors the native twin, where the wrapper was an outright bug: on RN the
+      deepest `Pressable` wins the touch responder, so a `<Button>` trigger swallowed
+      the tap and the panel never opened. The DOM bubbles clicks, so the old
+      `<span onClick>` did fire here — but it made `disabled` a lie in the other
+      direction. A disabled `<button>` dispatches no click, yet a caller who instead
+      disabled a plain `<div>` trigger, or blocked its pointer events, still had the
+      span open the panel on a control the user was told was dead.
+  
+      Cloning the element and injecting `onClick` gives both platforms the same rule:
+      the trigger is the only thing that handles the press, so whatever the trigger
+      says about being disabled is what happens. Anything it already does on click
+      runs first, then the panel toggles. A non-element trigger (a bare string) has
+      nothing to clone onto, so it keeps the transparent `<span>`.
+    */
+    const renderedTrigger = React.isValidElement(trigger) ? (React.cloneElement(trigger, {
+        onClick: (event) => {
+            trigger.props.onClick?.(event);
+            setOpen((o) => !o);
+        },
+    })) : ((0, jsx_runtime_1.jsx)("span", { onClick: () => setOpen((o) => !o), children: trigger }));
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: "relative inline-block", children: [renderedTrigger, open && ((0, jsx_runtime_1.jsx)("div", { className: (0, cn_1.cn)('absolute z-50 mt-1 min-w-[12rem] rounded-[var(--xen-radius-md)] border border-border', 'bg-surface p-2 text-on-surface shadow-lg', alignCls, className), children: children }))] }));
 }
 //# sourceMappingURL=Popover.js.map

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useXenitionTheme } from '../theme';
-import { Icon } from '../primitives';
+import { Icon, Text } from '../primitives';
 
 export type TrialBannerTone = 'info' | 'warn' | 'success';
 
@@ -29,6 +29,12 @@ export interface TrialBannerProps {
  * atop the paywall (value-first framing, design.md §27) or in-app once a trial
  * is running. Tone maps to the accent/warn/success token pairs. No literal
  * colors.
+ *
+ * **There is deliberately no `TrialBannerV2`/`V3`.** A strip this small has one
+ * correct shape, so the base component *is* its whole design line — which is
+ * why a V2 or V3 paywall composing this base banner is correct rather than a
+ * cross-line leak. `design-line-composition.native.spec.tsx` documents the same
+ * conclusion from the other side.
  */
 export function TrialBanner({
   title,
@@ -63,11 +69,11 @@ export function TrialBanner({
     >
       <Icon glyph={icon} size="lg" color={fgKey} />
       <View style={{ flex: 1 }}>
-        <Text style={{ color: colors[fgKey], fontSize: tokens.typography.scale.base, fontWeight: '700' }}>
+        <Text size="base" weight="bold" tone={fgKey}>
           {title}
         </Text>
         {subtitle ? (
-          <Text style={{ color: colors[fgKey], fontSize: tokens.typography.scale.sm, opacity: 0.9 }}>
+          <Text size="sm" tone={fgKey} style={{ opacity: 0.9 }}>
             {subtitle}
           </Text>
         ) : null}
@@ -77,20 +83,25 @@ export function TrialBanner({
         <View
           style={{
             borderRadius: tokens.radius.full,
-            paddingVertical: 2,
+            paddingVertical: tokens.spacing.xs,
             paddingHorizontal: tokens.spacing.sm,
             backgroundColor: colors.surface,
           }}
         >
-          <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale.xs, fontWeight: '700' }}>
+          <Text size="xs" weight="bold">
             {Math.max(0, daysLeft)} {Math.max(0, daysLeft) === 1 ? 'day' : 'days'} left
           </Text>
         </View>
       ) : null}
 
       {actionLabel && onActionPress ? (
-        <Pressable accessibilityRole="button" accessibilityLabel={actionLabel} onPress={onActionPress} hitSlop={tokens.spacing.sm}>
-          <Text style={{ color: colors[fgKey], fontSize: tokens.typography.scale.sm, fontWeight: '700', textDecorationLine: 'underline' }}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={actionLabel}
+          onPress={onActionPress}
+          hitSlop={tokens.spacing.sm}
+        >
+          <Text size="sm" weight="bold" tone={fgKey} style={{ textDecorationLine: 'underline' }}>
             {actionLabel}
           </Text>
         </Pressable>

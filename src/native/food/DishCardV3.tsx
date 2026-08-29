@@ -78,7 +78,9 @@ export function DishCardV3({
         >
           {name}
         </Text>
-        <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} size="sm" />
+        {typeof priceCents === 'number' ? (
+          <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} size="sm" />
+        ) : null}
       </View>
       {description ? (
         <Text numberOfLines={2} style={{ color: colors.muted, fontSize: tokens.typography.scale.sm }}>

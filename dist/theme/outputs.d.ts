@@ -49,10 +49,41 @@ export interface NativeThemeTokens {
         light: SemanticColors;
         dark: SemanticColors;
     };
+    /**
+     * NOTE: these carry the LIGHT ramp orientation for BOTH schemes — the dark
+     * semantics are derived from an inverted ramp during compilation, but the
+     * ramps themselves are handed through as compiled. So `ramps.primary[50]` is
+     * a near-white in either scheme: on a dark page it is a highlight, not a
+     * tint. Reach for `[900]` there, or use `gradient`/`glass` below, which ARE
+     * resolved per scheme.
+     */
     ramps: CompiledTheme['ramps'];
     radius: CompiledTheme['radius'];
     spacing: CompiledTheme['spacing'];
     typography: CompiledTheme['typography'];
+    /** Resolved depth from the seed — `'flat' | 'soft' | 'glass'`. */
+    depth: CompiledTheme['depth'];
+    /** Brand gradients, per scheme. Unlike `ramps`, these are already correct. */
+    gradient: {
+        light: CompiledTheme['lightGradient'];
+        dark: CompiledTheme['darkGradient'];
+    };
+    /** Translucent panel treatment, per scheme. */
+    glass: {
+        light: CompiledTheme['lightGlass'];
+        dark: CompiledTheme['darkGlass'];
+    };
+    /** M3 state-layer opacities. Scheme-independent. */
+    state: CompiledTheme['state'];
+    /** M3 motion scale. Scheme-independent. */
+    motion: CompiledTheme['motion'];
+    /** Focus-ring geometry. Scheme-independent. */
+    ring: CompiledTheme['ring'];
+    /** Shadows, per scheme. */
+    elevation: {
+        light: CompiledTheme['lightElevation'];
+        dark: CompiledTheme['darkElevation'];
+    };
 }
 /**
  * Flatten a compiled theme into plain resolved values (hex strings and px

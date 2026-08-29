@@ -42,7 +42,30 @@ const useDismiss_1 = require("./useDismiss");
 function Menu({ trigger, items, align = 'start' }) {
     const [open, setOpen] = React.useState(false);
     const ref = (0, useDismiss_1.useDismiss)(open, () => setOpen(false));
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: "relative inline-block", children: [(0, jsx_runtime_1.jsx)("span", { onClick: () => setOpen((o) => !o), children: trigger }), open && ((0, jsx_runtime_1.jsx)("div", { role: "menu", className: (0, cn_1.cn)('absolute z-50 mt-1 min-w-[10rem] rounded-[var(--xen-radius-md)] border border-border', 'bg-surface py-1 shadow-lg', align === 'end' ? 'right-0' : 'left-0'), children: items.map((it, i) => ((0, jsx_runtime_1.jsxs)("button", { type: "button", role: "menuitem", disabled: it.disabled, onClick: () => {
+    /*
+      The trigger IS the button. Menu does not wrap it in a click catcher.
+  
+      This mirrors the native twin, where the wrapper was an outright bug: on RN the
+      deepest `Pressable` wins the touch responder, so a `<Button>` trigger swallowed
+      the tap and the menu never opened. The DOM bubbles clicks, so the old
+      `<span onClick>` did fire here — but it made `disabled` a lie in the other
+      direction. A disabled `<button>` dispatches no click, yet a caller who instead
+      disabled a plain `<div>` trigger, or blocked its pointer events, still had the
+      span open the menu on a control the user was told was dead.
+  
+      Cloning the element and injecting `onClick` gives both platforms the same rule:
+      the trigger is the only thing that handles the press, so whatever the trigger
+      says about being disabled is what happens. Anything it already does on click
+      runs first, then the menu toggles. A non-element trigger (a bare string) has
+      nothing to clone onto, so it keeps the transparent `<span>`.
+    */
+    const renderedTrigger = React.isValidElement(trigger) ? (React.cloneElement(trigger, {
+        onClick: (event) => {
+            trigger.props.onClick?.(event);
+            setOpen((o) => !o);
+        },
+    })) : ((0, jsx_runtime_1.jsx)("span", { onClick: () => setOpen((o) => !o), children: trigger }));
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: "relative inline-block", children: [renderedTrigger, open && ((0, jsx_runtime_1.jsx)("div", { role: "menu", className: (0, cn_1.cn)('absolute z-50 mt-1 min-w-[10rem] rounded-[var(--xen-radius-md)] border border-border', 'bg-surface py-1 shadow-lg', align === 'end' ? 'right-0' : 'left-0'), children: items.map((it, i) => ((0, jsx_runtime_1.jsxs)("button", { type: "button", role: "menuitem", disabled: it.disabled, onClick: () => {
                         it.onSelect?.();
                         setOpen(false);
                     }, className: (0, cn_1.cn)('flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm transition-colors', 'hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50', it.danger ? 'text-danger' : 'text-on-surface'), children: [it.icon != null && (0, jsx_runtime_1.jsx)("span", { className: "shrink-0", children: it.icon }), it.label] }, i))) }))] }));

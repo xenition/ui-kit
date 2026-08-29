@@ -1,7 +1,15 @@
 import * as React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 export interface PopoverProps {
-    /** Pressable trigger (`onClick`→`onPress`). */
+    /**
+     * The control that opens the panel (`onClick`→`onPress`) — normally a kit
+     * `<Button>`. Popover does not wrap it in a second pressable; it clones the
+     * element and injects its own `onPress` (see the note below), so the trigger
+     * stays the real button: its `disabled` state still blocks the panel, and any
+     * `onPress` it already carries still runs. A trigger that cannot take an
+     * `onPress` — a bare string, or a component that drops the prop — should be
+     * wrapped by the caller in a `<Pressable>`, which can.
+     */
     trigger: React.ReactNode;
     /** Panel content. */
     children: React.ReactNode;

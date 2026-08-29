@@ -127,17 +127,16 @@ export function CrudTable<T>({
         </Button>
         <Popconfirm
           trigger={
-            <Text
-              style={{
-                color: colors.dangerText,
-                fontSize: tokens.typography.scale.sm,
-                fontWeight: '600',
-                paddingHorizontal: tokens.spacing.sm,
-                paddingVertical: tokens.spacing.xs,
-              }}
-            >
+            // A real Button, matching the web twin. This used to be a styled
+            // `<Text>` — the only way to get the tap through while Popconfirm
+            // wrapped its trigger in a `Pressable` that a Button would have
+            // swallowed. That is fixed (Popconfirm clones the trigger now), so
+            // the workaround goes and the twins render the same control: a ghost
+            // button in the danger tone, which reads as a control instead of as
+            // red text that happens to be tappable.
+            <Button size="sm" variant="ghost" tone="danger">
               Delete
-            </Text>
+            </Button>
           }
           message="Delete this item?"
           confirmLabel="Delete"

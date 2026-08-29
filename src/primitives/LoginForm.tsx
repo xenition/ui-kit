@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { AuthCard } from './AuthCard';
+import { AuthCard, AuthField, AuthSubmitButton, AuthSwitchFooter } from './AuthCard';
 import { Form } from './Form';
-import { Field } from './Field';
-import { Input } from './Input';
-import { Button } from './Button';
+import { Text } from './Text';
 import { Alert } from './Alert';
 import { useForm } from './useForm';
 
@@ -18,18 +16,55 @@ export interface LoginFormProps {
   onForgotPassword?: () => void;
   onSignupClick?: () => void;
   title?: React.ReactNode;
+  /** Supporting line under the title. */
+  subtitle?: React.ReactNode;
+  /** Brand glyph for the §9 tile above the headline. Nothing renders without one. */
+  brandGlyph?: string;
+  /** Primary CTA copy. Default `'Sign in'`. */
+  submitLabel?: string;
+  /** Copy for the pending CTA. Default `'Signing in…'`. */
+  submittingLabel?: string;
+  /** Field copy — the host owns every string a user reads. */
+  emailLabel?: string;
+  emailPlaceholder?: string;
+  passwordLabel?: string;
+  passwordPlaceholder?: string;
+  forgotLabel?: string;
+  switchPrompt?: string;
+  switchLabel?: string;
 }
 
 /**
  * Drop-in email/password sign-in form — composed from the kit, themed, with
  * validation, loading and error states. SDK-agnostic: wire `onSubmit` to
  * `@xenition/sdk` auth (or anything). Just `<LoginForm onSubmit={…} />`.
+ *
+ * Drawn from the same parts as the screen-level `SignInScreen` (§6/§9): 56px
+ * fields with a muted leading icon, a `primary` focus border, errors as a
+ * `danger` border **and** a message in `danger-text`, and the 56px
+ * `radius.full` CTA with its trailing `→`. That is the point of sharing them —
+ * a screen assembled from this form and a screen assembled from `SignInScreen`
+ * are the same product, not two.
+ *
+ * Everything past `onSubmit`/`onForgotPassword`/`onSignupClick`/`title` is
+ * optional copy; with none of it passed the form reads exactly as it did.
  */
 export function LoginForm({
   onSubmit,
   onForgotPassword,
   onSignupClick,
   title = 'Sign in',
+  subtitle,
+  brandGlyph,
+  submitLabel = 'Sign in',
+  submittingLabel = 'Signing in…',
+  emailLabel = 'Email',
+  emailPlaceholder = 'you@example.com',
+  passwordLabel = 'Password',
+  passwordPlaceholder = 'Your password',
+  forgotLabel = 'Forgot password?',
+  switchPrompt = 'No account?',
+  switchLabel = 'Sign up',
 }: LoginFormProps): React.ReactElement {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const form = useForm<LoginValues>({
@@ -51,41 +86,52 @@ export function LoginForm({
   });
 
   return (
-    <AuthCard title={title}>
+    <AuthCard title={title} subtitle={subtitle} brandGlyph={brandGlyph}>
       <Form onSubmit={form.handleSubmit}>
         {submitError && <Alert tone="danger">{submitError}</Alert>}
-        <Field label="Email" error={form.errors.email}>
-          <Input
-            type="email"
-            autoComplete="email"
-            value={form.values.email}
-            onChange={(e) => form.setValue('email', e.target.value)}
-            placeholder="you@example.com"
-          />
-        </Field>
-        <Field label="Password" error={form.errors.password}>
-          <Input
-            type="password"
-            autoComplete="current-password"
-            value={form.values.password}
-            onChange={(e) => form.setValue('password', e.target.value)}
-          />
-        </Field>
+        <AuthField
+          label={emailLabel}
+          icon="mail"
+          inputType="email"
+          aria-label={emailLabel}
+          autoComplete="email"
+          error={form.errors.email}
+          value={form.values.email}
+          onChangeText={(t) => form.setValue('email', t)}
+          placeholder={emailPlaceholder}
+        />
+        <AuthField
+          secure
+          label={passwordLabel}
+          icon="lock"
+          aria-label={passwordLabel}
+          autoComplete="current-password"
+          error={form.errors.password}
+          value={form.values.password}
+          onChangeText={(t) => form.setValue('password', t)}
+          placeholder={passwordPlaceholder}
+        />
         {onForgotPassword && (
-          <button type="button" onClick={onForgotPassword} className="self-start text-sm text-primary">
-            Forgot password?
+          // §9 right-aligns it: the link belongs to the field above it, not to
+          // the margin on the other side of the card.
+          <button
+            type="button"
+            aria-label={forgotLabel}
+            onClick={onForgotPassword}
+            className="self-end"
+          >
+            <Text size="sm" weight="medium" tone="primaryText">
+              {forgotLabel}
+            </Text>
           </button>
         )}
-        <Button type="submit" disabled={form.submitting}>
-          {form.submitting ? 'Signing in…' : 'Sign in'}
-        </Button>
+        <AuthSubmitButton
+          type="submit"
+          label={form.submitting ? submittingLabel : submitLabel}
+          loading={form.submitting}
+        />
         {onSignupClick && (
-          <p className="text-center text-sm text-muted">
-            No account?{' '}
-            <button type="button" onClick={onSignupClick} className="text-primary">
-              Sign up
-            </button>
-          </p>
+          <AuthSwitchFooter prompt={switchPrompt} label={switchLabel} onClick={onSignupClick} />
         )}
       </Form>
     </AuthCard>

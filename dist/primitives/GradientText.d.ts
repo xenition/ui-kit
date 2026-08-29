@@ -14,9 +14,24 @@ export interface GradientTextProps extends React.HTMLAttributes<HTMLElement> {
 }
 /**
  * Ramp-driven clipped gradient text — the highlighted word inside a headline.
- * Purely token-colored (the four recipes are fixed blends of the primary and
- * accent ramps), so it reads correctly over light and dark surfaces and
- * restyles from the theme seed alone. No motion, so nothing to reduce.
+ *
+ * This component predates the `gradient.brand` token, and it showed. Its stops
+ * were hand-picked ramp steps starting at `300` — a pale tint of the brand,
+ * used as **text**, on a light page. Nothing had measured it, and nothing
+ * could: `300` is two steps from the surface, so the default recipe was an
+ * unreadable headline word in every light-mode app that used it.
+ *
+ * The sweep is now the brand pair the compiler already owns — primary into
+ * accent, the same two hues as `gradient.brand` — taken in the **contrast-safe
+ * text form** of each. `--xen-primary-text` is `primary` walked in lightness
+ * until it clears AA on `surface`, which is precisely the correction
+ * `gradientInk` performs; doing it in the compiler rather than in the component
+ * is what keeps this file free of hex, which the marketing token-purity sweep
+ * requires. Single-ramp recipes fade that text slot toward `on-surface`, so
+ * both of their stops are compiler-guaranteed against the page too.
+ *
+ * Purely token-coloured, so it restyles from the theme seed alone and reads on
+ * light and dark surfaces. No motion, so nothing to reduce.
  *
  * ```tsx
  * <h1>Launch <GradientText>faster</GradientText></h1>

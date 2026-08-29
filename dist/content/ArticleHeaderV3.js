@@ -38,7 +38,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
 const Skeleton_1 = require("../primitives/Skeleton");
-const AuthorByline_1 = require("./AuthorByline");
+const AuthorBylineV3_1 = require("./AuthorBylineV3");
 /**
  * ArticleHeader — **left-aligned editorial** alternate design (web / React DOM).
  *
@@ -49,6 +49,8 @@ const AuthorByline_1 = require("./AuthorByline");
  *
  * Token-pure: the eyebrow rule and label use `bg-accent` / `text-accent`, the
  * divider uses `bg-border`. No literal colors.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 exports.ArticleHeaderV3 = React.forwardRef(function ArticleHeaderV3({ title, deck, category, coverImageUrl, author, date, readingTime, variant = 'standard', loading = false, className, ...rest }, ref) {
     const hero = variant === 'hero';
@@ -58,6 +60,6 @@ exports.ArticleHeaderV3 = React.forwardRef(function ArticleHeaderV3({ title, dec
     const meta = [date, readingTime]
         .filter((p) => !!p && p.length > 0)
         .join('  ·  ');
-    return ((0, jsx_runtime_1.jsxs)("header", { ref: ref, className: (0, cn_1.cn)('flex flex-col items-start gap-[var(--xen-space-md)]', className), ...rest, children: [category ? ((0, jsx_runtime_1.jsxs)("span", { className: "flex items-center gap-[var(--xen-space-sm)]", children: [(0, jsx_runtime_1.jsx)("span", { "aria-hidden": true, className: "h-[3px] w-7 rounded-full bg-accent" }), (0, jsx_runtime_1.jsx)("span", { className: "text-sm font-extrabold uppercase tracking-wide text-accent", children: category })] })) : null, (0, jsx_runtime_1.jsx)("h1", { className: (0, cn_1.cn)('text-left font-extrabold leading-tight text-on-surface', hero ? 'text-3xl' : 'text-2xl'), children: title }), deck ? (0, jsx_runtime_1.jsx)("p", { className: "text-lg leading-relaxed text-muted", children: deck }) : null, (0, jsx_runtime_1.jsx)("div", { "aria-hidden": true, className: "h-px w-full self-stretch bg-border" }), author ? ((0, jsx_runtime_1.jsx)(AuthorByline_1.AuthorByline, { author: author, date: date, readingTime: readingTime, variant: "full" })) : meta ? ((0, jsx_runtime_1.jsx)("p", { className: "text-sm text-muted", children: meta })) : null, coverImageUrl ? ((0, jsx_runtime_1.jsx)("img", { src: coverImageUrl, alt: "", loading: "lazy", className: (0, cn_1.cn)('w-full rounded-[var(--xen-radius-lg)] bg-neutral-100 object-cover', hero ? 'h-[240px]' : 'h-[200px]') })) : null] }));
+    return ((0, jsx_runtime_1.jsxs)("header", { ref: ref, className: (0, cn_1.cn)('flex flex-col items-start gap-[var(--xen-space-md)]', className), ...rest, children: [category ? ((0, jsx_runtime_1.jsxs)("span", { className: "flex items-center gap-[var(--xen-space-sm)]", children: [(0, jsx_runtime_1.jsx)("span", { "aria-hidden": true, className: "h-[3px] w-7 rounded-full bg-accent" }), (0, jsx_runtime_1.jsx)("span", { className: "text-sm font-extrabold uppercase tracking-wide text-accent", children: category })] })) : null, (0, jsx_runtime_1.jsx)("h1", { className: (0, cn_1.cn)('text-left font-extrabold leading-tight text-on-surface', hero ? 'text-3xl' : 'text-2xl'), children: title }), deck ? (0, jsx_runtime_1.jsx)("p", { className: "text-lg leading-relaxed text-muted", children: deck }) : null, (0, jsx_runtime_1.jsx)("div", { "aria-hidden": true, className: "h-px w-full self-stretch bg-border" }), author ? ((0, jsx_runtime_1.jsx)(AuthorBylineV3_1.AuthorBylineV3, { author: author, date: date, readingTime: readingTime, variant: "full" })) : meta ? ((0, jsx_runtime_1.jsx)("p", { className: "text-sm text-muted", children: meta })) : null, coverImageUrl ? ((0, jsx_runtime_1.jsx)("img", { src: coverImageUrl, alt: "", loading: "lazy", className: (0, cn_1.cn)('w-full rounded-[var(--xen-radius-lg)] bg-neutral-100 object-cover', hero ? 'h-[240px]' : 'h-[200px]') })) : null] }));
 });
 //# sourceMappingURL=ArticleHeaderV3.js.map

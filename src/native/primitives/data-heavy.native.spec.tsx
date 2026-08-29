@@ -99,10 +99,14 @@ describe('CrudTable (native)', () => {
 
   it('guards row deletion behind a Popconfirm dialog', () => {
     const onDelete = jest.fn();
-    const { getAllByText, queryByText } = renderThemed(
+    const { getAllByText, getAllByRole, queryByText } = renderThemed(
       <CrudTable {...baseProps} onCreate={jest.fn()} onUpdate={jest.fn()} onDelete={onDelete} />,
       SEED_LIGHT,
     );
+    // The delete trigger is a real Button, like the web twin's — it announces
+    // itself as a control rather than being red text that happens to be tappable.
+    // It could not be one while Popconfirm swallowed a Button trigger's tap.
+    expect(getAllByRole('button', { name: 'Delete' }).length).toBe(ROWS.length);
     // one delete trigger per row; tapping it opens the confirm bubble (a Modal)
     fireEvent.press(getAllByText('Delete')[0]);
     act(() => jest.runAllTimers());

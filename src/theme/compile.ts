@@ -9,7 +9,7 @@
  *   light and dark mode — enforced by `ensureContrast`, which cannot fail.
  */
 
-import { ensureContrast, hexToHsl, hslToHex, isValidHex } from './color';
+import { ensureContrast, hexToHsl, hexToRgb, hslToHex, isValidHex, rgbToHex } from './color';
 import {
   ColorRamp,
   CompiledTheme,
@@ -23,7 +23,19 @@ import {
   ThemeSeed,
   ThemeShape,
   TypeScale,
+  ThemeDepth,
+  StateLayerTokens,
+  MotionTokens,
+  RingTokens,
+  GradientToken,
+  GradientTokens,
+  GlassTokens,
+  ElevationToken,
+  ElevationTokens,
 } from './types';
+
+/** Local alias — the compiler derives every token per scheme. */
+type ColorScheme = 'light' | 'dark';
 
 /** Minimum WCAG contrast enforced for every semantic on-pair. */
 export const MIN_CONTRAST = 4.5;
@@ -170,6 +182,42 @@ function deriveSemantics(ramps: RampSet, mode: 'light' | 'dark'): SemanticColors
     onAccent: ensureContrast('#ffffff', accent, MIN_CONTRAST),
     muted: ramps.neutral[600],
     border: ramps.neutral[200],
+    // A field asks to be typed in, so its outline is one ramp step more
+    // present than a rule between rows. See SemanticColors.input.
+    input: ramps.neutral[300],
+    /*
+      Raised and floating surfaces.
+
+      Both move TOWARD WHITE in both schemes — which is the part that is easy
+      to get wrong. On a light page a raised card is whiter than the page; on a
+      dark page it is *lighter* than the page. "Raised" is not "further from
+      the text colour", it is "closer to the light", and that is why the kit's
+      single `surface` made dark mode look flat: a shadow is nearly invisible
+      on near-black, so lightening is the only signal that reads.
+
+      The light-mode step is large because `surface` is already near-white and
+      only pure white is meaningfully above it; the dark-mode steps are small
+      because a few percent is a whole layer down there.
+    */
+    card: mixHex(surface, '#ffffff', mode === 'light' ? 0.75 : 0.07),
+    onCard: ensureContrast(
+      ramps.neutral[900],
+      mixHex(surface, '#ffffff', mode === 'light' ? 0.75 : 0.07),
+      MIN_CONTRAST,
+    ),
+    popover: mixHex(surface, '#ffffff', mode === 'light' ? 1 : 0.12),
+    onPopover: ensureContrast(
+      ramps.neutral[900],
+      mixHex(surface, '#ffffff', mode === 'light' ? 1 : 0.12),
+      MIN_CONTRAST,
+    ),
+    // The chosen row. Named once, so it stops being invented per component.
+    selected: mixHex(surface, ramps.primary[600], mode === 'light' ? 0.12 : 0.2),
+    onSelected: ensureContrast(
+      ramps.neutral[900],
+      mixHex(surface, ramps.primary[600], mode === 'light' ? 0.12 : 0.2),
+      MIN_CONTRAST,
+    ),
     success,
     onSuccess: ensureContrast('#ffffff', success, MIN_CONTRAST),
     warn,
@@ -191,6 +239,11 @@ function deriveSemantics(ramps: RampSet, mode: 'light' | 'dark'): SemanticColors
       returns it untouched and nothing changes visually.
     */
     primaryText: ensureContrast(primary, surface, MIN_CONTRAST),
+    // `muted` is a ramp step with no promise; this is the same colour pulled
+    // to AA against the surface it is read on. See SemanticColors.mutedText.
+    mutedText: ensureContrast(ramps.neutral[600], surface, MIN_CONTRAST),
+    // One ring for every control, so focus looks the same everywhere.
+    ring: ensureContrast(primary, surface, 3),
     accentText: ensureContrast(accent, surface, MIN_CONTRAST),
     successText: ensureContrast(success, surface, MIN_CONTRAST),
     warnText: ensureContrast(warn, surface, MIN_CONTRAST),
@@ -206,6 +259,147 @@ function deriveSemantics(ramps: RampSet, mode: 'light' | 'dark'): SemanticColors
  *
  * @throws {Error} with a descriptive message if the seed is malformed.
  */
+
+/* ── depth ─────────────────────────────────────────────────────────────────
+ *
+ * Gradients, glass and elevation, derived from the same ramps the semantic
+ * slots come from — so they move with the brand rather than being chosen
+ * beside it.
+ *
+ * `design.md` §35.11 asks that gradients stay "rare and purposeful" and §8
+ * bans "glassmorphism without purpose". The compiler enforces that by
+ * offering exactly THREE gradients and one glass treatment: there is a brand
+ * gradient for the hero and the single primary action, a near-invisible page
+ * wash, and a neutral placeholder. There is deliberately no `gradient.card`
+ * or `gradient.icon`, because a kit that offers one will get one on every
+ * card and every icon.
+ */
+
+/** Mix two hexes. `t` is how far to travel from `a` to `b`. */
+function mixHex(a: string, b: string, t: number): string {
+  const x = hexToRgb(a);
+  const y = hexToRgb(b);
+  return rgbToHex({
+    r: Math.round(x.r + (y.r - x.r) * t),
+    g: Math.round(x.g + (y.g - x.g) * t),
+    b: Math.round(x.b + (y.b - x.b) * t),
+  });
+}
+
+/** `#rrggbb` + alpha → `#rrggbbaa`, the form both platforms accept. */
+function withAlpha(hex: string, alpha: number): string {
+  const a = Math.round(Math.min(Math.max(alpha, 0), 1) * 255);
+  return `${hex}${a.toString(16).padStart(2, '0')}`;
+}
+
+function buildGradients(ramps: RampSet, scheme: ColorScheme): GradientTokens {
+  const deep = scheme === 'light' ? 500 : 400;
+  const far = scheme === 'light' ? 600 : 300;
+  const ground = scheme === 'light' ? 50 : 900;
+  return {
+    // primary → accent, travelling up-right: the direction a reader's eye
+    // already moves, so the brighter stop lands under the thumb.
+    brand: { from: ramps.primary[deep], to: ramps.accent[far], angle: 45 },
+    // Barely there by design. A page ground you can NOTICE is a page ground
+    // competing with the content on it.
+    wash: { from: ramps.primary[ground], to: ramps.neutral[ground], angle: 0 },
+    muted: { from: ramps.neutral[ground], to: ramps.neutral[scheme === 'light' ? 100 : 800], angle: 45 },
+  };
+}
+
+function buildGlass(semantics: SemanticColors, scheme: ColorScheme): GlassTokens {
+  // Pre-composited against the surface, because React Native has no
+  // backdrop-filter. A component that assumed a real blur would crash in
+  // every app that has not installed a BlurView; `blur` is offered for the
+  // apps that HAVE one, and ignored by the ones that have not.
+  const base = scheme === 'light' ? '#ffffff' : '#000000';
+  return {
+    tint: withAlpha(mixHex(semantics.surface, base, scheme === 'light' ? 0.55 : 0.35), 0.72),
+    border: withAlpha(base === '#ffffff' ? '#ffffff' : semantics.border, scheme === 'light' ? 0.6 : 0.22),
+    blur: 24,
+  };
+}
+
+function buildElevation(scheme: ColorScheme): ElevationTokens {
+  // A shadow on a dark page needs MORE opacity, not less — the same alpha
+  // that reads as a soft lift on white is invisible on near-black.
+  const color = '#000000';
+  const k = scheme === 'light' ? 1 : 1.9;
+  return {
+    card: { color, opacity: 0.08 * k, radius: 12, offsetY: 4, android: 2 },
+    sheet: { color, opacity: 0.12 * k, radius: 24, offsetY: -2, android: 8 },
+    action: { color, opacity: 0.18 * k, radius: 16, offsetY: 6, android: 6 },
+  };
+}
+
+
+/**
+ * Material Design 3's state-layer opacities and motion scale, used verbatim.
+ *
+ * Source: `material-components/material-web`, tokens v0_192, fetched
+ * 2026-08-26. These are not invented and should not be tuned — the value of
+ * an industry scale is that it is the same everywhere, and a component that
+ * picks its own 0.09 has thrown that away for nothing.
+ */
+export const STATE_LAYERS: StateLayerTokens = {
+  hover: 0.08,
+  focus: 0.12,
+  pressed: 0.12,
+  dragged: 0.16,
+  disabledContent: 0.38,
+  disabledContainer: 0.12,
+};
+
+export const RING: RingTokens = { width: 2, offset: 2 };
+
+export const MOTION: MotionTokens = {
+  instant: 50,
+  quick: 100,
+  standard: 200,
+  enter: 400,
+  easingStandard: [0.2, 0, 0, 1],
+  easingEnter: [0.05, 0.7, 0.1, 1],
+  easingExit: [0.3, 0, 1, 1],
+};
+
+/**
+ * Make the depth tokens inert without removing them, so **no component has to
+ * branch on `depth`**. A component consumes `gradient.brand` and
+ * `elevation.card` unconditionally, and a flat seed simply renders flat.
+ *
+ * **`glass` is never neutralised, at any depth.** That looks inconsistent and
+ * is not. Gradients and shadows arrive UNINVITED — a component paints them
+ * without being asked, so a flat seed must be able to switch them off at the
+ * source. Glass never arrives uninvited: the only ways to get it are to reach
+ * for `GlassPanel`, or for a component to check `depth === 'glass'` first. The
+ * purpose `design.md` §8 demands is supplied by the caller, so the token stays
+ * real and the discipline lives in *who consumes it*:
+ *
+ *   - a component whose whole job is glass (`GlassPanel`) may use the tokens
+ *     at any depth — asking for it IS the purpose;
+ *   - a component that merely COULD be glass (`CardV4`) must check
+ *     `depth === 'glass'` first, because a card frosting itself is an app-wide
+ *     aesthetic decision and not one a card gets to make.
+ */
+function inert(
+  depth: ThemeDepth,
+  g: GradientTokens,
+  gl: GlassTokens,
+  e: ElevationTokens,
+): { gradient: GradientTokens; glass: GlassTokens; elevation: ElevationTokens } {
+  const solid = (t: GradientToken): GradientToken => ({ from: t.from, to: t.from, angle: t.angle });
+  const none = (t: ElevationToken): ElevationToken => ({ ...t, opacity: 0, radius: 0, offsetY: 0, android: 0 });
+
+  if (depth === 'flat') {
+    return {
+      gradient: { brand: solid(g.brand), wash: solid(g.wash), muted: solid(g.muted) },
+      glass: gl,
+      elevation: { card: none(e.card), sheet: none(e.sheet), action: none(e.action) },
+    };
+  }
+  return { gradient: g, glass: gl, elevation: e };
+}
+
 export function compileTheme(seed: ThemeSeed): CompiledTheme {
   validateSeed(seed);
 
@@ -227,11 +421,28 @@ export function compileTheme(seed: ThemeSeed): CompiledTheme {
     neutral: invertRamp(ramps.neutral),
   };
 
+  const light = deriveSemantics(ramps, 'light');
+  const dark = deriveSemantics(darkRamps, 'dark');
+  const depth: ThemeDepth = seed.depth ?? 'soft';
+
+  const lightDepth = inert(
+    depth,
+    buildGradients(ramps, 'light'),
+    buildGlass(light, 'light'),
+    buildElevation('light'),
+  );
+  const darkDepth = inert(
+    depth,
+    buildGradients(darkRamps, 'dark'),
+    buildGlass(dark, 'dark'),
+    buildElevation('dark'),
+  );
+
   return {
     seed: { ...seed, font: { ...seed.font } },
     ramps,
-    light: deriveSemantics(ramps, 'light'),
-    dark: deriveSemantics(darkRamps, 'dark'),
+    light,
+    dark,
     radius: { ...RADIUS[seed.shape] },
     spacing: { ...SPACING },
     typography: {
@@ -239,5 +450,15 @@ export function compileTheme(seed: ThemeSeed): CompiledTheme {
       fontBody: seed.font.body,
       scale: { ...TYPE_SCALE },
     },
+    depth,
+    lightGradient: lightDepth.gradient,
+    darkGradient: darkDepth.gradient,
+    lightGlass: lightDepth.glass,
+    darkGlass: darkDepth.glass,
+    lightElevation: lightDepth.elevation,
+    darkElevation: darkDepth.elevation,
+    state: { ...STATE_LAYERS },
+    motion: { ...MOTION },
+    ring: { ...RING },
   };
 }

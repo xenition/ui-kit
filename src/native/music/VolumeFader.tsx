@@ -25,8 +25,15 @@ export interface VolumeFaderProps {
   /** Suffix for the numeric read-out, e.g. `'dB'`, `'%'`. */
   unit?: string;
   disabled?: boolean;
-  /** Fires with the new value as the user drags. */
+  /**
+   * Fires with the new value as the user drags. Prefer `onChange` — that is the
+   * kit's one canonical name for "the value changed". `onValueChange` is this
+   * component's original spelling, kept so existing callers keep working; if
+   * both are passed this one wins.
+   */
   onValueChange?: (value: number) => void;
+  /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+  onChange?: (value: number) => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -47,9 +54,13 @@ export function VolumeFader({
   unit,
   disabled = false,
   onValueChange,
+  onChange,
   style,
 }: VolumeFaderProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onValueChange ?? onChange;
   const safe = clamp(value, min, max);
   const readout = `${Math.round(safe)}${unit ? ` ${unit}` : ''}`;
 
@@ -80,7 +91,7 @@ export function VolumeFader({
           </Text>
         </View>
       ) : null}
-      <Slider value={safe} min={min} max={max} step={step} disabled={disabled} onValueChange={onValueChange} />
+      <Slider value={safe} min={min} max={max} step={step} disabled={disabled} onValueChange={emit} />
     </View>
   );
 }

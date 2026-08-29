@@ -81,6 +81,12 @@ describe('DishCardV2 (image-hero tile)', () => {
     expect(container.querySelector('[aria-busy="true"]')).not.toBeNull();
     expect(queryByText('Ramen')).toBeNull();
   });
+
+  it('drops the frosted price pill entirely for an unpriced dish', () => {
+    const { getByText, queryByText } = render(<DishCardV2 name="Grandma's ragu" />);
+    expect(getByText("Grandma's ragu")).toBeTruthy();
+    expect(queryByText('$0.00')).toBeNull();
+  });
 });
 
 describe('DishCardV3 (text-first menu line)', () => {
@@ -95,6 +101,13 @@ describe('DishCardV3 (text-first menu line)', () => {
     expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
     fireEvent.click(getByRole('button', { name: 'Add' }));
     expect(onAdd).toHaveBeenCalledTimes(1);
+  });
+
+  it('drops the dotted leader with the price for an unpriced menu line', () => {
+    const { container, getByText, queryByText } = render(<DishCardV3 name="Grandma's ragu" />);
+    expect(getByText("Grandma's ragu")).toBeTruthy();
+    expect(queryByText('$0.00')).toBeNull();
+    expect(container.querySelector('.border-dotted')).toBeNull();
   });
 });
 

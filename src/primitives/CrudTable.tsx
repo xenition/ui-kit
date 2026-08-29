@@ -123,7 +123,10 @@ export function CrudTable<T>({
         </Button>
         <Popconfirm
           trigger={
-            <Button size="sm" variant="ghost">
+            // Kept in step with the native twin: same ghost button, same danger
+            // tone. The tone is what the native side already said with a red
+            // `<Text>` before it could use a Button at all.
+            <Button size="sm" variant="ghost" tone="danger">
               Delete
             </Button>
           }

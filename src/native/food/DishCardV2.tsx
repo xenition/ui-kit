@@ -80,20 +80,23 @@ export function DishCardV2({
         />
       ) : null}
 
-      {/* Frosted price pill, overlaid bottom-left. */}
-      <View
-        style={{
-          position: 'absolute',
-          left: tokens.spacing.sm,
-          bottom: tokens.spacing.sm,
-          paddingHorizontal: tokens.spacing.sm,
-          paddingVertical: tokens.spacing.xs,
-          borderRadius: tokens.radius.full,
-          backgroundColor: withAlpha(colors.surface, 0.92),
-        }}
-      >
-        <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} size="sm" />
-      </View>
+      {/* Frosted price pill, overlaid bottom-left. Unpriced dishes get no pill
+          at all — an empty frosted disc over the photo reads as a bug. */}
+      {typeof priceCents === 'number' ? (
+        <View
+          style={{
+            position: 'absolute',
+            left: tokens.spacing.sm,
+            bottom: tokens.spacing.sm,
+            paddingHorizontal: tokens.spacing.sm,
+            paddingVertical: tokens.spacing.xs,
+            borderRadius: tokens.radius.full,
+            backgroundColor: withAlpha(colors.surface, 0.92),
+          }}
+        >
+          <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} size="sm" />
+        </View>
+      ) : null}
 
       {soldOut ? (
         <View

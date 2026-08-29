@@ -1,26 +1,51 @@
 import * as React from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { ScrollView, View, useWindowDimensions } from 'react-native';
 import { useXenitionTheme } from '../theme';
-import { Button, Icon } from '../primitives';
-import { PlanSelector } from './PlanSelector';
+import { Icon, Text } from '../primitives';
+import { PlanSelectorV2 } from './PlanSelectorV2';
 import { TrialBanner } from './TrialBanner';
-import { withAlpha } from '../primitives/internal/color';
-import type { PaywallScreenProps } from './PaywallScreen';
+import {
+  PaywallFeatureRows,
+  PaywallFooter,
+  toFeatureRows,
+  toValueFramingRows,
+  type PaywallScreenProps,
+} from './PaywallScreen';
 
 /** Drop-in for {@link PaywallScreen} — identical props, different design. */
 export type PaywallScreenV2Props = PaywallScreenProps;
 
+/*
+  Geometry the onboarding spec fixes by number (§10.1). The editorial hero is
+  taller than the base one because it runs full-bleed to the top edge with no
+  panel inset; the cap still keeps the sticky CTA in the fold (§3).
+*/
+const MEDALLION = 56;
+const HERO_HEIGHT_RATIO = 0.34;
+
 /**
- * Value-first paywall — V2. Leads with a bold, tinted hero (brand medallion +
- * outcome headline over a token-derived scrim), then the benefit list, optional
- * trial strip and plans, with the price CTA pinned to the bottom so the ask
- * lands only after the value is read. Composes {@link TrialBanner},
- * {@link PlanSelector} and the CTA. Everything above the pinned bar scrolls.
- * Same props as {@link PaywallScreen}. Token-pure.
+ * Value-first paywall — V2, the **editorial** line. The hero runs full-bleed to
+ * the top edge with no inset panel, and the content sheet rises over it with a
+ * rounded lip so the headline overlaps the artwork. Below the fold line sit the
+ * trial strip, the §8 feature rows, the value-framing block and the V2 plan
+ * cards, with the CTA pinned (§5).
+ *
+ * Stays inside its own design line: the plan cards are {@link PlanSelectorV2},
+ * not the base selector, because an app that picks V2 picks it for every
+ * surface it sees. {@link TrialBanner} has no alternate, so the base one is the
+ * whole line — that is correct, not a gap. Same props as {@link PaywallScreen}.
+ * Token-pure.
  */
 export function PaywallScreenV2({
   title,
   subtitle,
+  illustration,
+  logoGlyph = '✦',
+  showHero = true,
+  features,
+  featuresTitle,
+  featureRail,
+  valueFraming,
   valueProps = [],
   plans,
   selectedPlanId,
@@ -37,85 +62,77 @@ export function PaywallScreenV2({
   onDismiss,
   style,
 }: PaywallScreenV2Props): React.ReactElement {
-  const { colors, tokens } = useXenitionTheme();
+  const { colors, scheme, tokens } = useXenitionTheme();
+  const { height } = useWindowDimensions();
+  // The native ramps keep their light orientation in both schemes — see the
+  // note in `PaywallScreen`'s `PaywallFeatureRows`.
+  const heroGround = scheme === 'dark' ? tokens.ramps.primary[900] : tokens.ramps.primary[50];
+  const rows = toFeatureRows(features, valueProps);
+  const framingRows = toValueFramingRows(valueFraming);
 
   return (
     <View style={[{ flex: 1, backgroundColor: colors.surface }, style]}>
-      <ScrollView contentContainerStyle={{ paddingBottom: tokens.spacing.xl, gap: tokens.spacing.lg }}>
-        {/* Value-first hero. */}
-        <View
-          style={{
-            paddingHorizontal: tokens.spacing.xl,
-            paddingTop: tokens.spacing['2xl'],
-            paddingBottom: tokens.spacing.xl,
-            gap: tokens.spacing.md,
-            alignItems: 'center',
-            backgroundColor: withAlpha(colors.primary, 0.1),
-            borderBottomLeftRadius: tokens.radius.lg,
-            borderBottomRightRadius: tokens.radius.lg,
-          }}
-        >
+      <ScrollView contentContainerStyle={{ paddingBottom: tokens.spacing.xl }}>
+        {showHero ? (
           <View
             style={{
-              width: 72,
-              height: 72,
-              borderRadius: tokens.radius.full,
+              height: Math.round(height * HERO_HEIGHT_RATIO),
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: colors.primary,
+              backgroundColor: heroGround,
+              overflow: 'hidden',
             }}
           >
-            <Icon glyph="✦" size="2xl" color="onPrimary" />
+            {illustration ?? (
+              <View
+                style={{
+                  width: MEDALLION,
+                  height: MEDALLION,
+                  borderRadius: tokens.radius.full,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: colors.primary,
+                }}
+              >
+                <Icon glyph={logoGlyph} size="2xl" color="onPrimary" />
+              </View>
+            )}
           </View>
-          <Text
-            accessibilityRole="header"
-            style={{ color: colors.onSurface, fontSize: tokens.typography.scale['3xl'], fontWeight: '800', textAlign: 'center' }}
-          >
-            {title}
-          </Text>
-          {subtitle ? (
-            <Text
-              style={{
-                color: colors.muted,
-                fontSize: tokens.typography.scale.base,
-                textAlign: 'center',
-                lineHeight: tokens.typography.scale.base * 1.5,
-              }}
-            >
-              {subtitle}
+        ) : null}
+
+        {/* The sheet rises over the hero — its rounded lip is the overlap. */}
+        <View
+          style={{
+            marginTop: showHero ? -tokens.spacing.xl : 0,
+            borderTopLeftRadius: tokens.radius.lg,
+            borderTopRightRadius: tokens.radius.lg,
+            backgroundColor: colors.surface,
+            paddingHorizontal: tokens.spacing.lg,
+            paddingTop: tokens.spacing.xl,
+            gap: tokens.spacing.lg,
+          }}
+        >
+          <View style={{ gap: tokens.spacing.sm, alignItems: 'center' }}>
+            <Text accessibilityRole="header" size="2xl" weight="bold" align="center" numberOfLines={2}>
+              {title}
             </Text>
-          ) : null}
-        </View>
+            {subtitle ? (
+              <Text size="base" tone="muted" align="center" numberOfLines={3}>
+                {subtitle}
+              </Text>
+            ) : null}
+          </View>
 
-        <View style={{ paddingHorizontal: tokens.spacing.xl, gap: tokens.spacing.lg }}>
-          {trial ? <TrialBanner title={trial.title} subtitle={trial.subtitle} daysLeft={trial.daysLeft} /> : null}
-
-          {valueProps.length ? (
-            <View style={{ gap: tokens.spacing.md }}>
-              {valueProps.map((v, i) => (
-                <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm }}>
-                  <View
-                    style={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: tokens.radius.full,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backgroundColor: colors.success,
-                    }}
-                  >
-                    <Icon glyph={v.icon ?? '✓'} size="sm" color="onSuccess" />
-                  </View>
-                  <Text style={{ flex: 1, color: colors.onSurface, fontSize: tokens.typography.scale.base, fontWeight: '500' }}>
-                    {v.text}
-                  </Text>
-                </View>
-              ))}
-            </View>
+          {trial ? (
+            <TrialBanner title={trial.title} subtitle={trial.subtitle} daysLeft={trial.daysLeft} />
           ) : null}
+
+          <PaywallFeatureRows rows={rows} heading={featuresTitle} rail={featureRail} />
+
+          <PaywallFeatureRows rows={framingRows} heading={valueFraming?.title} />
 
           {plans?.length ? (
-            <PlanSelector
+            <PlanSelectorV2
               plans={plans}
               selectedPlanId={selectedPlanId}
               onSelectPlan={onSelectPlan}
@@ -127,35 +144,14 @@ export function PaywallScreenV2({
         </View>
       </ScrollView>
 
-      <View style={{ padding: tokens.spacing.xl, gap: tokens.spacing.sm, borderTopWidth: 1, borderTopColor: colors.border }}>
-        <Button
-          variant="primary"
-          size="lg"
-          loading={loading}
-          onPress={onSubscribe}
-          accessibilityLabel={ctaLabel}
-          style={{ alignSelf: 'stretch' }}
-        >
-          {ctaLabel}
-        </Button>
-        {footnote ? (
-          <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.xs, textAlign: 'center' }}>
-            {footnote}
-          </Text>
-        ) : null}
-        {dismissLabel && onDismiss ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={dismissLabel}
-            onPress={onDismiss}
-            style={{ alignItems: 'center', paddingVertical: tokens.spacing.xs }}
-          >
-            <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.base, fontWeight: '500' }}>
-              {dismissLabel}
-            </Text>
-          </Pressable>
-        ) : null}
-      </View>
+      <PaywallFooter
+        ctaLabel={ctaLabel}
+        onSubscribe={onSubscribe}
+        loading={loading}
+        footnote={footnote}
+        dismissLabel={dismissLabel}
+        onDismiss={onDismiss}
+      />
     </View>
   );
 }

@@ -41,6 +41,19 @@ const react_native_safe_area_context_1 = require("react-native-safe-area-context
 const theme_1 = require("../theme");
 const useReducedMotion_1 = require("./internal/useReducedMotion");
 /**
+ * The scrim.
+ *
+ * NOT a semantic token. `onSurface` inverts with the scheme — it is near-black
+ * on a light page and near-WHITE on a dark one — so a scrim built from it
+ * paints a 50% white veil over a dark app. Verified: at the warm-neutral seed,
+ * dark `onSurface` compiles to `#eeeded`.
+ *
+ * A scrim is not "the text colour, faded". It is the absence of light, and
+ * absence does not invert. Black at a fixed alpha in both schemes.
+ */
+const SCRIM = '#000000';
+const SCRIM_OPACITY = 0.5;
+/**
  * Draggable bottom sheet — a bottom-anchored `Modal` panel with a top grabber
  * handle that the user can drag down to dismiss (release past a threshold calls
  * `onClose`). Distinct from the side `Drawer` by the grabber + drag gesture and
@@ -89,7 +102,7 @@ function BottomSheet({ open, onClose, title, children, snap = 0.5, style, }) {
             }
         },
     }), [onClose, reduced, sheetHeight, translateY]);
-    return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: onClose, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, justifyContent: 'flex-end' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityLabel: "Close", onPress: onClose, style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: colors.onSurface, opacity: 0.5 } }), (0, jsx_runtime_1.jsxs)(react_native_1.Animated.View, { accessibilityViewIsModal: true, style: [
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: onClose, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flex: 1, justifyContent: 'flex-end' }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityLabel: "Close", onPress: onClose, style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: SCRIM, opacity: SCRIM_OPACITY } }), (0, jsx_runtime_1.jsxs)(react_native_1.Animated.View, { accessibilityViewIsModal: true, style: [
                         {
                             height: sheetHeight,
                             backgroundColor: colors.surface,

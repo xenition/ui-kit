@@ -38,10 +38,13 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("./cn");
 /** Themed tab bar (controlled). Render the active panel yourself based on `value`. */
-exports.Tabs = React.forwardRef(function Tabs({ className, items, value, onValueChange, ...rest }, ref) {
+exports.Tabs = React.forwardRef(function Tabs({ className, items, value, onValueChange, onChange, ...rest }, ref) {
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onValueChange ?? onChange;
     return ((0, jsx_runtime_1.jsx)("div", { ref: ref, role: "tablist", className: (0, cn_1.cn)('flex gap-1 border-b border-border', className), ...rest, children: items.map((it) => {
             const active = it.value === value;
-            return ((0, jsx_runtime_1.jsx)("button", { type: "button", role: "tab", "aria-selected": active, onClick: () => onValueChange(it.value), className: (0, cn_1.cn)('-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors', active
+            return ((0, jsx_runtime_1.jsx)("button", { type: "button", role: "tab", "aria-selected": active, onClick: () => emit?.(it.value), className: (0, cn_1.cn)('-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors', active
                     ? 'border-primary text-primary'
                     : 'border-transparent text-muted hover:text-on-surface'), children: it.label }, it.value));
         }) }));

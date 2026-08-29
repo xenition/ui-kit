@@ -5,6 +5,24 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 /**
+ * The scrim.
+ *
+ * NOT a semantic token. `onSurface` inverts with the scheme — near-black on a
+ * light page, near-WHITE on a dark one — so a scrim built from it paints a 50%
+ * white veil over a dark app. Three of this kit's four overlays did exactly
+ * that; verified at the warm-neutral seed, where dark `onSurface` compiles to
+ * `#eeeded`.
+ *
+ * `ramps.neutral[950]` (what this file used before) does NOT invert and was
+ * therefore correct — but at `#23211f` it is the same colour as a dark page,
+ * so the scrim all but vanished in dark mode. Black separates in both schemes.
+ *
+ * A scrim is not "a dark colour from the palette". It is the absence of light,
+ * and absence does not have a brand.
+ */
+const SCRIM = '#000000';
+const SCRIM_OPACITY = 0.5;
+/**
  * Themed modal dialog — the native mirror of the web `Modal`. Wraps RN's
  * `Modal`; the backdrop scrim is the darkest neutral ramp step faded via
  * `opacity`, so every rendered color stays a pure theme token.
@@ -17,8 +35,8 @@ function Modal({ open, onClose, title, children }) {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        backgroundColor: tokens.ramps.neutral[950],
-                        opacity: 0.5,
+                        backgroundColor: SCRIM,
+                        opacity: SCRIM_OPACITY,
                     } }), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
                         width: '100%',
                         maxWidth: 480,

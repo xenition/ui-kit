@@ -38,35 +38,66 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
 const Icon_1 = require("../primitives/Icon");
+const Text_1 = require("../primitives/Text");
 const commerce_1 = require("../commerce");
+const GetStartedButton_1 = require("./GetStartedButton");
 const ProgressDots_1 = require("./ProgressDots");
+/** 44×44 header tap targets (spec §2) — `h-11` is 44px. Geometric, per §10.1. */
+const TAP_TARGET_CLASS = 'h-11 w-11';
 /**
- * OnboardingSlides, redesigned (v2): a **full-bleed hero carousel**. Each slide
- * fills a tall primary-tinted panel with a large medallion, headline, and
- * description centered; progress dots sit at the bottom with Skip and a circular
- * Next/Done button. A bolder intro than v1. Same props, token-only.
+ * The editorial hero runs to the top edge and takes a little under half the
+ * viewport — bigger than the base line's 38% cap because nothing insets it
+ * (spec §11, V2).
  */
-exports.OnboardingSlidesV2 = React.forwardRef(function OnboardingSlidesV2({ slides, index, onIndexChange, onSkip, onComplete, showSkip = true, finishLabel = 'Get started', variant, className, ...rest }, ref) {
+const HERO_HEIGHT_CLASS = 'h-[46vh]';
+/**
+ * Onboarding intro — V2, the **editorial** line.
+ *
+ * Same shell as {@link OnboardingSlides} — header · hero · headline · sticky
+ * footer — but the hero is not a panel sitting under the header: it runs
+ * full-bleed to the very top edge, the header controls float over it, and a
+ * `surface` content sheet lifts up over the bottom of the art.
+ *
+ * Identical props to {@link OnboardingSlides}, including the §3 `illustration`
+ * slot and its medallion fallback. Same controlled/uncontrolled indexing and
+ * clamping; an empty list renders the {@link EmptyState}. Token-only.
+ */
+exports.OnboardingSlidesV2 = React.forwardRef(function OnboardingSlidesV2({ slides, index, onIndexChange, onSkip, onComplete, illustration, onBack, showSkip = true, finishLabel = 'Get started', variant, className, ...rest }, ref) {
     void variant;
     const [internal, setInternal] = React.useState(0);
-    const active = index ?? internal;
-    const clamped = Math.max(0, Math.min(slides.length - 1, active));
-    const isLast = clamped >= slides.length - 1;
-    if (slides.length === 0) {
-        return (0, jsx_runtime_1.jsx)(commerce_1.EmptyState, { ref: ref, icon: (0, jsx_runtime_1.jsx)("span", { className: "text-3xl", children: "\uD83D\uDC4B" }), title: "Nothing to show", className: className, ...rest });
-    }
-    const go = (next) => {
-        if (index === undefined)
-            setInternal(next);
-        onIndexChange?.(next);
+    const count = slides.length;
+    const controlled = index != null;
+    const rawActive = controlled ? index : internal;
+    const active = count === 0 ? 0 : Math.min(Math.max(0, rawActive), count - 1);
+    const isLast = active >= count - 1;
+    const isFirst = active <= 0;
+    const goTo = (next) => {
+        const clamped = Math.min(Math.max(0, next), Math.max(0, count - 1));
+        if (!controlled)
+            setInternal(clamped);
+        onIndexChange?.(clamped);
     };
-    const advance = () => {
-        if (isLast)
+    const onNext = () => {
+        if (isLast) {
             onComplete?.();
-        else
-            go(clamped + 1);
+            return;
+        }
+        goTo(active + 1);
     };
-    const slide = slides[clamped];
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex min-h-full flex-col bg-surface', className), ...rest, children: [showSkip && !isLast ? ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-end p-3", children: (0, jsx_runtime_1.jsx)("button", { type: "button", onClick: onSkip, className: "text-sm font-semibold text-muted", children: "Skip" }) })) : ((0, jsx_runtime_1.jsx)("div", { className: "h-12" })), (0, jsx_runtime_1.jsxs)("div", { className: "flex flex-1 flex-col items-center justify-center gap-4 bg-primary/10 px-6 text-center", children: [slide.icon ? ((0, jsx_runtime_1.jsx)("div", { className: "flex h-24 w-24 items-center justify-center rounded-full bg-surface shadow-sm", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: slide.icon, size: "3xl", color: "primary" }) })) : null, (0, jsx_runtime_1.jsx)("h2", { className: "text-2xl font-bold text-on-surface", children: slide.title }), slide.description ? (0, jsx_runtime_1.jsx)("p", { className: "max-w-sm text-base text-muted", children: slide.description }) : null] }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between p-6", children: [(0, jsx_runtime_1.jsx)(ProgressDots_1.ProgressDots, { count: slides.length, activeIndex: clamped, onDotClick: (i) => go(i) }), (0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": isLast ? finishLabel : 'Next', onClick: advance, className: "flex h-12 items-center justify-center gap-1 rounded-full bg-primary px-5 text-sm font-bold text-on-primary", children: isLast ? finishLabel : '→' })] })] }));
+    const goBack = () => {
+        if (onBack) {
+            onBack();
+            return;
+        }
+        goTo(active - 1);
+    };
+    if (count === 0) {
+        return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: className, ...rest, children: (0, jsx_runtime_1.jsx)(commerce_1.EmptyState, { title: "Nothing to show yet." }) }));
+    }
+    const slide = slides[active];
+    if (!slide)
+        return (0, jsx_runtime_1.jsx)("div", { ref: ref, className: className, ...rest });
+    const showBack = onBack != null || !isFirst;
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('relative flex min-h-full flex-col bg-surface', className), ...rest, children: [(0, jsx_runtime_1.jsx)("div", { className: (0, cn_1.cn)('flex w-full shrink-0 items-center justify-center overflow-hidden bg-primary-50', HERO_HEIGHT_CLASS), children: illustration ?? ((0, jsx_runtime_1.jsx)("span", { className: "flex h-28 w-28 items-center justify-center rounded-full bg-primary", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: slide.icon ?? '✦', size: "3xl", color: "onPrimary" }) })) }), (0, jsx_runtime_1.jsxs)("div", { className: "absolute inset-x-0 top-0 z-10 flex items-center gap-md px-lg pt-lg", children: [showBack ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Previous slide", onClick: goBack, className: (0, cn_1.cn)('inline-flex shrink-0 items-center justify-center rounded-full', TAP_TARGET_CLASS), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "chevron-left", size: "xl", color: "onSurface" }) })) : ((0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: (0, cn_1.cn)('shrink-0', TAP_TARGET_CLASS) })), (0, jsx_runtime_1.jsx)("div", { className: "flex-1", children: (0, jsx_runtime_1.jsx)(ProgressDots_1.ProgressDots, { variant: "bars", count: count, activeIndex: active }) }), showSkip ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Skip intro", onClick: onSkip, className: (0, cn_1.cn)('inline-flex shrink-0 items-center justify-center rounded-full', TAP_TARGET_CLASS), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "close", size: "lg", color: "muted" }) })) : ((0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: (0, cn_1.cn)('shrink-0', TAP_TARGET_CLASS) }))] }), (0, jsx_runtime_1.jsxs)("div", { className: "-mt-xl flex flex-1 flex-col justify-center gap-sm rounded-t-lg bg-surface px-lg pb-lg pt-xl text-center", children: [(0, jsx_runtime_1.jsx)("h2", { children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "2xl", weight: "bold", tone: "onSurface", numberOfLines: 2, className: "block", children: slide.title }) }), slide.description ? ((0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", tone: "muted", numberOfLines: 3, className: "mx-auto block max-w-prose", children: slide.description })) : null] }), (0, jsx_runtime_1.jsx)("div", { className: "sticky bottom-0 border-t border-border bg-surface px-lg pb-lg pt-md", children: (0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: isLast ? finishLabel : 'Next', "aria-label": isLast ? finishLabel : 'Next slide', onClick: onNext }) })] }));
 });
 //# sourceMappingURL=OnboardingSlidesV2.js.map

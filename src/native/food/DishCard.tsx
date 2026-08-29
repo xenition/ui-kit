@@ -20,8 +20,10 @@ export interface DishCardProps {
   name: string;
   /** Short description / ingredients line. */
   description?: string;
-  /** Price in integer cents. */
-  priceCents: number;
+  /** Price in integer cents. Omit for an unpriced dish — a recipe, a saved
+   * dish, a menu line that carries no price — and the price element is left
+   * out entirely rather than reading `$0.00`. */
+  priceCents?: number;
   /** ISO 4217 currency code (default `USD`). */
   currency?: string;
   /** Dish photo URL. When absent a token-tinted placeholder is drawn. */
@@ -52,7 +54,8 @@ export interface DishCardProps {
 /**
  * A single menu item — the food-domain sibling of `ProductCard`. Renders a
  * photo (or a token-tinted placeholder), name, description, an optional star
- * rating and dietary `badges`, a {@link PriceTag}, and an optional add button.
+ * rating and dietary `badges`, a {@link PriceTag} when `priceCents` is given,
+ * and an optional add button.
  * `variant` switches between a horizontal `list` row, a vertical `grid` tile,
  * and a larger `featured` hero. `soldOut` dims the card and disables adding;
  * `loading` shows a token-only skeleton. Colors come only from theme tokens.
@@ -160,7 +163,14 @@ export function DishCard({
           justifyContent: 'space-between',
         }}
       >
-        <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} />
+        {/* No price, no price element — a recipe or an unpriced menu line must
+            not read `$0.00`. The empty spacer keeps `space-between` pushing the
+            add button to the trailing edge where it always sits. */}
+        {typeof priceCents === 'number' ? (
+          <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} />
+        ) : (
+          <View />
+        )}
         {soldOut ? (
           <Text style={{ color: colors.danger, fontSize: tokens.typography.scale.sm, fontWeight: '600' }}>
             {soldOutLabel}

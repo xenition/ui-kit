@@ -47,8 +47,11 @@ const Switch_1 = require("../primitives/Switch");
  * `border` divider separates rows unless `last`. Token-bound throughout (no
  * literal colors).
  */
-exports.DeviceToggleRow = React.forwardRef(function DeviceToggleRow({ label, icon, subtitle, checked = false, offline = false, onCheckedChange, last = false, className, style }, ref) {
+exports.DeviceToggleRow = React.forwardRef(function DeviceToggleRow({ label, icon, subtitle, checked = false, offline = false, onCheckedChange, onChange, last = false, className, style, }, ref) {
     const secondary = offline ? 'Offline' : subtitle;
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, style: style, className: (0, cn_1.cn)('flex items-center gap-[var(--xen-space-sm)] py-[var(--xen-space-sm)]', !last && 'border-b border-border', offline && 'opacity-70', className), children: [icon != null ? (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: icon, color: checked && !offline ? 'primary' : 'muted', size: "lg" }) : null, (0, jsx_runtime_1.jsxs)("div", { className: "min-w-0 flex-1", children: [(0, jsx_runtime_1.jsx)("p", { className: "truncate text-sm font-medium text-on-surface", children: label }), secondary != null ? (0, jsx_runtime_1.jsx)("p", { className: "truncate text-xs text-muted", children: secondary }) : null] }), (0, jsx_runtime_1.jsx)(Switch_1.Switch, { checked: checked, disabled: offline, onCheckedChange: onCheckedChange, "aria-label": label })] }));
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onCheckedChange ?? onChange;
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, style: style, className: (0, cn_1.cn)('flex items-center gap-[var(--xen-space-sm)] py-[var(--xen-space-sm)]', !last && 'border-b border-border', offline && 'opacity-70', className), children: [icon != null ? (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: icon, color: checked && !offline ? 'primary' : 'muted', size: "lg" }) : null, (0, jsx_runtime_1.jsxs)("div", { className: "min-w-0 flex-1", children: [(0, jsx_runtime_1.jsx)("p", { className: "truncate text-sm font-medium text-on-surface", children: label }), secondary != null ? (0, jsx_runtime_1.jsx)("p", { className: "truncate text-xs text-muted", children: secondary }) : null] }), (0, jsx_runtime_1.jsx)(Switch_1.Switch, { checked: checked, disabled: offline, onCheckedChange: emit, "aria-label": label })] }));
 });
 //# sourceMappingURL=DeviceToggleRow.js.map

@@ -39,6 +39,19 @@ const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 /**
+ * The scrim.
+ *
+ * NOT a semantic token. `onSurface` inverts with the scheme — it is near-black
+ * on a light page and near-WHITE on a dark one — so a scrim built from it
+ * paints a 50% white veil over a dark app. Verified: at the warm-neutral seed,
+ * dark `onSurface` compiles to `#eeeded`.
+ *
+ * A scrim is not "the text colour, faded". It is the absence of light, and
+ * absence does not invert. Black at a fixed alpha in both schemes.
+ */
+const SCRIM = '#000000';
+const SCRIM_OPACITY = 0.5;
+/**
  * Themed side sheet — the native mirror of the web `Drawer`. RN has no DOM
  * portal, so this is a full-screen `Modal` with the panel anchored to `side`
  * over a translucent backdrop (tap to dismiss). The panel slides in with
@@ -70,8 +83,8 @@ function Drawer({ open, onClose, side = 'right', title, children, style, }) {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        backgroundColor: colors.onSurface,
-                        opacity: 0.5,
+                        backgroundColor: SCRIM,
+                        opacity: SCRIM_OPACITY,
                     } }), (0, jsx_runtime_1.jsxs)(react_native_1.Animated.View, { accessibilityViewIsModal: true, style: [
                         {
                             backgroundColor: colors.surface,

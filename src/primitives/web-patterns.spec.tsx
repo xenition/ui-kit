@@ -22,7 +22,7 @@ describe('Icon', () => {
     expect(el.className).toContain('text-primary');
   });
   it('exposes role="img" when aria-label is set', () => {
-    const { getByRole } = render(<Icon name="✓" aria-label="done" />);
+    const { getByRole } = render(<Icon name="check" aria-label="done" />);
     expect(getByRole('img').getAttribute('aria-label')).toBe('done');
   });
 });

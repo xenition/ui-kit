@@ -5,8 +5,15 @@ export interface ChecklistItemProps {
     label: string;
     /** Controlled checked state. */
     checked?: boolean;
-    /** Fires with the next checked value on press. */
+    /**
+     * Fires with the next checked value on press. Prefer `onChange` — that is the
+     * kit's one canonical name for "the value changed". `onCheckedChange` is this
+     * component's original spelling, kept so existing callers keep working; if
+     * both are passed this one wins.
+     */
     onCheckedChange?: (checked: boolean) => void;
+    /** Canonical spelling of `onCheckedChange` (see it for the precedence rule). */
+    onChange?: (checked: boolean) => void;
     disabled?: boolean;
     style?: StyleProp<ViewStyle>;
 }
@@ -16,5 +23,5 @@ export interface ChecklistItemProps {
  * and strikes through its label. Exposes the `checkbox` a11y role/state. No
  * literal colors.
  */
-export declare function ChecklistItem({ label, checked, onCheckedChange, disabled, style, }: ChecklistItemProps): React.ReactElement;
+export declare function ChecklistItem({ label, checked, onCheckedChange, onChange, disabled, style, }: ChecklistItemProps): React.ReactElement;
 //# sourceMappingURL=ChecklistItem.d.ts.map

@@ -10,6 +10,9 @@ export type ProfileCardV3Props = ProfileCardProps;
  * raised card — followed by a labelled interest rail. Airy, type-led, and
  * unmistakably distinct from the base summary card and the full-bleed V2. Same
  * `ProfileCardProps`; token classes only; guarded; loading/empty states included.
+ * Stays inside its own design line: the meter is {@link CompatibilityMeterV3},
+ * not the base one, because an app that picks V3 picks it for every surface it
+ * sees.
  */
 export declare const ProfileCardV3: React.ForwardRefExoticComponent<ProfileCardProps & React.RefAttributes<HTMLDivElement>>;
 //# sourceMappingURL=ProfileCardV3.d.ts.map

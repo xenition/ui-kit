@@ -41,7 +41,30 @@ const useDismiss_1 = require("./useDismiss");
 function Popconfirm({ trigger, message, onConfirm, confirmLabel = 'Confirm', cancelLabel = 'Cancel', }) {
     const [open, setOpen] = React.useState(false);
     const ref = (0, useDismiss_1.useDismiss)(open, () => setOpen(false));
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: "relative inline-block", children: [(0, jsx_runtime_1.jsx)("span", { onClick: () => setOpen((o) => !o), children: trigger }), open && ((0, jsx_runtime_1.jsxs)("div", { role: "dialog", className: "absolute z-50 mt-1 w-56 rounded-[var(--xen-radius-md)] border border-border bg-surface p-3 shadow-lg", children: [(0, jsx_runtime_1.jsx)("p", { className: "mb-3 text-sm text-on-surface", children: message }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-end gap-2", children: [(0, jsx_runtime_1.jsx)("button", { type: "button", onClick: () => setOpen(false), className: "rounded-[var(--xen-radius-sm)] px-2 py-1 text-xs text-muted transition-colors hover:text-on-surface", children: cancelLabel }), (0, jsx_runtime_1.jsx)("button", { type: "button", onClick: () => {
+    /*
+      The trigger IS the button. Popconfirm does not wrap it in a click catcher.
+  
+      This mirrors the native twin, where the wrapper was an outright bug: on RN the
+      deepest `Pressable` wins the touch responder, so a `<Button>` trigger swallowed
+      the tap and the bubble never opened. The DOM bubbles clicks, so the old
+      `<span onClick>` did fire here — but it made `disabled` a lie in the other
+      direction. A disabled `<button>` dispatches no click, yet a caller who instead
+      disabled a plain `<div>` trigger, or blocked its pointer events, still had the
+      span open the dialog on a control the user was told was dead.
+  
+      Cloning the element and injecting `onClick` gives both platforms the same rule:
+      the trigger is the only thing that handles the press, so whatever the trigger
+      says about being disabled is what happens. Anything it already does on click
+      runs first, then the bubble toggles. A non-element trigger (a bare string) has
+      nothing to clone onto, so it keeps the transparent `<span>`.
+    */
+    const renderedTrigger = React.isValidElement(trigger) ? (React.cloneElement(trigger, {
+        onClick: (event) => {
+            trigger.props.onClick?.(event);
+            setOpen((o) => !o);
+        },
+    })) : ((0, jsx_runtime_1.jsx)("span", { onClick: () => setOpen((o) => !o), children: trigger }));
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: "relative inline-block", children: [renderedTrigger, open && ((0, jsx_runtime_1.jsxs)("div", { role: "dialog", className: "absolute z-50 mt-1 w-56 rounded-[var(--xen-radius-md)] border border-border bg-surface p-3 shadow-lg", children: [(0, jsx_runtime_1.jsx)("p", { className: "mb-3 text-sm text-on-surface", children: message }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-end gap-2", children: [(0, jsx_runtime_1.jsx)("button", { type: "button", onClick: () => setOpen(false), className: "rounded-[var(--xen-radius-sm)] px-2 py-1 text-xs text-muted transition-colors hover:text-on-surface", children: cancelLabel }), (0, jsx_runtime_1.jsx)("button", { type: "button", onClick: () => {
                                     onConfirm();
                                     setOpen(false);
                                 }, className: "rounded-[var(--xen-radius-sm)] bg-danger px-2 py-1 text-xs text-on-danger", children: confirmLabel })] })] }))] }));

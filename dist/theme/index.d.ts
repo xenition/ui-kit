@@ -20,4 +20,6 @@ export type { RGB, HSL } from './color';
 export { compileTheme, MIN_CONTRAST } from './compile';
 export { toCssVars, toTailwindPreset, toNativeTokens } from './outputs';
 export type { TailwindPreset, NativeThemeTokens } from './outputs';
+export { GLASS_SURFACE_MIX, composeGlass, composeGlassCss, splitAlpha } from './glass';
+export type { ComposedGlass } from './glass';
 //# sourceMappingURL=index.d.ts.map

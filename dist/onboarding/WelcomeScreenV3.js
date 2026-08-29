@@ -38,15 +38,31 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
 const Icon_1 = require("../primitives/Icon");
+const Text_1 = require("../primitives/Text");
 const GetStartedButton_1 = require("./GetStartedButton");
+const ProgressDots_1 = require("./ProgressDots");
 /**
- * WelcomeScreen, redesigned (v3): a **compact welcome card**. A small inline
- * medallion beside the title, a short subtitle, and the CTAs in a tight row —
- * sized for a bottom sheet or modal rather than a full page. The opposite of v2's
- * split hero. Same props, token-only.
+ * 44×44 header tap targets (spec §2) — `h-11` is 44px. The leading badge sits
+ * on the same module so header and headline row share one grid. Geometric, per
+ * §10.1.
  */
-exports.WelcomeScreenV3 = React.forwardRef(function WelcomeScreenV3({ title, subtitle, logoGlyph, primaryLabel = 'Get started', onGetStarted, secondaryLabel, onSecondary, loading = false, variant, className, ...rest }, ref) {
+const TAP_TARGET_CLASS = 'h-11 w-11';
+/**
+ * First-launch welcome — V3, the **compact** line.
+ *
+ * No hero panel at all. The brand mark drops to a small leading badge beside
+ * the headline and the whole screen collapses to header · title row · sticky
+ * footer, for a bottom-sheet presentation or a short screen where a 38%-tall
+ * illustration would push the CTA off the fold. That is the §11 idea: the three
+ * lines differ in what they *are*, not in how they are painted.
+ *
+ * Identical props to {@link WelcomeScreen}. An `illustration` is still honoured
+ * (§3) — it just occupies the leading badge rather than a hero panel, clipped
+ * to the badge's circle — and the medallion is the fallback when there is none,
+ * so an empty hero slot still reads as composed. Token-only.
+ */
+exports.WelcomeScreenV3 = React.forwardRef(function WelcomeScreenV3({ title, subtitle, logoGlyph, illustration, primaryLabel = 'Get started', onGetStarted, secondaryLabel, onSecondary, onBack, onDismiss, stepCount, stepIndex = 0, loading = false, variant, className, ...rest }, ref) {
     void variant;
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex flex-col gap-4 rounded-lg bg-surface p-5 shadow-sm', className), ...rest, children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-3", children: [logoGlyph ? ((0, jsx_runtime_1.jsx)("div", { className: "flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: logoGlyph, size: "lg", color: "primary" }) })) : null, (0, jsx_runtime_1.jsxs)("div", { className: "min-w-0", children: [(0, jsx_runtime_1.jsx)("h1", { className: "text-xl font-bold text-on-surface", children: title }), subtitle ? (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-muted", children: subtitle }) : null] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-3", children: [(0, jsx_runtime_1.jsx)("div", { className: "flex-1", children: (0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: primaryLabel, onClick: onGetStarted, loading: loading }) }), secondaryLabel && onSecondary ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": secondaryLabel, onClick: onSecondary, className: "shrink-0 py-2 text-sm font-semibold text-primary", children: secondaryLabel })) : null] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex min-h-full flex-col bg-surface', className), ...rest, children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-md px-lg pt-md", children: [onBack ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Go back", onClick: onBack, className: (0, cn_1.cn)('inline-flex shrink-0 items-center justify-center rounded-full', TAP_TARGET_CLASS), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "chevron-left", size: "xl", color: "onSurface" }) })) : ((0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: (0, cn_1.cn)('shrink-0', TAP_TARGET_CLASS) })), (0, jsx_runtime_1.jsx)("div", { className: "flex-1", children: stepCount != null && stepCount > 0 ? ((0, jsx_runtime_1.jsx)(ProgressDots_1.ProgressDots, { variant: "bars", count: stepCount, activeIndex: stepIndex })) : null }), onDismiss ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Dismiss", onClick: onDismiss, className: (0, cn_1.cn)('inline-flex shrink-0 items-center justify-center rounded-full', TAP_TARGET_CLASS), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "close", size: "lg", color: "muted" }) })) : ((0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: (0, cn_1.cn)('shrink-0', TAP_TARGET_CLASS) }))] }), (0, jsx_runtime_1.jsx)("div", { className: "flex flex-1 flex-col justify-center px-lg py-md", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-md", children: [(0, jsx_runtime_1.jsx)("span", { className: (0, cn_1.cn)('inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full', TAP_TARGET_CLASS, illustration ? 'bg-primary-50' : 'bg-primary'), children: illustration ?? (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: logoGlyph ?? '✦', size: "xl", color: "onPrimary" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "flex min-w-0 flex-col gap-xs", children: [(0, jsx_runtime_1.jsx)("h1", { children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "2xl", weight: "bold", tone: "onSurface", numberOfLines: 2, className: "block", children: title }) }), subtitle ? ((0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", tone: "muted", numberOfLines: 3, className: "block max-w-prose", children: subtitle })) : null] })] }) }), (0, jsx_runtime_1.jsxs)("div", { className: "sticky bottom-0 flex flex-col gap-sm border-t border-border bg-surface px-lg pb-lg pt-md", children: [(0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: primaryLabel, onClick: onGetStarted, loading: loading }), secondaryLabel && onSecondary ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": secondaryLabel, onClick: onSecondary, className: "inline-flex min-h-11 items-center justify-center", children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", weight: "medium", tone: "muted", children: secondaryLabel }) })) : null] })] }));
 });
 //# sourceMappingURL=WelcomeScreenV3.js.map

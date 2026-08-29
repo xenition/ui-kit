@@ -5,7 +5,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const primitives_1 = require("../primitives");
 const color_1 = require("../primitives/internal/color");
-const AuthorByline_1 = require("./AuthorByline");
+const AuthorBylineV2_1 = require("./AuthorBylineV2");
 /**
  * ArticleHeader — **centered hero** alternate design.
  *
@@ -17,6 +17,8 @@ const AuthorByline_1 = require("./AuthorByline");
  * Token-pure: scrim is `withAlpha(ramps.neutral[900], …)`, reversed text is
  * `ramps.neutral[50]`. With no cover image it degrades to a centered header on
  * the normal surface with on-surface text.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV2}, not
+ * the base one, because an app that picks V2 picks it for every surface it sees.
  */
 function ArticleHeaderV2({ title, deck, category, coverImageUrl, author, date, readingTime, variant = 'standard', loading = false, style, }) {
     const { colors, tokens } = (0, primitives_1.useXenitionTheme)();
@@ -78,7 +80,7 @@ function ArticleHeaderV2({ title, deck, category, coverImageUrl, author, date, r
                     fontSize: tokens.typography.scale.sm,
                     fontWeight: '600',
                     textAlign: 'center',
-                }, children: [author.name, meta].filter(Boolean).join('  ·  ') })) : ((0, jsx_runtime_1.jsx)(AuthorByline_1.AuthorByline, { author: author, date: date, readingTime: readingTime, variant: "compact" }))) : meta ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
+                }, children: [author.name, meta].filter(Boolean).join('  ·  ') })) : ((0, jsx_runtime_1.jsx)(AuthorBylineV2_1.AuthorBylineV2, { author: author, date: date, readingTime: readingTime, variant: "compact" }))) : meta ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { style: {
                     color: hasCover ? inkSoft : colors.muted,
                     fontSize: tokens.typography.scale.sm,
                     textAlign: 'center',

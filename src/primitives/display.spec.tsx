@@ -29,8 +29,11 @@ describe('GradientText', () => {
     expect(el.getAttribute('data-xen-gradient-text')).toBe('primary-accent');
     const css = sheet('xen-gradient-text-styles');
     expect(css).toContain('background-clip: text');
-    expect(css).toContain('var(--xen-primary-300)');
-    expect(css).toContain('var(--xen-accent-400)');
+    // The stops are the compiler's contrast-safe TEXT slots, not pale ramp
+    // steps: `300` as text on a light page was never readable.
+    expect(css).toContain('var(--xen-primary-text)');
+    expect(css).toContain('var(--xen-accent-text)');
+    expect(css).not.toContain('var(--xen-primary-300)');
     expect(css).not.toMatch(HEX_LITERAL);
   });
 
@@ -76,15 +79,19 @@ describe('Eyebrow', () => {
 });
 
 describe('GlassPanel', () => {
-  it('mixes the translucent surface from surface/border tokens', () => {
+  it('mixes the translucent surface from the compiled glass tokens', () => {
+    // Was a hand-picked slice of `surface` (65%) and a literal 12px blur,
+    // both chosen beside the theme. Every value now comes from the compiler's
+    // `glass` token, which is derived per scheme and contrast-checked — see
+    // `theme/glass-legibility.spec.ts` and `GlassPanel.spec.tsx`.
     const { container } = render(<GlassPanel>content</GlassPanel>);
     const el = container.querySelector('[data-xen-glass]');
     expect(el?.getAttribute('data-xen-glass')).toBe('regular');
     expect(el?.getAttribute('data-bordered')).toBe('true');
     const css = sheet('xen-glass-styles');
-    expect(css).toContain('color-mix(in srgb, var(--xen-surface) 65%, transparent)');
-    expect(css).toContain('color-mix(in srgb, var(--xen-border) 60%, transparent)');
-    expect(css).toContain('backdrop-filter: blur(12px)');
+    expect(css).toContain('var(--xen-glass-tint)');
+    expect(css).toContain('border: 1px solid var(--xen-glass-border)');
+    expect(css).toContain('backdrop-filter: blur(var(--xen-glass-blur))');
     expect(css).not.toMatch(HEX_LITERAL);
   });
 

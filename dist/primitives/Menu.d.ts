@@ -8,7 +8,15 @@ export interface MenuItem {
     danger?: boolean;
 }
 export interface MenuProps {
-    /** Clickable trigger (e.g. a Button or icon). */
+    /**
+     * The control that opens the menu — normally a kit `<Button>` or an icon
+     * button. Menu clones the element and injects its own `onClick` rather than
+     * wrapping it in a click-catching `<span>` (see the note below), so the
+     * trigger stays the real button: its `disabled` state still blocks the menu,
+     * and any `onClick` it already carries still runs. A trigger that cannot take
+     * an `onClick` — a bare string, or a component that drops the prop — should
+     * be wrapped by the caller in an element that can.
+     */
     trigger: React.ReactNode;
     items: MenuItem[];
     align?: 'start' | 'end';

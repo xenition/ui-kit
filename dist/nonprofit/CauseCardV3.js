@@ -37,12 +37,14 @@ exports.CauseCardV3 = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
-const CampaignProgress_1 = require("./CampaignProgress");
+const CampaignProgressV3_1 = require("./CampaignProgressV3");
 /**
  * CauseCard, redesigned (v3): a **compact list row**. A small square thumbnail,
  * the title over a category·description line, and a thin progress meter beneath —
  * hairline-bordered for a dense causes list. The opposite of v2's cover hero.
  * Same props, token-only.
+ * Stays inside its own design line: the meter is {@link CampaignProgressV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 exports.CauseCardV3 = React.forwardRef(function CauseCardV3({ title, description, imageUrl, imageAlt, category, raisedCents, goalCents, currency = 'USD', variant, onClick, loading = false, className, ...rest }, ref) {
     void variant;
@@ -58,6 +60,6 @@ exports.CauseCardV3 = React.forwardRef(function CauseCardV3({ title, description
         }
     };
     const sub = [category, description].filter((s) => !!s).join(' · ');
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "data-xen-cause-card": "", role: interactive ? 'button' : undefined, tabIndex: interactive ? 0 : undefined, "aria-label": title, onClick: interactive ? () => onClick?.() : undefined, onKeyDown: interactive ? handleKeyDown : undefined, className: (0, cn_1.cn)('flex items-center gap-3 border-b border-border py-3', interactive && 'cursor-pointer transition-colors hover:bg-neutral-50', className), ...rest, children: [(0, jsx_runtime_1.jsx)("div", { className: "flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md bg-neutral-100 text-xl", children: imageUrl ? (0, jsx_runtime_1.jsx)("img", { src: imageUrl, alt: imageAlt ?? title, className: "h-full w-full object-cover" }) : '🤝' }), (0, jsx_runtime_1.jsxs)("div", { className: "min-w-0 flex-1", children: [(0, jsx_runtime_1.jsx)("p", { className: "truncate text-sm font-semibold text-on-surface", children: title }), sub ? (0, jsx_runtime_1.jsx)("p", { className: "truncate text-xs text-muted", children: sub }) : null, hasGoal ? ((0, jsx_runtime_1.jsx)("div", { className: "mt-1", children: (0, jsx_runtime_1.jsx)(CampaignProgress_1.CampaignProgress, { raisedCents: raisedCents, goalCents: goalCents, currency: currency, hideAmounts: true }) })) : null] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "data-xen-cause-card": "", role: interactive ? 'button' : undefined, tabIndex: interactive ? 0 : undefined, "aria-label": title, onClick: interactive ? () => onClick?.() : undefined, onKeyDown: interactive ? handleKeyDown : undefined, className: (0, cn_1.cn)('flex items-center gap-3 border-b border-border py-3', interactive && 'cursor-pointer transition-colors hover:bg-neutral-50', className), ...rest, children: [(0, jsx_runtime_1.jsx)("div", { className: "flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md bg-neutral-100 text-xl", children: imageUrl ? (0, jsx_runtime_1.jsx)("img", { src: imageUrl, alt: imageAlt ?? title, className: "h-full w-full object-cover" }) : '🤝' }), (0, jsx_runtime_1.jsxs)("div", { className: "min-w-0 flex-1", children: [(0, jsx_runtime_1.jsx)("p", { className: "truncate text-sm font-semibold text-on-surface", children: title }), sub ? (0, jsx_runtime_1.jsx)("p", { className: "truncate text-xs text-muted", children: sub }) : null, hasGoal ? ((0, jsx_runtime_1.jsx)("div", { className: "mt-1", children: (0, jsx_runtime_1.jsx)(CampaignProgressV3_1.CampaignProgressV3, { raisedCents: raisedCents, goalCents: goalCents, currency: currency, hideAmounts: true }) })) : null] })] }));
 });
 //# sourceMappingURL=CauseCardV3.js.map

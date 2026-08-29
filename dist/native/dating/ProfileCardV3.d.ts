@@ -10,6 +10,9 @@ export type ProfileCardV3Props = ProfileCardProps;
  * Airy, type-led, and unmistakably distinct from the summary (V1) and full-bleed
  * (V2) layouts. Same `ProfileCardProps`. Token-pure; guarded; loading/empty
  * states included.
+ * Stays inside its own design line: the meter is {@link CompatibilityMeterV3},
+ * not the base one, because an app that picks V3 picks it for every surface it
+ * sees.
  */
 export declare function ProfileCardV3({ profile, variant, showActions, onAction, onPressInterest, loading, emptyLabel, style, }: ProfileCardV3Props): React.ReactElement;
 //# sourceMappingURL=ProfileCardV3.d.ts.map

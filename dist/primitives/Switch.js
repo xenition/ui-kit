@@ -38,7 +38,10 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("./cn");
 /** Themed on/off switch (`role="switch"`) for boolean settings/filters. */
-exports.Switch = React.forwardRef(function Switch({ className, checked = false, onCheckedChange, disabled, ...rest }, ref) {
-    return ((0, jsx_runtime_1.jsx)("button", { ref: ref, type: "button", role: "switch", "aria-checked": checked, disabled: disabled, onClick: () => onCheckedChange?.(!checked), className: (0, cn_1.cn)('relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors', 'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1', 'disabled:pointer-events-none disabled:opacity-50', checked ? 'bg-primary' : 'bg-neutral-300', className), ...rest, children: (0, jsx_runtime_1.jsx)("span", { className: (0, cn_1.cn)('inline-block h-5 w-5 transform rounded-full bg-surface transition-transform', checked ? 'translate-x-5' : 'translate-x-0.5') }) }));
+exports.Switch = React.forwardRef(function Switch({ className, checked = false, onCheckedChange, onChange, disabled, ...rest }, ref) {
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onCheckedChange ?? onChange;
+    return ((0, jsx_runtime_1.jsx)("button", { ref: ref, type: "button", role: "switch", "aria-checked": checked, disabled: disabled, onClick: () => emit?.(!checked), className: (0, cn_1.cn)('relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors', 'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1', 'disabled:pointer-events-none disabled:opacity-50', checked ? 'bg-primary' : 'bg-neutral-300', className), ...rest, children: (0, jsx_runtime_1.jsx)("span", { className: (0, cn_1.cn)('inline-block h-5 w-5 transform rounded-full bg-surface transition-transform', checked ? 'translate-x-5' : 'translate-x-0.5') }) }));
 });
 //# sourceMappingURL=Switch.js.map

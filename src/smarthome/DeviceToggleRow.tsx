@@ -14,8 +14,15 @@ export interface DeviceToggleRowProps {
   checked?: boolean;
   /** Device is unreachable — disables the switch and shows an offline label. */
   offline?: boolean;
-  /** Fires with the requested on/off value. */
+  /**
+   * Fires with the requested on/off value. Prefer `onChange` — that is the
+   * kit's one canonical name for "the value changed". `onCheckedChange` is this
+   * component's original spelling, kept so existing callers keep working; if
+   * both are passed this one wins.
+   */
   onCheckedChange?: (next: boolean) => void;
+  /** Canonical spelling of `onCheckedChange` (see it for the precedence rule). */
+  onChange?: (next: boolean) => void;
   /** Hide the bottom divider (e.g. last row in a group). */
   last?: boolean;
   className?: string;
@@ -32,10 +39,24 @@ export interface DeviceToggleRowProps {
  */
 export const DeviceToggleRow = React.forwardRef<HTMLDivElement, DeviceToggleRowProps>(
   function DeviceToggleRow(
-    { label, icon, subtitle, checked = false, offline = false, onCheckedChange, last = false, className, style },
+    {
+      label,
+      icon,
+      subtitle,
+      checked = false,
+      offline = false,
+      onCheckedChange,
+      onChange,
+      last = false,
+      className,
+      style,
+    },
     ref
   ) {
     const secondary = offline ? 'Offline' : subtitle;
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onCheckedChange ?? onChange;
 
     return (
       <div
@@ -53,7 +74,7 @@ export const DeviceToggleRow = React.forwardRef<HTMLDivElement, DeviceToggleRowP
           <p className="truncate text-sm font-medium text-on-surface">{label}</p>
           {secondary != null ? <p className="truncate text-xs text-muted">{secondary}</p> : null}
         </div>
-        <Switch checked={checked} disabled={offline} onCheckedChange={onCheckedChange} aria-label={label} />
+        <Switch checked={checked} disabled={offline} onCheckedChange={emit} aria-label={label} />
       </div>
     );
   }

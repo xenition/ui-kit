@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '../primitives/cn';
 import { Badge } from '../primitives/Badge';
-import { CampaignProgress } from './CampaignProgress';
+import { CampaignProgressV2 } from './CampaignProgressV2';
 import type { CauseCardProps } from './CauseCard';
 
 /** Same public contract as {@link CauseCard} — a drop-in alternate design. */
@@ -12,6 +12,8 @@ export type CauseCardV2Props = CauseCardProps;
  * card; the category badge floats top-left and the title/description sit on a
  * gradient scrim at the bottom, with a mini progress meter when funding data is
  * present. Elevated, hover-lift. Same props as {@link CauseCard}, token-only.
+ * Stays inside its own design line: the meter is {@link CampaignProgressV2}, not
+ * the base one, because an app that picks V2 picks it for every surface it sees.
  */
 export const CauseCardV2 = React.forwardRef<HTMLDivElement, CauseCardV2Props>(function CauseCardV2(
   { title, description, imageUrl, imageAlt, category, raisedCents, goalCents, currency = 'USD', variant, onClick, loading = false, className, ...rest },
@@ -61,7 +63,7 @@ export const CauseCardV2 = React.forwardRef<HTMLDivElement, CauseCardV2Props>(fu
         {description ? <p className="mt-0.5 line-clamp-2 text-xs text-neutral-200">{description}</p> : null}
         {hasGoal ? (
           <div className="mt-2">
-            <CampaignProgress raisedCents={raisedCents!} goalCents={goalCents!} currency={currency} hideAmounts />
+            <CampaignProgressV2 raisedCents={raisedCents!} goalCents={goalCents!} currency={currency} hideAmounts />
           </div>
         ) : null}
       </div>

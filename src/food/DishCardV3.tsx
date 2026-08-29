@@ -58,8 +58,14 @@ export const DishCardV3 = React.forwardRef<HTMLDivElement, DishCardV3Props>(func
     <div className="flex flex-1 flex-col gap-[var(--xen-space-xs)]">
       <div className="flex items-baseline gap-[var(--xen-space-sm)]">
         <p className="min-w-0 shrink truncate font-heading font-bold text-on-surface">{name}</p>
-        <span className="mb-1 h-0 flex-1 self-end border-b border-dotted border-border" aria-hidden="true" />
-        <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} size="sm" />
+        {/* The dotted leader only earns its place when it leads somewhere, so an
+            unpriced line drops the rule and the price together. */}
+        {typeof priceCents === 'number' ? (
+          <>
+            <span className="mb-1 h-0 flex-1 self-end border-b border-dotted border-border" aria-hidden="true" />
+            <PriceTag cents={priceCents} currency={currency} formatMoney={formatMoney} size="sm" />
+          </>
+        ) : null}
       </div>
       {description ? <p className="line-clamp-2 text-sm text-muted">{description}</p> : null}
       <div className="mt-[var(--xen-space-xs)] flex flex-wrap items-center gap-[var(--xen-space-md)]">

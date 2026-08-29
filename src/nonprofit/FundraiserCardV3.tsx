@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cn } from '../primitives/cn';
 import { Avatar } from '../primitives/Avatar';
 import { Button } from '../primitives/Button';
-import { CampaignProgress } from './CampaignProgress';
+import { CampaignProgressV3 } from './CampaignProgressV3';
 import type { FundraiserCardProps } from './FundraiserCard';
 
 /** Same public contract as {@link FundraiserCard} — a drop-in alternate design. */
@@ -13,6 +13,8 @@ export type FundraiserCardV3Props = FundraiserCardProps;
  * the title over an organizer line + a thin progress meter, and a compact Donate
  * button on the right — hairline-bordered for a list of campaigns. The opposite
  * of v2's cover hero. Same props, token-only.
+ * Stays inside its own design line: the meter is {@link CampaignProgressV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 export const FundraiserCardV3 = React.forwardRef<HTMLDivElement, FundraiserCardV3Props>(
   function FundraiserCardV3(
@@ -43,7 +45,7 @@ export const FundraiserCardV3 = React.forwardRef<HTMLDivElement, FundraiserCardV
             {typeof donorCount === 'number' ? ` · ${donorCount} donors` : ''}
           </p>
           <div className="mt-1">
-            <CampaignProgress raisedCents={raisedCents} goalCents={goalCents} currency={currency} hideAmounts />
+            <CampaignProgressV3 raisedCents={raisedCents} goalCents={goalCents} currency={currency} hideAmounts />
           </div>
         </div>
         {onDonate ? (

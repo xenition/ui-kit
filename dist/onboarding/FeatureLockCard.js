@@ -41,15 +41,23 @@ const Badge_1 = require("../primitives/Badge");
 const Button_1 = require("../primitives/Button");
 const Card_1 = require("../primitives/Card");
 const Icon_1 = require("../primitives/Icon");
+const Text_1 = require("../primitives/Text");
 /**
  * Locked-feature teaser — shown where a free user hits a gated capability. It
  * names the feature, says what unlocking gets them and offers the upgrade CTA,
  * turning a dead end into a value pitch (paywall-after-value, design.md §27-28).
+ *
+ * Drawn as a single §8 row so a teaser encountered mid-app reads as the same
+ * object as the rows on the paywall it leads to: the 44 circular badge on a
+ * `primary-50` ground with the glyph in `primary`, a semibold title and a muted
+ * description. It used to sit on a grey `border` ground, which read as
+ * "disabled" rather than "worth buying".
+ *
  * The `inline` variant collapses to a compact row for list contexts. Colors are
  * token-bound via the {@link Card}/{@link Badge} primitives. No literal colors.
  */
 exports.FeatureLockCard = React.forwardRef(function FeatureLockCard({ title, description, icon = '🔒', planLabel = 'Pro', unlockLabel = 'Unlock', onUnlock, variant = 'card', className, ...rest }, ref) {
-    const body = ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-border", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: icon, size: "lg", color: "muted", "aria-label": "Locked" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "flex flex-1 flex-col gap-1", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-2", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-base font-bold text-on-surface", children: title }), (0, jsx_runtime_1.jsx)(Badge_1.Badge, { tone: "primary", children: planLabel })] }), description ? (0, jsx_runtime_1.jsx)("span", { className: "text-sm text-muted", children: description }) : null] })] }));
+    const body = ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-50", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: icon, size: "lg", color: "primary", "aria-label": "Locked" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "flex min-w-0 flex-1 flex-col gap-1", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-2", children: [(0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", weight: "semibold", children: title }), (0, jsx_runtime_1.jsx)(Badge_1.Badge, { tone: "primary", children: planLabel })] }), description ? ((0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", tone: "muted", children: description })) : null] })] }));
     if (variant === 'inline') {
         return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex items-center gap-4', className), ...rest, children: [body, (0, jsx_runtime_1.jsx)(Button_1.Button, { variant: "secondary", size: "sm", onClick: onUnlock, "aria-label": unlockLabel, children: unlockLabel })] }));
     }

@@ -128,6 +128,18 @@ describe('FilterChips (native)', () => {
     expect(onChange).toHaveBeenCalledWith('Open');
   });
 
+  // Pressing the active chip used to re-fire the same value, so a single-select
+  // row could never get back to "no filter" without a fake "All" option.
+  it('clears the single selection when the active chip is pressed again', () => {
+    const onChange = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <FilterChips options={['Open', 'Closed']} selected="Open" onChange={onChange} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('Open'));
+    expect(onChange).toHaveBeenCalledWith('');
+  });
+
   it('accumulates multi selection', () => {
     const onChange = jest.fn();
     const { getByLabelText } = renderThemed(

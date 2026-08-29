@@ -13,8 +13,15 @@ export interface RadioGroupProps {
   options: RadioOption[];
   /** Controlled selected value. */
   value: string;
-  /** Fires with the chosen option's value (web `onChange`, renamed for native). */
+  /**
+   * Fires with the chosen option's value. Prefer `onChange` — that is the kit's
+   * one canonical name for "the value changed", and what the web twin has
+   * always called this. `onValueChange` is the original native spelling, kept
+   * so existing callers keep working; if both are passed this one wins.
+   */
   onValueChange?: (value: string) => void;
+  /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+  onChange?: (value: string) => void;
   /** Accepted for web parity; native has no form-name semantics (no-op). */
   name?: string;
   orientation?: 'vertical' | 'horizontal';
@@ -33,10 +40,14 @@ export function RadioGroup({
   options,
   value,
   onValueChange,
+  onChange,
   orientation = 'vertical',
   style,
 }: RadioGroupProps): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
+  // Two spellings, one callback: the original wins when both are passed, so a
+  // caller who has migrated half a file never gets the change reported twice.
+  const emit = onValueChange ?? onChange;
   return (
     <View
       accessibilityRole="radiogroup"
@@ -57,7 +68,7 @@ export function RadioGroup({
             accessibilityRole="radio"
             accessibilityState={{ selected, disabled: o.disabled }}
             disabled={o.disabled}
-            onPress={() => onValueChange?.(o.value)}
+            onPress={() => emit?.(o.value)}
             style={{
               flexDirection: 'row',
               alignItems: 'center',

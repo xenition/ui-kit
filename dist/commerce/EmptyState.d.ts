@@ -1,18 +1,10 @@
-import * as React from 'react';
-export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
-    /** Optional decorative icon/illustration slot. */
-    icon?: React.ReactNode;
-    /** Headline (e.g. "Your cart is empty"). */
-    title: React.ReactNode;
-    /** Supporting line under the title. */
-    description?: React.ReactNode;
-    /** Primary action slot (e.g. a "Browse products" button). */
-    action?: React.ReactNode;
-}
 /**
- * Generic empty / no-results state — an empty cart, a filtered catalog with no
- * matches, an order list with nothing yet. Centered icon slot, muted copy, and
- * an optional action. Token-only and domain-agnostic.
+ * `EmptyState` moved to `../primitives` — it is a primitive, not a commerce
+ * concept: an empty cart is one of its cases, not its definition, and nearly
+ * every screen in the kit renders one. This file stays behind as a re-export so
+ * every `import { EmptyState } from '.../commerce/EmptyState'` already in the
+ * wild keeps resolving. New code should import from `primitives`.
  */
-export declare const EmptyState: React.ForwardRefExoticComponent<EmptyStateProps & React.RefAttributes<HTMLDivElement>>;
+export { EmptyState } from '../primitives/EmptyState';
+export type { EmptyStateProps } from '../primitives/EmptyState';
 //# sourceMappingURL=EmptyState.d.ts.map

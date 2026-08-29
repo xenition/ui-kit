@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '../primitives/cn';
 import { Skeleton } from '../primitives/Skeleton';
-import { AuthorByline } from './AuthorByline';
+import { AuthorBylineV2 } from './AuthorBylineV2';
 import type { ArticleHeaderProps } from './ArticleHeader';
 
 /** Drop-in replacement for {@link ArticleHeader} — identical props. */
@@ -18,6 +18,8 @@ export type ArticleHeaderV2Props = ArticleHeaderProps;
  * Token-pure: the scrim is a `neutral-900` overlay, reversed text is
  * `text-neutral-50`. With no cover image it degrades to a centered header on the
  * normal surface with on-surface text.
+ * Stays inside its own design line: the byline is {@link AuthorBylineV2}, not
+ * the base one, because an app that picks V2 picks it for every surface it sees.
  */
 export const ArticleHeaderV2 = React.forwardRef<HTMLElement, ArticleHeaderV2Props>(
   function ArticleHeaderV2(
@@ -116,7 +118,7 @@ export const ArticleHeaderV2 = React.forwardRef<HTMLElement, ArticleHeaderV2Prop
             {[author.name, meta].filter(Boolean).join('  ·  ')}
           </p>
         ) : author ? (
-          <AuthorByline author={author} date={date} readingTime={readingTime} variant="compact" />
+          <AuthorBylineV2 author={author} date={date} readingTime={readingTime} variant="compact" />
         ) : meta ? (
           <p className={cn('relative text-sm', hasCover ? 'text-neutral-100' : 'text-muted')}>
             {meta}

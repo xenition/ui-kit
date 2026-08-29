@@ -37,26 +37,43 @@ exports.OnboardingSlides = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
-const Button_1 = require("../primitives/Button");
 const Icon_1 = require("../primitives/Icon");
+const Text_1 = require("../primitives/Text");
 const commerce_1 = require("../commerce");
+const GetStartedButton_1 = require("./GetStartedButton");
 const ProgressDots_1 = require("./ProgressDots");
+/** 44×44 header tap targets (spec §2) — `h-11` is 44px. Geometric, per §10.1. */
+const TAP_TARGET_CLASS = 'h-11 w-11';
 /**
- * Paged intro carousel — the first-run "here's the value" sequence
- * (design.md §41-42). Renders one {@link OnboardingSlide} at a time with a hero
- * medallion, a {@link ProgressDots} indicator, a "Skip" escape hatch and a
- * Next/Done primary action that walks to `onComplete` on the last slide. Works
- * controlled (`index` + `onIndexChange`) or uncontrolled. All indexing is
+ * The hero panel: roughly 4:3, capped at ~38% of the viewport so the CTA never
+ * leaves the fold on a small phone (spec §3). Geometry, not tokens.
+ */
+const HERO_SHAPE_CLASS = 'aspect-[4/3] max-h-[38vh]';
+/**
+ * Paged intro carousel — the first-run "here's the value" sequence, rebuilt on
+ * the shell from §1 of the onboarding spec.
+ *
+ * The version this replaces put a "Skip" link alone at the top, a medallion and
+ * two lines of text in the middle, and dots above a button at the bottom. The
+ * shell gives it structure instead: a **header** carrying back · segmented
+ * progress · dismiss (§1–2), a **hero slot** that takes the caller's
+ * `illustration` or falls back to the slide's glyph at hero size (§3), a
+ * **centred headline block** on a readable measure (§4), and the **sticky
+ * footer CTA** every other screen in the funnel ends on (§5). The numbered
+ * position captions are gone: the bars say where you are without them.
+ *
+ * Works controlled (`index` + `onIndexChange`) or uncontrolled. All indexing is
  * clamped so an out-of-range `index` can't crash, and an empty `slides` list
  * renders the {@link EmptyState}. No literal colors.
  */
-exports.OnboardingSlides = React.forwardRef(function OnboardingSlides({ slides, index, onIndexChange, onSkip, onComplete, showSkip = true, finishLabel = 'Get started', variant = 'default', className, ...rest }, ref) {
+exports.OnboardingSlides = React.forwardRef(function OnboardingSlides({ slides, index, onIndexChange, onSkip, onComplete, illustration, onBack, showSkip = true, finishLabel = 'Get started', variant = 'default', className, ...rest }, ref) {
     const [internal, setInternal] = React.useState(0);
     const count = slides.length;
     const controlled = index != null;
     const rawActive = controlled ? index : internal;
     const active = count === 0 ? 0 : Math.min(Math.max(0, rawActive), count - 1);
     const isLast = active >= count - 1;
+    const isFirst = active <= 0;
     const goTo = (next) => {
         const clamped = Math.min(Math.max(0, next), Math.max(0, count - 1));
         if (!controlled)
@@ -70,12 +87,23 @@ exports.OnboardingSlides = React.forwardRef(function OnboardingSlides({ slides, 
         }
         goTo(active + 1);
     };
+    const goBack = () => {
+        if (onBack) {
+            onBack();
+            return;
+        }
+        goTo(active - 1);
+    };
     if (count === 0) {
         return ((0, jsx_runtime_1.jsx)("div", { ref: ref, className: className, ...rest, children: (0, jsx_runtime_1.jsx)(commerce_1.EmptyState, { title: "Nothing to show yet." }) }));
     }
     const slide = slides[active];
     if (!slide)
         return (0, jsx_runtime_1.jsx)("div", { ref: ref, className: className, ...rest });
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex min-h-full flex-col gap-6 px-6 py-4', className), ...rest, children: [showSkip ? ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-end", children: (0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Skip intro", onClick: onSkip, className: "text-sm font-medium text-muted transition-colors hover:text-on-surface", children: "Skip" }) })) : null, (0, jsx_runtime_1.jsxs)("div", { className: "flex flex-1 flex-col items-center justify-center gap-6 text-center", children: [variant === 'default' && slide.icon ? ((0, jsx_runtime_1.jsx)("div", { className: "flex h-24 w-24 items-center justify-center rounded-full bg-primary", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: slide.icon, size: "3xl", color: "onPrimary" }) })) : null, (0, jsx_runtime_1.jsx)("h2", { className: "text-2xl font-bold text-on-surface", children: slide.title }), slide.description ? ((0, jsx_runtime_1.jsx)("p", { className: "text-base leading-relaxed text-muted", children: slide.description })) : null] }), (0, jsx_runtime_1.jsxs)("div", { className: "flex flex-col items-center gap-6", children: [(0, jsx_runtime_1.jsx)(ProgressDots_1.ProgressDots, { count: count, activeIndex: active, onDotClick: goTo }), (0, jsx_runtime_1.jsx)(Button_1.Button, { variant: "primary", size: "lg", onClick: onNext, "aria-label": isLast ? finishLabel : 'Next slide', className: "w-full", children: isLast ? finishLabel : 'Next' })] })] }));
+    const showBack = onBack != null || !isFirst;
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('flex min-h-full flex-col bg-surface', className), ...rest, children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-md px-lg pt-lg", children: [showBack ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Previous slide", onClick: goBack, className: (0, cn_1.cn)('inline-flex shrink-0 items-center justify-center rounded-full', TAP_TARGET_CLASS), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "chevron-left", size: "xl", color: "onSurface" }) })) : (
+                    // A spacer, not a missing element — the bars must not jump sideways
+                    // the moment the back chevron appears on slide two.
+                    (0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: (0, cn_1.cn)('shrink-0', TAP_TARGET_CLASS) })), (0, jsx_runtime_1.jsx)("div", { className: "flex-1", children: (0, jsx_runtime_1.jsx)(ProgressDots_1.ProgressDots, { variant: "bars", count: count, activeIndex: active }) }), showSkip ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Skip intro", onClick: onSkip, className: (0, cn_1.cn)('inline-flex shrink-0 items-center justify-center rounded-full', TAP_TARGET_CLASS), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { name: "close", size: "lg", color: "muted" }) })) : ((0, jsx_runtime_1.jsx)("span", { "aria-hidden": "true", className: (0, cn_1.cn)('shrink-0', TAP_TARGET_CLASS) }))] }), (0, jsx_runtime_1.jsxs)("div", { className: "flex flex-1 flex-col justify-center gap-lg px-lg py-lg text-center", children: [variant === 'default' ? ((0, jsx_runtime_1.jsx)("div", { className: (0, cn_1.cn)('flex w-full items-center justify-center overflow-hidden rounded-lg bg-primary-50', HERO_SHAPE_CLASS), children: illustration ?? ((0, jsx_runtime_1.jsx)("span", { className: "flex h-24 w-24 items-center justify-center rounded-full bg-primary", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: slide.icon ?? '✦', size: "3xl", color: "onPrimary" }) })) })) : null, (0, jsx_runtime_1.jsxs)("div", { className: "flex flex-col gap-sm", children: [(0, jsx_runtime_1.jsx)("h2", { children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "2xl", weight: "bold", tone: "onSurface", numberOfLines: 2, className: "block", children: slide.title }) }), slide.description ? ((0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", tone: "muted", numberOfLines: 3, className: "mx-auto block max-w-prose", children: slide.description })) : null] })] }), (0, jsx_runtime_1.jsx)("div", { className: "sticky bottom-0 border-t border-border bg-surface px-lg pb-lg pt-md", children: (0, jsx_runtime_1.jsx)(GetStartedButton_1.GetStartedButton, { label: isLast ? finishLabel : 'Next', "aria-label": isLast ? finishLabel : 'Next slide', onClick: onNext }) })] }));
 });
 //# sourceMappingURL=OnboardingSlides.js.map

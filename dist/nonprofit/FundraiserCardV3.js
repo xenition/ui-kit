@@ -39,12 +39,14 @@ const React = __importStar(require("react"));
 const cn_1 = require("../primitives/cn");
 const Avatar_1 = require("../primitives/Avatar");
 const Button_1 = require("../primitives/Button");
-const CampaignProgress_1 = require("./CampaignProgress");
+const CampaignProgressV3_1 = require("./CampaignProgressV3");
 /**
  * FundraiserCard, redesigned (v3): a **dense fundraiser row**. A small thumbnail,
  * the title over an organizer line + a thin progress meter, and a compact Donate
  * button on the right — hairline-bordered for a list of campaigns. The opposite
  * of v2's cover hero. Same props, token-only.
+ * Stays inside its own design line: the meter is {@link CampaignProgressV3}, not
+ * the base one, because an app that picks V3 picks it for every surface it sees.
  */
 exports.FundraiserCardV3 = React.forwardRef(function FundraiserCardV3({ title, organizerName, organizerAvatarUrl, imageUrl, imageAlt, raisedCents, goalCents, currency = 'USD', donorCount, variant, onDonate, onShare, loading = false, className, ...rest }, ref) {
     void variant;
@@ -52,6 +54,6 @@ exports.FundraiserCardV3 = React.forwardRef(function FundraiserCardV3({ title, o
     if (loading) {
         return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "data-xen-fundraiser-card": "", "aria-label": "Loading fundraiser", className: (0, cn_1.cn)('flex items-center gap-3 border-b border-border py-3', className), ...rest, children: [(0, jsx_runtime_1.jsx)("div", { className: "h-12 w-12 animate-pulse rounded-md bg-neutral-100" }), (0, jsx_runtime_1.jsx)("div", { className: "h-3 w-2/5 animate-pulse rounded-sm bg-neutral-100" })] }));
     }
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "data-xen-fundraiser-card": "", className: (0, cn_1.cn)('flex items-center gap-3 border-b border-border py-3', className), ...rest, children: [(0, jsx_runtime_1.jsx)("div", { className: "flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md bg-neutral-100 text-xl", children: imageUrl ? (0, jsx_runtime_1.jsx)("img", { src: imageUrl, alt: imageAlt ?? title, className: "h-full w-full object-cover" }) : '💝' }), (0, jsx_runtime_1.jsxs)("div", { className: "min-w-0 flex-1", children: [(0, jsx_runtime_1.jsx)("p", { className: "truncate text-sm font-semibold text-on-surface", children: title }), (0, jsx_runtime_1.jsxs)("p", { className: "flex items-center gap-1 truncate text-xs text-muted", children: [(0, jsx_runtime_1.jsx)(Avatar_1.Avatar, { src: organizerAvatarUrl, name: organizerName, size: "xs" }), " ", organizerName, typeof donorCount === 'number' ? ` · ${donorCount} donors` : ''] }), (0, jsx_runtime_1.jsx)("div", { className: "mt-1", children: (0, jsx_runtime_1.jsx)(CampaignProgress_1.CampaignProgress, { raisedCents: raisedCents, goalCents: goalCents, currency: currency, hideAmounts: true }) })] }), onDonate ? ((0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "primary", onClick: onDonate, children: "Donate" })) : null] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "data-xen-fundraiser-card": "", className: (0, cn_1.cn)('flex items-center gap-3 border-b border-border py-3', className), ...rest, children: [(0, jsx_runtime_1.jsx)("div", { className: "flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md bg-neutral-100 text-xl", children: imageUrl ? (0, jsx_runtime_1.jsx)("img", { src: imageUrl, alt: imageAlt ?? title, className: "h-full w-full object-cover" }) : '💝' }), (0, jsx_runtime_1.jsxs)("div", { className: "min-w-0 flex-1", children: [(0, jsx_runtime_1.jsx)("p", { className: "truncate text-sm font-semibold text-on-surface", children: title }), (0, jsx_runtime_1.jsxs)("p", { className: "flex items-center gap-1 truncate text-xs text-muted", children: [(0, jsx_runtime_1.jsx)(Avatar_1.Avatar, { src: organizerAvatarUrl, name: organizerName, size: "xs" }), " ", organizerName, typeof donorCount === 'number' ? ` · ${donorCount} donors` : ''] }), (0, jsx_runtime_1.jsx)("div", { className: "mt-1", children: (0, jsx_runtime_1.jsx)(CampaignProgressV3_1.CampaignProgressV3, { raisedCents: raisedCents, goalCents: goalCents, currency: currency, hideAmounts: true }) })] }), onDonate ? ((0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "primary", onClick: onDonate, children: "Donate" })) : null] }));
 });
 //# sourceMappingURL=FundraiserCardV3.js.map

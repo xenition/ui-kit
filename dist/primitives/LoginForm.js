@@ -38,17 +38,25 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const AuthCard_1 = require("./AuthCard");
 const Form_1 = require("./Form");
-const Field_1 = require("./Field");
-const Input_1 = require("./Input");
-const Button_1 = require("./Button");
+const Text_1 = require("./Text");
 const Alert_1 = require("./Alert");
 const useForm_1 = require("./useForm");
 /**
  * Drop-in email/password sign-in form — composed from the kit, themed, with
  * validation, loading and error states. SDK-agnostic: wire `onSubmit` to
  * `@xenition/sdk` auth (or anything). Just `<LoginForm onSubmit={…} />`.
+ *
+ * Drawn from the same parts as the screen-level `SignInScreen` (§6/§9): 56px
+ * fields with a muted leading icon, a `primary` focus border, errors as a
+ * `danger` border **and** a message in `danger-text`, and the 56px
+ * `radius.full` CTA with its trailing `→`. That is the point of sharing them —
+ * a screen assembled from this form and a screen assembled from `SignInScreen`
+ * are the same product, not two.
+ *
+ * Everything past `onSubmit`/`onForgotPassword`/`onSignupClick`/`title` is
+ * optional copy; with none of it passed the form reads exactly as it did.
  */
-function LoginForm({ onSubmit, onForgotPassword, onSignupClick, title = 'Sign in', }) {
+function LoginForm({ onSubmit, onForgotPassword, onSignupClick, title = 'Sign in', subtitle, brandGlyph, submitLabel = 'Sign in', submittingLabel = 'Signing in…', emailLabel = 'Email', emailPlaceholder = 'you@example.com', passwordLabel = 'Password', passwordPlaceholder = 'Your password', forgotLabel = 'Forgot password?', switchPrompt = 'No account?', switchLabel = 'Sign up', }) {
     const [submitError, setSubmitError] = React.useState(null);
     const form = (0, useForm_1.useForm)({
         initialValues: { email: '', password: '' },
@@ -70,6 +78,9 @@ function LoginForm({ onSubmit, onForgotPassword, onSignupClick, title = 'Sign in
             }
         },
     });
-    return ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthCard, { title: title, children: (0, jsx_runtime_1.jsxs)(Form_1.Form, { onSubmit: form.handleSubmit, children: [submitError && (0, jsx_runtime_1.jsx)(Alert_1.Alert, { tone: "danger", children: submitError }), (0, jsx_runtime_1.jsx)(Field_1.Field, { label: "Email", error: form.errors.email, children: (0, jsx_runtime_1.jsx)(Input_1.Input, { type: "email", autoComplete: "email", value: form.values.email, onChange: (e) => form.setValue('email', e.target.value), placeholder: "you@example.com" }) }), (0, jsx_runtime_1.jsx)(Field_1.Field, { label: "Password", error: form.errors.password, children: (0, jsx_runtime_1.jsx)(Input_1.Input, { type: "password", autoComplete: "current-password", value: form.values.password, onChange: (e) => form.setValue('password', e.target.value) }) }), onForgotPassword && ((0, jsx_runtime_1.jsx)("button", { type: "button", onClick: onForgotPassword, className: "self-start text-sm text-primary", children: "Forgot password?" })), (0, jsx_runtime_1.jsx)(Button_1.Button, { type: "submit", disabled: form.submitting, children: form.submitting ? 'Signing in…' : 'Sign in' }), onSignupClick && ((0, jsx_runtime_1.jsxs)("p", { className: "text-center text-sm text-muted", children: ["No account?", ' ', (0, jsx_runtime_1.jsx)("button", { type: "button", onClick: onSignupClick, className: "text-primary", children: "Sign up" })] }))] }) }));
+    return ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthCard, { title: title, subtitle: subtitle, brandGlyph: brandGlyph, children: (0, jsx_runtime_1.jsxs)(Form_1.Form, { onSubmit: form.handleSubmit, children: [submitError && (0, jsx_runtime_1.jsx)(Alert_1.Alert, { tone: "danger", children: submitError }), (0, jsx_runtime_1.jsx)(AuthCard_1.AuthField, { label: emailLabel, icon: "mail", inputType: "email", "aria-label": emailLabel, autoComplete: "email", error: form.errors.email, value: form.values.email, onChangeText: (t) => form.setValue('email', t), placeholder: emailPlaceholder }), (0, jsx_runtime_1.jsx)(AuthCard_1.AuthField, { secure: true, label: passwordLabel, icon: "lock", "aria-label": passwordLabel, autoComplete: "current-password", error: form.errors.password, value: form.values.password, onChangeText: (t) => form.setValue('password', t), placeholder: passwordPlaceholder }), onForgotPassword && (
+                // §9 right-aligns it: the link belongs to the field above it, not to
+                // the margin on the other side of the card.
+                (0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": forgotLabel, onClick: onForgotPassword, className: "self-end", children: (0, jsx_runtime_1.jsx)(Text_1.Text, { size: "sm", weight: "medium", tone: "primaryText", children: forgotLabel }) })), (0, jsx_runtime_1.jsx)(AuthCard_1.AuthSubmitButton, { type: "submit", label: form.submitting ? submittingLabel : submitLabel, loading: form.submitting }), onSignupClick && ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthSwitchFooter, { prompt: switchPrompt, label: switchLabel, onClick: onSignupClick }))] }) }));
 }
 //# sourceMappingURL=LoginForm.js.map

@@ -1,77 +1,105 @@
 import * as React from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Animated, Pressable, View, useWindowDimensions } from 'react-native';
 import { useXenitionTheme } from '../theme';
-import { Button, Icon } from '../primitives';
+import { Icon, Text } from '../primitives';
+import { GetStartedButton } from './GetStartedButton';
 import { ProgressDots } from './ProgressDots';
 import { useEnter } from '../primitives/internal/motion';
-import { withAlpha } from '../primitives/internal/color';
 import type { OnboardingSlidesProps } from './OnboardingSlides';
 import type { OnboardingSlide } from './types';
 
 /** Drop-in for {@link OnboardingSlides} — identical props, different design. */
 export type OnboardingSlidesV2Props = OnboardingSlidesProps;
 
+/** 44×44 header tap targets (spec §2). Geometric — §10.1 permits the constant. */
+const TAP_TARGET = 44;
+
+/**
+ * The editorial hero runs to the top edge and takes a little under half the
+ * screen — bigger than the base line's 38% cap because nothing insets it
+ * (spec §11, V2).
+ */
+const HERO_HEIGHT_RATIO = 0.46;
+
+/** The slide glyph promoted to hero size (spec §3). */
+const HERO_MEDALLION = 104;
+
+/** Comfortable measure for the description, ~60 characters (spec §4). */
+const MEASURE_MAX_WIDTH = 420;
+
 /**
  * The hero + copy for a single slide, isolated so a `key={slide.id}` remount
  * re-runs {@link useEnter} and cross-fades on every advance.
  */
-function SlideHero({ slide }: { slide: OnboardingSlide }): React.ReactElement {
+function SlideBody({
+  slide,
+  illustration,
+  heroHeight,
+  heroGround,
+}: {
+  slide: OnboardingSlide;
+  illustration?: React.ReactNode;
+  heroHeight: number;
+  heroGround: string;
+}): React.ReactElement {
   const { colors, tokens } = useXenitionTheme();
   const enter = useEnter({ translateY: 10 });
+
   return (
     <>
-      {/* Full-bleed illustration hero: a large tinted stage filling the top. */}
+      {/* Full-bleed art running to the top edge — the header floats over it. */}
       <Animated.View
         style={{
-          flex: 1,
+          height: heroHeight,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: withAlpha(colors.primary, 0.1),
+          backgroundColor: heroGround,
+          overflow: 'hidden',
           opacity: enter.opacity,
         }}
       >
-        <View
-          style={{
-            width: 160,
-            height: 160,
-            borderRadius: tokens.radius.full,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: withAlpha(colors.primary, 0.16),
-          }}
-        >
-          <Icon glyph={slide.icon ?? '✦'} size={96} color="primaryText" />
-        </View>
+        {illustration ?? (
+          <View
+            style={{
+              width: HERO_MEDALLION,
+              height: HERO_MEDALLION,
+              borderRadius: tokens.radius.full,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: colors.primary,
+            }}
+          >
+            <Icon glyph={slide.icon ?? '✦'} size="3xl" color="onPrimary" />
+          </View>
+        )}
       </Animated.View>
 
+      {/* The content sheet rising over the bottom of the art. */}
       <Animated.View
         style={{
-          paddingHorizontal: tokens.spacing.xl,
+          flex: 1,
+          marginTop: -tokens.spacing.xl,
+          paddingHorizontal: tokens.spacing.lg,
           paddingTop: tokens.spacing.xl,
           gap: tokens.spacing.sm,
+          justifyContent: 'center',
+          backgroundColor: colors.surface,
+          borderTopLeftRadius: tokens.radius.lg,
+          borderTopRightRadius: tokens.radius.lg,
           opacity: enter.opacity,
           transform: enter.transform,
         }}
       >
-        <Text
-          accessibilityRole="header"
-          style={{
-            color: colors.onSurface,
-            fontSize: tokens.typography.scale['3xl'],
-            fontWeight: '800',
-            textAlign: 'center',
-          }}
-        >
+        <Text accessibilityRole="header" size="2xl" weight="bold" tone="onSurface" align="center" numberOfLines={2}>
           {slide.title}
         </Text>
         {slide.description ? (
           <Text
-            style={{
-              color: colors.muted,
-              fontSize: tokens.typography.scale.lg,
-              textAlign: 'center',
-              lineHeight: tokens.typography.scale.lg * 1.5,
-            }}
+            size="base"
+            tone="muted"
+            align="center"
+            numberOfLines={3}
+            style={{ maxWidth: MEASURE_MAX_WIDTH, alignSelf: 'center' }}
           >
             {slide.description}
           </Text>
@@ -82,10 +110,17 @@ function SlideHero({ slide }: { slide: OnboardingSlide }): React.ReactElement {
 }
 
 /**
- * Onboarding intro — V2. A full-bleed illustration hero fills the top of the
- * screen per slide, with the headline/description below and a pinned footer of
- * {@link ProgressDots} plus a big Next/Done button. Same controlled/uncontrolled
- * indexing and clamping as {@link OnboardingSlides}; empty list guarded. Token-pure.
+ * Onboarding intro — V2, the **editorial** line.
+ *
+ * Same shell as {@link OnboardingSlides} — header · hero · headline · sticky
+ * footer — but the hero is not a panel sitting under the header: it runs
+ * full-bleed to the very top edge, the header controls float over it, and a
+ * `colors.surface` content sheet lifts up over the bottom of the art. Each
+ * advance remounts the body so the art and copy cross-fade in together.
+ *
+ * Identical props to {@link OnboardingSlides}, including the §3 `illustration`
+ * slot and its medallion fallback. Same controlled/uncontrolled indexing and
+ * clamping; an empty list is guarded. Token-pure.
  */
 export function OnboardingSlidesV2({
   slides,
@@ -93,11 +128,14 @@ export function OnboardingSlidesV2({
   onIndexChange,
   onSkip,
   onComplete,
+  illustration,
+  onBack,
   showSkip = true,
   finishLabel = 'Get started',
   style,
 }: OnboardingSlidesV2Props): React.ReactElement {
-  const { colors, tokens } = useXenitionTheme();
+  const { colors, tokens, scheme } = useXenitionTheme();
+  const { height } = useWindowDimensions();
   const [internal, setInternal] = React.useState(0);
   const count = slides.length;
 
@@ -105,6 +143,7 @@ export function OnboardingSlidesV2({
   const rawActive = controlled ? index : internal;
   const active = count === 0 ? 0 : Math.min(Math.max(0, rawActive), count - 1);
   const isLast = active >= count - 1;
+  const isFirst = active <= 0;
 
   const goTo = (next: number): void => {
     const clamped = Math.min(Math.max(0, next), Math.max(0, count - 1));
@@ -120,13 +159,21 @@ export function OnboardingSlidesV2({
     goTo(active + 1);
   };
 
+  const goBack = (): void => {
+    if (onBack) {
+      onBack();
+      return;
+    }
+    goTo(active - 1);
+  };
+
   if (count === 0) {
     return (
       <View
         accessibilityRole="summary"
         style={[{ padding: tokens.spacing.xl, alignItems: 'center' }, style]}
       >
-        <Text style={{ color: colors.muted, fontSize: tokens.typography.scale.base }}>
+        <Text size="base" tone="muted" align="center">
           Nothing to show yet.
         </Text>
       </View>
@@ -136,52 +183,82 @@ export function OnboardingSlidesV2({
   const slide = slides[active];
   if (!slide) return <></>;
 
+  /* See {@link OnboardingSlides}: `tokens.ramps` is not scheme-inverted. */
+  const heroGround = scheme === 'dark' ? tokens.ramps.primary[900] : tokens.ramps.primary[50];
+  const showBack = onBack != null || !isFirst;
+
   return (
     <View style={[{ flex: 1, backgroundColor: colors.surface }, style]}>
-      {showSkip ? (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Skip intro"
-          onPress={onSkip}
-          hitSlop={tokens.spacing.sm}
-          style={{
-            position: 'absolute',
-            top: tokens.spacing.lg,
-            right: tokens.spacing.lg,
-            zIndex: 1,
-            paddingHorizontal: tokens.spacing.md,
-            paddingVertical: tokens.spacing.xs,
-            borderRadius: tokens.radius.full,
-            backgroundColor: withAlpha(colors.onSurface, 0.06),
-          }}
-        >
-          <Text style={{ color: colors.onSurface, fontSize: tokens.typography.scale.sm, fontWeight: '600' }}>
-            Skip
-          </Text>
-        </Pressable>
-      ) : null}
+      <SlideBody
+        key={slide.id}
+        slide={slide}
+        illustration={illustration}
+        heroHeight={height * HERO_HEIGHT_RATIO}
+        heroGround={heroGround}
+      />
 
-      <SlideHero key={slide.id} slide={slide} />
-
+      {/* ── header floats OVER the art (§1, §2) ──────────────────────── */}
       <View
         style={{
-          paddingHorizontal: tokens.spacing.xl,
-          paddingBottom: tokens.spacing.xl,
-          paddingTop: tokens.spacing.lg,
-          gap: tokens.spacing.lg,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1,
+          flexDirection: 'row',
           alignItems: 'center',
+          gap: tokens.spacing.md,
+          paddingHorizontal: tokens.spacing.lg,
+          paddingTop: tokens.spacing.lg,
         }}
       >
-        <ProgressDots count={count} activeIndex={active} onDotPress={goTo} />
-        <Button
-          variant="primary"
-          size="lg"
-          onPress={onNext}
+        {showBack ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Previous slide"
+            onPress={goBack}
+            style={{ width: TAP_TARGET, height: TAP_TARGET, alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Icon name="chevron-left" size="xl" color="onSurface" />
+          </Pressable>
+        ) : (
+          <View style={{ width: TAP_TARGET, height: TAP_TARGET }} />
+        )}
+
+        <View style={{ flex: 1 }}>
+          <ProgressDots variant="bars" count={count} activeIndex={active} />
+        </View>
+
+        {showSkip ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Skip intro"
+            onPress={onSkip}
+            style={{ width: TAP_TARGET, height: TAP_TARGET, alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Icon name="close" size="lg" color="muted" />
+          </Pressable>
+        ) : (
+          <View style={{ width: TAP_TARGET, height: TAP_TARGET }} />
+        )}
+      </View>
+
+      {/* ── sticky footer (§5) ───────────────────────────────────────── */}
+      <View
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: colors.border,
+          backgroundColor: colors.surface,
+          paddingHorizontal: tokens.spacing.lg,
+          paddingTop: tokens.spacing.md,
+          paddingBottom: tokens.spacing.lg,
+        }}
+      >
+        <GetStartedButton
+          label={isLast ? finishLabel : 'Next'}
           accessibilityLabel={isLast ? finishLabel : 'Next slide'}
-          style={{ alignSelf: 'stretch' }}
-        >
-          {isLast ? finishLabel : 'Next'}
-        </Button>
+          onPress={onNext}
+        />
       </View>
     </View>
   );

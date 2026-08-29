@@ -48,8 +48,11 @@ const PAD = 2;
  * knob; built from `Pressable` (not RN's `Switch`) to stay fully theme-driven.
  * No literal colors.
  */
-function Switch({ checked = false, onCheckedChange, disabled = false, accessibilityLabel, style, }) {
+function Switch({ checked = false, onCheckedChange, onChange, disabled = false, accessibilityLabel, style, }) {
     const { colors } = (0, theme_1.useXenitionTheme)();
+    // Two spellings, one callback: the original wins when both are passed, so a
+    // caller who has migrated half a file never gets the change reported twice.
+    const emit = onCheckedChange ?? onChange;
     const anim = React.useRef(new react_native_1.Animated.Value(checked ? 1 : 0)).current;
     React.useEffect(() => {
         react_native_1.Animated.timing(anim, {
@@ -62,7 +65,7 @@ function Switch({ checked = false, onCheckedChange, disabled = false, accessibil
         inputRange: [0, 1],
         outputRange: [PAD, TRACK_W - KNOB - PAD],
     });
-    return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "switch", accessibilityState: { checked, disabled }, accessibilityLabel: accessibilityLabel, disabled: disabled, onPress: () => onCheckedChange?.(!checked), style: [
+    return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "switch", accessibilityState: { checked, disabled }, accessibilityLabel: accessibilityLabel, disabled: disabled, onPress: () => emit?.(!checked), style: [
             {
                 width: TRACK_W,
                 height: TRACK_H,

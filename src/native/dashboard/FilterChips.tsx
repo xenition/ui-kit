@@ -19,7 +19,12 @@ export interface FilterChipsProps {
   options: Array<FilterChipOption | string>;
   /** Currently selected value(s). */
   selected: string | string[];
-  /** Fires with the next selection. Shape mirrors `multi`. */
+  /**
+   * Fires with the next selection. Shape mirrors `multi` — and in single-select
+   * mode the next selection is `''` when the active chip is pressed again, i.e.
+   * nothing is selected. A row where a selection is mandatory can simply ignore
+   * the empty value: `onChange={(v) => v && setFilter(v as string)}`.
+   */
   onChange: (next: string | string[]) => void;
   /** Allow multiple chips selected at once. */
   multi?: boolean;
@@ -35,7 +40,8 @@ function normalize(o: FilterChipOption | string): FilterChipOption {
 /**
  * A row of selectable filter chips (single- or multi-select). The selected
  * chip(s) fill with the `primary` token. Token-only; wraps by default, or lays
- * out in a horizontal scroller when `scroll` is set.
+ * out in a horizontal scroller when `scroll` is set. Pressing a selected chip
+ * deselects it in either mode — see `onChange`.
  */
 export function FilterChips({
   options,
@@ -48,6 +54,16 @@ export function FilterChips({
   const { colors, tokens } = useXenitionTheme();
   const selectedList = Array.isArray(selected) ? selected : [selected];
 
+  /*
+    A chip is a toggle in both modes, and the active one turns itself off.
+
+    Multi-select always did this; single-select used to re-fire the value that
+    was already selected, which is not a state change at all — so there was no
+    way to say "no filter" through the control. Every app worked around it the
+    same way, by inventing an "All" option whose value is the empty string, and
+    then had to keep that fake option out of anything that iterated the real
+    ones. Clearing to `''` is that same escape hatch, minus the fake chip.
+  */
   const toggle = (value: string): void => {
     if (multi) {
       const set = new Set(selectedList);
@@ -58,7 +74,7 @@ export function FilterChips({
       }
       onChange(Array.from(set));
     } else {
-      onChange(value);
+      onChange(selectedList.includes(value) ? '' : value);
     }
   };
 

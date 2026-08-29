@@ -5,8 +5,15 @@ export interface SliderProps {
     min?: number;
     max?: number;
     step?: number;
-    /** Fires with the new value (web `onChange`, renamed for native). */
+    /**
+     * Fires with the new value. Prefer `onChange` — that is the kit's one
+     * canonical name for "the value changed", and what the web twin has always
+     * called this. `onValueChange` is the original native spelling, kept so
+     * existing callers keep working; if both are passed this one wins.
+     */
     onValueChange?: (value: number) => void;
+    /** Canonical spelling of `onValueChange` (see it for the precedence rule). */
+    onChange?: (value: number) => void;
     disabled?: boolean;
     style?: StyleProp<ViewStyle>;
 }
@@ -16,5 +23,5 @@ export interface SliderProps {
  * driven by `PanResponder`, snapping to `step` within `[min, max]`. No literal
  * colors.
  */
-export declare function Slider({ value, min, max, step, onValueChange, disabled, style, }: SliderProps): React.ReactElement;
+export declare function Slider({ value, min, max, step, onValueChange, onChange, disabled, style, }: SliderProps): React.ReactElement;
 //# sourceMappingURL=Slider.d.ts.map

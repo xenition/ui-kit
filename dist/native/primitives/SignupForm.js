@@ -39,18 +39,25 @@ const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const AuthCard_1 = require("./AuthCard");
-const Field_1 = require("./Field");
-const Input_1 = require("./Input");
-const Button_1 = require("./Button");
 const Alert_1 = require("./Alert");
 const useForm_1 = require("../../primitives/useForm");
 /**
  * Drop-in sign-up form — the native mirror of the web `SignupForm`. Composed,
  * themed, validated. Wire `onSubmit` to `@xenition/sdk` auth. No literal colors.
+ *
+ * Drawn from the same parts as the screen-level `SignInScreen` (§6/§9): 56px
+ * fields with a muted leading icon, a `primary` focus border, errors as a
+ * `danger` border **and** a message in `dangerText`, and the 56px `radius.full`
+ * CTA with its trailing `→`.
+ *
+ * `requireTerms` opts into §9's consent card — a checkbox in a bordered card
+ * with both links inline, gating the CTA. It is off by default because a
+ * consent step is a product decision, not a style one.
  */
-function SignupForm({ onSubmit, onLoginClick, title = 'Create account', minPasswordLength = 8, }) {
-    const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+function SignupForm({ onSubmit, onLoginClick, title = 'Create account', subtitle, brandGlyph, minPasswordLength = 8, requireTerms = false, termsLabel, termsLinks, onTermsLinkPress, submitLabel = 'Sign up', submittingLabel = 'Creating…', nameLabel = 'Name', namePlaceholder = 'Ada Lovelace', emailLabel = 'Email', emailPlaceholder = 'you@example.com', passwordLabel = 'Password', passwordPlaceholder = 'Choose a password', switchPrompt = 'Have an account?', switchLabel = 'Sign in', }) {
+    const { tokens } = (0, theme_1.useXenitionTheme)();
     const [submitError, setSubmitError] = React.useState(null);
+    const [accepted, setAccepted] = React.useState(false);
     const form = (0, useForm_1.useForm)({
         initialValues: { name: '', email: '', password: '' },
         validate: (v) => {
@@ -73,6 +80,6 @@ function SignupForm({ onSubmit, onLoginClick, title = 'Create account', minPassw
             }
         },
     });
-    return ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthCard, { title: title, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.md }, children: [submitError ? (0, jsx_runtime_1.jsx)(Alert_1.Alert, { tone: "danger", children: submitError }) : null, (0, jsx_runtime_1.jsx)(Field_1.Field, { label: "Name", error: form.errors.name, children: (0, jsx_runtime_1.jsx)(Input_1.Input, { autoComplete: "name", textContentType: "name", invalid: !!form.errors.name, value: form.values.name, onChangeText: (t) => form.setValue('name', t) }) }), (0, jsx_runtime_1.jsx)(Field_1.Field, { label: "Email", error: form.errors.email, children: (0, jsx_runtime_1.jsx)(Input_1.Input, { keyboardType: "email-address", autoCapitalize: "none", autoComplete: "email", textContentType: "emailAddress", invalid: !!form.errors.email, value: form.values.email, onChangeText: (t) => form.setValue('email', t), placeholder: "you@example.com" }) }), (0, jsx_runtime_1.jsx)(Field_1.Field, { label: "Password", error: form.errors.password, children: (0, jsx_runtime_1.jsx)(Input_1.Input, { secureTextEntry: true, autoCapitalize: "none", autoComplete: "password-new", textContentType: "newPassword", invalid: !!form.errors.password, value: form.values.password, onChangeText: (t) => form.setValue('password', t) }) }), (0, jsx_runtime_1.jsx)(Button_1.Button, { onPress: () => form.handleSubmit(), disabled: form.submitting, loading: form.submitting, children: form.submitting ? 'Creating…' : 'Sign up' }), onLoginClick ? ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'center', gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.muted, fontSize: tokens.typography.scale.sm }, children: "Have an account?" }), (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { accessibilityRole: "button", onPress: onLoginClick, children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: { color: colors.primaryText, fontSize: tokens.typography.scale.sm }, children: "Sign in" }) })] })) : null] }) }));
+    return ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthCard, { title: title, subtitle: subtitle, brandGlyph: brandGlyph, children: (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.md }, children: [submitError ? (0, jsx_runtime_1.jsx)(Alert_1.Alert, { tone: "danger", children: submitError }) : null, (0, jsx_runtime_1.jsx)(AuthCard_1.AuthField, { label: nameLabel, icon: "user", accessibilityLabel: nameLabel, autoComplete: "name", textContentType: "name", error: form.errors.name, value: form.values.name, onChangeText: (t) => form.setValue('name', t), placeholder: namePlaceholder }), (0, jsx_runtime_1.jsx)(AuthCard_1.AuthField, { label: emailLabel, icon: "mail", accessibilityLabel: emailLabel, keyboardType: "email-address", autoCapitalize: "none", autoComplete: "email", textContentType: "emailAddress", error: form.errors.email, value: form.values.email, onChangeText: (t) => form.setValue('email', t), placeholder: emailPlaceholder }), (0, jsx_runtime_1.jsx)(AuthCard_1.AuthField, { secure: true, label: passwordLabel, icon: "lock", accessibilityLabel: passwordLabel, autoCapitalize: "none", autoComplete: "password-new", textContentType: "newPassword", error: form.errors.password, value: form.values.password, onChangeText: (t) => form.setValue('password', t), placeholder: passwordPlaceholder }), requireTerms ? ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthTermsCard, { checked: accepted, onCheckedChange: setAccepted, label: termsLabel, links: termsLinks, onLinkPress: onTermsLinkPress })) : null, (0, jsx_runtime_1.jsx)(AuthCard_1.AuthSubmitButton, { label: form.submitting ? submittingLabel : submitLabel, onPress: () => form.handleSubmit(), loading: form.submitting, disabled: requireTerms && !accepted }), onLoginClick ? ((0, jsx_runtime_1.jsx)(AuthCard_1.AuthSwitchFooter, { prompt: switchPrompt, label: switchLabel, onPress: onLoginClick })) : null] }) }));
 }
 //# sourceMappingURL=SignupForm.js.map

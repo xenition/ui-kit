@@ -41,6 +41,19 @@ export interface PlanTier {
   badge?: string;
 }
 
+/** One social/SSO button offered on {@link SignInScreen}. */
+export interface SignInProvider {
+  /** Stable key handed back to the press/click callback (e.g. `'google'`). */
+  id: string;
+  /** Button copy (e.g. `'Continue with Google'`). */
+  label: string;
+  /**
+   * Optional leading emoji/glyph. The kit ships no brand marks — an app that
+   * needs a real Google/Apple logo passes its own asset alongside this screen.
+   */
+  glyph?: string;
+}
+
 /** A pickable interest/topic chip for {@link InterestPicker}. */
 export interface InterestOption {
   /** Stable key returned in the selection set. */
