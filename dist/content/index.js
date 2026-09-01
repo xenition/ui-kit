@@ -11,7 +11,7 @@
  * `--xen-*` token classes (Tailwind preset) — no literal colors.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PodcastRowV3 = exports.PodcastRowV2 = exports.PodcastRow = exports.NewsTicker = exports.BookmarkButton = exports.DEFAULT_SHARE_TARGETS = exports.ShareRow = exports.RelatedArticles = exports.CategoryChip = exports.TagList = exports.PullQuote = exports.TableOfContents = exports.AuthorBylineV3 = exports.AuthorBylineV2 = exports.AuthorByline = exports.ReadingProgress = exports.ArticleHeaderV3 = exports.ArticleHeaderV2 = exports.ArticleHeader = exports.ArticleCardV3 = exports.ArticleCardV2 = exports.ArticleCard = void 0;
+exports.TagListV4 = exports.TableOfContentsV4 = exports.ShareRowV4 = exports.RelatedArticlesV4 = exports.ReadingProgressV4 = exports.PullQuoteV4 = exports.PodcastRowV4 = exports.NewsTickerV4 = exports.CategoryChipV4 = exports.BookmarkButtonV4 = exports.AuthorBylineV4 = exports.ArticleHeaderV4 = exports.ArticleCardV4 = exports.PodcastRowV3 = exports.PodcastRowV2 = exports.PodcastRow = exports.NewsTicker = exports.BookmarkButton = exports.DEFAULT_SHARE_TARGETS = exports.ShareRow = exports.RelatedArticles = exports.CategoryChip = exports.TagList = exports.PullQuote = exports.TableOfContents = exports.AuthorBylineV3 = exports.AuthorBylineV2 = exports.AuthorByline = exports.ReadingProgress = exports.ArticleHeaderV3 = exports.ArticleHeaderV2 = exports.ArticleHeader = exports.ArticleCardV3 = exports.ArticleCardV2 = exports.ArticleCard = void 0;
 // ── article surfaces ──────────────────────────────────────────────────
 var ArticleCard_1 = require("./ArticleCard");
 Object.defineProperty(exports, "ArticleCard", { enumerable: true, get: function () { return ArticleCard_1.ArticleCard; } });
@@ -60,4 +60,33 @@ var PodcastRowV2_1 = require("./PodcastRowV2");
 Object.defineProperty(exports, "PodcastRowV2", { enumerable: true, get: function () { return PodcastRowV2_1.PodcastRowV2; } });
 var PodcastRowV3_1 = require("./PodcastRowV3");
 Object.defineProperty(exports, "PodcastRowV3", { enumerable: true, get: function () { return PodcastRowV3_1.PodcastRowV3; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `CONTENT-CRM-V4-BRIEF.md`. Each is
+// a drop-in for its base — same props plus optional additions.
+var ArticleCardV4_1 = require("./ArticleCardV4");
+Object.defineProperty(exports, "ArticleCardV4", { enumerable: true, get: function () { return ArticleCardV4_1.ArticleCardV4; } });
+var ArticleHeaderV4_1 = require("./ArticleHeaderV4");
+Object.defineProperty(exports, "ArticleHeaderV4", { enumerable: true, get: function () { return ArticleHeaderV4_1.ArticleHeaderV4; } });
+var AuthorBylineV4_1 = require("./AuthorBylineV4");
+Object.defineProperty(exports, "AuthorBylineV4", { enumerable: true, get: function () { return AuthorBylineV4_1.AuthorBylineV4; } });
+var BookmarkButtonV4_1 = require("./BookmarkButtonV4");
+Object.defineProperty(exports, "BookmarkButtonV4", { enumerable: true, get: function () { return BookmarkButtonV4_1.BookmarkButtonV4; } });
+var CategoryChipV4_1 = require("./CategoryChipV4");
+Object.defineProperty(exports, "CategoryChipV4", { enumerable: true, get: function () { return CategoryChipV4_1.CategoryChipV4; } });
+var NewsTickerV4_1 = require("./NewsTickerV4");
+Object.defineProperty(exports, "NewsTickerV4", { enumerable: true, get: function () { return NewsTickerV4_1.NewsTickerV4; } });
+var PodcastRowV4_1 = require("./PodcastRowV4");
+Object.defineProperty(exports, "PodcastRowV4", { enumerable: true, get: function () { return PodcastRowV4_1.PodcastRowV4; } });
+var PullQuoteV4_1 = require("./PullQuoteV4");
+Object.defineProperty(exports, "PullQuoteV4", { enumerable: true, get: function () { return PullQuoteV4_1.PullQuoteV4; } });
+var ReadingProgressV4_1 = require("./ReadingProgressV4");
+Object.defineProperty(exports, "ReadingProgressV4", { enumerable: true, get: function () { return ReadingProgressV4_1.ReadingProgressV4; } });
+var RelatedArticlesV4_1 = require("./RelatedArticlesV4");
+Object.defineProperty(exports, "RelatedArticlesV4", { enumerable: true, get: function () { return RelatedArticlesV4_1.RelatedArticlesV4; } });
+var ShareRowV4_1 = require("./ShareRowV4");
+Object.defineProperty(exports, "ShareRowV4", { enumerable: true, get: function () { return ShareRowV4_1.ShareRowV4; } });
+var TableOfContentsV4_1 = require("./TableOfContentsV4");
+Object.defineProperty(exports, "TableOfContentsV4", { enumerable: true, get: function () { return TableOfContentsV4_1.TableOfContentsV4; } });
+var TagListV4_1 = require("./TagListV4");
+Object.defineProperty(exports, "TagListV4", { enumerable: true, get: function () { return TagListV4_1.TagListV4; } });
 //# sourceMappingURL=index.js.map

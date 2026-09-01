@@ -51,4 +51,16 @@ export { BoostBanner } from './BoostBanner';
 export type { BoostBannerProps, BoostVariant } from './BoostBanner';
 export { WhoLikedYouRow } from './WhoLikedYouRow';
 export type { WhoLikedYouRowProps, Liker } from './WhoLikedYouRow';
+export { BoostBannerV4, type BoostBannerV4Props } from './BoostBannerV4';
+export { CompatibilityMeterV4, type CompatibilityMeterV4Props } from './CompatibilityMeterV4';
+export { DistanceBadgeV4, type DistanceBadgeV4Props } from './DistanceBadgeV4';
+export { IcebreakerChipV4, type IcebreakerChipV4Props } from './IcebreakerChipV4';
+export { LikePassButtonsV4, type LikePassButtonsV4Props } from './LikePassButtonsV4';
+export { MatchCelebrationV4, type MatchCelebrationV4Props } from './MatchCelebrationV4';
+export { PhotoCarouselV4, type PhotoCarouselV4Props } from './PhotoCarouselV4';
+export { ProfileCardV4, type ProfileCardV4Props } from './ProfileCardV4';
+export { ProfilePromptV4, type ProfilePromptV4Props } from './ProfilePromptV4';
+export { SwipeCardV4, type SwipeCardV4Props } from './SwipeCardV4';
+export { SwipeDeckV4, type SwipeDeckV4Props } from './SwipeDeckV4';
+export { WhoLikedYouRowV4, type WhoLikedYouRowV4Props } from './WhoLikedYouRowV4';
 //# sourceMappingURL=index.d.ts.map

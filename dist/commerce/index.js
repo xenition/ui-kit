@@ -10,7 +10,7 @@
  * integer **cents**, formatted through the single {@link formatMoney} home.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EmptyState = exports.StatusBadge = exports.CheckoutSummaryV3 = exports.OrderSummaryV3 = exports.CheckoutSummaryV2 = exports.OrderSummaryV2 = exports.CheckoutSummary = exports.OrderSummary = exports.CartSummaryV3 = exports.CartSummaryV2 = exports.CartSummary = exports.CartLineItemV3 = exports.CartLineItemV2 = exports.CartLineItem = exports.QuantityStepper = exports.ProductGrid = exports.ProductCardV3 = exports.ProductCardV2 = exports.ProductCard = exports.PriceTagV4 = exports.PriceTag = exports.formatMoney = void 0;
+exports.GenerativeCoverV4 = exports.StatusBadgeV4 = exports.EmptyStateV4 = exports.ProductGridV4 = exports.ProductCardV4 = exports.QuantityStepperV4 = exports.CheckoutSummaryV4 = exports.OrderSummaryV4 = exports.CartSummaryV4 = exports.CartLineItemV4 = exports.EmptyState = exports.StatusBadge = exports.CheckoutSummaryV3 = exports.OrderSummaryV3 = exports.CheckoutSummaryV2 = exports.OrderSummaryV2 = exports.CheckoutSummary = exports.OrderSummary = exports.CartSummaryV3 = exports.CartSummaryV2 = exports.CartSummary = exports.CartLineItemV3 = exports.CartLineItemV2 = exports.CartLineItem = exports.QuantityStepper = exports.ProductGrid = exports.ProductCardV3 = exports.ProductCardV2 = exports.ProductCard = exports.PriceTagV4 = exports.PriceTag = exports.formatMoney = void 0;
 var money_1 = require("./money");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return money_1.formatMoney; } });
 var PriceTag_1 = require("./PriceTag");
@@ -56,4 +56,34 @@ Object.defineProperty(exports, "StatusBadge", { enumerable: true, get: function 
 // of it) working.
 var EmptyState_1 = require("./EmptyState");
 Object.defineProperty(exports, "EmptyState", { enumerable: true, get: function () { return EmptyState_1.EmptyState; } });
+/* ------------------------------------------------------------------------ *
+ * The V4 line
+ *
+ * Eleven components on the current design pattern. See
+ * `COMMERCE-MARKETPLACE-V4-BRIEF.md` — commerce and marketplace were upgraded
+ * as one surface, because a listing composes the same price, status and row a
+ * cart and a checkout do.
+ *
+ * `CheckoutSummaryV4` is `OrderSummaryV4` under its checkout-time name, which
+ * is the shape the base and both alternate lines already have.
+ * ------------------------------------------------------------------------ */
+var CartLineItemV4_1 = require("./CartLineItemV4");
+Object.defineProperty(exports, "CartLineItemV4", { enumerable: true, get: function () { return CartLineItemV4_1.CartLineItemV4; } });
+var CartSummaryV4_1 = require("./CartSummaryV4");
+Object.defineProperty(exports, "CartSummaryV4", { enumerable: true, get: function () { return CartSummaryV4_1.CartSummaryV4; } });
+var OrderSummaryV4_1 = require("./OrderSummaryV4");
+Object.defineProperty(exports, "OrderSummaryV4", { enumerable: true, get: function () { return OrderSummaryV4_1.OrderSummaryV4; } });
+Object.defineProperty(exports, "CheckoutSummaryV4", { enumerable: true, get: function () { return OrderSummaryV4_1.CheckoutSummaryV4; } });
+var QuantityStepperV4_1 = require("./QuantityStepperV4");
+Object.defineProperty(exports, "QuantityStepperV4", { enumerable: true, get: function () { return QuantityStepperV4_1.QuantityStepperV4; } });
+var ProductCardV4_1 = require("./ProductCardV4");
+Object.defineProperty(exports, "ProductCardV4", { enumerable: true, get: function () { return ProductCardV4_1.ProductCardV4; } });
+var ProductGridV4_1 = require("./ProductGridV4");
+Object.defineProperty(exports, "ProductGridV4", { enumerable: true, get: function () { return ProductGridV4_1.ProductGridV4; } });
+var EmptyStateV4_1 = require("./EmptyStateV4");
+Object.defineProperty(exports, "EmptyStateV4", { enumerable: true, get: function () { return EmptyStateV4_1.EmptyStateV4; } });
+var StatusBadgeV4_1 = require("./StatusBadgeV4");
+Object.defineProperty(exports, "StatusBadgeV4", { enumerable: true, get: function () { return StatusBadgeV4_1.StatusBadgeV4; } });
+var GenerativeCoverV4_1 = require("./GenerativeCoverV4");
+Object.defineProperty(exports, "GenerativeCoverV4", { enumerable: true, get: function () { return GenerativeCoverV4_1.GenerativeCoverV4; } });
 //# sourceMappingURL=index.js.map

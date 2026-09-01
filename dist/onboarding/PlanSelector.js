@@ -65,7 +65,7 @@ function PlanCard({ plan, price, selected, onSelect, }) {
             ? 'border-2 border-primary bg-primary'
             : plan.highlighted
                 ? 'border border-accent bg-surface'
-                : 'border border-border bg-surface'), children: [(0, jsx_runtime_1.jsxs)("span", { className: "flex items-start justify-between gap-1", children: [(0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", weight: "semibold", tone: fg, className: "min-w-0", children: plan.name }), plan.badge ? (
+                : 'border border-border bg-surface'), children: [(0, jsx_runtime_1.jsxs)("span", { className: "flex flex-wrap items-start justify-between gap-1", children: [(0, jsx_runtime_1.jsx)(Text_1.Text, { size: "base", weight: "semibold", tone: fg, children: plan.name }), plan.badge ? (
                     // §7 asks for the badge "in colors.success on successText". The
                     // compiled palette has no legible form of that pair on a card: on web
                     // the soft-success badge is a NEUTRAL ground with success text, and

@@ -57,6 +57,40 @@ function XenitionUIProvider({ theme, mode, children, }) {
     const compiled = React.useMemo(() => (isCompiledTheme(theme) ? theme : (0, compile_1.compileTheme)(theme)), [theme]);
     const css = React.useMemo(() => (0, outputs_1.toCssVars)(compiled), [compiled]);
     const resolvedMode = mode ?? (compiled.seed.mode === 'dark' ? 'dark' : 'light');
+    /**
+     * The scheme is stamped on the **document element** as well as the wrapper.
+     *
+     * The wrapper alone is not enough, and the gap was invisible until a modal
+     * was opened on a dark page. `toCssVars` emits the dark overrides under
+     * `[data-theme="dark"]`, and that selector only reaches descendants — so
+     * every component that `createPortal`s to `document.body` lands OUTSIDE the
+     * stamped subtree and resolves the light palette. That is `ModalV4`,
+     * `DrawerV4`, `BottomSheetV4`, `ActionSheetV4` and the whole toast stack:
+     * measured live, `--xen-surface` was `#1e2024` inside the app and `#f7f7f8`
+     * on `document.body` at the same instant, so a dark app opened a white modal
+     * and near-white toasts.
+     *
+     * The wrapper stamp stays. It is what lets a second provider theme a
+     * subtree — a preview pane, an embedded widget — without the page following
+     * it, and the more specific selector still wins there.
+     *
+     * The previous value is restored on unmount rather than cleared, so a
+     * provider that mounts and unmounts inside a host page that does its own
+     * theming leaves the page as it found it.
+     */
+    React.useEffect(() => {
+        if (typeof document === 'undefined')
+            return undefined;
+        const root = document.documentElement;
+        const previous = root.getAttribute('data-theme');
+        root.setAttribute('data-theme', resolvedMode);
+        return () => {
+            if (previous === null)
+                root.removeAttribute('data-theme');
+            else
+                root.setAttribute('data-theme', previous);
+        };
+    }, [resolvedMode]);
     return ((0, jsx_runtime_1.jsxs)(XenitionThemeContext.Provider, { value: compiled, children: [(0, jsx_runtime_1.jsx)("style", { "data-xenition-theme": "", dangerouslySetInnerHTML: { __html: css } }), (0, jsx_runtime_1.jsx)("div", { "data-theme": resolvedMode, style: { display: 'contents' }, children: children })] }));
 }
 /** Access the compiled theme from anywhere below `XenitionUIProvider`. */

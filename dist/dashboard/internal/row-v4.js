@@ -79,6 +79,7 @@ exports.rowHeightClass = rowHeightClass;
 exports.rowGroundClass = rowGroundClass;
 exports.rowStateVars = rowStateVars;
 exports.rowSeparatorClass = rowSeparatorClass;
+exports.rowEdgeClass = rowEdgeClass;
 const nav_v4_1 = require("../../primitives/internal/nav-v4");
 const v4_motion_1 = require("../../primitives/internal/v4-motion");
 const v4_state_1 = require("../../primitives/internal/v4-state");
@@ -294,6 +295,28 @@ function rowSeparatorClass(inset = false) {
         : 'xen-v4-row-separator';
 }
 /**
+ * A hairline along a row's own bottom edge.
+ *
+ * `rowSeparatorClass` paints a **standalone element** — `height: 1px` and a
+ * `background-color` — which is right when a list renders a real rule between
+ * two rows, as `TxListV4` does. Put those same classes on the row itself and
+ * they fight it: the row is handed a 1px height and, worse, the border colour
+ * as its own background, so every row in the list draws in `--xen-border`
+ * instead of its ground.
+ *
+ * Eight components did exactly that. This is the shape they wanted — a
+ * pseudo-element on the row, so the row keeps its ground and its height.
+ *
+ * There is no inset variant, deliberately. An edge belongs to the row and
+ * cannot be inset without a child element, and the native twin has no
+ * pseudo-elements at all; making one twin capable of something the other is
+ * not is how the two halves drift. A list that wants an inset rule renders a
+ * real separator element and calls `rowSeparatorClass(true)`.
+ */
+function rowEdgeClass() {
+    return 'xen-v4-row-edge';
+}
+/**
  * Everything the row family paints that a Tailwind class bound to a token
  * cannot say.
  *
@@ -331,6 +354,17 @@ exports.ROW_V4_CSS = `
 }
 .xen-v4-row-separator--leading {
   margin-inline-start: ${exports.ROW_V4_METRICS.separatorInset};
+}
+.xen-v4-row-edge {
+  position: relative;
+}
+.xen-v4-row-edge::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--xen-border);
 }
 `;
 //# sourceMappingURL=row-v4.js.map

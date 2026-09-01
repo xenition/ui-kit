@@ -87,3 +87,47 @@ export type { PointerHaloProps, PointerHaloMode } from './PointerHalo';
 // (mirrors how the web marketing index surfaces GenerativeCover).
 export { GenerativeCover } from '../commerce/GenerativeCover';
 export type { GenerativeCoverProps } from '../commerce/GenerativeCover';
+
+/*
+ * ── V4 "showcase" design line ──
+ * A drop-in V4 variant for every marketing component: a bold, conversion-forward
+ * landing language — extra-bold headlines, elevated cards, refined visual
+ * machinery, and a vibrant primary→accent brand gradient reserved for the
+ * hero / CTA / announcement / newsletter moments. Base components untouched; V4
+ * is additive. Token-driven, dark-mode safe, web + native.
+ */
+export { AnnouncementBarV4, type AnnouncementBarV4Props } from './AnnouncementBarV4';
+export { AuroraBackgroundV4, type AuroraBackgroundV4Props } from './AuroraBackgroundV4';
+export { BentoCardV4,BentoGridV4, type BentoCardV4Props,type BentoGridV4Props } from './BentoV4';
+export { CTABannerV4, type CTABannerV4Props } from './CTABannerV4';
+export { CarouselV4, type CarouselV4Props } from './CarouselV4';
+export { ComparisonTableV4, type ComparisonTableV4Props } from './ComparisonTableV4';
+export { CountdownV4, type CountdownV4Props } from './CountdownV4';
+export { CoverGalleryV4, type CoverGalleryV4Props } from './CoverGalleryV4';
+export { EditorialGridV4,EditorialItemV4, type EditorialGridV4Props,type EditorialItemV4Props } from './EditorialGridV4';
+export { EntityCardV4, type EntityCardV4Props } from './EntityCardV4';
+export { FAQV4, type FAQItemV4Props,type FAQV4Props } from './FAQV4';
+export { FeatureGridV4, type FeatureGridV4Props } from './FeatureGridV4';
+export { FeatureSplitV4, type FeatureSplitV4Props } from './FeatureSplitV4';
+export { FooterV4, type FooterColumnV4Props,type FooterV4Props } from './FooterV4';
+export { GenerativeCoverV4, type GenerativeCoverV4Props } from './GenerativeCoverV4';
+export { GradientHeroV4, type GradientHeroV4Props } from './GradientHeroV4';
+export { LocationBlockV4, type LocationBlockV4Props } from './LocationBlockV4';
+export { LogoCloudV4, type LogoCloudV4Props } from './LogoCloudV4';
+export { NavbarV4, type NavbarV4Props } from './NavbarV4';
+export { NewsletterSignupV4, type NewsletterSignupV4Props } from './NewsletterSignupV4';
+export { OrnamentRuleV4, type OrnamentRuleV4Props } from './OrnamentRuleV4';
+export { ParticleFieldV4, type ParticleFieldV4Props } from './ParticleFieldV4';
+export { PointerHaloV4, type PointerHaloV4Props } from './PointerHaloV4';
+export { PriceListV4,PriceRowV4, type PriceListV4Props,type PriceRowV4Props } from './PriceListV4';
+export { PricingTableV4,PricingTierV4, type PricingTableV4Props,type PricingTierV4Props } from './PricingTableV4';
+export { PricingToggleV4, type PricingToggleV4Props } from './PricingToggleV4';
+export { ProcessStepsV4, type ProcessStepsV4Props } from './ProcessStepsV4';
+export { ProductMockV4, type ProductMockV4Props } from './ProductMockV4';
+export { RichTextV4, type RichTextV4Props } from './RichTextV4';
+export { SectionDividerV4, type SectionDividerV4Props } from './SectionDividerV4';
+export { SectionHeadingV4, type SectionHeadingV4Props } from './SectionHeadingV4';
+export { StatBarV4,StatV4, type StatBarV4Props,type StatV4Props } from './StatBarV4';
+export { TeamGridV4, type TeamGridV4Props } from './TeamGridV4';
+export { TestimonialV4,TestimonialsV4, type TestimonialV4Props,type TestimonialsV4Props } from './TestimonialsV4';
+export { VideoEmbedV4, type VideoEmbedV4Props } from './VideoEmbedV4';

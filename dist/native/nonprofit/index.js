@@ -11,7 +11,7 @@
  * Icon, Avatar).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.goalPct = exports.withAlpha = exports.formatMoney = exports.FundraiserCardV3 = exports.FundraiserCardV2 = exports.CauseCardV3 = exports.CauseCardV2 = exports.CampaignProgressV3 = exports.CampaignProgressV2 = exports.DonationCardV3 = exports.DonationCardV2 = exports.ThankYouCard = exports.MatchingGiftBanner = exports.EventTicketRow = exports.RecurringGiftRow = exports.FundraiserCard = exports.ImpactStat = exports.DonorRow = exports.PledgeRow = exports.VolunteerShift = exports.CauseCard = exports.CampaignProgress = exports.DonationCard = void 0;
+exports.goalPct = exports.withAlpha = exports.formatMoney = exports.VolunteerShiftV4 = exports.ThankYouCardV4 = exports.RecurringGiftRowV4 = exports.PledgeRowV4 = exports.MatchingGiftBannerV4 = exports.ImpactStatV4 = exports.FundraiserCardV4 = exports.EventTicketRowV4 = exports.DonorRowV4 = exports.DonationCardV4 = exports.CauseCardV4 = exports.CampaignProgressV4 = exports.FundraiserCardV3 = exports.FundraiserCardV2 = exports.CauseCardV3 = exports.CauseCardV2 = exports.CampaignProgressV3 = exports.CampaignProgressV2 = exports.DonationCardV3 = exports.DonationCardV2 = exports.ThankYouCard = exports.MatchingGiftBanner = exports.EventTicketRow = exports.RecurringGiftRow = exports.FundraiserCard = exports.ImpactStat = exports.DonorRow = exports.PledgeRow = exports.VolunteerShift = exports.CauseCard = exports.CampaignProgress = exports.DonationCard = void 0;
 var DonationCard_1 = require("./DonationCard");
 Object.defineProperty(exports, "DonationCard", { enumerable: true, get: function () { return DonationCard_1.DonationCard; } });
 var CampaignProgress_1 = require("./CampaignProgress");
@@ -53,6 +53,39 @@ var FundraiserCardV2_1 = require("./FundraiserCardV2");
 Object.defineProperty(exports, "FundraiserCardV2", { enumerable: true, get: function () { return FundraiserCardV2_1.FundraiserCardV2; } });
 var FundraiserCardV3_1 = require("./FundraiserCardV3");
 Object.defineProperty(exports, "FundraiserCardV3", { enumerable: true, get: function () { return FundraiserCardV3_1.FundraiserCardV3; } });
+/*
+ * ── V4 "rally" (warm, mission-driven fundraising) design line ──
+ * A drop-in V4 variant for each of the 12 originals: elevated rounded cards,
+ * meters, and rows with soft-primary wells and chips, bold money numerals, and
+ * status/tier by glyph + labelled badge. Every V4 keeps its base props (all
+ * variant/tone/status values honored). The brand gradient is reserved for the
+ * rally moment — the `ThankYouCard` celebration. Base/V2/V3 untouched; V4 is
+ * additive. Token-driven, dark-mode safe, web + native.
+ */
+var CampaignProgressV4_1 = require("./CampaignProgressV4");
+Object.defineProperty(exports, "CampaignProgressV4", { enumerable: true, get: function () { return CampaignProgressV4_1.CampaignProgressV4; } });
+var CauseCardV4_1 = require("./CauseCardV4");
+Object.defineProperty(exports, "CauseCardV4", { enumerable: true, get: function () { return CauseCardV4_1.CauseCardV4; } });
+var DonationCardV4_1 = require("./DonationCardV4");
+Object.defineProperty(exports, "DonationCardV4", { enumerable: true, get: function () { return DonationCardV4_1.DonationCardV4; } });
+var DonorRowV4_1 = require("./DonorRowV4");
+Object.defineProperty(exports, "DonorRowV4", { enumerable: true, get: function () { return DonorRowV4_1.DonorRowV4; } });
+var EventTicketRowV4_1 = require("./EventTicketRowV4");
+Object.defineProperty(exports, "EventTicketRowV4", { enumerable: true, get: function () { return EventTicketRowV4_1.EventTicketRowV4; } });
+var FundraiserCardV4_1 = require("./FundraiserCardV4");
+Object.defineProperty(exports, "FundraiserCardV4", { enumerable: true, get: function () { return FundraiserCardV4_1.FundraiserCardV4; } });
+var ImpactStatV4_1 = require("./ImpactStatV4");
+Object.defineProperty(exports, "ImpactStatV4", { enumerable: true, get: function () { return ImpactStatV4_1.ImpactStatV4; } });
+var MatchingGiftBannerV4_1 = require("./MatchingGiftBannerV4");
+Object.defineProperty(exports, "MatchingGiftBannerV4", { enumerable: true, get: function () { return MatchingGiftBannerV4_1.MatchingGiftBannerV4; } });
+var PledgeRowV4_1 = require("./PledgeRowV4");
+Object.defineProperty(exports, "PledgeRowV4", { enumerable: true, get: function () { return PledgeRowV4_1.PledgeRowV4; } });
+var RecurringGiftRowV4_1 = require("./RecurringGiftRowV4");
+Object.defineProperty(exports, "RecurringGiftRowV4", { enumerable: true, get: function () { return RecurringGiftRowV4_1.RecurringGiftRowV4; } });
+var ThankYouCardV4_1 = require("./ThankYouCardV4");
+Object.defineProperty(exports, "ThankYouCardV4", { enumerable: true, get: function () { return ThankYouCardV4_1.ThankYouCardV4; } });
+var VolunteerShiftV4_1 = require("./VolunteerShiftV4");
+Object.defineProperty(exports, "VolunteerShiftV4", { enumerable: true, get: function () { return VolunteerShiftV4_1.VolunteerShiftV4; } });
 // Shared money + tint helpers (no external deps).
 var internal_1 = require("./internal");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return internal_1.formatMoney; } });

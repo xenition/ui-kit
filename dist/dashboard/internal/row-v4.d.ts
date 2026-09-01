@@ -274,6 +274,26 @@ export declare function rowStateVars(ground?: string, ink?: string): React.CSSPr
  */
 export declare function rowSeparatorClass(inset?: boolean): string;
 /**
+ * A hairline along a row's own bottom edge.
+ *
+ * `rowSeparatorClass` paints a **standalone element** — `height: 1px` and a
+ * `background-color` — which is right when a list renders a real rule between
+ * two rows, as `TxListV4` does. Put those same classes on the row itself and
+ * they fight it: the row is handed a 1px height and, worse, the border colour
+ * as its own background, so every row in the list draws in `--xen-border`
+ * instead of its ground.
+ *
+ * Eight components did exactly that. This is the shape they wanted — a
+ * pseudo-element on the row, so the row keeps its ground and its height.
+ *
+ * There is no inset variant, deliberately. An edge belongs to the row and
+ * cannot be inset without a child element, and the native twin has no
+ * pseudo-elements at all; making one twin capable of something the other is
+ * not is how the two halves drift. A list that wants an inset rule renders a
+ * real separator element and calls `rowSeparatorClass(true)`.
+ */
+export declare function rowEdgeClass(): string;
+/**
  * Everything the row family paints that a Tailwind class bound to a token
  * cannot say.
  *

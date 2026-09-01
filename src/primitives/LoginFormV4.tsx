@@ -47,6 +47,16 @@ export interface LoginFormV4Props extends LoginFormProps {
   /** Brand icon from the named set, for an app with no mark of its own. */
   brandIcon?: IconName;
   /**
+   * The accessible name for the brand tile.
+   *
+   * `AuthCardV4` added this precisely so a mark that carries meaning can
+   * announce it, and then no composite forwarded it — so **every composed auth
+   * screen's brand tile was permanently decorative**, with the prop reachable
+   * only by hand-assembling the card. Found by putting all fourteen auth
+   * components on one screen.
+   */
+  brandLabel?: string;
+  /**
    * Headline alignment. Default `'left'` — §9 is explicit that the brand tile
    * is top-**left**, not centred.
    */
@@ -146,6 +156,7 @@ export function LoginFormV4({
   subtitle,
   brandGlyph,
   brandIcon,
+  brandLabel,
   align = 'left',
   titleSize = '3xl',
   submitLabel = 'Sign in',
@@ -231,6 +242,7 @@ export function LoginFormV4({
       subtitle={subtitle}
       brandGlyph={brandGlyph}
       brandIcon={brandIcon}
+      brandLabel={brandLabel}
       align={align}
       titleSize={titleSize}
       footer={cardFooter}

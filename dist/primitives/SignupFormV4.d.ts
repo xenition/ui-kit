@@ -23,6 +23,23 @@ export interface SignupProviderV4 {
 export interface SignupFormV4Props extends SignupFormProps {
     /** Brand icon from the named set, for an app with no mark of its own. */
     brandIcon?: IconName;
+    /**
+     * The accessible name for the brand tile.
+     *
+     * `AuthCardV4` added this precisely so a mark that carries meaning can
+     * announce it, and then no composite forwarded it — so **every composed auth
+     * screen's brand tile was permanently decorative**, with the prop reachable
+     * only by hand-assembling the card. Found by putting all fourteen auth
+     * components on one screen.
+     */
+    brandLabel?: string;
+    /**
+     * A layout override for the card.
+     *
+     * Its two siblings both take one; this form did not, which made it the only
+     * auth form a screen could not place. An asymmetry with no reason behind it.
+     */
+    className?: string;
     /** Headline alignment. Default `'left'` — §9's tile and headline sit top-left. */
     align?: AuthAlign;
     /** Headline step. Default `'3xl'` — §9's register headline. */
@@ -99,5 +116,5 @@ export interface SignupFormV4Props extends SignupFormProps {
  * Errors are always a message, never a border colour alone: the submit failure
  * is an `AlertV4`, and every field prints its own text under the control.
  */
-export declare function SignupFormV4({ onSubmit, onLoginClick, title, subtitle, brandGlyph, brandIcon, align, titleSize, minPasswordLength, requireTerms, termsLabel, termsLinks, onTermsLinkClick, termsDescription, termsError, splitName, submitLabel, submittingLabel, nameLabel, namePlaceholder, firstNameLabel, firstNamePlaceholder, lastNameLabel, lastNamePlaceholder, requireLastName, emailLabel, emailPlaceholder, passwordLabel, passwordPlaceholder, switchPrompt, switchLabel, providers, onProviderClick, providersLabel, }: SignupFormV4Props): React.ReactElement;
+export declare function SignupFormV4({ onSubmit, onLoginClick, title, subtitle, brandGlyph, brandIcon, brandLabel, className, align, titleSize, minPasswordLength, requireTerms, termsLabel, termsLinks, onTermsLinkClick, termsDescription, termsError, splitName, submitLabel, submittingLabel, nameLabel, namePlaceholder, firstNameLabel, firstNamePlaceholder, lastNameLabel, lastNamePlaceholder, requireLastName, emailLabel, emailPlaceholder, passwordLabel, passwordPlaceholder, switchPrompt, switchLabel, providers, onProviderClick, providersLabel, }: SignupFormV4Props): React.ReactElement;
 //# sourceMappingURL=SignupFormV4.d.ts.map

@@ -52,4 +52,16 @@ export { TriageLevel } from './TriageLevel';
 export type { TriageLevelProps, TriageLevelValue } from './TriageLevel';
 export { HealthRecordRow } from './HealthRecordRow';
 export type { HealthRecordRowProps, HealthRecordType } from './HealthRecordRow';
+export { AppointmentCardV4, type AppointmentCardV4Props } from './AppointmentCardV4';
+export { DoctorCardV4, type DoctorCardV4Props } from './DoctorCardV4';
+export { HealthRecordRowV4, type HealthRecordRowV4Props } from './HealthRecordRowV4';
+export { LabResultRowV4, type LabResultRowV4Props } from './LabResultRowV4';
+export { MedicationScheduleV4, type MedicationScheduleV4Props } from './MedicationScheduleV4';
+export { PatientCardV4, type PatientCardV4Props } from './PatientCardV4';
+export { PrescriptionRowV4, type PrescriptionRowV4Props } from './PrescriptionRowV4';
+export { SymptomSelectorV4, type SymptomSelectorV4Props } from './SymptomSelectorV4';
+export { TelehealthCallBarV4, type TelehealthCallBarV4Props } from './TelehealthCallBarV4';
+export { TriageLevelV4, type TriageLevelV4Props } from './TriageLevelV4';
+export { VisitSummaryV4, type VisitSummaryV4Props } from './VisitSummaryV4';
+export { VitalsPanelV4, type VitalsPanelV4Props } from './VitalsPanelV4';
 //# sourceMappingURL=index.d.ts.map

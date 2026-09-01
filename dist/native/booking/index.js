@@ -10,7 +10,7 @@
  * never duplicated. Event idioms are native (`onSelectDate`/`onPick`).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.weekRow = exports.monthMatrix = exports.startOfMonth = exports.addDays = exports.formatTimeInTz = exports.dayKeyInTz = exports.toDayKey = exports.BookingSummaryV3 = exports.BookingSummaryV2 = exports.SlotPickerV3 = exports.SlotPickerV2 = exports.BookingCalendarV3 = exports.BookingCalendarV2 = exports.BookingSummary = exports.SlotPicker = exports.BookingCalendar = void 0;
+exports.BookingSummaryV4 = exports.SlotPickerV4 = exports.BookingCalendarV4 = exports.weekRow = exports.monthMatrix = exports.startOfMonth = exports.addDays = exports.formatTimeInTz = exports.dayKeyInTz = exports.toDayKey = exports.BookingSummaryV3 = exports.BookingSummaryV2 = exports.SlotPickerV3 = exports.SlotPickerV2 = exports.BookingCalendarV3 = exports.BookingCalendarV2 = exports.BookingSummary = exports.SlotPicker = exports.BookingCalendar = void 0;
 var BookingCalendar_1 = require("./BookingCalendar");
 Object.defineProperty(exports, "BookingCalendar", { enumerable: true, get: function () { return BookingCalendar_1.BookingCalendar; } });
 var SlotPicker_1 = require("./SlotPicker");
@@ -40,4 +40,13 @@ Object.defineProperty(exports, "addDays", { enumerable: true, get: function () {
 Object.defineProperty(exports, "startOfMonth", { enumerable: true, get: function () { return datetime_1.startOfMonth; } });
 Object.defineProperty(exports, "monthMatrix", { enumerable: true, get: function () { return datetime_1.monthMatrix; } });
 Object.defineProperty(exports, "weekRow", { enumerable: true, get: function () { return datetime_1.weekRow; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `VERTICALS-V4-BRIEF.md`. Each is a
+// drop-in for its base — same props plus optional additions.
+var BookingCalendarV4_1 = require("./BookingCalendarV4");
+Object.defineProperty(exports, "BookingCalendarV4", { enumerable: true, get: function () { return BookingCalendarV4_1.BookingCalendarV4; } });
+var SlotPickerV4_1 = require("./SlotPickerV4");
+Object.defineProperty(exports, "SlotPickerV4", { enumerable: true, get: function () { return SlotPickerV4_1.SlotPickerV4; } });
+var BookingSummaryV4_1 = require("./BookingSummaryV4");
+Object.defineProperty(exports, "BookingSummaryV4", { enumerable: true, get: function () { return BookingSummaryV4_1.BookingSummaryV4; } });
 //# sourceMappingURL=index.js.map

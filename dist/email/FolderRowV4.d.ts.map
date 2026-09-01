@@ -1,0 +1,1 @@
+{"version":3,"file":"FolderRowV4.d.ts","sourceRoot":"","sources":["../../src/email/FolderRowV4.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAU/B,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,aAAa,CAAC;AAElD,MAAM,WAAW,gBAAiB,SAAQ,cAAc;IACtD,2EAA2E;IAC3E,WAAW,CAAC,EAAE,CAAC,KAAK,EAAE,MAAM,KAAK,MAAM,CAAC;CACzC;AAKD;;;;;;;;;;;;;;;;;;;;GAoBG;AACH,eAAO,MAAM,WAAW,4FAqEvB,CAAC"}

@@ -104,3 +104,58 @@ export { OtpVerifyV2 } from './OtpVerifyV2';
 export type { OtpVerifyV2Props } from './OtpVerifyV2';
 export { OtpVerifyV3 } from './OtpVerifyV3';
 export type { OtpVerifyV3Props } from './OtpVerifyV3';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `ONBOARDING-V4-BRIEF.md`. Each is
+// a drop-in for its base — same props plus optional additions — and each takes
+// the line's two configuration axes (`ground`, `accent`) where it is a screen.
+export { GetStartedButtonV4 } from './GetStartedButtonV4';
+export type { GetStartedButtonV4Props } from './GetStartedButtonV4';
+export { ProgressDotsV4 } from './ProgressDotsV4';
+export type { ProgressDotsV4Props } from './ProgressDotsV4';
+export { TrialBannerV4 } from './TrialBannerV4';
+export type { TrialBannerV4Props } from './TrialBannerV4';
+export { FeatureLockCardV4 } from './FeatureLockCardV4';
+export type { FeatureLockCardV4Props } from './FeatureLockCardV4';
+export { PaywallFeatureRowsV4 } from './PaywallFeatureRowsV4';
+export type { PaywallFeatureRowsV4Props } from './PaywallFeatureRowsV4';
+export { PlanSelectorV4 } from './PlanSelectorV4';
+export type { PlanSelectorV4Props, PlanSelectorV4Layout } from './PlanSelectorV4';
+export { PaywallScreenV4 } from './PaywallScreenV4';
+export type { PaywallScreenV4Props } from './PaywallScreenV4';
+export { WelcomeScreenV4 } from './WelcomeScreenV4';
+export type { WelcomeScreenV4Props } from './WelcomeScreenV4';
+export { OnboardingSlidesV4 } from './OnboardingSlidesV4';
+export type { OnboardingSlidesV4Props } from './OnboardingSlidesV4';
+export { InterestPickerV4 } from './InterestPickerV4';
+export type { InterestPickerV4Props } from './InterestPickerV4';
+export { PermissionPromptV4 } from './PermissionPromptV4';
+export type { PermissionPromptV4Props } from './PermissionPromptV4';
+export { ProfileSetupV4 } from './ProfileSetupV4';
+export type { ProfileSetupV4Props } from './ProfileSetupV4';
+export { OtpVerifyV4 } from './OtpVerifyV4';
+export type { OtpVerifyV4Props } from './OtpVerifyV4';
+export { SignInScreenV4 } from './SignInScreenV4';
+export type { SignInScreenV4Props } from './SignInScreenV4';
+
+// The line's shared configuration types, exported because they appear in the
+// props above and a host needs to be able to name them.
+export type { OnboardingGroundV4, OnboardingAccentV4, FlowLegalLink } from './internal/flow-v4';
+
+// ── Alternate design lines for the three controls that had none ────────
+// The five that shipped without a V2/V3 were not five gaps: `GetStartedButton`
+// is the one shape §5 pins so a funnel reads as one app, and `TrialBanner` is
+// small enough that the base IS its whole line (asserted from the other side
+// in `design-line-composition`). These three are the real gaps, closed.
+export { ProgressDotsV2 } from './ProgressDotsV2';
+export type { ProgressDotsV2Props } from './ProgressDotsV2';
+export { ProgressDotsV3 } from './ProgressDotsV3';
+export type { ProgressDotsV3Props } from './ProgressDotsV3';
+export { PaywallFeatureRowsV2 } from './PaywallFeatureRowsV2';
+export type { PaywallFeatureRowsV2Props } from './PaywallFeatureRowsV2';
+export { PaywallFeatureRowsV3 } from './PaywallFeatureRowsV3';
+export type { PaywallFeatureRowsV3Props } from './PaywallFeatureRowsV3';
+export { FeatureLockCardV2 } from './FeatureLockCardV2';
+export type { FeatureLockCardV2Props } from './FeatureLockCardV2';
+export { FeatureLockCardV3 } from './FeatureLockCardV3';
+export type { FeatureLockCardV3Props } from './FeatureLockCardV3';

@@ -51,6 +51,23 @@ interface SignupFieldValues {
 export interface SignupFormV4Props extends SignupFormProps {
   /** Brand icon from the named set, for an app with no mark of its own. */
   brandIcon?: IconName;
+  /**
+   * The accessible name for the brand tile.
+   *
+   * `AuthCardV4` added this precisely so a mark that carries meaning can
+   * announce it, and then no composite forwarded it — so **every composed auth
+   * screen's brand tile was permanently decorative**, with the prop reachable
+   * only by hand-assembling the card. Found by putting all fourteen auth
+   * components on one screen.
+   */
+  brandLabel?: string;
+  /**
+   * A layout override for the card.
+   *
+   * Its two siblings both take one; this form did not, which made it the only
+   * auth form a screen could not place. An asymmetry with no reason behind it.
+   */
+  className?: string;
   /** Headline alignment. Default `'left'` — §9's tile and headline sit top-left. */
   align?: AuthAlign;
   /** Headline step. Default `'3xl'` — §9's register headline. */
@@ -156,6 +173,8 @@ export function SignupFormV4({
   subtitle,
   brandGlyph,
   brandIcon,
+  brandLabel,
+  className,
   align = 'left',
   titleSize = '3xl',
   minPasswordLength = 8,
@@ -243,6 +262,7 @@ export function SignupFormV4({
       subtitle={subtitle}
       brandGlyph={brandGlyph}
       brandIcon={brandIcon}
+      brandLabel={brandLabel}
       align={align}
       titleSize={titleSize}
       footer={
@@ -331,13 +351,33 @@ export function SignupFormV4({
           />
         ) : null}
 
-        <AuthSubmitButtonV4
-          type="submit"
-          label={submitLabel}
-          busyLabel={submittingLabel}
-          loading={form.submitting}
-          disabled={blocked}
-        />
+        {/*
+          The disabled CTA has to be able to say WHY it is disabled.
+
+          §9 asks for a CTA disabled until the terms box is ticked, and that is
+          kept. But a disabled submit button also suppresses implicit
+          (Enter-key) submission, so `handleSubmit` never ran while blocked,
+          `termsTouched` was never set, and `termsError` — a string this
+          component ships, defaults and documents — could not render from this
+          form at any point. It was unreachable weight.
+
+          Pressing a disabled control is the moment a user asks the question,
+          so that is where the answer belongs. The wrapper takes the press the
+          button cannot, and a control that refuses without explaining itself
+          is an accessibility defect rather than a tidy one.
+        */}
+        <span
+          onPointerDown={blocked ? () => setTermsTouched(true) : undefined}
+          className="contents"
+        >
+          <AuthSubmitButtonV4
+            type="submit"
+            label={submitLabel}
+            busyLabel={submittingLabel}
+            loading={form.submitting}
+            disabled={blocked}
+          />
+        </span>
 
         {/*
           The row is the divider's children, so an app with no social sign-in

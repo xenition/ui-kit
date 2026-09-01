@@ -14,6 +14,26 @@ import { SatisfactionRatingV2 } from './SatisfactionRatingV2';
 import { SatisfactionRatingV3 } from './SatisfactionRatingV3';
 import { TicketRowV2 } from './TicketRowV2';
 import { TicketRowV3 } from './TicketRowV3';
+import {
+  TicketRowV4,
+  AgentStatusV4,
+  ConversationPanelV4,
+  SatisfactionRatingV4,
+  TicketPriorityV4,
+  SLABadgeV4,
+  ResolutionTimerV4,
+  CannedResponseV4,
+  MacroListV4,
+  KBArticleRowV4,
+  EscalationBannerV4,
+  QueueStatV4,
+  TicketDetailHeader,
+  AgentPerformanceCard,
+  CSATResultCard,
+  QueueOverview,
+  MessageBubble,
+  ReplyBox,
+} from './index';
 
 const HEX_LITERAL = /#[0-9a-fA-F]{3,8}\b/;
 const inlineStyles = (root: HTMLElement): string =>
@@ -94,5 +114,128 @@ describe('TicketRow alternates (web)', () => {
     expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
     fireEvent.click(getByText('Cannot log in'));
     expect(onClick).toHaveBeenCalledWith('t1');
+  });
+});
+
+// ── V4 "console" line smoke coverage (web) ──────────────────────────────────
+const MACROS = [
+  { id: 'mac-close', name: 'Close + notify', description: 'Solve and email the requester', actionCount: 2, glyph: '✅' },
+  { id: 'mac-refund', name: 'Issue refund', description: 'Refund + reply', actionCount: 3, glyph: '💸' },
+];
+const CANNED = {
+  id: 'cr-reset',
+  title: 'Password reset',
+  body: 'Follow this link to reset your password, then try again.',
+  shortcut: '/reset',
+  category: 'Account',
+};
+const KB_ARTICLE = {
+  id: 'kb-42',
+  title: 'Resetting your password',
+  category: 'Account',
+  views: 1280,
+  helpful: 312,
+  status: 'published' as const,
+  updatedLabel: 'Updated 3d ago',
+};
+
+describe('support V4 "console" line (web)', () => {
+  it('mounts all 12 V4 variants token-pure', () => {
+    const { container, getAllByText } = render(
+      <>
+        <TicketRowV4 ticket={TICKET} onClick={() => {}} />
+        <TicketRowV4 ticket={{ ...TICKET, status: 'solved', priority: 'low', unread: 0 }} />
+        <AgentStatusV4 presence="online" name="Sam Rivera" detail="3 chats" onClick={() => {}} />
+        <AgentStatusV4 presence="offline" name="Lee" />
+        <ConversationPanelV4 messages={MESSAGES} onReply={() => {}} />
+        <ConversationPanelV4 messages={[]} loading />
+        <SatisfactionRatingV4 variant="faces" onRate={() => {}} label="How did we do?" />
+        <SatisfactionRatingV4 value={4} variant="stars" readOnly />
+        <TicketPriorityV4 level="urgent" />
+        <TicketPriorityV4 level="normal" variant="bars" size="sm" />
+        <SLABadgeV4 state="at-risk" hint="12m left" />
+        <ResolutionTimerV4 remainingSeconds={600} />
+        <CannedResponseV4 response={CANNED} onInsert={() => {}} />
+        <MacroListV4 macros={MACROS} onApply={() => {}} />
+        <KBArticleRowV4 article={KB_ARTICLE} onClick={() => {}} />
+        <EscalationBannerV4 level="critical" title="SLA breach imminent" message="Respond within 15m." onEscalate={() => {}} />
+        <QueueStatV4 label="Open tickets" value={42} delta={3} tone="primary" glyph="📥" />
+      </>
+    );
+    // Every V4 surface rendered its subject/labels.
+    expect(getAllByText('Cannot log in').length).toBeGreaterThanOrEqual(2);
+    // Token purity: no literal hex anywhere in inline styles.
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+  });
+
+  it('TicketRowV4 fires onClick with the id', () => {
+    const onClick = jest.fn();
+    const { getByText } = render(<TicketRowV4 ticket={TICKET} onClick={onClick} />);
+    fireEvent.click(getByText('Cannot log in'));
+    expect(onClick).toHaveBeenCalledWith('t1');
+  });
+});
+
+describe('support V4 new blocks (web)', () => {
+  it('mounts all 6 new components token-pure', () => {
+    const { container, getByText } = render(
+      <>
+        <TicketDetailHeader
+          subject="Cannot log in"
+          ticketId="#4821"
+          status="open"
+          priority="high"
+          requester="Ada Lovelace"
+          assignee="Sam Rivera"
+          slaLabel="Due in 2h 05m"
+          tags={['billing', 'vip']}
+          onSolve={() => {}}
+          onAssign={() => {}}
+        />
+        <AgentPerformanceCard
+          agentName="Sam Rivera"
+          stats={[
+            { label: 'Solved', value: '128' },
+            { label: 'CSAT', value: '96%' },
+            { label: 'Avg reply', value: '4m' },
+          ]}
+          period="This week"
+        />
+        <CSATResultCard score={92} responses={148} positive={130} neutral={12} negative={6} />
+        <QueueOverview
+          title="Today"
+          stats={[
+            { label: 'Open', value: 42, tone: 'primary', delta: 3 },
+            { label: 'Breached SLA', value: 5, tone: 'danger', delta: -2 },
+          ]}
+        />
+        <MessageBubble author="Ada" body="Still cannot log in." side="customer" time="2:14 PM" />
+        <MessageBubble author="Sam" body="Looking into it now." side="agent" time="2:15 PM" status="sent" />
+        <ReplyBox
+          value="Thanks"
+          onChangeText={() => {}}
+          onSend={() => {}}
+          cannedReplies={[{ id: 'greet', label: 'Greeting', body: 'Hi there!' }]}
+        />
+      </>
+    );
+    expect(getByText('Cannot log in')).toBeTruthy();
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+  });
+
+  it('ReplyBox fires onSend', () => {
+    const onSend = jest.fn();
+    const { getByLabelText } = render(<ReplyBox value="Refund issued." onChangeText={() => {}} onSend={onSend} />);
+    fireEvent.click(getByLabelText('Send'));
+    expect(onSend).toHaveBeenCalledTimes(1);
+  });
+
+  it('TicketDetailHeader fires onSolve', () => {
+    const onSolve = jest.fn();
+    const { getByLabelText } = render(
+      <TicketDetailHeader subject="Cannot log in" ticketId="#4821" status="open" onSolve={onSolve} />
+    );
+    fireEvent.click(getByLabelText('Solve'));
+    expect(onSolve).toHaveBeenCalledTimes(1);
   });
 });

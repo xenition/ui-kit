@@ -27,6 +27,16 @@ export interface LoginFormV4Props extends LoginFormProps {
     /** Brand icon from the named set, for an app with no mark of its own. */
     brandIcon?: IconName;
     /**
+     * The accessible name for the brand tile.
+     *
+     * `AuthCardV4` added this precisely so a mark that carries meaning can
+     * announce it, and then no composite forwarded it — so **every composed auth
+     * screen's brand tile was permanently decorative**, with the prop reachable
+     * only by hand-assembling the card. Found by putting all fourteen auth
+     * components on one screen.
+     */
+    brandLabel?: string;
+    /**
      * Headline alignment. Default `'left'` — §9 is explicit that the brand tile
      * is top-**left**, not centred.
      */
@@ -112,5 +122,5 @@ export interface LoginFormV4Props extends LoginFormProps {
  * message plus a `danger` border; the form-level one is an `AlertV4` with
  * `role="alert"`. Nothing in this component signals a failure with colour only.
  */
-export declare function LoginFormV4({ onSubmit, onForgotPassword, onSignupClick, title, subtitle, brandGlyph, brandIcon, align, titleSize, submitLabel, submittingLabel, emailLabel, emailPlaceholder, passwordLabel, passwordPlaceholder, forgotLabel, switchPrompt, switchLabel, providers, onProviderClick, providersLabel, compactProviders, error, pending, submitDisabled, initialEmail, emailRequiredMessage, passwordRequiredMessage, submitErrorFallback, footer, className, }: LoginFormV4Props): React.ReactElement;
+export declare function LoginFormV4({ onSubmit, onForgotPassword, onSignupClick, title, subtitle, brandGlyph, brandIcon, brandLabel, align, titleSize, submitLabel, submittingLabel, emailLabel, emailPlaceholder, passwordLabel, passwordPlaceholder, forgotLabel, switchPrompt, switchLabel, providers, onProviderClick, providersLabel, compactProviders, error, pending, submitDisabled, initialEmail, emailRequiredMessage, passwordRequiredMessage, submitErrorFallback, footer, className, }: LoginFormV4Props): React.ReactElement;
 //# sourceMappingURL=LoginFormV4.d.ts.map

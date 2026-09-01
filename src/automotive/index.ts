@@ -65,3 +65,31 @@ export type { VehicleHealthRowProps, VehicleHealthVariant, HealthStatus } from '
 
 export { ServiceReminder } from './ServiceReminder';
 export type { ServiceReminderProps, ServiceReminderVariant, ServiceUrgency } from './ServiceReminder';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `AUTOMOTIVE-BEAUTY-V4-BRIEF.md`.
+// Each is a drop-in for its base — same props plus optional additions.
+export { DriverCardV4 } from './DriverCardV4';
+export type { DriverCardV4Props } from './DriverCardV4';
+export { DriverRatingRowV4 } from './DriverRatingRowV4';
+export type { DriverRatingRowV4Props } from './DriverRatingRowV4';
+export { FareEstimateV4 } from './FareEstimateV4';
+export type { FareEstimateV4Props } from './FareEstimateV4';
+export { FuelChargeGaugeV4 } from './FuelChargeGaugeV4';
+export type { FuelChargeGaugeV4Props, FuelBand } from './FuelChargeGaugeV4';
+export { ParkingSpotV4 } from './ParkingSpotV4';
+export type { ParkingSpotV4Props } from './ParkingSpotV4';
+export { RideRequestCardV4 } from './RideRequestCardV4';
+export type { RideRequestCardV4Props } from './RideRequestCardV4';
+export { RideStatusBarV4 } from './RideStatusBarV4';
+export type { RideStatusBarV4Props } from './RideStatusBarV4';
+export { ServiceReminderV4 } from './ServiceReminderV4';
+export type { ServiceReminderV4Props } from './ServiceReminderV4';
+export { TripHistoryRowV4, TripHistoryEmptyV4 } from './TripHistoryRowV4';
+export type { TripHistoryRowV4Props, TripHistoryEmptyV4Props } from './TripHistoryRowV4';
+export { TripRouteV4 } from './TripRouteV4';
+export type { TripRouteV4Props } from './TripRouteV4';
+export { VehicleCardV4 } from './VehicleCardV4';
+export type { VehicleCardV4Props } from './VehicleCardV4';
+export { VehicleHealthRowV4 } from './VehicleHealthRowV4';
+export type { VehicleHealthRowV4Props } from './VehicleHealthRowV4';

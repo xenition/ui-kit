@@ -11,7 +11,7 @@
  * AvatarGroup, Rating) and `../commerce` (EmptyState).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MONTHS_SHORT = exports.WEEKDAYS_SHORT = exports.countdownParts = exports.sameDay = exports.monthLabel = exports.weekdayLabel = exports.SessionCardV3 = exports.SessionCardV2 = exports.SessionCard = exports.CalendarStrip = exports.CheckInRow = exports.TicketTypeRow = exports.CountdownBadge = exports.VenueCard = exports.ScheduleRow = exports.SpeakerCardV3 = exports.SpeakerCardV2 = exports.SpeakerCard = exports.AgendaList = exports.RSVPButton = exports.TicketStubV3 = exports.TicketStubV2 = exports.TicketStub = exports.EventCardV3 = exports.EventCardV2 = exports.EventCard = void 0;
+exports.VenueCardV4 = exports.TicketTypeRowV4 = exports.TicketStubV4 = exports.SpeakerCardV4 = exports.SessionCardV4 = exports.ScheduleRowV4 = exports.RSVPButtonV4 = exports.EventCardV4 = exports.CountdownBadgeV4 = exports.CheckInRowV4 = exports.CalendarStripV4 = exports.AgendaListV4 = exports.MONTHS_SHORT = exports.WEEKDAYS_SHORT = exports.countdownParts = exports.sameDay = exports.monthLabel = exports.weekdayLabel = exports.SessionCardV3 = exports.SessionCardV2 = exports.SessionCard = exports.CalendarStrip = exports.CheckInRow = exports.TicketTypeRow = exports.CountdownBadge = exports.VenueCard = exports.ScheduleRow = exports.SpeakerCardV3 = exports.SpeakerCardV2 = exports.SpeakerCard = exports.AgendaList = exports.RSVPButton = exports.TicketStubV3 = exports.TicketStubV2 = exports.TicketStub = exports.EventCardV3 = exports.EventCardV2 = exports.EventCard = void 0;
 var EventCard_1 = require("./EventCard");
 Object.defineProperty(exports, "EventCard", { enumerable: true, get: function () { return EventCard_1.EventCard; } });
 var EventCardV2_1 = require("./EventCardV2");
@@ -60,4 +60,30 @@ Object.defineProperty(exports, "sameDay", { enumerable: true, get: function () {
 Object.defineProperty(exports, "countdownParts", { enumerable: true, get: function () { return format_1.countdownParts; } });
 Object.defineProperty(exports, "WEEKDAYS_SHORT", { enumerable: true, get: function () { return format_1.WEEKDAYS_SHORT; } });
 Object.defineProperty(exports, "MONTHS_SHORT", { enumerable: true, get: function () { return format_1.MONTHS_SHORT; } });
+// The V4 design line — a sibling of every base above, never a replacement for
+// it. Same props plus optional additions, each defaulting to today's behaviour.
+var AgendaListV4_1 = require("./AgendaListV4");
+Object.defineProperty(exports, "AgendaListV4", { enumerable: true, get: function () { return AgendaListV4_1.AgendaListV4; } });
+var CalendarStripV4_1 = require("./CalendarStripV4");
+Object.defineProperty(exports, "CalendarStripV4", { enumerable: true, get: function () { return CalendarStripV4_1.CalendarStripV4; } });
+var CheckInRowV4_1 = require("./CheckInRowV4");
+Object.defineProperty(exports, "CheckInRowV4", { enumerable: true, get: function () { return CheckInRowV4_1.CheckInRowV4; } });
+var CountdownBadgeV4_1 = require("./CountdownBadgeV4");
+Object.defineProperty(exports, "CountdownBadgeV4", { enumerable: true, get: function () { return CountdownBadgeV4_1.CountdownBadgeV4; } });
+var EventCardV4_1 = require("./EventCardV4");
+Object.defineProperty(exports, "EventCardV4", { enumerable: true, get: function () { return EventCardV4_1.EventCardV4; } });
+var RSVPButtonV4_1 = require("./RSVPButtonV4");
+Object.defineProperty(exports, "RSVPButtonV4", { enumerable: true, get: function () { return RSVPButtonV4_1.RSVPButtonV4; } });
+var ScheduleRowV4_1 = require("./ScheduleRowV4");
+Object.defineProperty(exports, "ScheduleRowV4", { enumerable: true, get: function () { return ScheduleRowV4_1.ScheduleRowV4; } });
+var SessionCardV4_1 = require("./SessionCardV4");
+Object.defineProperty(exports, "SessionCardV4", { enumerable: true, get: function () { return SessionCardV4_1.SessionCardV4; } });
+var SpeakerCardV4_1 = require("./SpeakerCardV4");
+Object.defineProperty(exports, "SpeakerCardV4", { enumerable: true, get: function () { return SpeakerCardV4_1.SpeakerCardV4; } });
+var TicketStubV4_1 = require("./TicketStubV4");
+Object.defineProperty(exports, "TicketStubV4", { enumerable: true, get: function () { return TicketStubV4_1.TicketStubV4; } });
+var TicketTypeRowV4_1 = require("./TicketTypeRowV4");
+Object.defineProperty(exports, "TicketTypeRowV4", { enumerable: true, get: function () { return TicketTypeRowV4_1.TicketTypeRowV4; } });
+var VenueCardV4_1 = require("./VenueCardV4");
+Object.defineProperty(exports, "VenueCardV4", { enumerable: true, get: function () { return VenueCardV4_1.VenueCardV4; } });
 //# sourceMappingURL=index.js.map

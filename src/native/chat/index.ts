@@ -76,3 +76,33 @@ export type { UnreadDividerProps } from './UnreadDivider';
 
 export { PresenceDot } from './PresenceDot';
 export type { PresenceDotProps, Presence } from './PresenceDot';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `CALENDAR-CHAT-V4-BRIEF.md`. Each
+// is a drop-in for its base — same props plus optional additions.
+export { AttachmentBarV4 } from './AttachmentBarV4';
+export type { AttachmentBarV4Props } from './AttachmentBarV4';
+export { ChatHeaderV4 } from './ChatHeaderV4';
+export type { ChatHeaderV4Props } from './ChatHeaderV4';
+export { ConversationListV4 } from './ConversationListV4';
+export type { ConversationListV4Props } from './ConversationListV4';
+export { ConversationRowV4 } from './ConversationRowV4';
+export type { ConversationRowV4Props } from './ConversationRowV4';
+export { DateSeparatorV4 } from './DateSeparatorV4';
+export type { DateSeparatorV4Props } from './DateSeparatorV4';
+export { MessageComposerV4 } from './MessageComposerV4';
+export type { MessageComposerV4Props } from './MessageComposerV4';
+export { MessageGroupV4 } from './MessageGroupV4';
+export type { MessageGroupV4Props } from './MessageGroupV4';
+export { PresenceDotV4 } from './PresenceDotV4';
+export type { PresenceDotV4Props } from './PresenceDotV4';
+export { QuickRepliesV4 } from './QuickRepliesV4';
+export type { QuickRepliesV4Props } from './QuickRepliesV4';
+export { ReadReceiptV4 } from './ReadReceiptV4';
+export type { ReadReceiptV4Props } from './ReadReceiptV4';
+export { TypingIndicatorV4 } from './TypingIndicatorV4';
+export type { TypingIndicatorV4Props } from './TypingIndicatorV4';
+export { UnreadDividerV4 } from './UnreadDividerV4';
+export type { UnreadDividerV4Props } from './UnreadDividerV4';
+export { VoiceNoteBubbleV4 } from './VoiceNoteBubbleV4';
+export type { VoiceNoteBubbleV4Props } from './VoiceNoteBubbleV4';

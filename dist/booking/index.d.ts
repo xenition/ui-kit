@@ -27,4 +27,10 @@ export { BookingSummaryV3 } from './BookingSummaryV3';
 export type { BookingSummaryV3Props } from './BookingSummaryV3';
 export type { BookingResource, BookingSlot } from './types';
 export { toDayKey, dayKeyInTz, formatTimeInTz, addDays, startOfMonth, monthMatrix, weekRow, } from './datetime';
+export { BookingCalendarV4 } from './BookingCalendarV4';
+export type { BookingCalendarV4Props } from './BookingCalendarV4';
+export { SlotPickerV4 } from './SlotPickerV4';
+export type { SlotPickerV4Props } from './SlotPickerV4';
+export { BookingSummaryV4 } from './BookingSummaryV4';
+export type { BookingSummaryV4Props, BookingSummaryLabels } from './BookingSummaryV4';
 //# sourceMappingURL=index.d.ts.map

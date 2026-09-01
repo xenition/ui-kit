@@ -7,6 +7,7 @@ import { AuthSwitchFooterV4 } from './AuthSwitchFooterV4';
 import { FormV4 } from './FormV4';
 import { StatusMessageV4 } from './StatusMessageV4';
 import { TextV4 } from './TextV4';
+import type { TextSize } from './Text';
 import { useForm } from './useForm';
 import type { AuthAlign } from './AuthCard';
 import type { IconName } from './icon-names';
@@ -15,6 +16,26 @@ import type { ForgotPasswordFormProps } from './ForgotPasswordForm';
 export interface ForgotPasswordFormV4Props extends ForgotPasswordFormProps {
   /** Brand icon from the named set, for an app with no mark of its own. */
   brandIcon?: IconName;
+  /**
+   * The accessible name for the brand tile.
+   *
+   * `AuthCardV4` added this precisely so a mark that carries meaning can
+   * announce it, and then no composite forwarded it — so **every composed auth
+   * screen's brand tile was permanently decorative**, with the prop reachable
+   * only by hand-assembling the card. Found by putting all fourteen auth
+   * components on one screen.
+   */
+  brandLabel?: string;
+  /**
+   * The headline step.
+   *
+   * Defaults to `'3xl'`, matching its two siblings. It used not to exist here
+   * at all, so the headline fell through to `AuthCardV4`'s panel default of
+   * `'xl'` — and moving between Sign in and Reset dropped the headline two
+   * steps with nothing else on the screen changing. Invisible until the three
+   * forms sit behind one switch, which is what found it.
+   */
+  titleSize?: TextSize;
   /** Headline alignment, passed to the card. Default `'left'` — §9's top-left tile. */
   align?: AuthAlign;
   /**
@@ -93,6 +114,8 @@ export function ForgotPasswordFormV4({
   subtitle,
   brandGlyph,
   brandIcon,
+  brandLabel,
+  titleSize = '3xl',
   align = 'left',
   submitLabel = 'Send reset link',
   submittingLabel = 'Sending…',
@@ -150,7 +173,9 @@ export function ForgotPasswordFormV4({
       subtitle={sent ? undefined : subtitle}
       brandGlyph={brandGlyph}
       brandIcon={brandIcon}
+      brandLabel={brandLabel}
       align={align}
+      titleSize={titleSize}
       className={className}
       footer={
         onLoginClick ? (

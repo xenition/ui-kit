@@ -38,16 +38,38 @@ exports.primaryTintCss = primaryTintCss;
 const v4_state_1 = require("./v4-state");
 /**
  * A cell's text, matched against what a formatted quantity actually looks
- * like: an optional short prefix (a currency mark), a sign, digits with
- * thousands separators, an optional decimal tail, and an optional short suffix
- * (`%`, a unit).
+ * like: an optional prefix, a sign, digits with thousands separators, an
+ * optional decimal tail, and an optional short suffix (`%`, a unit).
  *
- * The affixes are capped at three characters on purpose. Without the cap
- * `Order #A12` reads as a number, and the whole column swings right — a
- * mis-detection is worse than no detection, because the reader stops trusting
- * the alignment as a signal.
+ * ## The prefix rule, and why it is not just a length
+ *
+ * This used to allow **any** three non-digit characters in front, capped at
+ * three so `Order #A12` would not read as a number. Three characters is
+ * exactly the width of the most common order-reference prefix in the world:
+ * a two-letter code and a hyphen. So `SO-4417` and `PO-118` matched, and a
+ * whole column of order references swung right in tabular figures beside the
+ * totals. Bare `A12` matched too. Meanwhile `CHF 1,240` and `USD 30` — real
+ * money, formatted the way `Intl.NumberFormat` formats it for those locales —
+ * did **not**.
+ *
+ * Wrong in both directions, and the file's own argument says why that is the
+ * worst outcome available: a mis-detection is worse than no detection,
+ * because the reader stops trusting the alignment as a signal.
+ *
+ * The discriminator is not length, it is **what the prefix is made of**:
+ *
+ * - a currency *symbol* is not a letter — `$`, `£`, `€`, `¥`, `₹`;
+ * - a currency *code* is two or three letters and is always followed by a
+ *   space — `CHF 1,240`, `USD 30`;
+ * - a reference prefix is letters run straight into a hyphen or a digit, with
+ *   no space — `SO-4417`, `PO-118`, `A12`.
+ *
+ * Letters touching the number is the tell, and it is the one thing the old
+ * rule could not see.
+ *
+ * Found by rendering a table of real orders at 390pt, not by a spec.
  */
-const NUMERIC = /^[^\d]{0,3}[+-]?\d[\d\s,_]*(\.\d+)?\s*[^\d]{0,3}$/;
+const NUMERIC = /^(?:[^A-Za-z\d\s]{0,3}\s?|[A-Za-z]{2,3}\s)[+-]?\d[\d\s,_]*(\.\d+)?\s*[^\d]{0,3}$/;
 /**
  * Does this cell text read as a quantity?
  *

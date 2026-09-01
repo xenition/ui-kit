@@ -21,6 +21,26 @@ import { SceneCardV2 } from './SceneCardV2';
 import { SceneCardV3 } from './SceneCardV3';
 import { LightControlV2 } from './LightControlV2';
 import { LightControlV3 } from './LightControlV3';
+import {
+  DeviceTileV4,
+  LightControlV4,
+  ThermostatDialV4,
+  SceneCardV4,
+  DeviceToggleRowV4,
+  LockControlV4,
+  CameraTileV4,
+  RoomGroupV4,
+  AutomationRuleV4,
+  ScheduleRowV4,
+  SensorReadingV4,
+  EnergyUsageV4,
+  HomeHeader,
+  RoomHeader,
+  EnergyDashboard,
+  ModeSelector,
+  FavoritesGrid,
+  AlertCard,
+} from './index';
 
 describe('DeviceTile alternate designs (native)', () => {
   it('V2 renders and toggles the device on', () => {
@@ -155,6 +175,192 @@ describe('token purity — alternate designs (both seeds)', () => {
           <LightControlV2 name="Porch" on={false} brightness={0} offline />
           <LightControlV3 name="Hall" on brightness={80} />
           <LightControlV3 name="Attic" on={false} brightness={0} />
+        </>,
+        seed
+      );
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+});
+
+describe('smarthome V4 "ambient" line (native)', () => {
+  it('DeviceTileV4 renders the on (glow) state and toggles off', () => {
+    const onToggle = jest.fn();
+    const { getByText, getByLabelText } = renderThemed(
+      <DeviceTileV4 name="Living Lamp" icon="💡" state="on" subtitle="72% brightness" onToggle={onToggle} />,
+      SEED_LIGHT
+    );
+    expect(getByText('Living Lamp')).toBeTruthy();
+    expect(getByText('On')).toBeTruthy();
+    fireEvent.press(getByLabelText('Living Lamp power'));
+    expect(onToggle).toHaveBeenCalledWith(false);
+  });
+
+  it('SceneCardV4 activates on press', () => {
+    const onActivate = jest.fn();
+    const { getByText } = renderThemed(
+      <SceneCardV4 name="Movie Night" icon="🎬" description="Dim lights" deviceCount={4} active onActivate={onActivate} />,
+      SEED_DARK
+    );
+    expect(getByText('Movie Night')).toBeTruthy();
+    expect(getByText('Active')).toBeTruthy();
+    fireEvent.press(getByText('Movie Night'));
+    expect(onActivate).toHaveBeenCalledTimes(1);
+  });
+
+  it('every V4 variant mounts under both seeds', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      expect(
+        renderThemed(
+          <>
+            <DeviceTileV4 name="Lamp" icon="💡" state="on" subtitle="On" />
+            <LightControlV4 name="Kitchen" on brightness={72} colorTemp={40} />
+            <ThermostatDialV4 target={21} ambient={20} mode="heat" min={10} max={30} step={0.5} />
+            <SceneCardV4 name="Away" icon="🌙" description="All off" deviceCount={6} active />
+            <DeviceToggleRowV4 label="Desk Fan" icon="🌀" subtitle="Idle" checked last />
+            <LockControlV4 name="Front Door" state="locked" batteryPct={82} />
+            <CameraTileV4 name="Driveway" online recording timestamp="Live" />
+            <RoomGroupV4
+              name="Living Room"
+              icon="🛋️"
+              devices={[
+                { id: 'd1', label: 'Lamp', icon: '💡', on: true },
+                { id: 'd2', label: 'TV', icon: '📺', on: false },
+              ]}
+            />
+            <AutomationRuleV4 name="Lights off at sunset" trigger="When sunset" action="Turn off all lights" enabled />
+            <ScheduleRowV4 label="Wake-up lights" time="06:30" days={['Mon', 'Tue']} enabled last />
+            <SensorReadingV4 label="Temperature" value={21.4} unit="°C" icon="🌡️" status="normal" trend="↑ 2°" />
+            <EnergyUsageV4 data={[4, 6, 3, 8, 5, 7, 6]} labels={['M', 'T', 'W', 'T', 'F', 'S', 'S']} total="39.2" unit="kWh" />
+          </>,
+          seed
+        ).toJSON()
+      ).toBeTruthy();
+    });
+  });
+});
+
+describe('smarthome V4 new blocks (native)', () => {
+  it('ModeSelector fires onChange when a mode tile is picked', () => {
+    const onChange = jest.fn();
+    const { getByLabelText } = renderThemed(<ModeSelector value="home" onChange={onChange} />, SEED_LIGHT);
+    fireEvent.press(getByLabelText('Away'));
+    expect(onChange).toHaveBeenCalledWith('away');
+  });
+
+  it('AlertCard fires onDismiss', () => {
+    const onDismiss = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <AlertCard severity="critical" title="Smoke detected" message="Kitchen sensor" onDismiss={onDismiss} />,
+      SEED_DARK
+    );
+    fireEvent.press(getByLabelText('Dismiss alert'));
+    expect(onDismiss).toHaveBeenCalledTimes(1);
+  });
+
+  it('HomeHeader fires onScene from a quick-scene chip', () => {
+    const onScene = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <HomeHeader homeName="Willow House" scenes={[{ id: 'away', label: 'Away', glyph: '🌙' }]} onScene={onScene} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('Away'));
+    expect(onScene).toHaveBeenCalledWith('away');
+  });
+
+  it('FavoritesGrid renders its favorite tiles', () => {
+    const { getByText } = renderThemed(
+      <FavoritesGrid
+        devices={[
+          { id: 'f1', name: 'Living Lamp', icon: '💡', state: 'on', subtitle: 'On' },
+          { id: 'f2', name: 'Hall Plug', icon: '🔌', state: 'off', subtitle: 'Off' },
+        ]}
+      />,
+      SEED_DARK
+    );
+    expect(getByText('Living Lamp')).toBeTruthy();
+    expect(getByText('Hall Plug')).toBeTruthy();
+  });
+});
+
+describe('token purity — V4 ambient line + new blocks (both seeds)', () => {
+  it('every rendered style hex traces to a compiled token', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      const { root } = renderThemed(
+        <>
+          {/* V4 drop-in variants. */}
+          <DeviceTileV4 name="Lamp" icon="💡" state="on" subtitle="On" onPress={() => {}} />
+          <DeviceTileV4 name="Plug" state="unavailable" />
+          <LightControlV4 name="Kitchen" on brightness={60} colorTemp={50} />
+          <LightControlV4 name="Porch" on={false} brightness={0} offline />
+          <ThermostatDialV4 target={22} ambient={20} mode="heat" />
+          <ThermostatDialV4 target={18} mode="cool" offline />
+          <SceneCardV4 name="Night" icon="🌒" description="Wind down" deviceCount={2} active />
+          <SceneCardV4 name="Day" icon="☀️" deviceCount={5} />
+          <DeviceToggleRowV4 label="Fan" icon="🌀" checked />
+          <DeviceToggleRowV4 label="Heater" icon="🔥" offline last />
+          <LockControlV4 name="Front Door" state="locked" batteryPct={82} />
+          <LockControlV4 name="Back Door" state="unlocked" batteryPct={12} />
+          <CameraTileV4 name="Driveway" online recording timestamp="Live" />
+          <CameraTileV4 name="Garage" online={false} timestamp="Offline" />
+          <RoomGroupV4
+            name="Living Room"
+            icon="🛋️"
+            devices={[
+              { id: 'd1', label: 'Lamp', icon: '💡', on: true },
+              { id: 'd2', label: 'TV', icon: '📺', on: false, offline: true },
+            ]}
+          />
+          <AutomationRuleV4 name="Sunset lights" trigger="When sunset" action="Turn off lights" enabled />
+          <AutomationRuleV4 name="Away alarm" trigger="When away" action="Arm alarm" offline />
+          <ScheduleRowV4 label="Wake-up lights" time="06:30" days={['Mon', 'Tue']} enabled last />
+          <SensorReadingV4 label="CO₂" value={640} unit="ppm" icon="🌫️" status="warn" trend="↑ 40 since 1pm" />
+          <SensorReadingV4 label="Humidity" icon="💧" status="offline" />
+          <EnergyUsageV4 data={[4, 6, 3, 8, 5, 7, 6]} labels={['M', 'T', 'W', 'T', 'F', 'S', 'S']} total="39.2" unit="kWh" />
+          {/* New blocks — the gradient heroes must be in the aggregate. */}
+          <HomeHeader
+            homeName="Willow House"
+            greeting="Good evening"
+            statusLabel="All secure"
+            statusTone="success"
+            weather={{ temp: '72°', glyph: '☀️', condition: 'Clear' }}
+            metrics={[{ label: 'Devices on', value: '4' }]}
+            scenes={[{ id: 'movie', label: 'Movie', glyph: '🎬' }]}
+          />
+          <RoomHeader
+            roomName="Living Room"
+            glyph="🛋️"
+            temperature="71°"
+            humidity="44%"
+            devicesOn={3}
+            deviceCount={6}
+            lightsOn
+            onAllOff={() => {}}
+          />
+          <EnergyDashboard
+            usageLabel="24.6 kWh"
+            costLabel="$4.20 today"
+            period="Today"
+            deltaPct={12}
+            solarLabel="6.1 kWh solar"
+            breakdown={[
+              { label: 'Heating', value: 12, tone: 'primary' },
+              { label: 'Lighting', value: 5, tone: 'accent' },
+              { label: 'Other', value: 8, tone: 'warn' },
+            ]}
+          />
+          <ModeSelector value="home" />
+          <FavoritesGrid
+            devices={[
+              { id: 'f1', name: 'Living Lamp', icon: '💡', state: 'on', subtitle: 'On' },
+              { id: 'f2', name: 'Hall Plug', icon: '🔌', state: 'off', subtitle: 'Off' },
+            ]}
+          />
+          <AlertCard severity="warning" title="Front door left open" message="Since 4:12pm" deviceName="Front Door" time="2m ago" onDismiss={() => {}} onView={() => {}} />
+          <AlertCard severity="critical" title="Smoke detected" deviceName="Kitchen" />
         </>,
         seed
       );

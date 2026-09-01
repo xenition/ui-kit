@@ -368,3 +368,41 @@ describe('SignupFormV4 (web) — providers and §12 empty states', () => {
     expect(container.querySelector('form')!.children.length).toBeGreaterThan(0);
   });
 });
+
+describe('SignupFormV4 — the disabled CTA explains itself', () => {
+  /**
+   * `termsError` shipped as dead code. The CTA is disabled until the box is
+   * ticked (§9), and a disabled submit also suppresses Enter-key submission —
+   * so `handleSubmit` never ran while blocked, `termsTouched` was never set,
+   * and the string could not render from this form at any point. Found by
+   * putting all fourteen auth components on one screen.
+   */
+  it('renders the terms message when the disabled CTA is pressed', () => {
+    const { getByText, getByRole, queryByText, container } = render(
+      <SignupFormV4 title="Create your account" onSubmit={jest.fn()} />
+    );
+    expect(queryByText('Please accept the terms to continue')).toBeNull();
+
+    const cta = getByRole('button', { name: 'Sign up' }) as HTMLButtonElement;
+    expect(cta.disabled).toBe(true);
+
+    const wrapper = cta?.parentElement as HTMLElement;
+    fireEvent.pointerDown(wrapper);
+
+    expect(getByText('Please accept the terms to continue')).toBeTruthy();
+    // The CTA stays disabled — the press explains, it does not submit.
+    expect(container.querySelector('button[type="submit"]')?.hasAttribute('disabled')).toBe(true);
+  });
+
+  it('clears the message and enables the CTA once the box is ticked', () => {
+    const { getByText, queryByText, getByRole } = render(
+      <SignupFormV4 title="Create your account" onSubmit={jest.fn()} />
+    );
+    fireEvent.pointerDown(getByRole('button', { name: 'Sign up' }).parentElement as HTMLElement);
+    expect(queryByText('Please accept the terms to continue')).toBeTruthy();
+
+    fireEvent.click(getByRole('checkbox'));
+    expect(queryByText('Please accept the terms to continue')).toBeNull();
+    expect((getByRole('button', { name: 'Sign up' }) as HTMLButtonElement).disabled).toBe(false);
+  });
+});

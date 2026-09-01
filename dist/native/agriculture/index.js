@@ -12,7 +12,7 @@
  * none fetches or imports the SDK.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FarmTaskRow = exports.MarketPriceRow = exports.PestAlert = exports.EquipmentStatus = exports.YieldChart = exports.IrrigationSchedule = exports.SoilMoistureCard = exports.WeatherAdvisoryV3 = exports.WeatherAdvisoryV2 = exports.WeatherAdvisory = exports.HarvestLogV3 = exports.HarvestLogV2 = exports.HarvestLog = exports.LivestockRow = exports.FieldCardV3 = exports.FieldCardV2 = exports.FieldCard = exports.CropCardV3 = exports.CropCardV2 = exports.CropCard = void 0;
+exports.YieldChartV4 = exports.SoilMoistureCardV4 = exports.IrrigationScheduleV4 = exports.HarvestLogV4 = exports.WeatherAdvisoryV4 = exports.PestAlertV4 = exports.MarketPriceRowV4 = exports.LivestockRowV4 = exports.FarmTaskRowV4 = exports.EquipmentStatusV4 = exports.FieldCardV4 = exports.CropCardV4 = exports.FarmTaskRow = exports.MarketPriceRow = exports.PestAlert = exports.EquipmentStatus = exports.YieldChart = exports.IrrigationSchedule = exports.SoilMoistureCard = exports.WeatherAdvisoryV3 = exports.WeatherAdvisoryV2 = exports.WeatherAdvisory = exports.HarvestLogV3 = exports.HarvestLogV2 = exports.HarvestLog = exports.LivestockRow = exports.FieldCardV3 = exports.FieldCardV2 = exports.FieldCard = exports.CropCardV3 = exports.CropCardV2 = exports.CropCard = void 0;
 var CropCard_1 = require("./CropCard");
 Object.defineProperty(exports, "CropCard", { enumerable: true, get: function () { return CropCard_1.CropCard; } });
 var CropCardV2_1 = require("./CropCardV2");
@@ -53,4 +53,33 @@ var MarketPriceRow_1 = require("./MarketPriceRow");
 Object.defineProperty(exports, "MarketPriceRow", { enumerable: true, get: function () { return MarketPriceRow_1.MarketPriceRow; } });
 var FarmTaskRow_1 = require("./FarmTaskRow");
 Object.defineProperty(exports, "FarmTaskRow", { enumerable: true, get: function () { return FarmTaskRow_1.FarmTaskRow; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `VERTICALS-V4-BRIEF.md`. Each is a
+// drop-in for its base — same props plus optional additions — with one
+// deliberate exception: `YieldChartV4` replaces `color` with `tone`, because
+// the base used a status colour as a series identity (see the file).
+var CropCardV4_1 = require("./CropCardV4");
+Object.defineProperty(exports, "CropCardV4", { enumerable: true, get: function () { return CropCardV4_1.CropCardV4; } });
+var FieldCardV4_1 = require("./FieldCardV4");
+Object.defineProperty(exports, "FieldCardV4", { enumerable: true, get: function () { return FieldCardV4_1.FieldCardV4; } });
+var EquipmentStatusV4_1 = require("./EquipmentStatusV4");
+Object.defineProperty(exports, "EquipmentStatusV4", { enumerable: true, get: function () { return EquipmentStatusV4_1.EquipmentStatusV4; } });
+var FarmTaskRowV4_1 = require("./FarmTaskRowV4");
+Object.defineProperty(exports, "FarmTaskRowV4", { enumerable: true, get: function () { return FarmTaskRowV4_1.FarmTaskRowV4; } });
+var LivestockRowV4_1 = require("./LivestockRowV4");
+Object.defineProperty(exports, "LivestockRowV4", { enumerable: true, get: function () { return LivestockRowV4_1.LivestockRowV4; } });
+var MarketPriceRowV4_1 = require("./MarketPriceRowV4");
+Object.defineProperty(exports, "MarketPriceRowV4", { enumerable: true, get: function () { return MarketPriceRowV4_1.MarketPriceRowV4; } });
+var PestAlertV4_1 = require("./PestAlertV4");
+Object.defineProperty(exports, "PestAlertV4", { enumerable: true, get: function () { return PestAlertV4_1.PestAlertV4; } });
+var WeatherAdvisoryV4_1 = require("./WeatherAdvisoryV4");
+Object.defineProperty(exports, "WeatherAdvisoryV4", { enumerable: true, get: function () { return WeatherAdvisoryV4_1.WeatherAdvisoryV4; } });
+var HarvestLogV4_1 = require("./HarvestLogV4");
+Object.defineProperty(exports, "HarvestLogV4", { enumerable: true, get: function () { return HarvestLogV4_1.HarvestLogV4; } });
+var IrrigationScheduleV4_1 = require("./IrrigationScheduleV4");
+Object.defineProperty(exports, "IrrigationScheduleV4", { enumerable: true, get: function () { return IrrigationScheduleV4_1.IrrigationScheduleV4; } });
+var SoilMoistureCardV4_1 = require("./SoilMoistureCardV4");
+Object.defineProperty(exports, "SoilMoistureCardV4", { enumerable: true, get: function () { return SoilMoistureCardV4_1.SoilMoistureCardV4; } });
+var YieldChartV4_1 = require("./YieldChartV4");
+Object.defineProperty(exports, "YieldChartV4", { enumerable: true, get: function () { return YieldChartV4_1.YieldChartV4; } });
 //# sourceMappingURL=index.js.map

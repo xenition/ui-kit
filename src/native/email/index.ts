@@ -71,3 +71,31 @@ export type { SnoozeRowProps } from './SnoozeRow';
 
 export { SignatureBlock } from './SignatureBlock';
 export type { SignatureBlockProps, SignatureContactLine } from './SignatureBlock';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `CRYPTO-DATING-EMAIL-V4-BRIEF.md`.
+// Each is a drop-in for its base — same props plus optional additions.
+export { AttachmentChipV4 } from './AttachmentChipV4';
+export type { AttachmentChipV4Props } from './AttachmentChipV4';
+export { ComposeBarV4 } from './ComposeBarV4';
+export type { ComposeBarV4Props } from './ComposeBarV4';
+export { EmailThreadV4 } from './EmailThreadV4';
+export type { EmailThreadV4Props } from './EmailThreadV4';
+export { FolderRowV4 } from './FolderRowV4';
+export type { FolderRowV4Props } from './FolderRowV4';
+export { InboxHeaderV4 } from './InboxHeaderV4';
+export type { InboxHeaderV4Props } from './InboxHeaderV4';
+export { MailLabelChipV4 } from './MailLabelChipV4';
+export type { MailLabelChipV4Props } from './MailLabelChipV4';
+export { MailSwipeActionsV4 } from './MailSwipeActionsV4';
+export type { MailSwipeActionsV4Props } from './MailSwipeActionsV4';
+export { MessageListRowV4 } from './MessageListRowV4';
+export type { MessageListRowV4Props } from './MessageListRowV4';
+export { ReadUnreadToggleV4 } from './ReadUnreadToggleV4';
+export type { ReadUnreadToggleV4Props } from './ReadUnreadToggleV4';
+export { SignatureBlockV4 } from './SignatureBlockV4';
+export type { SignatureBlockV4Props } from './SignatureBlockV4';
+export { SnoozeRowV4 } from './SnoozeRowV4';
+export type { SnoozeRowV4Props } from './SnoozeRowV4';
+export { StarButtonV4 } from './StarButtonV4';
+export type { StarButtonV4Props } from './StarButtonV4';

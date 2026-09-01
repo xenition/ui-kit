@@ -80,6 +80,7 @@ exports.rowTextStyle = rowTextStyle;
 exports.rowTrailingStyle = rowTrailingStyle;
 exports.rowPressFill = rowPressFill;
 exports.rowGround = rowGround;
+exports.rowEdgeStyle = rowEdgeStyle;
 exports.rowSeparatorStyle = rowSeparatorStyle;
 const nav_v4_1 = require("../../primitives/internal/nav-v4");
 const motion_v4_1 = require("../../primitives/internal/motion-v4");
@@ -267,6 +268,28 @@ function rowGround(theme, options = {}) {
  * border spelling makes the last row of a list a special case at every call
  * site.
  */
+/**
+ * A hairline along a row's own bottom edge.
+ *
+ * {@link rowSeparatorStyle} describes a **standalone element** — a `height`
+ * and a `backgroundColor`, which is right when a list renders a real rule
+ * between two rows. Spread that same object into the row's own style and it
+ * fights the row: the row is handed the border colour as its **background**,
+ * so every row in the list draws in `colors.border` instead of its ground.
+ *
+ * Eight components did exactly that. This is the shape they wanted.
+ *
+ * There is no inset variant, deliberately — see the web twin's
+ * `rowEdgeClass`: an edge belongs to the row and cannot be inset without a
+ * child element, and making one twin capable of something the other is not is
+ * how the two halves drift.
+ */
+function rowEdgeStyle(theme) {
+    return {
+        borderBottomWidth: 1,
+        borderBottomColor: theme.colors.border,
+    };
+}
 function rowSeparatorStyle(theme, options = {}) {
     return {
         // A hairline. The one bare number brief §1 allows, and the same 1 the web

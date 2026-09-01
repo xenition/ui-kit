@@ -13,7 +13,7 @@
  * import).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatMoney = exports.PERMIT_STAGES = exports.FORM_STATUS = exports.PERMIT_STATUS = exports.RepresentativeCardV3 = exports.RepresentativeCardV2 = exports.CivicAppointmentV3 = exports.CivicAppointmentV2 = exports.PermitStatusV3 = exports.PermitStatusV2 = exports.ServiceCardV3 = exports.ServiceCardV2 = exports.CivicAlert = exports.ComplaintRow = exports.BenefitCard = exports.TaxSummaryCard = exports.VotingInfoCard = exports.RepresentativeCard = exports.PublicNoticeCard = exports.DocumentRequest = exports.FormStatusRow = exports.CivicAppointment = exports.PermitStatus = exports.ServiceCard = void 0;
+exports.VotingInfoCardV4 = exports.TaxSummaryCardV4 = exports.ServiceCardV4 = exports.RepresentativeCardV4 = exports.PublicNoticeCardV4 = exports.PermitStatusV4 = exports.FormStatusRowV4 = exports.DocumentRequestV4 = exports.ComplaintRowV4 = exports.CivicAppointmentV4 = exports.CivicAlertV4 = exports.BenefitCardV4 = exports.formatMoney = exports.PERMIT_STAGES = exports.FORM_STATUS = exports.PERMIT_STATUS = exports.RepresentativeCardV3 = exports.RepresentativeCardV2 = exports.CivicAppointmentV3 = exports.CivicAppointmentV2 = exports.PermitStatusV3 = exports.PermitStatusV2 = exports.ServiceCardV3 = exports.ServiceCardV2 = exports.CivicAlert = exports.ComplaintRow = exports.BenefitCard = exports.TaxSummaryCard = exports.VotingInfoCard = exports.RepresentativeCard = exports.PublicNoticeCard = exports.DocumentRequest = exports.FormStatusRow = exports.CivicAppointment = exports.PermitStatus = exports.ServiceCard = void 0;
 var ServiceCard_1 = require("./ServiceCard");
 Object.defineProperty(exports, "ServiceCard", { enumerable: true, get: function () { return ServiceCard_1.ServiceCard; } });
 var PermitStatus_1 = require("./PermitStatus");
@@ -64,4 +64,31 @@ Object.defineProperty(exports, "FORM_STATUS", { enumerable: true, get: function 
 Object.defineProperty(exports, "PERMIT_STAGES", { enumerable: true, get: function () { return status_1.PERMIT_STAGES; } });
 var format_1 = require("./internal/format");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return format_1.formatMoney; } });
+// The V4 line — each a drop-in for its base (`<Name>V4Props extends
+// <Name>Props`), every added prop optional and defaulting to today's
+// behaviour. Shared civic vocabulary lives in `internal/civic-v4`.
+var BenefitCardV4_1 = require("./BenefitCardV4");
+Object.defineProperty(exports, "BenefitCardV4", { enumerable: true, get: function () { return BenefitCardV4_1.BenefitCardV4; } });
+var CivicAlertV4_1 = require("./CivicAlertV4");
+Object.defineProperty(exports, "CivicAlertV4", { enumerable: true, get: function () { return CivicAlertV4_1.CivicAlertV4; } });
+var CivicAppointmentV4_1 = require("./CivicAppointmentV4");
+Object.defineProperty(exports, "CivicAppointmentV4", { enumerable: true, get: function () { return CivicAppointmentV4_1.CivicAppointmentV4; } });
+var ComplaintRowV4_1 = require("./ComplaintRowV4");
+Object.defineProperty(exports, "ComplaintRowV4", { enumerable: true, get: function () { return ComplaintRowV4_1.ComplaintRowV4; } });
+var DocumentRequestV4_1 = require("./DocumentRequestV4");
+Object.defineProperty(exports, "DocumentRequestV4", { enumerable: true, get: function () { return DocumentRequestV4_1.DocumentRequestV4; } });
+var FormStatusRowV4_1 = require("./FormStatusRowV4");
+Object.defineProperty(exports, "FormStatusRowV4", { enumerable: true, get: function () { return FormStatusRowV4_1.FormStatusRowV4; } });
+var PermitStatusV4_1 = require("./PermitStatusV4");
+Object.defineProperty(exports, "PermitStatusV4", { enumerable: true, get: function () { return PermitStatusV4_1.PermitStatusV4; } });
+var PublicNoticeCardV4_1 = require("./PublicNoticeCardV4");
+Object.defineProperty(exports, "PublicNoticeCardV4", { enumerable: true, get: function () { return PublicNoticeCardV4_1.PublicNoticeCardV4; } });
+var RepresentativeCardV4_1 = require("./RepresentativeCardV4");
+Object.defineProperty(exports, "RepresentativeCardV4", { enumerable: true, get: function () { return RepresentativeCardV4_1.RepresentativeCardV4; } });
+var ServiceCardV4_1 = require("./ServiceCardV4");
+Object.defineProperty(exports, "ServiceCardV4", { enumerable: true, get: function () { return ServiceCardV4_1.ServiceCardV4; } });
+var TaxSummaryCardV4_1 = require("./TaxSummaryCardV4");
+Object.defineProperty(exports, "TaxSummaryCardV4", { enumerable: true, get: function () { return TaxSummaryCardV4_1.TaxSummaryCardV4; } });
+var VotingInfoCardV4_1 = require("./VotingInfoCardV4");
+Object.defineProperty(exports, "VotingInfoCardV4", { enumerable: true, get: function () { return VotingInfoCardV4_1.VotingInfoCardV4; } });
 //# sourceMappingURL=index.js.map

@@ -22,3 +22,41 @@ export type { MarqueeProps } from './Marquee';
 export { AnimatedCounter } from './AnimatedCounter';
 export type { AnimatedCounterProps } from './AnimatedCounter';
 export { useReducedMotion } from '../primitives/internal/useReducedMotion';
+
+/* ------------------------------------------------------------------------ *
+ * The V4 line
+ *
+ * Five components on the shared M3 motion scale — `motion-v4.ts`'s adapter
+ * over `quick` 100 / `standard` 200 / `enter` 400, with easing chosen by
+ * direction of travel. See `MOTION-V4-BRIEF.md`.
+ *
+ * **The web-only note above is out of date and is corrected here.** It claimed
+ * `Parallax` and `TiltCard` both depend on input with "no direct React Native
+ * analogue". That is true of `TiltCard` and false of `Parallax`: an
+ * `Animated.ScrollView` with `onScroll` through `useNativeDriver` is the
+ * canonical RN parallax and the most common scroll effect on mobile.
+ * `ParallaxV4` exists below, and it takes the scroll offset as an
+ * `Animated.Value` prop so the CALLER keeps ownership of the `ScrollView` — a
+ * component must not try to own the scroll container it lives inside.
+ *
+ * `TiltCardV4` really is web-only: pointer tilt maps a **hovering** pointer
+ * onto two rotations, and touch has no hover — the finger is either absent or
+ * pressing, and while pressing it covers the card. The accelerometer
+ * substitute is a different component with a different input, a peer
+ * dependency this kit does not take, and its own permission story.
+ * ------------------------------------------------------------------------ */
+
+export { RevealV4 } from './RevealV4';
+export type { RevealV4Props, RevealV4Effect } from './RevealV4';
+
+export { StaggerV4, STAGGER_V4_MAX_DELAY } from './StaggerV4';
+export type { StaggerV4Props } from './StaggerV4';
+
+export { AnimatedCounterV4, COUNT_MS } from './AnimatedCounterV4';
+export type { AnimatedCounterV4Props } from './AnimatedCounterV4';
+
+export { MarqueeV4 } from './MarqueeV4';
+export type { MarqueeV4Props } from './MarqueeV4';
+
+export { ParallaxV4, PARALLAX_MAX_SPEED, clampParallaxSpeed } from './ParallaxV4';
+export type { ParallaxV4Props } from './ParallaxV4';

@@ -10,6 +10,7 @@ import {
   fieldBorderClass,
   fieldRingVars,
 } from './internal/field-v4';
+import { PICKER_V4_CSS } from './internal/picker-v4';
 import type { MultiSelectOption, MultiSelectProps } from './MultiSelect';
 
 export type { MultiSelectProps as MultiSelectV4Props, MultiSelectOption };
@@ -77,6 +78,7 @@ export function MultiSelectV4({
   className,
 }: MultiSelectProps): React.ReactElement {
   injectStyleOnce(FIELD_V4_STYLE_ID, FIELD_V4_CSS);
+  injectStyleOnce('xen-v4-picker-styles', PICKER_V4_CSS);
   injectStyleOnce('xen-v4-multiselect-styles', MULTISELECT_V4_CSS);
 
   const [open, setOpen] = React.useState(false);
@@ -129,6 +131,21 @@ export function MultiSelectV4({
           role="listbox"
           aria-multiselectable
           data-xen-v4-listbox=""
+          /*
+            The shared picker panel, opted into the same way `ComboboxV4`,
+            `AutoCompleteV4`, `DatePickerV4`, `DateRangePickerV4` and
+            `TimePickerV4` do it. This was the one picker in the line that had
+            never been wired to it, so its list simply appeared: no entrance at
+            all, while every sibling rose an `xs` and faded over
+            `PICKER_MOTION.popover` with `EASE_ENTER`.
+
+            `"sheet"` rather than `"card"` because that is the elevation the
+            list already wore. The rest of the skin the attribute brings — the
+            surface, the hairline, the `lg` radius — is the same value this
+            component was already painting, which is exactly why it should
+            never have been painting it itself.
+          */
+          data-xen-v4-pop="sheet"
           className={cn(
             'absolute z-50 mt-xs max-h-60 w-full overflow-auto',
             'rounded-[var(--xen-radius-lg)] border border-border py-xs'

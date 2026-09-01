@@ -36,3 +36,13 @@ export {
   monthMatrix,
   weekRow,
 } from './datetime';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `VERTICALS-V4-BRIEF.md`. Each is a
+// drop-in for its base — same props plus optional additions.
+export { BookingCalendarV4 } from './BookingCalendarV4';
+export type { BookingCalendarV4Props } from './BookingCalendarV4';
+export { SlotPickerV4 } from './SlotPickerV4';
+export type { SlotPickerV4Props } from './SlotPickerV4';
+export { BookingSummaryV4 } from './BookingSummaryV4';
+export type { BookingSummaryV4Props, BookingSummaryLabels } from './BookingSummaryV4';

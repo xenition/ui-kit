@@ -13,6 +13,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.formatTime = formatTime;
+exports.clamp01 = clamp01;
 exports.formatCount = formatCount;
 /**
  * Format a duration in seconds as `m:ss` (or `h:mm:ss` past an hour). Guards
@@ -30,6 +31,12 @@ function formatTime(totalSeconds) {
     if (h > 0)
         return `${h}:${String(m).padStart(2, '0')}:${ss}`;
     return `${m}:${ss}`;
+}
+/** Clamp a number into the `[0, 1]` range (guards scrub/progress fractions). */
+function clamp01(n) {
+    if (!Number.isFinite(n))
+        return 0;
+    return n < 0 ? 0 : n > 1 ? 1 : n;
 }
 /** Compact viewer/listener count, e.g. `1234` → `'1.2K'`, `2_000_000` → `'2M'`. */
 function formatCount(n) {

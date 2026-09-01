@@ -16,7 +16,8 @@
  * printer/hardware dependency.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CASH_MOVEMENT_META = exports.REFUND_REASON_META = exports.REFUND_STATUS_META = exports.TICKET_STATUS_META = exports.PAYMENT_METHOD_META = exports.seedRampStep = exports.initials = exports.varianceMeta = exports.sumCents = exports.safeCents = exports.formatMoney = exports.StatusPill = exports.OrderTicket = exports.QuickChargeBar = exports.ShiftReport = exports.RefundRow = exports.SplitBillRow = exports.ProductGridTileV3 = exports.ProductGridTileV2 = exports.ProductGridTile = exports.CashDrawerRow = exports.DiscountRow = exports.PaymentMethodTile = exports.ReceiptViewV3 = exports.ReceiptViewV2 = exports.ReceiptView = exports.CartLineV3 = exports.CartLineV2 = exports.CartLine = exports.RegisterKeypadV3 = exports.RegisterKeypadV2 = exports.RegisterKeypad = void 0;
+exports.TipSelector = exports.CheckoutSummary = exports.RegisterHeader = exports.SalesSummary = exports.PaymentSuccess = exports.StatusPillV4 = exports.ShiftReportV4 = exports.CashDrawerRowV4 = exports.SplitBillRowV4 = exports.RefundRowV4 = exports.DiscountRowV4 = exports.OrderTicketV4 = exports.PaymentMethodTileV4 = exports.QuickChargeBarV4 = exports.RegisterKeypadV4 = exports.ReceiptViewV4 = exports.CartLineV4 = exports.ProductGridTileV4 = exports.CASH_MOVEMENT_META = exports.REFUND_REASON_META = exports.REFUND_STATUS_META = exports.TICKET_STATUS_META = exports.PAYMENT_METHOD_META = exports.seedRampStep = exports.initials = exports.varianceMeta = exports.sumCents = exports.safeCents = exports.formatMoney = exports.StatusPill = exports.OrderTicket = exports.QuickChargeBar = exports.ShiftReport = exports.RefundRow = exports.SplitBillRow = exports.ProductGridTileV3 = exports.ProductGridTileV2 = exports.ProductGridTile = exports.CashDrawerRow = exports.DiscountRow = exports.PaymentMethodTile = exports.ReceiptViewV3 = exports.ReceiptViewV2 = exports.ReceiptView = exports.CartLineV3 = exports.CartLineV2 = exports.CartLine = exports.RegisterKeypadV3 = exports.RegisterKeypadV2 = exports.RegisterKeypad = void 0;
+exports.CategoryTabs = void 0;
 var RegisterKeypad_1 = require("./RegisterKeypad");
 Object.defineProperty(exports, "RegisterKeypad", { enumerable: true, get: function () { return RegisterKeypad_1.RegisterKeypad; } });
 var RegisterKeypadV2_1 = require("./RegisterKeypadV2");
@@ -72,4 +73,51 @@ Object.defineProperty(exports, "TICKET_STATUS_META", { enumerable: true, get: fu
 Object.defineProperty(exports, "REFUND_STATUS_META", { enumerable: true, get: function () { return internal_1.REFUND_STATUS_META; } });
 Object.defineProperty(exports, "REFUND_REASON_META", { enumerable: true, get: function () { return internal_1.REFUND_REASON_META; } });
 Object.defineProperty(exports, "CASH_MOVEMENT_META", { enumerable: true, get: function () { return internal_1.CASH_MOVEMENT_META; } });
+/*
+ * ── V4 "register" (tactile checkout) design line ──
+ * A drop-in V4 variant for each of the 13 originals: crisp tactile surfaces with
+ * bold, prominent totals (tabular-nums), satisfying press/selected states, big
+ * ≥44px controls, and a brand gradient reserved for the checkout moments
+ * (payment success, sales summary, register header, the charge button). Base/
+ * V2/V3 untouched; V4 is additive. Token-driven, dark-mode safe, web + native.
+ */
+var ProductGridTileV4_1 = require("./ProductGridTileV4");
+Object.defineProperty(exports, "ProductGridTileV4", { enumerable: true, get: function () { return ProductGridTileV4_1.ProductGridTileV4; } });
+var CartLineV4_1 = require("./CartLineV4");
+Object.defineProperty(exports, "CartLineV4", { enumerable: true, get: function () { return CartLineV4_1.CartLineV4; } });
+var ReceiptViewV4_1 = require("./ReceiptViewV4");
+Object.defineProperty(exports, "ReceiptViewV4", { enumerable: true, get: function () { return ReceiptViewV4_1.ReceiptViewV4; } });
+var RegisterKeypadV4_1 = require("./RegisterKeypadV4");
+Object.defineProperty(exports, "RegisterKeypadV4", { enumerable: true, get: function () { return RegisterKeypadV4_1.RegisterKeypadV4; } });
+var QuickChargeBarV4_1 = require("./QuickChargeBarV4");
+Object.defineProperty(exports, "QuickChargeBarV4", { enumerable: true, get: function () { return QuickChargeBarV4_1.QuickChargeBarV4; } });
+var PaymentMethodTileV4_1 = require("./PaymentMethodTileV4");
+Object.defineProperty(exports, "PaymentMethodTileV4", { enumerable: true, get: function () { return PaymentMethodTileV4_1.PaymentMethodTileV4; } });
+var OrderTicketV4_1 = require("./OrderTicketV4");
+Object.defineProperty(exports, "OrderTicketV4", { enumerable: true, get: function () { return OrderTicketV4_1.OrderTicketV4; } });
+var DiscountRowV4_1 = require("./DiscountRowV4");
+Object.defineProperty(exports, "DiscountRowV4", { enumerable: true, get: function () { return DiscountRowV4_1.DiscountRowV4; } });
+var RefundRowV4_1 = require("./RefundRowV4");
+Object.defineProperty(exports, "RefundRowV4", { enumerable: true, get: function () { return RefundRowV4_1.RefundRowV4; } });
+var SplitBillRowV4_1 = require("./SplitBillRowV4");
+Object.defineProperty(exports, "SplitBillRowV4", { enumerable: true, get: function () { return SplitBillRowV4_1.SplitBillRowV4; } });
+var CashDrawerRowV4_1 = require("./CashDrawerRowV4");
+Object.defineProperty(exports, "CashDrawerRowV4", { enumerable: true, get: function () { return CashDrawerRowV4_1.CashDrawerRowV4; } });
+var ShiftReportV4_1 = require("./ShiftReportV4");
+Object.defineProperty(exports, "ShiftReportV4", { enumerable: true, get: function () { return ShiftReportV4_1.ShiftReportV4; } });
+var StatusPillV4_1 = require("./StatusPillV4");
+Object.defineProperty(exports, "StatusPillV4", { enumerable: true, get: function () { return StatusPillV4_1.StatusPillV4; } });
+/* ── New components (V4 register line) ── */
+var PaymentSuccess_1 = require("./PaymentSuccess");
+Object.defineProperty(exports, "PaymentSuccess", { enumerable: true, get: function () { return PaymentSuccess_1.PaymentSuccess; } });
+var SalesSummary_1 = require("./SalesSummary");
+Object.defineProperty(exports, "SalesSummary", { enumerable: true, get: function () { return SalesSummary_1.SalesSummary; } });
+var RegisterHeader_1 = require("./RegisterHeader");
+Object.defineProperty(exports, "RegisterHeader", { enumerable: true, get: function () { return RegisterHeader_1.RegisterHeader; } });
+var CheckoutSummary_1 = require("./CheckoutSummary");
+Object.defineProperty(exports, "CheckoutSummary", { enumerable: true, get: function () { return CheckoutSummary_1.CheckoutSummary; } });
+var TipSelector_1 = require("./TipSelector");
+Object.defineProperty(exports, "TipSelector", { enumerable: true, get: function () { return TipSelector_1.TipSelector; } });
+var CategoryTabs_1 = require("./CategoryTabs");
+Object.defineProperty(exports, "CategoryTabs", { enumerable: true, get: function () { return CategoryTabs_1.CategoryTabs; } });
 //# sourceMappingURL=index.js.map

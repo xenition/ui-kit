@@ -1,3 +1,4 @@
+import '../spec-support/real-animations';
 import * as React from 'react';
 import { Text } from 'react-native';
 import { act, waitFor } from '@testing-library/react-native';

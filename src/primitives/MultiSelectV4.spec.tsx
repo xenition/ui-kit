@@ -5,6 +5,8 @@ import { XenitionUIProvider } from '../provider';
 import type { ThemeSeed } from '../theme/types';
 import { MultiSelectV4 } from './MultiSelectV4';
 import { stateCss } from './internal/v4-state';
+import { PICKER_MOTION } from './internal/picker-v4';
+import { EASE_ENTER } from './internal/v4-motion';
 
 const SEED: ThemeSeed = {
   primary: '#7C3AED',
@@ -114,5 +116,30 @@ describe('MultiSelectV4 (web)', () => {
     expect(trigger.getAttribute('aria-invalid')).toBe('true');
     expect(trigger.className).toContain('border-danger');
     expect(trigger.style.getPropertyValue('--xen-v4-ring-color')).toBe('var(--xen-danger)');
+  });
+
+  // ── §36: the panel arrives ─────────────────────────────────────────
+
+  /*
+    This was the one picker in the V4 line never wired to the shared panel
+    sheet: its list simply appeared, while `ComboboxV4`, `AutoCompleteV4`,
+    `DatePickerV4`, `DateRangePickerV4` and `TimePickerV4` all rose and faded
+    off `[data-xen-v4-pop]`.
+  */
+  it('opens on the shared picker panel, so it enters like every other picker', () => {
+    const { q } = renderThemed(<MultiSelectV4 options={OPTIONS} accessibilityLabel="Teams" />);
+    fireEvent.click(q.getByLabelText('Teams'));
+    const list = q.getByRole('listbox');
+
+    expect(list.getAttribute('data-xen-v4-pop')).toBe('sheet');
+
+    const picker = sheet('xen-v4-picker-styles');
+    expect(picker).toContain('@keyframes xen-v4-picker-in');
+    expect(picker).toContain(
+      `animation: xen-v4-picker-in ${PICKER_MOTION.popover}ms ${EASE_ENTER};`
+    );
+    // §36.10: the entrance is dropped, not shortened — a small anchored panel
+    // does not read as a glitch for simply being there.
+    expect(picker).toContain('[data-xen-v4-pop] { animation: none; }');
   });
 });

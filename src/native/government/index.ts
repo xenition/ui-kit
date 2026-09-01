@@ -84,3 +84,42 @@ export { PERMIT_STATUS, FORM_STATUS, PERMIT_STAGES } from './internal/status';
 export type { StatusDescriptor } from './internal/status';
 export { formatMoney } from './internal/format';
 export type { MoneyFormatter } from './internal/format';
+
+// The V4 line — each a drop-in for its base (`<Name>V4Props extends
+// <Name>Props`), every added prop optional and defaulting to today's
+// behaviour. Shared civic vocabulary lives in `internal/civic-v4`.
+export { BenefitCardV4 } from './BenefitCardV4';
+export type { BenefitCardV4Props } from './BenefitCardV4';
+
+export { CivicAlertV4 } from './CivicAlertV4';
+export type { CivicAlertV4Props } from './CivicAlertV4';
+
+export { CivicAppointmentV4 } from './CivicAppointmentV4';
+export type { CivicAppointmentV4Props } from './CivicAppointmentV4';
+
+export { ComplaintRowV4 } from './ComplaintRowV4';
+export type { ComplaintRowV4Props } from './ComplaintRowV4';
+
+export { DocumentRequestV4 } from './DocumentRequestV4';
+export type { DocumentRequestV4Props } from './DocumentRequestV4';
+
+export { FormStatusRowV4 } from './FormStatusRowV4';
+export type { FormStatusRowV4Props } from './FormStatusRowV4';
+
+export { PermitStatusV4 } from './PermitStatusV4';
+export type { PermitStatusV4Props } from './PermitStatusV4';
+
+export { PublicNoticeCardV4 } from './PublicNoticeCardV4';
+export type { PublicNoticeCardV4Props } from './PublicNoticeCardV4';
+
+export { RepresentativeCardV4 } from './RepresentativeCardV4';
+export type { OfficeTenure, RepresentativeCardV4Props } from './RepresentativeCardV4';
+
+export { ServiceCardV4 } from './ServiceCardV4';
+export type { ServiceCardV4Props } from './ServiceCardV4';
+
+export { TaxSummaryCardV4 } from './TaxSummaryCardV4';
+export type { TaxSummaryCardV4Props } from './TaxSummaryCardV4';
+
+export { VotingInfoCardV4 } from './VotingInfoCardV4';
+export type { VotingInfoCardV4Props } from './VotingInfoCardV4';

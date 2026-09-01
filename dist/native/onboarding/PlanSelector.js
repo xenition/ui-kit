@@ -55,7 +55,7 @@ function PlanCard({ plan, price, selected, onPress, }) {
             backgroundColor: selected ? colors.primary : colors.surface,
             borderWidth: selected ? RING : HAIRLINE,
             borderColor: selected ? colors.primary : plan.highlighted ? colors.accent : colors.border,
-        }, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "base", weight: "semibold", tone: fg, style: { flexShrink: 1 }, children: plan.name }), plan.badge ? (
+        }, children: [(0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: tokens.spacing.xs }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "base", weight: "semibold", tone: fg, children: plan.name }), plan.badge ? (
                     // §7 asks for the badge "in colors.success on successText". The
                     // compiled palette has no legible form of that pair on a card: on web
                     // the soft-success badge is a NEUTRAL ground with success text, and

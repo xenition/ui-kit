@@ -9,7 +9,7 @@
  * `View` placeholders. Charts reuse the token-bound `../charts` family.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ComparableRowV3 = exports.ComparableRowV2 = exports.ListingGalleryV3 = exports.ListingGalleryV2 = exports.AgentCardV3 = exports.AgentCardV2 = exports.PropertyCardV3 = exports.PropertyCardV2 = exports.ComparableRow = exports.NeighborhoodStat = exports.OpenHouseBadge = exports.SavedSearchRow = exports.FloorPlanView = exports.AgentCard = exports.MortgageCalc = exports.TourScheduler = exports.MapPinCard = exports.PriceHistory = exports.AmenityGrid = exports.ListingGallery = exports.PropertyCard = void 0;
+exports.ContactAgentBar = exports.SchoolCard = exports.PropertyFactsBar = exports.MortgageSummary = exports.AgentProfileHeader = exports.ListingHero = exports.TourSchedulerV4 = exports.SavedSearchRowV4 = exports.OpenHouseBadgeV4 = exports.PriceHistoryV4 = exports.NeighborhoodStatV4 = exports.MortgageCalcV4 = exports.MapPinCardV4 = exports.FloorPlanViewV4 = exports.AmenityGridV4 = exports.ListingGalleryV4 = exports.ComparableRowV4 = exports.AgentCardV4 = exports.PropertyCardV4 = exports.ComparableRowV3 = exports.ComparableRowV2 = exports.ListingGalleryV3 = exports.ListingGalleryV2 = exports.AgentCardV3 = exports.AgentCardV2 = exports.PropertyCardV3 = exports.PropertyCardV2 = exports.ComparableRow = exports.NeighborhoodStat = exports.OpenHouseBadge = exports.SavedSearchRow = exports.FloorPlanView = exports.AgentCard = exports.MortgageCalc = exports.TourScheduler = exports.MapPinCard = exports.PriceHistory = exports.AmenityGrid = exports.ListingGallery = exports.PropertyCard = void 0;
 var PropertyCard_1 = require("./PropertyCard");
 Object.defineProperty(exports, "PropertyCard", { enumerable: true, get: function () { return PropertyCard_1.PropertyCard; } });
 var ListingGallery_1 = require("./ListingGallery");
@@ -58,4 +58,51 @@ var ComparableRowV2_1 = require("./ComparableRowV2");
 Object.defineProperty(exports, "ComparableRowV2", { enumerable: true, get: function () { return ComparableRowV2_1.ComparableRowV2; } });
 var ComparableRowV3_1 = require("./ComparableRowV3");
 Object.defineProperty(exports, "ComparableRowV3", { enumerable: true, get: function () { return ComparableRowV3_1.ComparableRowV3; } });
+/*
+ * ── V4 "listing" (image-forward, editorial) design line ──
+ * A drop-in V4 variant for each of the 13 originals: elevated cards with
+ * floating rounded photos, price-forward headers, soft-primary fact chips, and a
+ * brand gradient reserved for the listing moments (property hero, agent header,
+ * mortgage summary) and hero image scrims. Base/V2/V3 untouched; V4 is additive.
+ * Token-driven, dark-mode safe, web + native.
+ */
+var PropertyCardV4_1 = require("./PropertyCardV4");
+Object.defineProperty(exports, "PropertyCardV4", { enumerable: true, get: function () { return PropertyCardV4_1.PropertyCardV4; } });
+var AgentCardV4_1 = require("./AgentCardV4");
+Object.defineProperty(exports, "AgentCardV4", { enumerable: true, get: function () { return AgentCardV4_1.AgentCardV4; } });
+var ComparableRowV4_1 = require("./ComparableRowV4");
+Object.defineProperty(exports, "ComparableRowV4", { enumerable: true, get: function () { return ComparableRowV4_1.ComparableRowV4; } });
+var ListingGalleryV4_1 = require("./ListingGalleryV4");
+Object.defineProperty(exports, "ListingGalleryV4", { enumerable: true, get: function () { return ListingGalleryV4_1.ListingGalleryV4; } });
+var AmenityGridV4_1 = require("./AmenityGridV4");
+Object.defineProperty(exports, "AmenityGridV4", { enumerable: true, get: function () { return AmenityGridV4_1.AmenityGridV4; } });
+var FloorPlanViewV4_1 = require("./FloorPlanViewV4");
+Object.defineProperty(exports, "FloorPlanViewV4", { enumerable: true, get: function () { return FloorPlanViewV4_1.FloorPlanViewV4; } });
+var MapPinCardV4_1 = require("./MapPinCardV4");
+Object.defineProperty(exports, "MapPinCardV4", { enumerable: true, get: function () { return MapPinCardV4_1.MapPinCardV4; } });
+var MortgageCalcV4_1 = require("./MortgageCalcV4");
+Object.defineProperty(exports, "MortgageCalcV4", { enumerable: true, get: function () { return MortgageCalcV4_1.MortgageCalcV4; } });
+var NeighborhoodStatV4_1 = require("./NeighborhoodStatV4");
+Object.defineProperty(exports, "NeighborhoodStatV4", { enumerable: true, get: function () { return NeighborhoodStatV4_1.NeighborhoodStatV4; } });
+var PriceHistoryV4_1 = require("./PriceHistoryV4");
+Object.defineProperty(exports, "PriceHistoryV4", { enumerable: true, get: function () { return PriceHistoryV4_1.PriceHistoryV4; } });
+var OpenHouseBadgeV4_1 = require("./OpenHouseBadgeV4");
+Object.defineProperty(exports, "OpenHouseBadgeV4", { enumerable: true, get: function () { return OpenHouseBadgeV4_1.OpenHouseBadgeV4; } });
+var SavedSearchRowV4_1 = require("./SavedSearchRowV4");
+Object.defineProperty(exports, "SavedSearchRowV4", { enumerable: true, get: function () { return SavedSearchRowV4_1.SavedSearchRowV4; } });
+var TourSchedulerV4_1 = require("./TourSchedulerV4");
+Object.defineProperty(exports, "TourSchedulerV4", { enumerable: true, get: function () { return TourSchedulerV4_1.TourSchedulerV4; } });
+/* ── New components (V4 listing line) ── */
+var ListingHero_1 = require("./ListingHero");
+Object.defineProperty(exports, "ListingHero", { enumerable: true, get: function () { return ListingHero_1.ListingHero; } });
+var AgentProfileHeader_1 = require("./AgentProfileHeader");
+Object.defineProperty(exports, "AgentProfileHeader", { enumerable: true, get: function () { return AgentProfileHeader_1.AgentProfileHeader; } });
+var MortgageSummary_1 = require("./MortgageSummary");
+Object.defineProperty(exports, "MortgageSummary", { enumerable: true, get: function () { return MortgageSummary_1.MortgageSummary; } });
+var PropertyFactsBar_1 = require("./PropertyFactsBar");
+Object.defineProperty(exports, "PropertyFactsBar", { enumerable: true, get: function () { return PropertyFactsBar_1.PropertyFactsBar; } });
+var SchoolCard_1 = require("./SchoolCard");
+Object.defineProperty(exports, "SchoolCard", { enumerable: true, get: function () { return SchoolCard_1.SchoolCard; } });
+var ContactAgentBar_1 = require("./ContactAgentBar");
+Object.defineProperty(exports, "ContactAgentBar", { enumerable: true, get: function () { return ContactAgentBar_1.ContactAgentBar; } });
 //# sourceMappingURL=index.js.map

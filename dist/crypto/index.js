@@ -13,7 +13,7 @@
  * `@xenition/ui/native/crypto`.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changeToneClass = exports.changeGlyph = exports.changeToneKey = exports.formatPct = exports.formatPrice = exports.formatToken = exports.truncateHash = exports.SeedPhraseGrid = exports.NetworkBadge = exports.PriceAlertRow = exports.StakingCard = exports.TxList = exports.TxRow = exports.PortfolioSummaryV3 = exports.PortfolioSummaryV2 = exports.PortfolioSummary = exports.GasFeeRow = exports.SwapForm = exports.NFTCardV3 = exports.NFTCardV2 = exports.NFTCard = exports.PriceTicker = exports.TokenRowV3 = exports.TokenRowV2 = exports.TokenRow = exports.WalletCardV3 = exports.WalletCardV2 = exports.WalletCard = void 0;
+exports.WalletCardV4 = exports.TxRowV4 = exports.TxListV4 = exports.TokenRowV4 = exports.SwapFormV4 = exports.StakingCardV4 = exports.SeedPhraseGridV4 = exports.PriceTickerV4 = exports.PriceAlertRowV4 = exports.PortfolioSummaryV4 = exports.NetworkBadgeV4 = exports.NFTCardV4 = exports.GasFeeRowV4 = exports.changeToneClass = exports.changeGlyph = exports.changeToneKey = exports.formatPct = exports.formatPrice = exports.formatToken = exports.truncateHash = exports.SeedPhraseGrid = exports.NetworkBadge = exports.PriceAlertRow = exports.StakingCard = exports.TxList = exports.TxRow = exports.PortfolioSummaryV3 = exports.PortfolioSummaryV2 = exports.PortfolioSummary = exports.GasFeeRow = exports.SwapForm = exports.NFTCardV3 = exports.NFTCardV2 = exports.NFTCard = exports.PriceTicker = exports.TokenRowV3 = exports.TokenRowV2 = exports.TokenRow = exports.WalletCardV3 = exports.WalletCardV2 = exports.WalletCard = void 0;
 var WalletCard_1 = require("./WalletCard");
 Object.defineProperty(exports, "WalletCard", { enumerable: true, get: function () { return WalletCard_1.WalletCard; } });
 var WalletCardV2_1 = require("./WalletCardV2");
@@ -64,4 +64,30 @@ Object.defineProperty(exports, "formatPct", { enumerable: true, get: function ()
 Object.defineProperty(exports, "changeToneKey", { enumerable: true, get: function () { return format_1.changeToneKey; } });
 Object.defineProperty(exports, "changeGlyph", { enumerable: true, get: function () { return format_1.changeGlyph; } });
 Object.defineProperty(exports, "changeToneClass", { enumerable: true, get: function () { return format_1.changeToneClass; } });
+var GasFeeRowV4_1 = require("./GasFeeRowV4");
+Object.defineProperty(exports, "GasFeeRowV4", { enumerable: true, get: function () { return GasFeeRowV4_1.GasFeeRowV4; } });
+var NFTCardV4_1 = require("./NFTCardV4");
+Object.defineProperty(exports, "NFTCardV4", { enumerable: true, get: function () { return NFTCardV4_1.NFTCardV4; } });
+var NetworkBadgeV4_1 = require("./NetworkBadgeV4");
+Object.defineProperty(exports, "NetworkBadgeV4", { enumerable: true, get: function () { return NetworkBadgeV4_1.NetworkBadgeV4; } });
+var PortfolioSummaryV4_1 = require("./PortfolioSummaryV4");
+Object.defineProperty(exports, "PortfolioSummaryV4", { enumerable: true, get: function () { return PortfolioSummaryV4_1.PortfolioSummaryV4; } });
+var PriceAlertRowV4_1 = require("./PriceAlertRowV4");
+Object.defineProperty(exports, "PriceAlertRowV4", { enumerable: true, get: function () { return PriceAlertRowV4_1.PriceAlertRowV4; } });
+var PriceTickerV4_1 = require("./PriceTickerV4");
+Object.defineProperty(exports, "PriceTickerV4", { enumerable: true, get: function () { return PriceTickerV4_1.PriceTickerV4; } });
+var SeedPhraseGridV4_1 = require("./SeedPhraseGridV4");
+Object.defineProperty(exports, "SeedPhraseGridV4", { enumerable: true, get: function () { return SeedPhraseGridV4_1.SeedPhraseGridV4; } });
+var StakingCardV4_1 = require("./StakingCardV4");
+Object.defineProperty(exports, "StakingCardV4", { enumerable: true, get: function () { return StakingCardV4_1.StakingCardV4; } });
+var SwapFormV4_1 = require("./SwapFormV4");
+Object.defineProperty(exports, "SwapFormV4", { enumerable: true, get: function () { return SwapFormV4_1.SwapFormV4; } });
+var TokenRowV4_1 = require("./TokenRowV4");
+Object.defineProperty(exports, "TokenRowV4", { enumerable: true, get: function () { return TokenRowV4_1.TokenRowV4; } });
+var TxListV4_1 = require("./TxListV4");
+Object.defineProperty(exports, "TxListV4", { enumerable: true, get: function () { return TxListV4_1.TxListV4; } });
+var TxRowV4_1 = require("./TxRowV4");
+Object.defineProperty(exports, "TxRowV4", { enumerable: true, get: function () { return TxRowV4_1.TxRowV4; } });
+var WalletCardV4_1 = require("./WalletCardV4");
+Object.defineProperty(exports, "WalletCardV4", { enumerable: true, get: function () { return WalletCardV4_1.WalletCardV4; } });
 //# sourceMappingURL=index.js.map

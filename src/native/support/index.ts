@@ -86,3 +86,50 @@ export { SatisfactionRatingV2 } from './SatisfactionRatingV2';
 export type { SatisfactionRatingV2Props } from './SatisfactionRatingV2';
 export { SatisfactionRatingV3 } from './SatisfactionRatingV3';
 export type { SatisfactionRatingV3Props } from './SatisfactionRatingV3';
+
+/*
+ * ── V4 "console" (calm workspace) design line ──
+ * A drop-in V4 variant for each of the 12 originals: elevated rounded cards, a
+ * left status-accent bar, soft-tint status pills (glyph + color, never color
+ * alone), one primary accent, and a brand gradient reserved for the peak moments
+ * (open-ticket header, agent stats, CSAT results). Base/V2/V3 untouched; V4 is
+ * additive. Token-driven, dark-mode safe, web + native.
+ */
+export { TicketRowV4 } from './TicketRowV4';
+export type { TicketRowV4Props } from './TicketRowV4';
+export { AgentStatusV4 } from './AgentStatusV4';
+export type { AgentStatusV4Props } from './AgentStatusV4';
+export { ConversationPanelV4 } from './ConversationPanelV4';
+export type { ConversationPanelV4Props } from './ConversationPanelV4';
+export { SatisfactionRatingV4 } from './SatisfactionRatingV4';
+export type { SatisfactionRatingV4Props } from './SatisfactionRatingV4';
+export { TicketPriorityV4 } from './TicketPriorityV4';
+export type { TicketPriorityV4Props } from './TicketPriorityV4';
+export { SLABadgeV4 } from './SLABadgeV4';
+export type { SLABadgeV4Props } from './SLABadgeV4';
+export { ResolutionTimerV4 } from './ResolutionTimerV4';
+export type { ResolutionTimerV4Props } from './ResolutionTimerV4';
+export { CannedResponseV4 } from './CannedResponseV4';
+export type { CannedResponseV4Props } from './CannedResponseV4';
+export { MacroListV4 } from './MacroListV4';
+export type { MacroListV4Props } from './MacroListV4';
+export { KBArticleRowV4 } from './KBArticleRowV4';
+export type { KBArticleRowV4Props } from './KBArticleRowV4';
+export { EscalationBannerV4 } from './EscalationBannerV4';
+export type { EscalationBannerV4Props } from './EscalationBannerV4';
+export { QueueStatV4 } from './QueueStatV4';
+export type { QueueStatV4Props } from './QueueStatV4';
+
+/* ── New components (V4 console line) ── */
+export { TicketDetailHeader } from './TicketDetailHeader';
+export type { TicketDetailHeaderProps } from './TicketDetailHeader';
+export { AgentPerformanceCard } from './AgentPerformanceCard';
+export type { AgentPerformanceCardProps, AgentStat } from './AgentPerformanceCard';
+export { CSATResultCard } from './CSATResultCard';
+export type { CSATResultCardProps } from './CSATResultCard';
+export { QueueOverview } from './QueueOverview';
+export type { QueueOverviewProps, QueueOverviewTone, QueueStatItem } from './QueueOverview';
+export { MessageBubble } from './MessageBubble';
+export type { MessageBubbleProps, MessageBubbleSide, MessageBubbleStatus } from './MessageBubble';
+export { ReplyBox } from './ReplyBox';
+export type { ReplyBoxProps, CannedReply } from './ReplyBox';

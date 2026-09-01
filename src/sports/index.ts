@@ -63,3 +63,50 @@ export type { MatchTimelineProps, MatchEvent, MatchEventKind } from './MatchTime
 
 export { LeagueBadge } from './LeagueBadge';
 export type { LeagueBadgeProps, LeagueBadgeSize, LeagueBadgeVariant } from './LeagueBadge';
+
+/*
+ * ── V4 "broadcast" (matchday) design line ──
+ * A drop-in V4 variant for each of the 12 originals: elevated cards, bold
+ * scorelines and big numerals, soft-tint status pills with a live pulse, and a
+ * brand gradient reserved for the matchday moments (match header, player
+ * profile, champion card, the feature scoreline). Base/V2/V3 untouched; V4 is
+ * additive. Token-driven, dark-mode safe, web + native.
+ */
+export { MatchScoreV4 } from './MatchScoreV4';
+export type { MatchScoreV4Props } from './MatchScoreV4';
+export { PlayerStatCardV4 } from './PlayerStatCardV4';
+export type { PlayerStatCardV4Props } from './PlayerStatCardV4';
+export { StandingsV4 } from './StandingsV4';
+export type { StandingsV4Props } from './StandingsV4';
+export { TeamCardV4 } from './TeamCardV4';
+export type { TeamCardV4Props } from './TeamCardV4';
+export { FixtureRowV4 } from './FixtureRowV4';
+export type { FixtureRowV4Props } from './FixtureRowV4';
+export { ScoreTickerV4 } from './ScoreTickerV4';
+export type { ScoreTickerV4Props } from './ScoreTickerV4';
+export { LiveCommentaryV4 } from './LiveCommentaryV4';
+export type { LiveCommentaryV4Props } from './LiveCommentaryV4';
+export { BracketViewV4 } from './BracketViewV4';
+export type { BracketViewV4Props } from './BracketViewV4';
+export { MatchTimelineV4 } from './MatchTimelineV4';
+export type { MatchTimelineV4Props } from './MatchTimelineV4';
+export { LineupFieldV4 } from './LineupFieldV4';
+export type { LineupFieldV4Props } from './LineupFieldV4';
+export { StatComparisonV4 } from './StatComparisonV4';
+export type { StatComparisonV4Props } from './StatComparisonV4';
+export { LeagueBadgeV4 } from './LeagueBadgeV4';
+export type { LeagueBadgeV4Props } from './LeagueBadgeV4';
+
+/* ── New components (V4 broadcast line) ── */
+export { MatchHeader } from './MatchHeader';
+export type { MatchHeaderProps } from './MatchHeader';
+export { PlayerProfileHeader } from './PlayerProfileHeader';
+export type { PlayerProfileHeaderProps, PlayerStat as PlayerProfileStat } from './PlayerProfileHeader';
+export { ChampionCard } from './ChampionCard';
+export type { ChampionCardProps, ChampionStat } from './ChampionCard';
+export { TeamFormGuide } from './TeamFormGuide';
+export type { TeamFormGuideProps, TeamFormResult } from './TeamFormGuide';
+export { EventFeed } from './EventFeed';
+export type { EventFeedProps, EventFeedItem, EventFeedKind } from './EventFeed';
+export { OddsBar } from './OddsBar';
+export type { OddsBarProps, OddsPick } from './OddsBar';

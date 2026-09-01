@@ -107,6 +107,12 @@ export function formatTime(totalSeconds?: number): string {
   return `${m}:${ss}`;
 }
 
+/** Clamp a number into the `[0, 1]` range (guards scrub/progress fractions). */
+export function clamp01(n: number): number {
+  if (!Number.isFinite(n)) return 0;
+  return n < 0 ? 0 : n > 1 ? 1 : n;
+}
+
 /** Compact viewer/listener count, e.g. `1234` → `'1.2K'`, `2_000_000` → `'2M'`. */
 export function formatCount(n?: number): string {
   if (n == null || !Number.isFinite(n) || n < 0) return '0';

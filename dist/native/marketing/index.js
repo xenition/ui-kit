@@ -7,7 +7,8 @@
  * no DOM.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GenerativeCover = exports.PointerHalo = exports.ParticleField = exports.AuroraBackground = exports.NewsletterSignup = exports.Countdown = exports.VideoEmbed = exports.CoverGallery = exports.Carousel = exports.LocationBlock = exports.FeatureSplit = exports.TeamGrid = exports.ProcessSteps = exports.ProductMock = exports.Navbar = exports.ComparisonTable = exports.PricingToggle = exports.PriceList = exports.AnnouncementBar = exports.SectionDivider = exports.OrnamentRule = exports.EditorialItem = exports.EditorialGrid = exports.BentoCard = exports.BentoGrid = exports.LogoCloud = exports.Stat = exports.StatBar = exports.PricingTable = exports.FAQ = exports.initialsFromName = exports.Testimonials = exports.FeatureGrid = exports.Footer = exports.CTABanner = exports.parseRichText = exports.RichText = exports.SectionHeading = exports.GradientHero = exports.EntityCard = void 0;
+exports.EditorialGridV4 = exports.CoverGalleryV4 = exports.CountdownV4 = exports.ComparisonTableV4 = exports.CarouselV4 = exports.CTABannerV4 = exports.BentoGridV4 = exports.BentoCardV4 = exports.AuroraBackgroundV4 = exports.AnnouncementBarV4 = exports.GenerativeCover = exports.PointerHalo = exports.ParticleField = exports.AuroraBackground = exports.NewsletterSignup = exports.Countdown = exports.VideoEmbed = exports.CoverGallery = exports.Carousel = exports.LocationBlock = exports.FeatureSplit = exports.TeamGrid = exports.ProcessSteps = exports.ProductMock = exports.Navbar = exports.ComparisonTable = exports.PricingToggle = exports.PriceList = exports.AnnouncementBar = exports.SectionDivider = exports.OrnamentRule = exports.EditorialItem = exports.EditorialGrid = exports.BentoCard = exports.BentoGrid = exports.LogoCloud = exports.Stat = exports.StatBar = exports.PricingTable = exports.FAQ = exports.initialsFromName = exports.Testimonials = exports.FeatureGrid = exports.Footer = exports.CTABanner = exports.parseRichText = exports.RichText = exports.SectionHeading = exports.GradientHero = exports.EntityCard = void 0;
+exports.VideoEmbedV4 = exports.TestimonialsV4 = exports.TestimonialV4 = exports.TeamGridV4 = exports.StatV4 = exports.StatBarV4 = exports.SectionHeadingV4 = exports.SectionDividerV4 = exports.RichTextV4 = exports.ProductMockV4 = exports.ProcessStepsV4 = exports.PricingToggleV4 = exports.PricingTierV4 = exports.PricingTableV4 = exports.PriceRowV4 = exports.PriceListV4 = exports.PointerHaloV4 = exports.ParticleFieldV4 = exports.OrnamentRuleV4 = exports.NewsletterSignupV4 = exports.NavbarV4 = exports.LogoCloudV4 = exports.LocationBlockV4 = exports.GradientHeroV4 = exports.GenerativeCoverV4 = exports.FooterV4 = exports.FeatureSplitV4 = exports.FeatureGridV4 = exports.FAQV4 = exports.EntityCardV4 = exports.EditorialItemV4 = void 0;
 var EntityCard_1 = require("./EntityCard");
 Object.defineProperty(exports, "EntityCard", { enumerable: true, get: function () { return EntityCard_1.EntityCard; } });
 // ── native marketing sections (parity with @xenition/ui/marketing) ────
@@ -87,4 +88,88 @@ Object.defineProperty(exports, "PointerHalo", { enumerable: true, get: function 
 // (mirrors how the web marketing index surfaces GenerativeCover).
 var GenerativeCover_1 = require("../commerce/GenerativeCover");
 Object.defineProperty(exports, "GenerativeCover", { enumerable: true, get: function () { return GenerativeCover_1.GenerativeCover; } });
+/*
+ * ── V4 "showcase" design line ──
+ * A drop-in V4 variant for every marketing component: a bold, conversion-forward
+ * landing language — extra-bold headlines, elevated cards, refined visual
+ * machinery, and a vibrant primary→accent brand gradient reserved for the
+ * hero / CTA / announcement / newsletter moments. Base components untouched; V4
+ * is additive. Token-driven, dark-mode safe, web + native.
+ */
+var AnnouncementBarV4_1 = require("./AnnouncementBarV4");
+Object.defineProperty(exports, "AnnouncementBarV4", { enumerable: true, get: function () { return AnnouncementBarV4_1.AnnouncementBarV4; } });
+var AuroraBackgroundV4_1 = require("./AuroraBackgroundV4");
+Object.defineProperty(exports, "AuroraBackgroundV4", { enumerable: true, get: function () { return AuroraBackgroundV4_1.AuroraBackgroundV4; } });
+var BentoV4_1 = require("./BentoV4");
+Object.defineProperty(exports, "BentoCardV4", { enumerable: true, get: function () { return BentoV4_1.BentoCardV4; } });
+Object.defineProperty(exports, "BentoGridV4", { enumerable: true, get: function () { return BentoV4_1.BentoGridV4; } });
+var CTABannerV4_1 = require("./CTABannerV4");
+Object.defineProperty(exports, "CTABannerV4", { enumerable: true, get: function () { return CTABannerV4_1.CTABannerV4; } });
+var CarouselV4_1 = require("./CarouselV4");
+Object.defineProperty(exports, "CarouselV4", { enumerable: true, get: function () { return CarouselV4_1.CarouselV4; } });
+var ComparisonTableV4_1 = require("./ComparisonTableV4");
+Object.defineProperty(exports, "ComparisonTableV4", { enumerable: true, get: function () { return ComparisonTableV4_1.ComparisonTableV4; } });
+var CountdownV4_1 = require("./CountdownV4");
+Object.defineProperty(exports, "CountdownV4", { enumerable: true, get: function () { return CountdownV4_1.CountdownV4; } });
+var CoverGalleryV4_1 = require("./CoverGalleryV4");
+Object.defineProperty(exports, "CoverGalleryV4", { enumerable: true, get: function () { return CoverGalleryV4_1.CoverGalleryV4; } });
+var EditorialGridV4_1 = require("./EditorialGridV4");
+Object.defineProperty(exports, "EditorialGridV4", { enumerable: true, get: function () { return EditorialGridV4_1.EditorialGridV4; } });
+Object.defineProperty(exports, "EditorialItemV4", { enumerable: true, get: function () { return EditorialGridV4_1.EditorialItemV4; } });
+var EntityCardV4_1 = require("./EntityCardV4");
+Object.defineProperty(exports, "EntityCardV4", { enumerable: true, get: function () { return EntityCardV4_1.EntityCardV4; } });
+var FAQV4_1 = require("./FAQV4");
+Object.defineProperty(exports, "FAQV4", { enumerable: true, get: function () { return FAQV4_1.FAQV4; } });
+var FeatureGridV4_1 = require("./FeatureGridV4");
+Object.defineProperty(exports, "FeatureGridV4", { enumerable: true, get: function () { return FeatureGridV4_1.FeatureGridV4; } });
+var FeatureSplitV4_1 = require("./FeatureSplitV4");
+Object.defineProperty(exports, "FeatureSplitV4", { enumerable: true, get: function () { return FeatureSplitV4_1.FeatureSplitV4; } });
+var FooterV4_1 = require("./FooterV4");
+Object.defineProperty(exports, "FooterV4", { enumerable: true, get: function () { return FooterV4_1.FooterV4; } });
+var GenerativeCoverV4_1 = require("./GenerativeCoverV4");
+Object.defineProperty(exports, "GenerativeCoverV4", { enumerable: true, get: function () { return GenerativeCoverV4_1.GenerativeCoverV4; } });
+var GradientHeroV4_1 = require("./GradientHeroV4");
+Object.defineProperty(exports, "GradientHeroV4", { enumerable: true, get: function () { return GradientHeroV4_1.GradientHeroV4; } });
+var LocationBlockV4_1 = require("./LocationBlockV4");
+Object.defineProperty(exports, "LocationBlockV4", { enumerable: true, get: function () { return LocationBlockV4_1.LocationBlockV4; } });
+var LogoCloudV4_1 = require("./LogoCloudV4");
+Object.defineProperty(exports, "LogoCloudV4", { enumerable: true, get: function () { return LogoCloudV4_1.LogoCloudV4; } });
+var NavbarV4_1 = require("./NavbarV4");
+Object.defineProperty(exports, "NavbarV4", { enumerable: true, get: function () { return NavbarV4_1.NavbarV4; } });
+var NewsletterSignupV4_1 = require("./NewsletterSignupV4");
+Object.defineProperty(exports, "NewsletterSignupV4", { enumerable: true, get: function () { return NewsletterSignupV4_1.NewsletterSignupV4; } });
+var OrnamentRuleV4_1 = require("./OrnamentRuleV4");
+Object.defineProperty(exports, "OrnamentRuleV4", { enumerable: true, get: function () { return OrnamentRuleV4_1.OrnamentRuleV4; } });
+var ParticleFieldV4_1 = require("./ParticleFieldV4");
+Object.defineProperty(exports, "ParticleFieldV4", { enumerable: true, get: function () { return ParticleFieldV4_1.ParticleFieldV4; } });
+var PointerHaloV4_1 = require("./PointerHaloV4");
+Object.defineProperty(exports, "PointerHaloV4", { enumerable: true, get: function () { return PointerHaloV4_1.PointerHaloV4; } });
+var PriceListV4_1 = require("./PriceListV4");
+Object.defineProperty(exports, "PriceListV4", { enumerable: true, get: function () { return PriceListV4_1.PriceListV4; } });
+Object.defineProperty(exports, "PriceRowV4", { enumerable: true, get: function () { return PriceListV4_1.PriceRowV4; } });
+var PricingTableV4_1 = require("./PricingTableV4");
+Object.defineProperty(exports, "PricingTableV4", { enumerable: true, get: function () { return PricingTableV4_1.PricingTableV4; } });
+Object.defineProperty(exports, "PricingTierV4", { enumerable: true, get: function () { return PricingTableV4_1.PricingTierV4; } });
+var PricingToggleV4_1 = require("./PricingToggleV4");
+Object.defineProperty(exports, "PricingToggleV4", { enumerable: true, get: function () { return PricingToggleV4_1.PricingToggleV4; } });
+var ProcessStepsV4_1 = require("./ProcessStepsV4");
+Object.defineProperty(exports, "ProcessStepsV4", { enumerable: true, get: function () { return ProcessStepsV4_1.ProcessStepsV4; } });
+var ProductMockV4_1 = require("./ProductMockV4");
+Object.defineProperty(exports, "ProductMockV4", { enumerable: true, get: function () { return ProductMockV4_1.ProductMockV4; } });
+var RichTextV4_1 = require("./RichTextV4");
+Object.defineProperty(exports, "RichTextV4", { enumerable: true, get: function () { return RichTextV4_1.RichTextV4; } });
+var SectionDividerV4_1 = require("./SectionDividerV4");
+Object.defineProperty(exports, "SectionDividerV4", { enumerable: true, get: function () { return SectionDividerV4_1.SectionDividerV4; } });
+var SectionHeadingV4_1 = require("./SectionHeadingV4");
+Object.defineProperty(exports, "SectionHeadingV4", { enumerable: true, get: function () { return SectionHeadingV4_1.SectionHeadingV4; } });
+var StatBarV4_1 = require("./StatBarV4");
+Object.defineProperty(exports, "StatBarV4", { enumerable: true, get: function () { return StatBarV4_1.StatBarV4; } });
+Object.defineProperty(exports, "StatV4", { enumerable: true, get: function () { return StatBarV4_1.StatV4; } });
+var TeamGridV4_1 = require("./TeamGridV4");
+Object.defineProperty(exports, "TeamGridV4", { enumerable: true, get: function () { return TeamGridV4_1.TeamGridV4; } });
+var TestimonialsV4_1 = require("./TestimonialsV4");
+Object.defineProperty(exports, "TestimonialV4", { enumerable: true, get: function () { return TestimonialsV4_1.TestimonialV4; } });
+Object.defineProperty(exports, "TestimonialsV4", { enumerable: true, get: function () { return TestimonialsV4_1.TestimonialsV4; } });
+var VideoEmbedV4_1 = require("./VideoEmbedV4");
+Object.defineProperty(exports, "VideoEmbedV4", { enumerable: true, get: function () { return VideoEmbedV4_1.VideoEmbedV4; } });
 //# sourceMappingURL=index.js.map

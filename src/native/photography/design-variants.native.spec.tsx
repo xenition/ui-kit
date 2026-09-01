@@ -15,6 +15,20 @@ import { PhotoTileV2 } from './PhotoTileV2';
 import { PhotoTileV3 } from './PhotoTileV3';
 import { PackageCardV2 } from './PackageCardV2';
 import { PackageCardV3 } from './PackageCardV3';
+import {
+  AlbumCardV4,
+  PhotoTileV4,
+  PortfolioGridV4,
+  GalleryHeaderV4,
+  LightboxThumbV4,
+  PackageCardV4,
+  PricePackageRowV4,
+  ShootBookingCardV4,
+  PrintOrderRowV4,
+  ClientProofRowV4,
+  EquipmentRowV4,
+  ShotListItemV4,
+} from './index';
 import type { MediaItem } from '../../media/types';
 
 const SEEDS = [SEED_LIGHT, SEED_DARK] as const;
@@ -174,6 +188,129 @@ describe('photography design variants — token purity (both seeds)', () => {
           <PackageCardV2 name="Basic" priceCents={50000} />
           <PackageCardV3 name="Silver" tagline="Half day" priceCents={150000} features={FEATURES} featured onSelect={() => undefined} />
           <PackageCardV3 name="Basic" priceCents={50000} />
+        </>,
+        seed
+      );
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+});
+
+describe('photography V4 "studio" line (native)', () => {
+  it('mounts all 12 V4 components with representative props (SEED_LIGHT)', () => {
+    const { getByText } = renderThemed(
+      <>
+        <AlbumCardV4 title="Sato Wedding" photoCount={248} dateText="Aug 24, 2026" coverUrl="https://cdn.test/cover.jpg" isPrivate variant="cover" onPress={() => undefined} />
+        <AlbumCardV4 title="Tanaka Family" photoCount={64} dateText="Jul 2026" variant="list" />
+        <AlbumCardV4 title="Studio Tests" photoCount={9} variant="compact" />
+
+        <PhotoTileV4 url="https://cdn.test/a.jpg" alt="Portrait" caption="Golden hour" ratio="square" selected favorite onPress={() => undefined} />
+        <PhotoTileV4 url="https://cdn.test/b.jpg" alt="Rings" ratio="portrait" />
+        <PhotoTileV4 url="https://cdn.test/c.jpg" alt="Ceremony" ratio="landscape" />
+
+        <PortfolioGridV4 items={PHOTOS} title="Weddings" columns={3} variant="grid" onOpen={() => undefined} />
+
+        <GalleryHeaderV4 title="Client Gallery" subtitle="Sato · Aug 2026" photoCount={248} coverUrl="https://cdn.test/hero.jpg" variant="hero" />
+        <GalleryHeaderV4 title="Brand Gradient Hero" subtitle="No cover" photoCount={12} variant="hero" />
+        <GalleryHeaderV4 title="Compact Band" subtitle="A clean studio band" photoCount={30} variant="compact" />
+
+        <LightboxThumbV4 url="https://cdn.test/t1.jpg" alt="Thumb one" size="sm" index={0} onPress={() => undefined} />
+        <LightboxThumbV4 url="https://cdn.test/t2.jpg" alt="Thumb two" size="md" active onPress={() => undefined} />
+
+        <PackageCardV4 name="Gold" tagline="Full day" priceCents={280000} priceSuffix="per event" features={FEATURES} featured onSelect={() => undefined} />
+        <PricePackageRowV4 label="Extra edited photo" description="Beyond the package" priceCents={2500} unitSuffix="each" highlighted badgeLabel="Best value" onPress={() => undefined} />
+        <ShootBookingCardV4 clientName="Aiko Sato" shootType="Wedding" dateText="Sat, Aug 30" timeText="2–5 PM" location="Kyoto" status="confirmed" priceCents={280000} onPress={() => undefined} />
+        <PrintOrderRowV4 product="Fine Art Print" size="24×36" finish="Matte" quantity={2} unitPriceCents={9000} status="shipped" onPress={() => undefined} />
+        <ClientProofRowV4 filename="IMG_0421.jpg" thumbUrl="https://cdn.test/p.jpg" decision="pending" selected onToggleSelect={() => undefined} onApprove={() => undefined} onReject={() => undefined} />
+        <EquipmentRowV4 name="Canon R5" category="Bodies" glyph="📷" status="in-use" meta="SN 8842" onPress={() => undefined} />
+        <ShotListItemV4 title="First dance" notes="Wide + close" priority="must" onToggle={() => undefined} />
+      </>,
+      SEED_LIGHT
+    );
+    expect(getByText('Sato Wedding')).toBeTruthy();
+    expect(getByText('Gold')).toBeTruthy();
+    expect(getByText('First dance')).toBeTruthy();
+  });
+
+  it('AlbumCardV4 fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <AlbumCardV4 title="Sato Wedding" photoCount={10} isPrivate onPress={onPress} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('Sato Wedding, 10 photos, private'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('ShotListItemV4 toggles and EquipmentRowV4 fires onPress', () => {
+    const onToggle = jest.fn();
+    const shot = renderThemed(<ShotListItemV4 title="First dance" priority="must" onToggle={onToggle} />, SEED_DARK);
+    fireEvent.press(shot.getByLabelText('First dance'));
+    expect(onToggle).toHaveBeenCalledTimes(1);
+
+    const onPress = jest.fn();
+    const gear = renderThemed(<EquipmentRowV4 name="Canon R5" status="available" onPress={onPress} />, SEED_LIGHT);
+    fireEvent.press(gear.getByLabelText('Canon R5, Available'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('LightboxThumbV4 fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <LightboxThumbV4 url="https://cdn.test/t.jpg" alt="Thumb" index={3} onPress={onPress} />,
+      SEED_DARK
+    );
+    fireEvent.press(getByLabelText('Thumb'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('photography V4 studio line — token purity (both seeds)', () => {
+  it('every rendered hex traces to a compiled token', () => {
+    SEEDS.forEach((seed) => {
+      const { root } = renderThemed(
+        <>
+          <AlbumCardV4 title="Sato Wedding" photoCount={248} dateText="Aug 24, 2026" coverUrl="https://cdn.test/cover.jpg" isPrivate variant="cover" onPress={() => undefined} />
+          <AlbumCardV4 title="Tanaka Family" photoCount={64} dateText="Jul 2026" variant="list" />
+          <AlbumCardV4 title="Studio Tests" photoCount={9} variant="compact" />
+          <AlbumCardV4 title="Loading" loading />
+
+          <PhotoTileV4 url="https://cdn.test/a.jpg" alt="Portrait" caption="Golden hour" ratio="square" selected favorite onPress={() => undefined} />
+          <PhotoTileV4 url="https://cdn.test/b.jpg" alt="Rings" ratio="portrait" />
+          <PhotoTileV4 url="https://cdn.test/c.jpg" alt="Ceremony" ratio="landscape" />
+          <PhotoTileV4 loading />
+
+          <PortfolioGridV4 items={PHOTOS} title="Weddings" columns={3} variant="grid" onOpen={() => undefined} />
+          <PortfolioGridV4 items={[]} loading loadingCount={4} />
+          <PortfolioGridV4 items={[]} emptyLabel="No shots yet" />
+
+          {/* GalleryHeader hero WITHOUT a coverUrl — the reserved brand-gradient ground. */}
+          <GalleryHeaderV4 title="Brand Gradient Hero" subtitle="No cover" photoCount={12} variant="hero" />
+          {/* GalleryHeader hero WITH a coverUrl — the scrim path. */}
+          <GalleryHeaderV4 title="Client Gallery" subtitle="Sato · Aug 2026" photoCount={248} coverUrl="https://cdn.test/hero.jpg" variant="hero" />
+          <GalleryHeaderV4 title="Compact Band" subtitle="A clean studio band" photoCount={30} variant="compact" />
+
+          <LightboxThumbV4 url="https://cdn.test/t1.jpg" alt="Thumb one" size="sm" index={0} onPress={() => undefined} />
+          <LightboxThumbV4 url="https://cdn.test/t2.jpg" alt="Thumb two" size="md" active onPress={() => undefined} />
+
+          <PackageCardV4 name="Gold" tagline="Full day" priceCents={280000} priceSuffix="per event" features={FEATURES} featured onSelect={() => undefined} />
+          <PackageCardV4 name="Basic" priceCents={50000} />
+          <PricePackageRowV4 label="Extra edited photo" description="Beyond the package" priceCents={2500} unitSuffix="each" highlighted badgeLabel="Best value" onPress={() => undefined} />
+          <PricePackageRowV4 label="Second shooter" priceCents={30000} />
+          <ShootBookingCardV4 clientName="Aiko Sato" shootType="Wedding" dateText="Sat, Aug 30" timeText="2–5 PM" location="Kyoto" status="requested" priceCents={280000} onConfirm={() => undefined} onPress={() => undefined} />
+          <ShootBookingCardV4 clientName="Mika Tanaka" status="cancelled" />
+          <PrintOrderRowV4 product="Fine Art Print" size="24×36" finish="Matte" quantity={2} unitPriceCents={9000} status="shipped" onPress={() => undefined} />
+          <PrintOrderRowV4 product="Album" quantity={1} unitPriceCents={45000} status="delivered" />
+          <ClientProofRowV4 filename="IMG_0421.jpg" thumbUrl="https://cdn.test/p.jpg" decision="pending" selected onToggleSelect={() => undefined} onApprove={() => undefined} onReject={() => undefined} />
+          <ClientProofRowV4 filename="IMG_0500.jpg" decision="approved" />
+          <EquipmentRowV4 name="Canon R5" category="Bodies" glyph="📷" status="in-use" meta="SN 8842" onPress={() => undefined} />
+          <EquipmentRowV4 name="Broken Strobe" status="unavailable" />
+          <ShotListItemV4 title="First dance" notes="Wide + close" priority="must" onToggle={() => undefined} />
+          <ShotListItemV4 title="Cake cutting" priority="nice" done onToggle={() => undefined} />
+          <ShotListItemV4 title="Details" priority="optional" />
         </>,
         seed
       );

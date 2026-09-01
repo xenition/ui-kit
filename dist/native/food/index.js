@@ -11,7 +11,7 @@
  * formatter) so the food domain stays a thin, opinionated surface on top.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MenuSectionV3 = exports.MenuSectionV2 = exports.CartBarV3 = exports.CartBarV2 = exports.RestaurantCardV3 = exports.RestaurantCardV2 = exports.DishCardV3 = exports.DishCardV2 = exports.TableReservationRow = exports.CuisineChip = exports.NutritionBadge = exports.TipSelector = exports.ReorderRow = exports.RatingSummary = exports.DeliveryEstimate = exports.ModifierList = exports.RestaurantCard = exports.OrderStatusTracker = exports.CartBar = exports.MenuSection = exports.DishCard = void 0;
+exports.TipSelectorV4 = exports.TableReservationRowV4 = exports.RestaurantCardV4 = exports.ReorderRowV4 = exports.RatingSummaryV4 = exports.OrderStatusTrackerV4 = exports.NutritionBadgeV4 = exports.ModifierListV4 = exports.MenuSectionV4 = exports.DishCardV4 = exports.DeliveryEstimateV4 = exports.CuisineChipV4 = exports.CartBarV4 = exports.MenuSectionV3 = exports.MenuSectionV2 = exports.CartBarV3 = exports.CartBarV2 = exports.RestaurantCardV3 = exports.RestaurantCardV2 = exports.DishCardV3 = exports.DishCardV2 = exports.TableReservationRow = exports.CuisineChip = exports.NutritionBadge = exports.TipSelector = exports.ReorderRow = exports.RatingSummary = exports.DeliveryEstimate = exports.ModifierList = exports.RestaurantCard = exports.OrderStatusTracker = exports.CartBar = exports.MenuSection = exports.DishCard = void 0;
 var DishCard_1 = require("./DishCard");
 Object.defineProperty(exports, "DishCard", { enumerable: true, get: function () { return DishCard_1.DishCard; } });
 var MenuSection_1 = require("./MenuSection");
@@ -61,4 +61,37 @@ var MenuSectionV2_1 = require("./MenuSectionV2");
 Object.defineProperty(exports, "MenuSectionV2", { enumerable: true, get: function () { return MenuSectionV2_1.MenuSectionV2; } });
 var MenuSectionV3_1 = require("./MenuSectionV3");
 Object.defineProperty(exports, "MenuSectionV3", { enumerable: true, get: function () { return MenuSectionV3_1.MenuSectionV3; } });
+/**
+ * The **V4 line** of the food module — a drop-in for each classic with the
+ * same props plus a handful of optional copy hooks, and the module's
+ * accessibility, token and touch-target defects fixed. The headline: a
+ * `DishCard` announced its name and nothing else, so the allergen and dietary
+ * badges it rendered never reached a screen-reader user at all.
+ */
+var CartBarV4_1 = require("./CartBarV4");
+Object.defineProperty(exports, "CartBarV4", { enumerable: true, get: function () { return CartBarV4_1.CartBarV4; } });
+var CuisineChipV4_1 = require("./CuisineChipV4");
+Object.defineProperty(exports, "CuisineChipV4", { enumerable: true, get: function () { return CuisineChipV4_1.CuisineChipV4; } });
+var DeliveryEstimateV4_1 = require("./DeliveryEstimateV4");
+Object.defineProperty(exports, "DeliveryEstimateV4", { enumerable: true, get: function () { return DeliveryEstimateV4_1.DeliveryEstimateV4; } });
+var DishCardV4_1 = require("./DishCardV4");
+Object.defineProperty(exports, "DishCardV4", { enumerable: true, get: function () { return DishCardV4_1.DishCardV4; } });
+var MenuSectionV4_1 = require("./MenuSectionV4");
+Object.defineProperty(exports, "MenuSectionV4", { enumerable: true, get: function () { return MenuSectionV4_1.MenuSectionV4; } });
+var ModifierListV4_1 = require("./ModifierListV4");
+Object.defineProperty(exports, "ModifierListV4", { enumerable: true, get: function () { return ModifierListV4_1.ModifierListV4; } });
+var NutritionBadgeV4_1 = require("./NutritionBadgeV4");
+Object.defineProperty(exports, "NutritionBadgeV4", { enumerable: true, get: function () { return NutritionBadgeV4_1.NutritionBadgeV4; } });
+var OrderStatusTrackerV4_1 = require("./OrderStatusTrackerV4");
+Object.defineProperty(exports, "OrderStatusTrackerV4", { enumerable: true, get: function () { return OrderStatusTrackerV4_1.OrderStatusTrackerV4; } });
+var RatingSummaryV4_1 = require("./RatingSummaryV4");
+Object.defineProperty(exports, "RatingSummaryV4", { enumerable: true, get: function () { return RatingSummaryV4_1.RatingSummaryV4; } });
+var ReorderRowV4_1 = require("./ReorderRowV4");
+Object.defineProperty(exports, "ReorderRowV4", { enumerable: true, get: function () { return ReorderRowV4_1.ReorderRowV4; } });
+var RestaurantCardV4_1 = require("./RestaurantCardV4");
+Object.defineProperty(exports, "RestaurantCardV4", { enumerable: true, get: function () { return RestaurantCardV4_1.RestaurantCardV4; } });
+var TableReservationRowV4_1 = require("./TableReservationRowV4");
+Object.defineProperty(exports, "TableReservationRowV4", { enumerable: true, get: function () { return TableReservationRowV4_1.TableReservationRowV4; } });
+var TipSelectorV4_1 = require("./TipSelectorV4");
+Object.defineProperty(exports, "TipSelectorV4", { enumerable: true, get: function () { return TipSelectorV4_1.TipSelectorV4; } });
 //# sourceMappingURL=index.js.map

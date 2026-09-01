@@ -16,7 +16,7 @@
  * colors, no DOM. Native only, mobile-first.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SetlistRowV3 = exports.SetlistRowV2 = exports.PianoKeysV3 = exports.PianoKeysV2 = exports.MixerV3 = exports.MixerV2 = exports.TrackPadV3 = exports.TrackPadV2 = exports.SetlistRow = exports.WaveformEditor = exports.VolumeFader = exports.Mixer = exports.RecordButton = exports.LoopControl = exports.MetronomeBar = exports.BPMControl = exports.ChordChip = exports.PianoKeys = exports.SamplePad = exports.TrackPad = exports.withAlpha = exports.formatDuration = exports.formatBpm = exports.clamp = exports.octaveNotes = exports.isBlackKey = exports.padAccentKey = exports.chordLabel = exports.NOTE_NAMES = void 0;
+exports.WaveformEditorV4 = exports.VolumeFaderV4 = exports.TrackPadV4 = exports.SetlistRowV4 = exports.SamplePadV4 = exports.RecordButtonV4 = exports.PianoKeysV4 = exports.MixerV4 = exports.MetronomeBarV4 = exports.LoopControlV4 = exports.ChordChipV4 = exports.BPMControlV4 = exports.SetlistRowV3 = exports.SetlistRowV2 = exports.PianoKeysV3 = exports.PianoKeysV2 = exports.MixerV3 = exports.MixerV2 = exports.TrackPadV3 = exports.TrackPadV2 = exports.SetlistRow = exports.WaveformEditor = exports.VolumeFader = exports.Mixer = exports.RecordButton = exports.LoopControl = exports.MetronomeBar = exports.BPMControl = exports.ChordChip = exports.PianoKeys = exports.SamplePad = exports.TrackPad = exports.withAlpha = exports.formatDuration = exports.formatBpm = exports.clamp = exports.octaveNotes = exports.isBlackKey = exports.padAccentKey = exports.chordLabel = exports.NOTE_NAMES = void 0;
 // ── shared data shapes + helpers ──────────────────────────────────────
 var types_1 = require("./types");
 Object.defineProperty(exports, "NOTE_NAMES", { enumerable: true, get: function () { return types_1.NOTE_NAMES; } });
@@ -74,4 +74,38 @@ var SetlistRowV2_1 = require("./SetlistRowV2");
 Object.defineProperty(exports, "SetlistRowV2", { enumerable: true, get: function () { return SetlistRowV2_1.SetlistRowV2; } });
 var SetlistRowV3_1 = require("./SetlistRowV3");
 Object.defineProperty(exports, "SetlistRowV3", { enumerable: true, get: function () { return SetlistRowV3_1.SetlistRowV3; } });
+/*
+ * ── V4 "session" (tactile DAW) design line ──
+ * A drop-in V4 variant for each of the 12 originals: tactile control surfaces
+ * with satisfying active/armed/playing states (soft-primary or accent fill + a
+ * glyph/label marker, never color alone) and bold tabular-nums numerals. Every
+ * V4 keeps its base props (all variant/size values honored) and the per-cell
+ * accent-slot colors. The brand gradient is reserved for the session moment —
+ * the `WaveformEditor` full signal hero. Base/V2/V3 untouched; V4 is additive.
+ * Token-driven, dark-mode safe, web + native.
+ */
+var BPMControlV4_1 = require("./BPMControlV4");
+Object.defineProperty(exports, "BPMControlV4", { enumerable: true, get: function () { return BPMControlV4_1.BPMControlV4; } });
+var ChordChipV4_1 = require("./ChordChipV4");
+Object.defineProperty(exports, "ChordChipV4", { enumerable: true, get: function () { return ChordChipV4_1.ChordChipV4; } });
+var LoopControlV4_1 = require("./LoopControlV4");
+Object.defineProperty(exports, "LoopControlV4", { enumerable: true, get: function () { return LoopControlV4_1.LoopControlV4; } });
+var MetronomeBarV4_1 = require("./MetronomeBarV4");
+Object.defineProperty(exports, "MetronomeBarV4", { enumerable: true, get: function () { return MetronomeBarV4_1.MetronomeBarV4; } });
+var MixerV4_1 = require("./MixerV4");
+Object.defineProperty(exports, "MixerV4", { enumerable: true, get: function () { return MixerV4_1.MixerV4; } });
+var PianoKeysV4_1 = require("./PianoKeysV4");
+Object.defineProperty(exports, "PianoKeysV4", { enumerable: true, get: function () { return PianoKeysV4_1.PianoKeysV4; } });
+var RecordButtonV4_1 = require("./RecordButtonV4");
+Object.defineProperty(exports, "RecordButtonV4", { enumerable: true, get: function () { return RecordButtonV4_1.RecordButtonV4; } });
+var SamplePadV4_1 = require("./SamplePadV4");
+Object.defineProperty(exports, "SamplePadV4", { enumerable: true, get: function () { return SamplePadV4_1.SamplePadV4; } });
+var SetlistRowV4_1 = require("./SetlistRowV4");
+Object.defineProperty(exports, "SetlistRowV4", { enumerable: true, get: function () { return SetlistRowV4_1.SetlistRowV4; } });
+var TrackPadV4_1 = require("./TrackPadV4");
+Object.defineProperty(exports, "TrackPadV4", { enumerable: true, get: function () { return TrackPadV4_1.TrackPadV4; } });
+var VolumeFaderV4_1 = require("./VolumeFaderV4");
+Object.defineProperty(exports, "VolumeFaderV4", { enumerable: true, get: function () { return VolumeFaderV4_1.VolumeFaderV4; } });
+var WaveformEditorV4_1 = require("./WaveformEditorV4");
+Object.defineProperty(exports, "WaveformEditorV4", { enumerable: true, get: function () { return WaveformEditorV4_1.WaveformEditorV4; } });
 //# sourceMappingURL=index.js.map

@@ -11,7 +11,7 @@
  * shared `formatMoney` (re-exported from the commerce module).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatMoney = exports.GiftCardRow = exports.PriceListRow = exports.LookbookGrid = exports.ReviewCard = exports.SalonBookingBar = exports.ProductRecommendation = exports.LoyaltyCardV3 = exports.LoyaltyCardV2 = exports.LoyaltyCard = exports.TreatmentCardV3 = exports.TreatmentCardV2 = exports.TreatmentCard = exports.BeforeAfter = exports.AppointmentSlot = exports.StylistCardV3 = exports.StylistCardV2 = exports.StylistCard = exports.ServiceMenuItemV3 = exports.ServiceMenuItemV2 = exports.ServiceMenuItem = void 0;
+exports.TreatmentCardV4 = exports.StylistCardV4 = exports.ServiceMenuItemV4 = exports.SalonBookingBarV4 = exports.ReviewCardV4 = exports.ProductRecommendationV4 = exports.PriceListRowV4 = exports.LoyaltyCardV4 = exports.LookbookGridV4 = exports.GiftCardRowV4 = exports.BeforeAfterV4 = exports.AppointmentSlotV4 = exports.formatMoney = exports.GiftCardRow = exports.PriceListRow = exports.LookbookGrid = exports.ReviewCard = exports.SalonBookingBar = exports.ProductRecommendation = exports.LoyaltyCardV3 = exports.LoyaltyCardV2 = exports.LoyaltyCard = exports.TreatmentCardV3 = exports.TreatmentCardV2 = exports.TreatmentCard = exports.BeforeAfter = exports.AppointmentSlot = exports.StylistCardV3 = exports.StylistCardV2 = exports.StylistCard = exports.ServiceMenuItemV3 = exports.ServiceMenuItemV2 = exports.ServiceMenuItem = void 0;
 var ServiceMenuItem_1 = require("./ServiceMenuItem");
 Object.defineProperty(exports, "ServiceMenuItem", { enumerable: true, get: function () { return ServiceMenuItem_1.ServiceMenuItem; } });
 var ServiceMenuItemV2_1 = require("./ServiceMenuItemV2");
@@ -55,4 +55,31 @@ Object.defineProperty(exports, "GiftCardRow", { enumerable: true, get: function 
 // Shared money formatter — one home across platforms/modules.
 var money_1 = require("../commerce/money");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return money_1.formatMoney; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `AUTOMOTIVE-BEAUTY-V4-BRIEF.md`.
+// Each is a drop-in for its base — same props plus optional additions.
+var AppointmentSlotV4_1 = require("./AppointmentSlotV4");
+Object.defineProperty(exports, "AppointmentSlotV4", { enumerable: true, get: function () { return AppointmentSlotV4_1.AppointmentSlotV4; } });
+var BeforeAfterV4_1 = require("./BeforeAfterV4");
+Object.defineProperty(exports, "BeforeAfterV4", { enumerable: true, get: function () { return BeforeAfterV4_1.BeforeAfterV4; } });
+var GiftCardRowV4_1 = require("./GiftCardRowV4");
+Object.defineProperty(exports, "GiftCardRowV4", { enumerable: true, get: function () { return GiftCardRowV4_1.GiftCardRowV4; } });
+var LookbookGridV4_1 = require("./LookbookGridV4");
+Object.defineProperty(exports, "LookbookGridV4", { enumerable: true, get: function () { return LookbookGridV4_1.LookbookGridV4; } });
+var LoyaltyCardV4_1 = require("./LoyaltyCardV4");
+Object.defineProperty(exports, "LoyaltyCardV4", { enumerable: true, get: function () { return LoyaltyCardV4_1.LoyaltyCardV4; } });
+var PriceListRowV4_1 = require("./PriceListRowV4");
+Object.defineProperty(exports, "PriceListRowV4", { enumerable: true, get: function () { return PriceListRowV4_1.PriceListRowV4; } });
+var ProductRecommendationV4_1 = require("./ProductRecommendationV4");
+Object.defineProperty(exports, "ProductRecommendationV4", { enumerable: true, get: function () { return ProductRecommendationV4_1.ProductRecommendationV4; } });
+var ReviewCardV4_1 = require("./ReviewCardV4");
+Object.defineProperty(exports, "ReviewCardV4", { enumerable: true, get: function () { return ReviewCardV4_1.ReviewCardV4; } });
+var SalonBookingBarV4_1 = require("./SalonBookingBarV4");
+Object.defineProperty(exports, "SalonBookingBarV4", { enumerable: true, get: function () { return SalonBookingBarV4_1.SalonBookingBarV4; } });
+var ServiceMenuItemV4_1 = require("./ServiceMenuItemV4");
+Object.defineProperty(exports, "ServiceMenuItemV4", { enumerable: true, get: function () { return ServiceMenuItemV4_1.ServiceMenuItemV4; } });
+var StylistCardV4_1 = require("./StylistCardV4");
+Object.defineProperty(exports, "StylistCardV4", { enumerable: true, get: function () { return StylistCardV4_1.StylistCardV4; } });
+var TreatmentCardV4_1 = require("./TreatmentCardV4");
+Object.defineProperty(exports, "TreatmentCardV4", { enumerable: true, get: function () { return TreatmentCardV4_1.TreatmentCardV4; } });
 //# sourceMappingURL=index.js.map

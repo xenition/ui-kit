@@ -1,3 +1,4 @@
+import '../spec-support/real-animations';
 /**
  * `ActionSheetV4` — the behavioural half of its coverage.
  *

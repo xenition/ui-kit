@@ -1,0 +1,263 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StackedBarV4 = StackedBarV4;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const React = __importStar(require("react"));
+const react_native_1 = require("react-native");
+const v4_chart_1 = require("../../primitives/internal/v4-chart");
+const SkeletonV4_1 = require("../primitives/SkeletonV4");
+const TextV4_1 = require("../primitives/TextV4");
+const motion_v4_1 = require("../primitives/internal/motion-v4");
+const nav_v4_1 = require("../primitives/internal/nav-v4");
+const useReducedMotion_1 = require("../primitives/internal/useReducedMotion");
+const theme_1 = require("../theme");
+const internal_v4_1 = require("./internal-v4");
+const LegendV4_1 = require("./LegendV4");
+/** A segment's non-negative contribution. `NaN` and `-1` both count as nothing. */
+function share(value) {
+    return Number.isFinite(value) && value > 0 ? value : 0;
+}
+/**
+ * Rule 3, enforced rather than documented.
+ *
+ * The palette module already throws rather than cycling past slot 5, on the
+ * grounds that a silent second meaning for one colour is worse than a loud
+ * failure. Mixing status hues with slot hues in one stack is the same defect
+ * wearing a different hat, so it gets the same answer.
+ */
+function assertOneColourVocabulary(segments) {
+    const toned = segments.filter((s) => s.tone !== undefined).length;
+    if (toned !== 0 && toned !== segments.length) {
+        throw new RangeError('@xenition/ui charts: a stacked bar carries status colour or slot colour, never both. ' +
+            `${toned} of ${segments.length} segments declare a tone — give every segment one, or none.`);
+    }
+}
+/**
+ * Fold a stack that is longer than the palette, instead of crashing on it.
+ *
+ * `chartSlotColor` throws past the fifth slot, and it is right to: asking the
+ * palette for a sixth slot is a mistake in the caller's own code. But a
+ * stack's segment count arrives with the **data** — six lines on an expenses
+ * breakdown from a live API — and a `RangeError` thrown out of render takes
+ * the whole screen down. The split the shared module draws is exactly this:
+ * *the primitive throws, the component folds* (see `foldChartSeries`).
+ *
+ * A stack is a composition — the parts add up to the whole — so the tail is
+ * **summed** into one segment named {@link CHART_OVERFLOW_LABEL}, the same
+ * answer `PieChartV4` gives for the same reason. The total is unchanged, which
+ * is the property a stack must not lose: a bar that dropped its sixth segment
+ * would silently rescale every other one.
+ *
+ * Not sorted, deliberately: a stack's order is the composition the caller
+ * chose. A **toned** stack never folds — it is not spending the categorical
+ * palette, and the residual of a pass/fail split is neither passing nor
+ * failing. Keep in step with the web twin.
+ */
+function foldSegmentsV4(segments) {
+    if (segments.some((s) => s.tone !== undefined))
+        return segments;
+    const fold = (0, v4_chart_1.foldChartSeries)(segments);
+    if (!fold.didFold)
+        return fold.kept;
+    return [
+        ...fold.kept,
+        {
+            value: fold.folded.reduce((sum, s) => sum + share(s.value), 0),
+            label: v4_chart_1.CHART_OVERFLOW_LABEL,
+        },
+    ];
+}
+/** The sentence a screen reader gets (brief §1 rule 6, §4.8). */
+function stackedBarLabel(segments, total, title) {
+    const head = `Stacked bar${title ? `, ${title}` : ''}`;
+    const count = `${segments.length} ${segments.length === 1 ? 'segment' : 'segments'}`;
+    if (total <= 0)
+        return `${head}, ${count}`;
+    const parts = segments.map((s, i) => {
+        const name = s.label ?? `Segment ${i + 1}`;
+        return `${name} ${Math.round((share(s.value) / total) * 100)}%`;
+    });
+    return `${head}, ${count}, ${parts.join(', ')}`;
+}
+/**
+ * The entrance reveal (brief §4.7), as an opacity ramp. See the note in
+ * `BarChartV4` for why native fades where web wipes, and why the hook is local
+ * to each file for the length of this pass.
+ */
+function useChartRevealV4(animate) {
+    const reduced = (0, useReducedMotion_1.useReducedMotion)();
+    const progress = React.useRef(new react_native_1.Animated.Value(animate ? 0 : 1)).current;
+    React.useEffect(() => {
+        if (!animate) {
+            progress.setValue(1);
+            return undefined;
+        }
+        const anim = react_native_1.Animated.timing(progress, {
+            toValue: 1,
+            duration: reduced ? motion_v4_1.V4_MOTION.standard : motion_v4_1.V4_MOTION.enter,
+            easing: reduced ? motion_v4_1.EASING_STANDARD : motion_v4_1.EASING_ENTER,
+            useNativeDriver: true,
+        });
+        anim.start();
+        return () => anim.stop();
+    }, [animate, reduced, progress]);
+    return progress;
+}
+/**
+ * **V4 stacked bar (native)** — one horizontal bar split into its parts, the
+ * twin of `charts/StackedBarV4` prop for prop.
+ *
+ * The base is the module's clearest example of the defect this whole pass
+ * exists to fix, and it makes the mistake twice:
+ *
+ * 1. **`colors[s.color ?? 'primary']`.** Every segment is a semantic slot, so a
+ *    caller who wanted four distinguishable parts reached for `success`,
+ *    `warn` and `danger` and got a revenue split that reads as a health
+ *    indicator. Nothing is wrong with segment 4; it is simply fourth. V4 takes
+ *    the shared palette's slots in order, and status is opt-in per
+ *    {@link StackedBarV4Tone}.
+ * 2. **`opacity` as the way to tell segments apart.** The base's own doc
+ *    comment recommends it: "distinguish series by varying the `opacity` of one
+ *    theme color". Opacity is not a categorical channel — it is a *magnitude*
+ *    channel, so a descending ramp says the fourth segment matters less than
+ *    the first, and at the bottom of the ramp it says the fourth segment is
+ *    **disabled**, because 0.38 of a colour is exactly what `v4-state.ts` uses
+ *    to mean that. Retired outright: every segment is painted at full strength.
+ *
+ * ## The gap is the encoding
+ *
+ * `CHART_MARK.gap` of page between segments is not a style choice, it is the
+ * secondary encoding the palette's 6.5 adjacent CVD ΔE obliges (brief §1
+ * rule 5). Two segments a dichromat cannot separate by hue are still visibly
+ * two segments when a hairline of page runs between them — and a stack is the
+ * one form where every pair of series is guaranteed to be adjacent, so it needs
+ * it most. The base laid its segments flush inside a clipped pill.
+ *
+ * ## Where a stack's direct labels go
+ *
+ * Brief §4.4 asks for direct labels at four series or fewer, and a stack cannot
+ * take them in place: a segment is as wide as its share, so the 8% segment has
+ * no room for "8%" and the label that does not fit is the one the reader most
+ * wanted. The legend carries the values instead — same channel, same
+ * four-or-fewer rule, somewhere they fit.
+ *
+ * ## Rounding
+ *
+ * `CHART_MARK.endRadius` at the **data end only** (brief §4.4): the stack's
+ * right edge is where the total lands, its left edge is the baseline. The
+ * base's `borderRadius: radius.full` with `overflow: 'hidden'` rounded both,
+ * and on a `sharp` seed rounded neither.
+ */
+function StackedBarV4({ segments, height = 16, legend, showValues, format = String, title, summary, caption, loading = false, emptyLabel = 'No data', animate = true, tooltip = true, onSelect, accessibilityLabel, style, }) {
+    const { colors, tokens } = (0, theme_1.useXenitionTheme)();
+    const palette = (0, internal_v4_1.useChartPaletteV4)();
+    const progress = useChartRevealV4(animate);
+    const [selected, setSelected] = React.useState(null);
+    assertOneColourVocabulary(segments);
+    // Everything below draws the **folded** stack: past the palette's five slots
+    // the tail is summed into one "Other" segment rather than thrown at. See
+    // {@link foldSegmentsV4}.
+    const drawn = foldSegmentsV4(segments);
+    const total = drawn.reduce((sum, s) => sum + share(s.value), 0);
+    const label = accessibilityLabel ?? stackedBarLabel(drawn, total, title);
+    const slop = Math.max(0, ((0, nav_v4_1.minTap)(tokens.spacing) - height) / 2);
+    const header = title || summary || caption ? ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.xs }, children: [title ? ((0, jsx_runtime_1.jsx)(TextV4_1.TextV4, { size: "base", weight: "semibold", numberOfLines: 1, children: title })) : null, summary ? ((0, jsx_runtime_1.jsx)(TextV4_1.TextV4, { size: "2xl", weight: "bold", numeric: "tabular", children: summary })) : null, caption ? ((0, jsx_runtime_1.jsx)(TextV4_1.TextV4, { size: "sm", tone: "mutedText", children: caption })) : null] })) : null;
+    const frame = (children) => ((0, jsx_runtime_1.jsxs)(react_native_1.View, { accessibilityRole: "image", accessibilityLabel: label, style: [{ gap: tokens.spacing.sm }, style], children: [header, children] }));
+    if (loading)
+        return frame((0, jsx_runtime_1.jsx)(SkeletonV4_1.SkeletonV4, { variant: "rect", width: "100%", height: height }));
+    // No segments and an all-zero stack are the same picture — a bar with nothing
+    // in it — so they get the same answer.
+    if (drawn.length === 0 || total <= 0) {
+        return frame((0, jsx_runtime_1.jsx)(react_native_1.View, { style: { height, alignItems: 'center', justifyContent: 'center' }, children: (0, jsx_runtime_1.jsx)(TextV4_1.TextV4, { size: "sm", tone: "mutedText", children: emptyLabel }) }));
+    }
+    const showLegend = legend ?? drawn.length >= 2;
+    const legendValues = showValues ?? drawn.length <= v4_chart_1.CHART_DIRECT_LABEL_MAX;
+    const fillOf = (segment, i) => segment.tone ? colors[segment.tone] : (0, internal_v4_1.chartSlotColor)(palette, i);
+    const last = drawn.length - 1;
+    const bubble = tooltip && selected !== null && drawn[selected] !== undefined ? selected : null;
+    return frame((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: tokens.spacing.sm }, children: [bubble !== null ? ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: {
+                    alignSelf: 'flex-start',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: tokens.spacing.xs,
+                    backgroundColor: colors.popover,
+                    borderColor: colors.border,
+                    borderWidth: 1,
+                    borderRadius: tokens.radius.md,
+                    paddingHorizontal: tokens.spacing.sm,
+                    paddingVertical: tokens.spacing.xs,
+                }, children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                            width: v4_chart_1.CHART_MARK.dotSize,
+                            height: v4_chart_1.CHART_MARK.dotSize,
+                            borderRadius: v4_chart_1.CHART_MARK.dotSize,
+                            backgroundColor: fillOf(drawn[bubble], bubble),
+                        } }), (0, jsx_runtime_1.jsx)(TextV4_1.TextV4, { size: "xs", tone: "onPopover", numeric: "tabular", children: `${drawn[bubble]?.label ? `${drawn[bubble]?.label}: ` : ''}${format(drawn[bubble]?.value)}` })] })) : null, (0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { testID: "xen-v4-chart-plot", style: {
+                    flexDirection: 'row',
+                    height,
+                    gap: v4_chart_1.CHART_MARK.gap,
+                    opacity: progress,
+                }, children: drawn.map((segment, i) => {
+                    const value = share(segment.value);
+                    if (value <= 0)
+                        return null;
+                    return ((0, jsx_runtime_1.jsx)(react_native_1.Pressable, { testID: "xen-v4-segment", accessibilityElementsHidden: true, importantForAccessibility: "no-hide-descendants", 
+                        // The bar is 16 tall by default, under the tap floor, so the
+                        // press target grows vertically to reach it (rule 10). It cannot
+                        // grow horizontally without eating the neighbouring segment's
+                        // target, which would be a worse failure than a short one.
+                        hitSlop: { top: slop, bottom: slop }, onPress: () => {
+                            setSelected((current) => (current === i ? null : i));
+                            onSelect?.(i, segment.value);
+                        }, style: {
+                            flexGrow: value / total,
+                            flexBasis: 0,
+                            height: '100%',
+                            // `1` is the hairline exception in rule 1: a segment that
+                            // exists must be visible, however small its share.
+                            minWidth: 1,
+                            backgroundColor: fillOf(segment, i),
+                            borderTopRightRadius: i === last ? v4_chart_1.CHART_MARK.endRadius : 0,
+                            borderBottomRightRadius: i === last ? v4_chart_1.CHART_MARK.endRadius : 0,
+                        } }, i));
+                }) }), showLegend ? ((0, jsx_runtime_1.jsx)(LegendV4_1.LegendV4, { testID: "xen-v4-chart-legend", items: drawn.map((segment, i) => ({
+                    key: String(i),
+                    label: segment.label ?? `Segment ${i + 1}`,
+                    slot: i,
+                    ...(segment.tone === undefined ? {} : { tone: segment.tone }),
+                    ...(legendValues ? { value: format(segment.value) } : {}),
+                })) })) : null] }));
+}
+//# sourceMappingURL=StackedBarV4.js.map

@@ -11,7 +11,7 @@
  * `<button>`s.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReportListing = exports.RatingBreakdown = exports.WatchlistRowV3 = exports.WatchlistRowV2 = exports.WatchlistRow = exports.MakeOfferForm = exports.ShippingOption = exports.ConditionBadge = exports.CategoryTile = exports.AuctionCardV3 = exports.AuctionCardV2 = exports.AuctionCard = exports.BidRow = exports.OfferRow = exports.SellerCardV3 = exports.SellerCardV2 = exports.SellerCard = exports.ListingCardV3 = exports.ListingCardV2 = exports.ListingCard = void 0;
+exports.ReportListingV4 = exports.WatchlistRowV4 = exports.ShippingOptionV4 = exports.MakeOfferFormV4 = exports.OfferRowV4 = exports.BidRowV4 = exports.RatingBreakdownV4 = exports.CONDITION_V4_LABEL = exports.ConditionBadgeV4 = exports.CategoryTileV4 = exports.SellerCardV4 = exports.useCountdownV4 = exports.spokenRemainingV4 = exports.formatRemainingV4 = exports.AUCTION_V4_TIMING = exports.AuctionCardV4 = exports.ListingCardV4 = exports.ReportListing = exports.RatingBreakdown = exports.WatchlistRowV3 = exports.WatchlistRowV2 = exports.WatchlistRow = exports.MakeOfferForm = exports.ShippingOption = exports.ConditionBadge = exports.CategoryTile = exports.AuctionCardV3 = exports.AuctionCardV2 = exports.AuctionCard = exports.BidRow = exports.OfferRow = exports.SellerCardV3 = exports.SellerCardV2 = exports.SellerCard = exports.ListingCardV3 = exports.ListingCardV2 = exports.ListingCard = void 0;
 var ListingCard_1 = require("./ListingCard");
 Object.defineProperty(exports, "ListingCard", { enumerable: true, get: function () { return ListingCard_1.ListingCard; } });
 var ListingCardV2_1 = require("./ListingCardV2");
@@ -52,4 +52,41 @@ var RatingBreakdown_1 = require("./RatingBreakdown");
 Object.defineProperty(exports, "RatingBreakdown", { enumerable: true, get: function () { return RatingBreakdown_1.RatingBreakdown; } });
 var ReportListing_1 = require("./ReportListing");
 Object.defineProperty(exports, "ReportListing", { enumerable: true, get: function () { return ReportListing_1.ReportListing; } });
+/* ------------------------------------------------------------------------ *
+ * The V4 line
+ *
+ * Twelve components on the current design pattern. See
+ * `COMMERCE-MARKETPLACE-V4-BRIEF.md` — marketplace and commerce were upgraded
+ * as one surface, so `ListingCardV4` and `commerce`'s `ProductCardV4` share an
+ * anatomy on purpose: a storefront and a marketplace must read as one product.
+ * ------------------------------------------------------------------------ */
+var ListingCardV4_1 = require("./ListingCardV4");
+Object.defineProperty(exports, "ListingCardV4", { enumerable: true, get: function () { return ListingCardV4_1.ListingCardV4; } });
+var AuctionCardV4_1 = require("./AuctionCardV4");
+Object.defineProperty(exports, "AuctionCardV4", { enumerable: true, get: function () { return AuctionCardV4_1.AuctionCardV4; } });
+Object.defineProperty(exports, "AUCTION_V4_TIMING", { enumerable: true, get: function () { return AuctionCardV4_1.AUCTION_V4_TIMING; } });
+Object.defineProperty(exports, "formatRemainingV4", { enumerable: true, get: function () { return AuctionCardV4_1.formatRemainingV4; } });
+Object.defineProperty(exports, "spokenRemainingV4", { enumerable: true, get: function () { return AuctionCardV4_1.spokenRemainingV4; } });
+Object.defineProperty(exports, "useCountdownV4", { enumerable: true, get: function () { return AuctionCardV4_1.useCountdownV4; } });
+var SellerCardV4_1 = require("./SellerCardV4");
+Object.defineProperty(exports, "SellerCardV4", { enumerable: true, get: function () { return SellerCardV4_1.SellerCardV4; } });
+var CategoryTileV4_1 = require("./CategoryTileV4");
+Object.defineProperty(exports, "CategoryTileV4", { enumerable: true, get: function () { return CategoryTileV4_1.CategoryTileV4; } });
+var ConditionBadgeV4_1 = require("./ConditionBadgeV4");
+Object.defineProperty(exports, "ConditionBadgeV4", { enumerable: true, get: function () { return ConditionBadgeV4_1.ConditionBadgeV4; } });
+Object.defineProperty(exports, "CONDITION_V4_LABEL", { enumerable: true, get: function () { return ConditionBadgeV4_1.CONDITION_V4_LABEL; } });
+var RatingBreakdownV4_1 = require("./RatingBreakdownV4");
+Object.defineProperty(exports, "RatingBreakdownV4", { enumerable: true, get: function () { return RatingBreakdownV4_1.RatingBreakdownV4; } });
+var BidRowV4_1 = require("./BidRowV4");
+Object.defineProperty(exports, "BidRowV4", { enumerable: true, get: function () { return BidRowV4_1.BidRowV4; } });
+var OfferRowV4_1 = require("./OfferRowV4");
+Object.defineProperty(exports, "OfferRowV4", { enumerable: true, get: function () { return OfferRowV4_1.OfferRowV4; } });
+var MakeOfferFormV4_1 = require("./MakeOfferFormV4");
+Object.defineProperty(exports, "MakeOfferFormV4", { enumerable: true, get: function () { return MakeOfferFormV4_1.MakeOfferFormV4; } });
+var ShippingOptionV4_1 = require("./ShippingOptionV4");
+Object.defineProperty(exports, "ShippingOptionV4", { enumerable: true, get: function () { return ShippingOptionV4_1.ShippingOptionV4; } });
+var WatchlistRowV4_1 = require("./WatchlistRowV4");
+Object.defineProperty(exports, "WatchlistRowV4", { enumerable: true, get: function () { return WatchlistRowV4_1.WatchlistRowV4; } });
+var ReportListingV4_1 = require("./ReportListingV4");
+Object.defineProperty(exports, "ReportListingV4", { enumerable: true, get: function () { return ReportListingV4_1.ReportListingV4; } });
 //# sourceMappingURL=index.js.map

@@ -15,4 +15,10 @@ export type { LightboxProps } from './Lightbox';
 export { MediaFigure } from './MediaFigure';
 export type { MediaFigureProps } from './MediaFigure';
 export type { MediaItem, MediaAlbum, MediaKind } from '../../media/types';
+export { MediaFigureV4 } from './MediaFigureV4';
+export type { MediaFigureV4Props } from './MediaFigureV4';
+export { GalleryV4 } from './GalleryV4';
+export type { GalleryV4Props } from './GalleryV4';
+export { LightboxV4 } from './LightboxV4';
+export type { LightboxV4Props } from './LightboxV4';
 //# sourceMappingURL=index.d.ts.map

@@ -1,10 +1,31 @@
 import * as React from 'react';
+import type { TextSize } from './Text';
 import type { AuthAlign } from './AuthCard';
 import type { IconName } from './icon-names';
 import type { ForgotPasswordFormProps } from './ForgotPasswordForm';
 export interface ForgotPasswordFormV4Props extends ForgotPasswordFormProps {
     /** Brand icon from the named set, for an app with no mark of its own. */
     brandIcon?: IconName;
+    /**
+     * The accessible name for the brand tile.
+     *
+     * `AuthCardV4` added this precisely so a mark that carries meaning can
+     * announce it, and then no composite forwarded it — so **every composed auth
+     * screen's brand tile was permanently decorative**, with the prop reachable
+     * only by hand-assembling the card. Found by putting all fourteen auth
+     * components on one screen.
+     */
+    brandLabel?: string;
+    /**
+     * The headline step.
+     *
+     * Defaults to `'3xl'`, matching its two siblings. It used not to exist here
+     * at all, so the headline fell through to `AuthCardV4`'s panel default of
+     * `'xl'` — and moving between Sign in and Reset dropped the headline two
+     * steps with nothing else on the screen changing. Invisible until the three
+     * forms sit behind one switch, which is what found it.
+     */
+    titleSize?: TextSize;
     /** Headline alignment, passed to the card. Default `'left'` — §9's top-left tile. */
     align?: AuthAlign;
     /**
@@ -75,5 +96,5 @@ export interface ForgotPasswordFormV4Props extends ForgotPasswordFormProps {
  * Errors are text, never colour: a rejected request draws `AlertV4` above the
  * field, and a missing address draws `AuthFieldV4`'s own message underneath it.
  */
-export declare function ForgotPasswordFormV4({ onSubmit, onLoginClick, title, subtitle, brandGlyph, brandIcon, align, submitLabel, submittingLabel, sentMessage, sentTitle, resendPrompt, resendLabel, resendable, emailLabel, emailPlaceholder, backLabel, backPrompt, className, }: ForgotPasswordFormV4Props): React.ReactElement;
+export declare function ForgotPasswordFormV4({ onSubmit, onLoginClick, title, subtitle, brandGlyph, brandIcon, brandLabel, titleSize, align, submitLabel, submittingLabel, sentMessage, sentTitle, resendPrompt, resendLabel, resendable, emailLabel, emailPlaceholder, backLabel, backPrompt, className, }: ForgotPasswordFormV4Props): React.ReactElement;
 //# sourceMappingURL=ForgotPasswordFormV4.d.ts.map

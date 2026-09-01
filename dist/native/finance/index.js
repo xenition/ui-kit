@@ -14,7 +14,7 @@
  * the shared reduced-motion-aware hooks — both default to the historical look.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.maskAccountNumber = exports.maskCardNumber = exports.formatMoney = exports.ExchangeRateRow = exports.PaymentMethodRow = exports.SavingsGoalCardV3 = exports.SavingsGoalCardV2 = exports.SavingsGoalCard = exports.StatementList = exports.TransferForm = exports.InvoiceLine = exports.SpendCategoryRow = exports.CreditCardView = exports.BudgetBar = exports.BalanceHeaderV3 = exports.BalanceHeaderV2 = exports.BalanceHeader = exports.AccountCardV3 = exports.AccountCardV2 = exports.AccountCard = exports.TransactionRowV3 = exports.TransactionRowV2 = exports.TransactionRow = exports.MoneyAmount = void 0;
+exports.TransferFormV4 = exports.TransactionRowV4 = exports.StatementListV4 = exports.SpendCategoryRowV4 = exports.SavingsGoalCardV4 = exports.PaymentMethodRowV4 = exports.MoneyAmountV4 = exports.InvoiceLineV4 = exports.ExchangeRateRowV4 = exports.CreditCardViewV4 = exports.BudgetBarV4 = exports.BalanceHeaderV4 = exports.AccountCardV4 = exports.maskAccountNumber = exports.maskCardNumber = exports.formatMoney = exports.ExchangeRateRow = exports.PaymentMethodRow = exports.SavingsGoalCardV3 = exports.SavingsGoalCardV2 = exports.SavingsGoalCard = exports.StatementList = exports.TransferForm = exports.InvoiceLine = exports.SpendCategoryRow = exports.CreditCardView = exports.BudgetBar = exports.BalanceHeaderV3 = exports.BalanceHeaderV2 = exports.BalanceHeader = exports.AccountCardV3 = exports.AccountCardV2 = exports.AccountCard = exports.TransactionRowV3 = exports.TransactionRowV2 = exports.TransactionRow = exports.MoneyAmount = void 0;
 var MoneyAmount_1 = require("./MoneyAmount");
 Object.defineProperty(exports, "MoneyAmount", { enumerable: true, get: function () { return MoneyAmount_1.MoneyAmount; } });
 var TransactionRow_1 = require("./TransactionRow");
@@ -66,4 +66,33 @@ Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function 
 var mask_1 = require("./internal/mask");
 Object.defineProperty(exports, "maskCardNumber", { enumerable: true, get: function () { return mask_1.maskCardNumber; } });
 Object.defineProperty(exports, "maskAccountNumber", { enumerable: true, get: function () { return mask_1.maskAccountNumber; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `FINANCE-FOOD-V4-BRIEF.md`. Each
+// is a drop-in for its base — same props plus optional additions.
+var AccountCardV4_1 = require("./AccountCardV4");
+Object.defineProperty(exports, "AccountCardV4", { enumerable: true, get: function () { return AccountCardV4_1.AccountCardV4; } });
+var BalanceHeaderV4_1 = require("./BalanceHeaderV4");
+Object.defineProperty(exports, "BalanceHeaderV4", { enumerable: true, get: function () { return BalanceHeaderV4_1.BalanceHeaderV4; } });
+var BudgetBarV4_1 = require("./BudgetBarV4");
+Object.defineProperty(exports, "BudgetBarV4", { enumerable: true, get: function () { return BudgetBarV4_1.BudgetBarV4; } });
+var CreditCardViewV4_1 = require("./CreditCardViewV4");
+Object.defineProperty(exports, "CreditCardViewV4", { enumerable: true, get: function () { return CreditCardViewV4_1.CreditCardViewV4; } });
+var ExchangeRateRowV4_1 = require("./ExchangeRateRowV4");
+Object.defineProperty(exports, "ExchangeRateRowV4", { enumerable: true, get: function () { return ExchangeRateRowV4_1.ExchangeRateRowV4; } });
+var InvoiceLineV4_1 = require("./InvoiceLineV4");
+Object.defineProperty(exports, "InvoiceLineV4", { enumerable: true, get: function () { return InvoiceLineV4_1.InvoiceLineV4; } });
+var MoneyAmountV4_1 = require("./MoneyAmountV4");
+Object.defineProperty(exports, "MoneyAmountV4", { enumerable: true, get: function () { return MoneyAmountV4_1.MoneyAmountV4; } });
+var PaymentMethodRowV4_1 = require("./PaymentMethodRowV4");
+Object.defineProperty(exports, "PaymentMethodRowV4", { enumerable: true, get: function () { return PaymentMethodRowV4_1.PaymentMethodRowV4; } });
+var SavingsGoalCardV4_1 = require("./SavingsGoalCardV4");
+Object.defineProperty(exports, "SavingsGoalCardV4", { enumerable: true, get: function () { return SavingsGoalCardV4_1.SavingsGoalCardV4; } });
+var SpendCategoryRowV4_1 = require("./SpendCategoryRowV4");
+Object.defineProperty(exports, "SpendCategoryRowV4", { enumerable: true, get: function () { return SpendCategoryRowV4_1.SpendCategoryRowV4; } });
+var StatementListV4_1 = require("./StatementListV4");
+Object.defineProperty(exports, "StatementListV4", { enumerable: true, get: function () { return StatementListV4_1.StatementListV4; } });
+var TransactionRowV4_1 = require("./TransactionRowV4");
+Object.defineProperty(exports, "TransactionRowV4", { enumerable: true, get: function () { return TransactionRowV4_1.TransactionRowV4; } });
+var TransferFormV4_1 = require("./TransferFormV4");
+Object.defineProperty(exports, "TransferFormV4", { enumerable: true, get: function () { return TransferFormV4_1.TransferFormV4; } });
 //# sourceMappingURL=index.js.map

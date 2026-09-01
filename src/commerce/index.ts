@@ -51,3 +51,46 @@ export type { StatusBadgeProps, OrderStatus } from './StatusBadge';
 // of it) working.
 export { EmptyState } from './EmptyState';
 export type { EmptyStateProps } from './EmptyState';
+
+/* ------------------------------------------------------------------------ *
+ * The V4 line
+ *
+ * Eleven components on the current design pattern. See
+ * `COMMERCE-MARKETPLACE-V4-BRIEF.md` — commerce and marketplace were upgraded
+ * as one surface, because a listing composes the same price, status and row a
+ * cart and a checkout do.
+ *
+ * `CheckoutSummaryV4` is `OrderSummaryV4` under its checkout-time name, which
+ * is the shape the base and both alternate lines already have.
+ * ------------------------------------------------------------------------ */
+
+export { CartLineItemV4 } from './CartLineItemV4';
+export type { CartLineItemV4Props } from './CartLineItemV4';
+
+export { CartSummaryV4 } from './CartSummaryV4';
+export type { CartSummaryV4Props } from './CartSummaryV4';
+
+export { OrderSummaryV4, CheckoutSummaryV4 } from './OrderSummaryV4';
+export type {
+  OrderSummaryV4Props,
+  CheckoutSummaryV4Props,
+  OrderSummaryV4Empty,
+} from './OrderSummaryV4';
+
+export { QuantityStepperV4 } from './QuantityStepperV4';
+export type { QuantityStepperV4Props, QuantityStepperV4Size } from './QuantityStepperV4';
+
+export { ProductCardV4 } from './ProductCardV4';
+export type { ProductCardV4Props, ProductCardV4Aspect } from './ProductCardV4';
+
+export { ProductGridV4 } from './ProductGridV4';
+export type { ProductGridV4Props } from './ProductGridV4';
+
+export { EmptyStateV4 } from './EmptyStateV4';
+export type { EmptyStateV4Props } from './EmptyStateV4';
+
+export { StatusBadgeV4 } from './StatusBadgeV4';
+export type { StatusBadgeV4Props } from './StatusBadgeV4';
+
+export { GenerativeCoverV4 } from './GenerativeCoverV4';
+export type { GenerativeCoverV4Props } from './GenerativeCoverV4';

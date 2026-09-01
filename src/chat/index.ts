@@ -69,3 +69,17 @@ export type { UnreadDividerProps } from './UnreadDivider';
 
 export { PresenceDot } from './PresenceDot';
 export type { PresenceDotProps, Presence } from './PresenceDot';
+
+export { AttachmentBarV4, type AttachmentBarV4Props } from './AttachmentBarV4';
+export { ChatHeaderV4, type ChatHeaderV4Props } from './ChatHeaderV4';
+export { ConversationListV4, type ConversationListV4Props } from './ConversationListV4';
+export { ConversationRowV4, type ConversationRowV4Props } from './ConversationRowV4';
+export { DateSeparatorV4, type DateSeparatorV4Props } from './DateSeparatorV4';
+export { MessageComposerV4, type MessageComposerV4Props } from './MessageComposerV4';
+export { MessageGroupV4, type MessageGroupV4Props } from './MessageGroupV4';
+export { PresenceDotV4, type PresenceDotV4Props } from './PresenceDotV4';
+export { QuickRepliesV4, type QuickRepliesV4Props } from './QuickRepliesV4';
+export { ReadReceiptV4, type ReadReceiptV4Props } from './ReadReceiptV4';
+export { TypingIndicatorV4, type TypingIndicatorV4Props } from './TypingIndicatorV4';
+export { UnreadDividerV4, type UnreadDividerV4Props } from './UnreadDividerV4';
+export { VoiceNoteBubbleV4, type VoiceNoteBubbleV4Props } from './VoiceNoteBubbleV4';

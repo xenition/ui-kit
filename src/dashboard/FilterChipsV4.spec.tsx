@@ -5,6 +5,8 @@ import { XenitionUIProvider } from '../provider';
 import type { ThemeSeed } from '../theme/types';
 import { FilterChips } from './FilterChips';
 import { FilterChipsV4 } from './FilterChipsV4';
+import { V4_STATE_STYLE_ID } from '../primitives/internal/v4-state';
+import { transitionCss, V4_MOTION } from '../primitives/internal/v4-motion';
 
 const SEED: ThemeSeed = {
   primary: '#7C3AED',
@@ -335,5 +337,29 @@ describe('FilterChipsV4 (web)', () => {
     );
     expect(container.querySelectorAll('button')).toHaveLength(3);
     expect(container.querySelector('[data-xen-v4-chip]')).toBeNull();
+  });
+
+  // ── §36: the ring and the fill move together ──────────────────────
+
+  /*
+    The chip carries both a ground and a ring — `border-primary bg-primary`
+    selected, `border-border bg-card` not — and the shared state sheet used to
+    transition the ground alone. The fill eased over `quick` while the ring
+    snapped on the first frame, which is a visible seam on every toggle.
+  */
+  it('eases the chip’s border with its ground, from one shared transition', () => {
+    const { container } = renderThemed(
+      <FilterChipsV4 options={['All', 'Open']} selected="All" onChange={() => {}} />
+    );
+    const chip = chips(container)[0] as HTMLButtonElement;
+
+    expect(chip.hasAttribute('data-xen-v4-state')).toBe(true);
+    expect(chip.className).toContain('border');
+
+    const state = document.getElementById(V4_STATE_STYLE_ID)?.textContent ?? '';
+    expect(state).toContain(
+      `transition: ${transitionCss(['background-color', 'border-color'], V4_MOTION.quick)};`
+    );
+    expect(state).toContain('[data-xen-v4-state] { transition: none; }');
   });
 });

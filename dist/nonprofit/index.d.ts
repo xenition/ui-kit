@@ -50,6 +50,18 @@ export { MatchingGiftBanner } from './MatchingGiftBanner';
 export type { MatchingGiftBannerProps, MatchingGiftVariant } from './MatchingGiftBanner';
 export { ThankYouCard } from './ThankYouCard';
 export type { ThankYouCardProps, ThankYouCardVariant } from './ThankYouCard';
+export { CampaignProgressV4, type CampaignProgressV4Props } from './CampaignProgressV4';
+export { CauseCardV4, type CauseCardV4Props } from './CauseCardV4';
+export { DonationCardV4, type DonationCardV4Props } from './DonationCardV4';
+export { DonorRowV4, type DonorRowV4Props } from './DonorRowV4';
+export { EventTicketRowV4, type EventTicketRowV4Props } from './EventTicketRowV4';
+export { FundraiserCardV4, type FundraiserCardV4Props } from './FundraiserCardV4';
+export { ImpactStatV4, type ImpactStatV4Props } from './ImpactStatV4';
+export { MatchingGiftBannerV4, type MatchingGiftBannerV4Props } from './MatchingGiftBannerV4';
+export { PledgeRowV4, type PledgeRowV4Props } from './PledgeRowV4';
+export { RecurringGiftRowV4, type RecurringGiftRowV4Props } from './RecurringGiftRowV4';
+export { ThankYouCardV4, type ThankYouCardV4Props } from './ThankYouCardV4';
+export { VolunteerShiftV4, type VolunteerShiftV4Props } from './VolunteerShiftV4';
 export { formatMoney, goalPct } from './internal';
 export type { MoneyFormatter } from './internal';
 //# sourceMappingURL=index.d.ts.map

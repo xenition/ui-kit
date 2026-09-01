@@ -39,6 +39,8 @@ const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const theme_1 = require("../theme");
 const picker_v4_1 = require("./internal/picker-v4");
+const motion_v4_1 = require("./internal/motion-v4");
+const useReducedMotion_1 = require("./internal/useReducedMotion");
 /**
  * Split a label around the first case-insensitive occurrence of `query`.
  * Returns `[before, match, after]`, with `match` empty when there is no hit.
@@ -84,10 +86,25 @@ function splitMatch(label, query) {
  * A pressed row is filled with `pressFill`, an opaque mix against the panel's
  * own surface rather than `colors.border`, so the feedback is a wash rather
  * than a slab.
+ *
+ * ## The panel arrives
+ *
+ * It used to be a bare `{showPanel ? … : null}` — the only member of the
+ * native picker line with no `Animated` in it at all, while its own web twin
+ * faded and `ComboboxV4`, `DatePickerV4` and `TimePickerV4` beside it all rose
+ * and faded over `PICKER_MOTION.popover` with `EASING_ENTER`. A list of
+ * answers that blinks into existence under the keyboard reads as a glitch, and
+ * the arrival is the cue that says *these are for what you just typed*.
+ *
+ * `EASING_ENTER` because it is an arrival, and the same `xs` rise the web
+ * sheet's `xen-v4-picker-in` keyframe uses, so the two twins move on one arc.
+ * Under `useReducedMotion()` the panel is simply there — small, anchored, and
+ * not something whose sudden presence reads as a fault (§36.10).
  */
 function AutoCompleteV4({ options, value = '', onChange, onSelect, placeholder = 'Type to search…', maxResults = 6, invalid = false, disabled = false, accessibilityLabel = 'Autocomplete', style, }) {
     const theme = (0, theme_1.useXenitionTheme)();
     const { colors, tokens } = theme;
+    const reduced = (0, useReducedMotion_1.useReducedMotion)();
     const [focused, setFocused] = React.useState(false);
     const query = value.trim();
     const matches = React.useMemo(() => {
@@ -101,6 +118,25 @@ function AutoCompleteV4({ options, value = '', onChange, onSelect, placeholder =
     const showPanel = focused && query.length > 0;
     const target = (0, picker_v4_1.tapTarget)(theme);
     const press = (0, picker_v4_1.pressFill)(theme);
+    const enter = React.useRef(new react_native_1.Animated.Value(0)).current;
+    React.useEffect(() => {
+        if (!showPanel) {
+            enter.setValue(0);
+            return undefined;
+        }
+        if (reduced) {
+            enter.setValue(1);
+            return undefined;
+        }
+        const anim = react_native_1.Animated.timing(enter, {
+            toValue: 1,
+            duration: picker_v4_1.PICKER_MOTION.popover,
+            easing: motion_v4_1.EASING_ENTER,
+            useNativeDriver: true,
+        });
+        anim.start();
+        return () => anim.stop();
+    }, [enter, reduced, showPanel]);
     const choose = (opt) => {
         onChange?.(opt.label);
         onSelect?.(opt);
@@ -112,9 +148,21 @@ function AutoCompleteV4({ options, value = '', onChange, onSelect, placeholder =
                             fontFamily: tokens.typography.fontBody,
                             fontSize: tokens.typography.scale.base,
                             padding: 0,
-                        } }) }) }), showPanel ? ((0, jsx_runtime_1.jsx)(react_native_1.View, { accessibilityLabel: "Suggestions", style: [
+                        } }) }) }), showPanel ? ((0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { accessibilityLabel: "Suggestions", style: [
                     (0, picker_v4_1.popoverSkin)(theme, 'card'),
-                    { marginTop: tokens.spacing.xs, overflow: 'hidden' },
+                    {
+                        marginTop: tokens.spacing.xs,
+                        overflow: 'hidden',
+                        opacity: enter,
+                        transform: [
+                            {
+                                translateY: enter.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [-tokens.spacing.xs, 0],
+                                }),
+                            },
+                        ],
+                    },
                 ], children: matches.length === 0 ? ((0, jsx_runtime_1.jsx)(react_native_1.Text, { accessibilityLiveRegion: "polite", style: {
                         color: colors.mutedText,
                         fontFamily: tokens.typography.fontBody,

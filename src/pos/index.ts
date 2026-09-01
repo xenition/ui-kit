@@ -93,3 +93,52 @@ export type {
   CashMovementKind,
   DiscountType,
 } from './internal';
+
+/*
+ * ── V4 "register" (tactile checkout) design line ──
+ * A drop-in V4 variant for each of the 13 originals: crisp tactile surfaces with
+ * bold, prominent totals (tabular-nums), satisfying press/selected states, big
+ * ≥44px controls, and a brand gradient reserved for the checkout moments
+ * (payment success, sales summary, register header, the charge button). Base/
+ * V2/V3 untouched; V4 is additive. Token-driven, dark-mode safe, web + native.
+ */
+export { ProductGridTileV4 } from './ProductGridTileV4';
+export type { ProductGridTileV4Props } from './ProductGridTileV4';
+export { CartLineV4 } from './CartLineV4';
+export type { CartLineV4Props } from './CartLineV4';
+export { ReceiptViewV4 } from './ReceiptViewV4';
+export type { ReceiptViewV4Props } from './ReceiptViewV4';
+export { RegisterKeypadV4 } from './RegisterKeypadV4';
+export type { RegisterKeypadV4Props } from './RegisterKeypadV4';
+export { QuickChargeBarV4 } from './QuickChargeBarV4';
+export type { QuickChargeBarV4Props } from './QuickChargeBarV4';
+export { PaymentMethodTileV4 } from './PaymentMethodTileV4';
+export type { PaymentMethodTileV4Props } from './PaymentMethodTileV4';
+export { OrderTicketV4 } from './OrderTicketV4';
+export type { OrderTicketV4Props } from './OrderTicketV4';
+export { DiscountRowV4 } from './DiscountRowV4';
+export type { DiscountRowV4Props } from './DiscountRowV4';
+export { RefundRowV4 } from './RefundRowV4';
+export type { RefundRowV4Props } from './RefundRowV4';
+export { SplitBillRowV4 } from './SplitBillRowV4';
+export type { SplitBillRowV4Props } from './SplitBillRowV4';
+export { CashDrawerRowV4 } from './CashDrawerRowV4';
+export type { CashDrawerRowV4Props } from './CashDrawerRowV4';
+export { ShiftReportV4 } from './ShiftReportV4';
+export type { ShiftReportV4Props } from './ShiftReportV4';
+export { StatusPillV4 } from './StatusPillV4';
+export type { StatusPillV4Props } from './StatusPillV4';
+
+/* ── New components (V4 register line) ── */
+export { PaymentSuccess } from './PaymentSuccess';
+export type { PaymentSuccessProps } from './PaymentSuccess';
+export { SalesSummary } from './SalesSummary';
+export type { SalesSummaryProps, SalesSummaryTopItem } from './SalesSummary';
+export { RegisterHeader } from './RegisterHeader';
+export type { RegisterHeaderProps } from './RegisterHeader';
+export { CheckoutSummary } from './CheckoutSummary';
+export type { CheckoutSummaryProps } from './CheckoutSummary';
+export { TipSelector } from './TipSelector';
+export type { TipSelectorProps } from './TipSelector';
+export { CategoryTabs } from './CategoryTabs';
+export type { CategoryTabsProps, CategoryTab } from './CategoryTabs';
