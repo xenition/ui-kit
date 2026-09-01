@@ -68,3 +68,30 @@ export type { SafetyChecklistProps, SafetyItem, SafetyVerdict } from './SafetyCh
 // Shared money/format home (re-exported for ergonomics; mirrors sibling modules).
 export { formatMoney, formatDuration, formatPct } from './internal/format';
 export type { MoneyFormatter } from './internal/format';
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `EVENTS-FIELDSERVICE-V4-BRIEF.md`.
+// Each is a drop-in for its base — same props plus optional additions.
+export { DispatchBarV4 } from './DispatchBarV4';
+export type { DispatchBarV4Props } from './DispatchBarV4';
+export { EquipmentRowV4 } from './EquipmentRowV4';
+export type { EquipmentRowV4Props } from './EquipmentRowV4';
+export { InspectionRowV4 } from './InspectionRowV4';
+export type { InspectionRowV4Props } from './InspectionRowV4';
+export { JobSiteCardV4 } from './JobSiteCardV4';
+export type { JobSiteCardV4Props } from './JobSiteCardV4';
+export { MaterialsRowV4 } from './MaterialsRowV4';
+export type { MaterialsRowV4Props } from './MaterialsRowV4';
+export { PunchListItemV4 } from './PunchListItemV4';
+export type { PunchListItemV4Props } from './PunchListItemV4';
+export { SafetyChecklistV4 } from './SafetyChecklistV4';
+export type { SafetyChecklistV4Props } from './SafetyChecklistV4';
+export { ServiceChecklistV4 } from './ServiceChecklistV4';
+export type { ServiceChecklistV4Props } from './ServiceChecklistV4';
+export { SignaturePadV4 } from './SignaturePadV4';
+export type { SignaturePadV4Props } from './SignaturePadV4';
+export { TechnicianCardV4 } from './TechnicianCardV4';
+export type { TechnicianCardV4Props } from './TechnicianCardV4';
+export { TimeLogRowV4 } from './TimeLogRowV4';
+export type { TimeLogRowV4Props } from './TimeLogRowV4';
+export { WorkOrderCardV4 } from './WorkOrderCardV4';
+export type { WorkOrderCardV4Props } from './WorkOrderCardV4';

@@ -9,7 +9,7 @@
  * `onPress` → `onClick`. Import from `@xenition/ui/productivity`.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReminderRow = exports.NoteCardV3 = exports.NoteCardV2 = exports.NoteCard = exports.MilestoneRowV3 = exports.MilestoneRowV2 = exports.MilestoneRow = exports.TimeTracker = exports.LabelChip = exports.SubtaskList = exports.BoardColumn = exports.AssigneeGroup = exports.DueDatePill = exports.ProjectCardV3 = exports.ProjectCardV2 = exports.ProjectCard = exports.PriorityTag = exports.ChecklistItem = exports.TaskRowV3 = exports.TaskRowV2 = exports.TaskRow = void 0;
+exports.ActivityFeed = exports.CalendarStrip = exports.QuickAddTask = exports.WeeklyReview = exports.TodayHeader = exports.ProjectHeader = exports.AssigneeGroupV4 = exports.DueDatePillV4 = exports.LabelChipV4 = exports.PriorityTagV4 = exports.TimeTrackerV4 = exports.ReminderRowV4 = exports.BoardColumnV4 = exports.SubtaskListV4 = exports.ChecklistItemV4 = exports.MilestoneRowV4 = exports.NoteCardV4 = exports.ProjectCardV4 = exports.TaskRowV4 = exports.ReminderRow = exports.NoteCardV3 = exports.NoteCardV2 = exports.NoteCard = exports.MilestoneRowV3 = exports.MilestoneRowV2 = exports.MilestoneRow = exports.TimeTracker = exports.LabelChip = exports.SubtaskList = exports.BoardColumn = exports.AssigneeGroup = exports.DueDatePill = exports.ProjectCardV3 = exports.ProjectCardV2 = exports.ProjectCard = exports.PriorityTag = exports.ChecklistItem = exports.TaskRowV3 = exports.TaskRowV2 = exports.TaskRow = void 0;
 var TaskRow_1 = require("./TaskRow");
 Object.defineProperty(exports, "TaskRow", { enumerable: true, get: function () { return TaskRow_1.TaskRow; } });
 var TaskRowV2_1 = require("./TaskRowV2");
@@ -52,4 +52,51 @@ var NoteCardV3_1 = require("./NoteCardV3");
 Object.defineProperty(exports, "NoteCardV3", { enumerable: true, get: function () { return NoteCardV3_1.NoteCardV3; } });
 var ReminderRow_1 = require("./ReminderRow");
 Object.defineProperty(exports, "ReminderRow", { enumerable: true, get: function () { return ReminderRow_1.ReminderRow; } });
+/*
+ * ── V4 "flow" (focused task-workspace) design line ──
+ * A drop-in V4 variant for each of the 13 originals: calm legible task surfaces
+ * where completing a task settles into a soft-success glow, one primary accent,
+ * soft-primary progress, and a brand gradient reserved for the focus moments
+ * (project header, today dashboard, weekly review). Base/V2/V3 untouched; V4 is
+ * additive. Token-driven, dark-mode safe, web + native.
+ */
+var TaskRowV4_1 = require("./TaskRowV4");
+Object.defineProperty(exports, "TaskRowV4", { enumerable: true, get: function () { return TaskRowV4_1.TaskRowV4; } });
+var ProjectCardV4_1 = require("./ProjectCardV4");
+Object.defineProperty(exports, "ProjectCardV4", { enumerable: true, get: function () { return ProjectCardV4_1.ProjectCardV4; } });
+var NoteCardV4_1 = require("./NoteCardV4");
+Object.defineProperty(exports, "NoteCardV4", { enumerable: true, get: function () { return NoteCardV4_1.NoteCardV4; } });
+var MilestoneRowV4_1 = require("./MilestoneRowV4");
+Object.defineProperty(exports, "MilestoneRowV4", { enumerable: true, get: function () { return MilestoneRowV4_1.MilestoneRowV4; } });
+var ChecklistItemV4_1 = require("./ChecklistItemV4");
+Object.defineProperty(exports, "ChecklistItemV4", { enumerable: true, get: function () { return ChecklistItemV4_1.ChecklistItemV4; } });
+var SubtaskListV4_1 = require("./SubtaskListV4");
+Object.defineProperty(exports, "SubtaskListV4", { enumerable: true, get: function () { return SubtaskListV4_1.SubtaskListV4; } });
+var BoardColumnV4_1 = require("./BoardColumnV4");
+Object.defineProperty(exports, "BoardColumnV4", { enumerable: true, get: function () { return BoardColumnV4_1.BoardColumnV4; } });
+var ReminderRowV4_1 = require("./ReminderRowV4");
+Object.defineProperty(exports, "ReminderRowV4", { enumerable: true, get: function () { return ReminderRowV4_1.ReminderRowV4; } });
+var TimeTrackerV4_1 = require("./TimeTrackerV4");
+Object.defineProperty(exports, "TimeTrackerV4", { enumerable: true, get: function () { return TimeTrackerV4_1.TimeTrackerV4; } });
+var PriorityTagV4_1 = require("./PriorityTagV4");
+Object.defineProperty(exports, "PriorityTagV4", { enumerable: true, get: function () { return PriorityTagV4_1.PriorityTagV4; } });
+var LabelChipV4_1 = require("./LabelChipV4");
+Object.defineProperty(exports, "LabelChipV4", { enumerable: true, get: function () { return LabelChipV4_1.LabelChipV4; } });
+var DueDatePillV4_1 = require("./DueDatePillV4");
+Object.defineProperty(exports, "DueDatePillV4", { enumerable: true, get: function () { return DueDatePillV4_1.DueDatePillV4; } });
+var AssigneeGroupV4_1 = require("./AssigneeGroupV4");
+Object.defineProperty(exports, "AssigneeGroupV4", { enumerable: true, get: function () { return AssigneeGroupV4_1.AssigneeGroupV4; } });
+/* ── New components (V4 flow line) ── */
+var ProjectHeader_1 = require("./ProjectHeader");
+Object.defineProperty(exports, "ProjectHeader", { enumerable: true, get: function () { return ProjectHeader_1.ProjectHeader; } });
+var TodayHeader_1 = require("./TodayHeader");
+Object.defineProperty(exports, "TodayHeader", { enumerable: true, get: function () { return TodayHeader_1.TodayHeader; } });
+var WeeklyReview_1 = require("./WeeklyReview");
+Object.defineProperty(exports, "WeeklyReview", { enumerable: true, get: function () { return WeeklyReview_1.WeeklyReview; } });
+var QuickAddTask_1 = require("./QuickAddTask");
+Object.defineProperty(exports, "QuickAddTask", { enumerable: true, get: function () { return QuickAddTask_1.QuickAddTask; } });
+var CalendarStrip_1 = require("./CalendarStrip");
+Object.defineProperty(exports, "CalendarStrip", { enumerable: true, get: function () { return CalendarStrip_1.CalendarStrip; } });
+var ActivityFeed_1 = require("./ActivityFeed");
+Object.defineProperty(exports, "ActivityFeed", { enumerable: true, get: function () { return ActivityFeed_1.ActivityFeed; } });
 //# sourceMappingURL=index.js.map

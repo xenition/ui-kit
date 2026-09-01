@@ -12,6 +12,16 @@ interface ToastContextValue {
     toast: (options: ToastOptions) => number;
     dismiss: (id: number) => void;
 }
+/**
+ * The one toast context in the kit.
+ *
+ * Exported so `ToastProviderV4` can provide THIS context rather than declaring
+ * a second one. Two contexts for one API is not a styling difference — every
+ * component already calling `useToast()` would read this one, find nothing, and
+ * throw. Deliberately kept out of the package barrel: it is shared with the V4
+ * twin, not part of the public surface.
+ */
+export declare const ToastContext: React.Context<ToastContextValue | null>;
 /** Access the toast API. Must be used within a `<ToastProvider>`. */
 export declare function useToast(): ToastContextValue;
 /**

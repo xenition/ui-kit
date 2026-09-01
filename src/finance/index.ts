@@ -77,3 +77,35 @@ export type { MoneyFormatter } from '../commerce/money';
 
 // Number-masking utilities used by the card / account / payment components.
 export { maskCardNumber, maskAccountNumber } from './internal/mask';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `FINANCE-FOOD-V4-BRIEF.md` §1.2,
+// §2 and §3. Each takes exactly its base's props plus a few optional ones,
+// every one defaulting to today's behaviour — so swapping `X` for `XV4` buys
+// the fixes and no surprises.
+export { AccountCardV4 } from './AccountCardV4';
+export type { AccountCardV4Props } from './AccountCardV4';
+export { BalanceHeaderV4 } from './BalanceHeaderV4';
+export type { BalanceHeaderV4Props } from './BalanceHeaderV4';
+export { BudgetBarV4 } from './BudgetBarV4';
+export type { BudgetBarV4Props } from './BudgetBarV4';
+export { CreditCardViewV4 } from './CreditCardViewV4';
+export type { CreditCardViewV4Props } from './CreditCardViewV4';
+export { ExchangeRateRowV4 } from './ExchangeRateRowV4';
+export type { ExchangeRateRowV4Props } from './ExchangeRateRowV4';
+export { InvoiceLineV4 } from './InvoiceLineV4';
+export type { InvoiceLineV4Props } from './InvoiceLineV4';
+export { MoneyAmountV4 } from './MoneyAmountV4';
+export type { MoneyAmountV4Props } from './MoneyAmountV4';
+export { PaymentMethodRowV4 } from './PaymentMethodRowV4';
+export type { PaymentMethodRowV4Props } from './PaymentMethodRowV4';
+export { SavingsGoalCardV4 } from './SavingsGoalCardV4';
+export type { SavingsGoalCardV4Props } from './SavingsGoalCardV4';
+export { SpendCategoryRowV4 } from './SpendCategoryRowV4';
+export type { SpendCategoryRowV4Props } from './SpendCategoryRowV4';
+export { StatementListV4 } from './StatementListV4';
+export type { StatementListV4Props } from './StatementListV4';
+export { TransactionRowV4 } from './TransactionRowV4';
+export type { TransactionRowV4Props } from './TransactionRowV4';
+export { TransferFormV4 } from './TransferFormV4';
+export type { TransferFormV4Props } from './TransferFormV4';

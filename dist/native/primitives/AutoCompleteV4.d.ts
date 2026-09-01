@@ -33,6 +33,20 @@ export type { AutoCompleteProps as AutoCompleteV4Props, AutoCompleteOption };
  * A pressed row is filled with `pressFill`, an opaque mix against the panel's
  * own surface rather than `colors.border`, so the feedback is a wash rather
  * than a slab.
+ *
+ * ## The panel arrives
+ *
+ * It used to be a bare `{showPanel ? … : null}` — the only member of the
+ * native picker line with no `Animated` in it at all, while its own web twin
+ * faded and `ComboboxV4`, `DatePickerV4` and `TimePickerV4` beside it all rose
+ * and faded over `PICKER_MOTION.popover` with `EASING_ENTER`. A list of
+ * answers that blinks into existence under the keyboard reads as a glitch, and
+ * the arrival is the cue that says *these are for what you just typed*.
+ *
+ * `EASING_ENTER` because it is an arrival, and the same `xs` rise the web
+ * sheet's `xen-v4-picker-in` keyframe uses, so the two twins move on one arc.
+ * Under `useReducedMotion()` the panel is simply there — small, anchored, and
+ * not something whose sudden presence reads as a fault (§36.10).
  */
 export declare function AutoCompleteV4({ options, value, onChange, onSelect, placeholder, maxResults, invalid, disabled, accessibilityLabel, style, }: AutoCompleteProps): React.ReactElement;
 //# sourceMappingURL=AutoCompleteV4.d.ts.map

@@ -21,4 +21,14 @@ export type { MarqueeProps } from './Marquee';
 export { AnimatedCounter } from './AnimatedCounter';
 export type { AnimatedCounterProps } from './AnimatedCounter';
 export { useReducedMotion } from '../primitives/internal/useReducedMotion';
+export { RevealV4 } from './RevealV4';
+export type { RevealV4Props, RevealV4Effect } from './RevealV4';
+export { StaggerV4, STAGGER_V4_MAX_DELAY } from './StaggerV4';
+export type { StaggerV4Props } from './StaggerV4';
+export { AnimatedCounterV4, COUNT_MS } from './AnimatedCounterV4';
+export type { AnimatedCounterV4Props } from './AnimatedCounterV4';
+export { MarqueeV4 } from './MarqueeV4';
+export type { MarqueeV4Props } from './MarqueeV4';
+export { ParallaxV4, PARALLAX_MAX_SPEED, clampParallaxSpeed } from './ParallaxV4';
+export type { ParallaxV4Props } from './ParallaxV4';
 //# sourceMappingURL=index.d.ts.map

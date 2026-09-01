@@ -1,6 +1,25 @@
 import * as React from 'react';
 import type { ProgressProps, ProgressTone } from './Progress';
 export type { ProgressProps as ProgressV4Props, ProgressTone };
+/** The one `<style>` id this component injects from. Idempotent. */
+export declare const PROGRESS_V4_STYLE_ID = "xen-v4-progress-styles";
+/**
+ * The width ease, sourced from the scale rather than typed.
+ *
+ * This was `transition-[width] duration-200 motion-reduce:transition-none`.
+ * The number was right — its own comment said so, "200ms is M3 `standard`" —
+ * but it was a *copy* of the scale's value rather than a reference to it, and
+ * a copy is the thing `internal/v4-motion.ts` exists to stop: retune
+ * `standard` and this bar silently keeps the old number.
+ *
+ * It cannot stay a utility class and still read the scale, because a Tailwind
+ * class has to be legible to a static scanner and `duration-[${…}ms]` is not.
+ * So it becomes a sheet, which is what the rest of the V4 line does with any
+ * declaration a class bound to a token cannot express — and which is also how
+ * §36.10 is honoured here: the reduced-motion relief is a media block rather
+ * than a variant class, so the two live in one place.
+ */
+export declare const PROGRESS_V4_CSS: string;
 /**
  * **V4 progress** — the web twin of the native `ProgressV4`, same props as
  * {@link Progress}, a different design line.
@@ -52,9 +71,10 @@ export type { ProgressProps as ProgressV4Props, ProgressTone };
  *
  * ## Motion
  *
- * The width eases over 300ms so a jump reads as movement rather than as a
- * repaint (§36.6, animate state changes). Under `prefers-reduced-motion` it
- * snaps — the number is in the DOM either way, so nothing is lost (§36.10).
+ * The width eases at the scale's `standard` so a jump reads as movement rather
+ * than as a repaint (§36.6, animate state changes). Under
+ * `prefers-reduced-motion` it snaps — the number is in the DOM either way, so
+ * nothing is lost (§36.10). Both live in {@link PROGRESS_V4_CSS}.
  */
 export declare const ProgressV4: React.ForwardRefExoticComponent<ProgressProps & React.RefAttributes<HTMLDivElement>>;
 //# sourceMappingURL=ProgressV4.d.ts.map

@@ -17,6 +17,29 @@ import { CommentItemV3 } from './CommentItemV3';
 import { StoryBarV2 } from './StoryBarV2';
 import { StoryBarV3 } from './StoryBarV3';
 import type { PostVariant } from './PostCard';
+import {
+  PostCardV4,
+  CommentItemV4,
+  StoryBarV4,
+  UserCardV4,
+  EngagementBarV4,
+  ReactionBarV4,
+  FollowButtonV4,
+  HashtagChipV4,
+  MentionTextV4,
+  PollV4,
+  ProfileStatsV4,
+  ShareSheetV4,
+  StoryRingV4,
+  FeedListV4,
+  ProfileHeader,
+  StoryViewer,
+  PostComposer,
+  NotificationRow,
+  TrendingCard,
+  SuggestedUsers,
+  type PostAuthor,
+} from './index';
 
 const SEEDS: ReadonlyArray<ThemeSeed> = [SEED_LIGHT, SEED_DARK];
 const POST_VARIANTS: ReadonlyArray<PostVariant> = ['text', 'image', 'link', 'video'];
@@ -211,5 +234,186 @@ describe('StoryBar alternate designs (V2 / V3, native)', () => {
     );
     fireEvent.press(getByLabelText('Ada'));
     expect(onPressStory).toHaveBeenCalledWith('s1');
+  });
+});
+
+// ── V4 "feed" line (native) ── aggregate both-seeds render + token-purity.
+const v4Author: PostAuthor = { name: 'Ada Lovelace', handle: 'ada', verified: true };
+const v4Stories = [
+  { id: 's1', name: 'Ada', state: 'unseen' as const, src: 'https://example.com/a.jpg' },
+  { id: 's2', name: 'Grace', state: 'live' as const },
+  { id: 's3', name: 'Lin', state: 'seen' as const },
+];
+
+describe('social V4 "feed" line (native)', () => {
+  // All 14 V4 variants — including the gradient pieces (StoryBarV4, StoryRingV4)
+  // — mount in one aggregate tree per seed so every rendered hex traces to a
+  // compiled token across both light and dark seeds.
+  SEEDS.forEach((seed) => {
+    it(`mounts all 14 V4 variants token-pure (${seed.mode})`, () => {
+      const { getAllByText, root } = renderThemed(
+        <>
+          <PostCardV4
+            variant="image"
+            author={v4Author}
+            timestamp="3h"
+            text="shipping @grace #v4 today"
+            imageUrl="https://example.com/a.jpg"
+            likeCount={5}
+            commentCount={2}
+            liked
+            onLike={() => undefined}
+            onComment={() => undefined}
+          />
+          <CommentItemV4 author="Ada" handle="ada" text="nice @grace #v4" timestamp="2h" likeCount={3} liked pinned onLike={() => undefined} onReply={() => undefined}>
+            <CommentItemV4 author="Grace" text="thanks!" timestamp="1h" depth={1} />
+          </CommentItemV4>
+          <StoryBarV4 stories={v4Stories} onPressStory={() => undefined} onPressAdd={() => undefined} />
+          <StoryRingV4 name="Ada" state="unseen" onPress={() => undefined} />
+          <UserCardV4
+            variant="card"
+            user={{ name: 'Ada', handle: 'ada', bio: 'Mathematician', verified: true }}
+            stats={[{ label: 'Posts', value: 12 }, { label: 'Followers', value: '3.4k' }]}
+            followState="follow"
+            onFollow={() => undefined}
+          />
+          <EngagementBarV4 likeCount={5} commentCount={2} shareCount={1} liked onLike={() => undefined} onComment={() => undefined} onShare={() => undefined} onBookmark={() => undefined} />
+          <ReactionBarV4
+            reactions={[
+              { key: 'like', emoji: '👍', count: 4, reacted: true, label: 'Like' },
+              { key: 'love', emoji: '❤️', count: 2, label: 'Love' },
+            ]}
+            onReact={() => undefined}
+            onAddReaction={() => undefined}
+          />
+          <FollowButtonV4 state="follow" onPress={() => undefined} />
+          <HashtagChipV4 tag="v4" count="1.2k" onPress={() => undefined} />
+          <MentionTextV4 text="hi @grace check #v4" onPressMention={() => undefined} onPressHashtag={() => undefined} />
+          <PollV4
+            question="Best design line?"
+            options={[
+              { id: 'a', label: 'V2', votes: 3 },
+              { id: 'b', label: 'V4', votes: 7 },
+            ]}
+            votedOptionId="b"
+          />
+          <ProfileStatsV4 stats={[{ label: 'Posts', value: 12 }, { label: 'Followers', value: '3.4k' }]} dividers />
+          <ShareSheetV4 visible title="Share" targets={[{ id: 't1', label: 'Copy link', icon: '🔗' }]} onSelect={() => undefined} onClose={() => undefined} />
+          <FeedListV4 data={['p1', 'p2']} renderItem={(id: string) => <PostCardV4 key={id} author={v4Author} text={id} />} />
+        </>,
+        seed
+      );
+      expect(getAllByText('Ada Lovelace').length).toBeGreaterThan(0);
+      expectTokenPure(root, seed);
+    });
+  });
+
+  it('FollowButtonV4 fires onPress with the current state', () => {
+    const onPress = jest.fn();
+    const { getByText } = renderThemed(<FollowButtonV4 state="follow" onPress={onPress} />, SEED_LIGHT);
+    fireEvent.press(getByText('Follow'));
+    expect(onPress).toHaveBeenCalledWith('follow');
+  });
+
+  it('PollV4 fires onVote with the option id', () => {
+    const onVote = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <PollV4 question="Q?" options={[{ id: 'a', label: 'Option A' }, { id: 'b', label: 'Option B' }]} onVote={onVote} />,
+      SEED_DARK
+    );
+    fireEvent.press(getByLabelText('Option B'));
+    expect(onVote).toHaveBeenCalledWith('b');
+  });
+});
+
+describe('social V4 new blocks (native)', () => {
+  // The gradient identity moments (ProfileHeader, StoryViewer) mount in the
+  // both-seeds aggregate render alongside the surface blocks.
+  SEEDS.forEach((seed) => {
+    it(`mounts all 6 new components token-pure (${seed.mode})`, () => {
+      const { getByText, root } = renderThemed(
+        <>
+          <ProfileHeader
+            name="Ada Lovelace"
+            handle="ada"
+            verified
+            bio="Mathematician & first programmer"
+            stats={[{ label: 'Posts', value: '128' }, { label: 'Followers', value: '3.4k' }]}
+            coverUrl="https://example.com/cover.jpg"
+            following={false}
+            onFollow={() => undefined}
+          />
+          <StoryViewer
+            segments={4}
+            activeIndex={1}
+            author={{ name: 'Grace' }}
+            timeLabel="2h"
+            imageUrl="https://example.com/s.jpg"
+            caption="on tour"
+            onNext={() => undefined}
+            onPrev={() => undefined}
+            onClose={() => undefined}
+            onReply={() => undefined}
+          />
+          <PostComposer
+            authorName="Ada"
+            value="hello"
+            onChangeText={() => undefined}
+            maxLength={280}
+            onPost={() => undefined}
+            onAddPhoto={() => undefined}
+            onAddPoll={() => undefined}
+            onAddEmoji={() => undefined}
+          />
+          <NotificationRow kind="like" actor={{ name: 'Grace', verified: true }} time="2h" unread thumbnailUrl="https://example.com/t.jpg" onPress={() => undefined} />
+          <TrendingCard rank={1} category="Trending in Tech" topic="#Xenition" postCount="12.4K posts" onPress={() => undefined} onMenu={() => undefined} />
+          <SuggestedUsers
+            users={[
+              { id: 'u1', name: 'Grace', handle: 'grace', verified: true, bio: 'Compiler pioneer' },
+              { id: 'u2', name: 'Alan', handle: 'alan', following: true },
+            ]}
+            onFollow={() => undefined}
+            onPressUser={() => undefined}
+            onSeeAll={() => undefined}
+          />
+        </>,
+        seed
+      );
+      expect(getByText('Ada Lovelace')).toBeTruthy();
+      expectTokenPure(root, seed);
+    });
+  });
+
+  it('PostComposer fires onChangeText then onPost', () => {
+    const onChangeText = jest.fn();
+    const onPost = jest.fn();
+    const { getByLabelText, getByText } = renderThemed(
+      <PostComposer authorName="Ada" value="hi" onChangeText={onChangeText} onPost={onPost} />,
+      SEED_LIGHT
+    );
+    fireEvent.changeText(getByLabelText("What's on your mind?"), 'hello world');
+    expect(onChangeText).toHaveBeenCalledWith('hello world');
+    fireEvent.press(getByText('Post'));
+    expect(onPost).toHaveBeenCalledTimes(1);
+  });
+
+  it('NotificationRow fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <NotificationRow kind="comment" actor={{ name: 'Grace' }} time="1h" onPress={onPress} />,
+      SEED_DARK
+    );
+    fireEvent.press(getByLabelText(/Grace commented on your post/));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('SuggestedUsers fires onFollow with the user id', () => {
+    const onFollow = jest.fn();
+    const { getByText } = renderThemed(
+      <SuggestedUsers users={[{ id: 'u1', name: 'Grace', handle: 'grace' }]} onFollow={onFollow} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByText('Follow'));
+    expect(onFollow).toHaveBeenCalledWith('u1');
   });
 });

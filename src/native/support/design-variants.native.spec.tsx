@@ -18,6 +18,29 @@ import { SatisfactionRatingV2 } from './SatisfactionRatingV2';
 import { SatisfactionRatingV3 } from './SatisfactionRatingV3';
 import { type Ticket } from './TicketRow';
 import { type ConversationMessage } from './ConversationPanel';
+import {
+  TicketRowV4,
+  AgentStatusV4,
+  ConversationPanelV4,
+  SatisfactionRatingV4,
+  TicketPriorityV4,
+  SLABadgeV4,
+  ResolutionTimerV4,
+  CannedResponseV4,
+  MacroListV4,
+  KBArticleRowV4,
+  EscalationBannerV4,
+  QueueStatV4,
+  TicketDetailHeader,
+  AgentPerformanceCard,
+  CSATResultCard,
+  QueueOverview,
+  MessageBubble,
+  ReplyBox,
+} from './index';
+import { type Macro } from './MacroList';
+import { type CannedResponseData } from './CannedResponse';
+import { type KBArticle } from './KBArticleRow';
 
 const ticket: Ticket = {
   id: 't-9',
@@ -154,5 +177,146 @@ describe('support/design-variants — interaction', () => {
     );
     fireEvent.press(getByLabelText(/Sam, Online/));
     expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
+// ── V4 "console" line smoke coverage (native) ───────────────────────────────
+const macros: Macro[] = [
+  { id: 'mac-close', name: 'Close + notify', description: 'Solve and email the requester', actionCount: 2, glyph: '✅' },
+  { id: 'mac-refund', name: 'Issue refund', description: 'Refund + reply', actionCount: 3, glyph: '💸' },
+];
+const canned: CannedResponseData = {
+  id: 'cr-reset',
+  title: 'Password reset',
+  body: 'Follow this link to reset your password, then try again.',
+  shortcut: '/reset',
+  category: 'Account',
+};
+const kbArticle: KBArticle = {
+  id: 'kb-42',
+  title: 'Resetting your password',
+  category: 'Account',
+  views: 1280,
+  helpful: 312,
+  status: 'published',
+  updatedLabel: 'Updated 3d ago',
+};
+
+describe('support V4 "console" line (native)', () => {
+  it('renders every V4 variant token-pure across both seeds', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      const { root, getAllByText } = renderThemed(
+        <>
+          <TicketRowV4 ticket={ticket} onPress={() => {}} />
+          <TicketRowV4 ticket={{ ...ticket, status: 'solved', priority: 'low', unread: 0 }} />
+          <AgentStatusV4 presence="online" name="Sam Rivera" detail="3 chats" onPress={() => {}} />
+          <AgentStatusV4 presence="offline" name="Lee" />
+          <ConversationPanelV4 messages={messages} onReply={() => {}} />
+          <ConversationPanelV4 messages={[]} loading />
+          <SatisfactionRatingV4 variant="faces" onRate={() => {}} label="How did we do?" />
+          <SatisfactionRatingV4 value={4} variant="stars" readOnly />
+          <TicketPriorityV4 level="urgent" />
+          <TicketPriorityV4 level="normal" variant="bars" size="sm" />
+          <SLABadgeV4 state="at-risk" hint="12m left" />
+          <ResolutionTimerV4 remainingSeconds={600} />
+          <CannedResponseV4 response={canned} onInsert={() => {}} />
+          <MacroListV4 macros={macros} onApply={() => {}} />
+          <KBArticleRowV4 article={kbArticle} onPress={() => {}} />
+          <EscalationBannerV4 level="critical" title="SLA breach imminent" message="Respond within 15m." onEscalate={() => {}} />
+          <QueueStatV4 label="Open tickets" value={42} delta={3} tone="primary" glyph="📥" />
+        </>,
+        seed
+      );
+      expect(getAllByText('Payment failed on checkout').length).toBeGreaterThanOrEqual(2);
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+
+  it('TicketRowV4 fires onPress with the ticket id', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <TicketRowV4 ticket={ticket} onPress={onPress} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText(/Payment failed on checkout/));
+    expect(onPress).toHaveBeenCalledWith('t-9');
+  });
+});
+
+describe('support V4 new blocks (native)', () => {
+  it('renders all 6 new components token-pure across both seeds (gradient heroes traced)', () => {
+    [SEED_LIGHT, SEED_DARK].forEach((seed) => {
+      const { root, getByText } = renderThemed(
+        <>
+          {/* Gradient heroes — must trace their brand-ramp stops to compiled tokens. */}
+          <TicketDetailHeader
+            subject="Payment failed on checkout"
+            ticketId="#4821"
+            status="open"
+            priority="high"
+            requester="Grace Hopper"
+            assignee="Sam Rivera"
+            slaLabel="Due in 2h 05m"
+            tags={['billing', 'vip']}
+            onSolve={() => {}}
+            onAssign={() => {}}
+          />
+          <AgentPerformanceCard
+            agentName="Sam Rivera"
+            stats={[
+              { label: 'Solved', value: '128' },
+              { label: 'CSAT', value: '96%' },
+              { label: 'Avg reply', value: '4m' },
+            ]}
+            period="This week"
+          />
+          <CSATResultCard score={92} responses={148} positive={130} neutral={12} negative={6} />
+          <QueueOverview
+            title="Today"
+            stats={[
+              { label: 'Open', value: 42, tone: 'primary', delta: 3 },
+              { label: 'Breached SLA', value: 5, tone: 'danger', delta: -2 },
+            ]}
+          />
+          <MessageBubble author="Grace" body="Still cannot pay." side="customer" time="2:14 PM" />
+          <MessageBubble author="Sam" body="Checking the gateway now." side="agent" time="2:15 PM" status="sent" />
+          <ReplyBox
+            value="Thanks"
+            onChangeText={() => {}}
+            onSend={() => {}}
+            cannedReplies={[{ id: 'greet', label: 'Greeting', body: 'Hi there!' }]}
+          />
+        </>,
+        seed
+      );
+      expect(getByText('Payment failed on checkout')).toBeTruthy();
+      const allowed = tokenHexSet(seed);
+      const found = renderedStyleHexes(root);
+      expect(found.length).toBeGreaterThan(0);
+      found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
+    });
+  });
+
+  it('ReplyBox fires onSend', () => {
+    const onSend = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <ReplyBox value="Refund issued." onChangeText={() => {}} onSend={onSend} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('Send'));
+    expect(onSend).toHaveBeenCalledTimes(1);
+  });
+
+  it('TicketDetailHeader fires onSolve', () => {
+    const onSolve = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <TicketDetailHeader subject="Payment failed on checkout" ticketId="#4821" status="open" onSolve={onSolve} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('Solve'));
+    expect(onSolve).toHaveBeenCalledTimes(1);
   });
 });

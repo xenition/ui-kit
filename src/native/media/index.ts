@@ -16,3 +16,14 @@ export type { LightboxProps } from './Lightbox';
 export { MediaFigure } from './MediaFigure';
 export type { MediaFigureProps } from './MediaFigure';
 export type { MediaItem, MediaAlbum, MediaKind } from '../../media/types';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `VERTICALS-V4-BRIEF.md`. Each is a
+// drop-in for its base — same props plus optional additions. The headline fix
+// is that a `kind: 'video'` item is finally drawn as one.
+export { MediaFigureV4 } from './MediaFigureV4';
+export type { MediaFigureV4Props } from './MediaFigureV4';
+export { GalleryV4 } from './GalleryV4';
+export type { GalleryV4Props } from './GalleryV4';
+export { LightboxV4 } from './LightboxV4';
+export type { LightboxV4Props } from './LightboxV4';

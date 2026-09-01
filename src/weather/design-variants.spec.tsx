@@ -15,6 +15,10 @@ import { ForecastStripV2 } from './ForecastStripV2';
 import { ForecastStripV3 } from './ForecastStripV3';
 import { HourlyRowV2 } from './HourlyRowV2';
 import { HourlyRowV3 } from './HourlyRowV3';
+import { CurrentWeatherV4 } from './CurrentWeatherV4';
+import { ForecastStripV4 } from './ForecastStripV4';
+import { HourlyRowV4 } from './HourlyRowV4';
+import { TemperatureGraphV4 } from './TemperatureGraphV4';
 
 const inlineStyles = (root: HTMLElement): string =>
   Array.from(root.querySelectorAll<HTMLElement>('[style]'))
@@ -89,5 +93,39 @@ describe('HourlyRow alternates (web)', () => {
     expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
     fireEvent.click(getByLabelText(/2 PM/));
     expect(onSelectHour).toHaveBeenCalled();
+  });
+});
+
+describe('weather V4 — saturated hero line (web)', () => {
+  it('CurrentWeatherV4 renders the hero, token-only', () => {
+    const { getByText, container } = render(
+      <CurrentWeatherV4 location="NYC" temperature={23} condition="clear" high={24} low={15} feelsLike={22} />
+    );
+    expect(getByText('23°')).toBeTruthy();
+    expect(getByText('Clear')).toBeTruthy();
+    expect(getByText('Feels 22°')).toBeTruthy();
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+  });
+  it('ForecastStripV4 selects a day, token-only', () => {
+    const onSelectDay = jest.fn();
+    const { getByLabelText, container } = render(<ForecastStripV4 days={DAYS} selectedIndex={0} onSelectDay={onSelectDay} />);
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+    fireEvent.click(getByLabelText(/Tue/));
+    expect(onSelectDay).toHaveBeenCalled();
+  });
+  it('HourlyRowV4 selects an hour, token-only', () => {
+    const onSelectHour = jest.fn();
+    const { getByLabelText, getByText, container } = render(<HourlyRowV4 hours={HOURS} onSelectHour={onSelectHour} />);
+    expect(getByText('22°')).toBeTruthy();
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+    fireEvent.click(getByLabelText(/1 PM/));
+    expect(onSelectHour).toHaveBeenCalled();
+  });
+  it('TemperatureGraphV4 renders title + labels, token-only', () => {
+    const { getByText, container } = render(
+      <TemperatureGraphV4 data={[14, 18, 23, 19]} labels={['6a', '12p', '3p', '9p']} title="Today" />
+    );
+    expect(getByText('Today')).toBeTruthy();
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
   });
 });

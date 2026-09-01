@@ -8,7 +8,7 @@
  * no external map dependency — `MapCard` is a static styled `div` placeholder.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WeatherStrip = exports.AmenityRow = exports.ReviewStars = exports.MapCard = exports.PriceCalendar = exports.BoardingPass = exports.BaggageRow = exports.TripSummary = exports.DestinationCardV3 = exports.DestinationCardV2 = exports.DestinationCard = exports.SeatPicker = exports.ItineraryItemV3 = exports.ItineraryItemV2 = exports.ItineraryItem = exports.HotelCardV3 = exports.HotelCardV2 = exports.HotelCard = exports.FlightCardV3 = exports.FlightCardV2 = exports.FlightCard = void 0;
+exports.LoyaltyCard = exports.FlightStatusBanner = exports.TripHeader = exports.WeatherStripV4 = exports.ReviewStarsV4 = exports.MapCardV4 = exports.BaggageRowV4 = exports.AmenityRowV4 = exports.PriceCalendarV4 = exports.SeatPickerV4 = exports.BoardingPassV4 = exports.TripSummaryV4 = exports.DestinationCardV4 = exports.ItineraryItemV4 = exports.HotelCardV4 = exports.FlightCardV4 = exports.WeatherStrip = exports.AmenityRow = exports.ReviewStars = exports.MapCard = exports.PriceCalendar = exports.BoardingPass = exports.BaggageRow = exports.TripSummary = exports.DestinationCardV3 = exports.DestinationCardV2 = exports.DestinationCard = exports.SeatPicker = exports.ItineraryItemV3 = exports.ItineraryItemV2 = exports.ItineraryItem = exports.HotelCardV3 = exports.HotelCardV2 = exports.HotelCard = exports.FlightCardV3 = exports.FlightCardV2 = exports.FlightCard = void 0;
 var FlightCard_1 = require("./FlightCard");
 Object.defineProperty(exports, "FlightCard", { enumerable: true, get: function () { return FlightCard_1.FlightCard; } });
 var FlightCardV2_1 = require("./FlightCardV2");
@@ -51,4 +51,45 @@ var AmenityRow_1 = require("./AmenityRow");
 Object.defineProperty(exports, "AmenityRow", { enumerable: true, get: function () { return AmenityRow_1.AmenityRow; } });
 var WeatherStrip_1 = require("./WeatherStrip");
 Object.defineProperty(exports, "WeatherStrip", { enumerable: true, get: function () { return WeatherStrip_1.WeatherStrip; } });
+/*
+ * ── V4 "journey" (boarding-pass) design line ──
+ * A drop-in V4 variant for each of the 13 originals: elevated clean cards with a
+ * small brand-gradient glyph disc, route rails with a plane glyph, dashed
+ * boarding-pass tear lines, and gradient heroes on the peak moments (boarding
+ * pass, trip summary, destination covers). Base/V2/V3 untouched; V4 is additive.
+ * Token-driven, dark-mode safe, web + native.
+ */
+var FlightCardV4_1 = require("./FlightCardV4");
+Object.defineProperty(exports, "FlightCardV4", { enumerable: true, get: function () { return FlightCardV4_1.FlightCardV4; } });
+var HotelCardV4_1 = require("./HotelCardV4");
+Object.defineProperty(exports, "HotelCardV4", { enumerable: true, get: function () { return HotelCardV4_1.HotelCardV4; } });
+var ItineraryItemV4_1 = require("./ItineraryItemV4");
+Object.defineProperty(exports, "ItineraryItemV4", { enumerable: true, get: function () { return ItineraryItemV4_1.ItineraryItemV4; } });
+var DestinationCardV4_1 = require("./DestinationCardV4");
+Object.defineProperty(exports, "DestinationCardV4", { enumerable: true, get: function () { return DestinationCardV4_1.DestinationCardV4; } });
+var TripSummaryV4_1 = require("./TripSummaryV4");
+Object.defineProperty(exports, "TripSummaryV4", { enumerable: true, get: function () { return TripSummaryV4_1.TripSummaryV4; } });
+var BoardingPassV4_1 = require("./BoardingPassV4");
+Object.defineProperty(exports, "BoardingPassV4", { enumerable: true, get: function () { return BoardingPassV4_1.BoardingPassV4; } });
+var SeatPickerV4_1 = require("./SeatPickerV4");
+Object.defineProperty(exports, "SeatPickerV4", { enumerable: true, get: function () { return SeatPickerV4_1.SeatPickerV4; } });
+var PriceCalendarV4_1 = require("./PriceCalendarV4");
+Object.defineProperty(exports, "PriceCalendarV4", { enumerable: true, get: function () { return PriceCalendarV4_1.PriceCalendarV4; } });
+var AmenityRowV4_1 = require("./AmenityRowV4");
+Object.defineProperty(exports, "AmenityRowV4", { enumerable: true, get: function () { return AmenityRowV4_1.AmenityRowV4; } });
+var BaggageRowV4_1 = require("./BaggageRowV4");
+Object.defineProperty(exports, "BaggageRowV4", { enumerable: true, get: function () { return BaggageRowV4_1.BaggageRowV4; } });
+var MapCardV4_1 = require("./MapCardV4");
+Object.defineProperty(exports, "MapCardV4", { enumerable: true, get: function () { return MapCardV4_1.MapCardV4; } });
+var ReviewStarsV4_1 = require("./ReviewStarsV4");
+Object.defineProperty(exports, "ReviewStarsV4", { enumerable: true, get: function () { return ReviewStarsV4_1.ReviewStarsV4; } });
+var WeatherStripV4_1 = require("./WeatherStripV4");
+Object.defineProperty(exports, "WeatherStripV4", { enumerable: true, get: function () { return WeatherStripV4_1.WeatherStripV4; } });
+/* ── New composed blocks (V4 journey line) ── */
+var TripHeader_1 = require("./TripHeader");
+Object.defineProperty(exports, "TripHeader", { enumerable: true, get: function () { return TripHeader_1.TripHeader; } });
+var FlightStatusBanner_1 = require("./FlightStatusBanner");
+Object.defineProperty(exports, "FlightStatusBanner", { enumerable: true, get: function () { return FlightStatusBanner_1.FlightStatusBanner; } });
+var LoyaltyCard_1 = require("./LoyaltyCard");
+Object.defineProperty(exports, "LoyaltyCard", { enumerable: true, get: function () { return LoyaltyCard_1.LoyaltyCard; } });
 //# sourceMappingURL=index.js.map

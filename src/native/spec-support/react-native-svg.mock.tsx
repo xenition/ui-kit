@@ -8,11 +8,20 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
 
+/*
+  `forwardRef`, because `Animated.createAnimatedComponent()` wraps these — the
+  V4 rings and gauges drive `strokeDashoffset` through it — and it hands the
+  wrapped component a ref. A plain function component given a ref logs a React
+  error, which is a failed spec in a suite that treats console noise as one.
+*/
 const passthrough = (testID: string) =>
-  function SvgMock(props: Record<string, unknown>): React.ReactElement {
+  React.forwardRef(function SvgMock(
+    props: Record<string, unknown>,
+    ref: React.Ref<unknown>
+  ): React.ReactElement {
     const { children } = props as { children?: React.ReactNode };
-    return React.createElement(View, { testID, ...props }, children);
-  };
+    return React.createElement(View, { testID, ref, ...props }, children);
+  });
 
 export const Svg = passthrough('svg');
 export const Path = passthrough('svg-path');
@@ -32,10 +41,13 @@ export const Mask = passthrough('svg-mask');
 export const Use = passthrough('svg-use');
 export const Symbol = passthrough('svg-symbol');
 export const TSpan = passthrough('svg-tspan');
-export const SvgText = function SvgTextMock(props: Record<string, unknown>): React.ReactElement {
+export const SvgText = React.forwardRef(function SvgTextMock(
+  props: Record<string, unknown>,
+  ref: React.Ref<unknown>
+): React.ReactElement {
   const { children } = props as { children?: React.ReactNode };
-  return React.createElement(Text, { testID: 'svg-text', ...props }, children);
-};
+  return React.createElement(Text, { testID: 'svg-text', ref, ...props }, children);
+});
 export { SvgText as Text };
 
 export default Svg;

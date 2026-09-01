@@ -35,11 +35,14 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isCompiledTheme = exports.useXenitionCompiledTheme = exports.XenitionUIProvider = void 0;
+exports.V4_SHARED_SHEETS = exports.XenitionUIProviderV4 = exports.isCompiledTheme = exports.useXenitionCompiledTheme = exports.XenitionUIProvider = void 0;
 __exportStar(require("./theme"), exports);
 __exportStar(require("./primitives"), exports);
 var provider_1 = require("./provider");
 Object.defineProperty(exports, "XenitionUIProvider", { enumerable: true, get: function () { return provider_1.XenitionUIProvider; } });
 Object.defineProperty(exports, "useXenitionCompiledTheme", { enumerable: true, get: function () { return provider_1.useXenitionCompiledTheme; } });
 Object.defineProperty(exports, "isCompiledTheme", { enumerable: true, get: function () { return provider_1.isCompiledTheme; } });
+var XenitionUIProviderV4_1 = require("./XenitionUIProviderV4");
+Object.defineProperty(exports, "XenitionUIProviderV4", { enumerable: true, get: function () { return XenitionUIProviderV4_1.XenitionUIProviderV4; } });
+Object.defineProperty(exports, "V4_SHARED_SHEETS", { enumerable: true, get: function () { return XenitionUIProviderV4_1.V4_SHARED_SHEETS; } });
 //# sourceMappingURL=index.js.map

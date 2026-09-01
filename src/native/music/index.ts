@@ -87,3 +87,26 @@ export { SetlistRowV2 } from './SetlistRowV2';
 export type { SetlistRowV2Props } from './SetlistRowV2';
 export { SetlistRowV3 } from './SetlistRowV3';
 export type { SetlistRowV3Props } from './SetlistRowV3';
+
+/*
+ * ── V4 "session" (tactile DAW) design line ──
+ * A drop-in V4 variant for each of the 12 originals: tactile control surfaces
+ * with satisfying active/armed/playing states (soft-primary or accent fill + a
+ * glyph/label marker, never color alone) and bold tabular-nums numerals. Every
+ * V4 keeps its base props (all variant/size values honored) and the per-cell
+ * accent-slot colors. The brand gradient is reserved for the session moment —
+ * the `WaveformEditor` full signal hero. Base/V2/V3 untouched; V4 is additive.
+ * Token-driven, dark-mode safe, web + native.
+ */
+export { BPMControlV4, type BPMControlV4Props } from './BPMControlV4';
+export { ChordChipV4, type ChordChipV4Props } from './ChordChipV4';
+export { LoopControlV4, type LoopControlV4Props } from './LoopControlV4';
+export { MetronomeBarV4, type MetronomeBarV4Props } from './MetronomeBarV4';
+export { MixerV4, type MixerV4Props } from './MixerV4';
+export { PianoKeysV4, type PianoKeysV4Props } from './PianoKeysV4';
+export { RecordButtonV4, type RecordButtonV4Props } from './RecordButtonV4';
+export { SamplePadV4, type SamplePadV4Props } from './SamplePadV4';
+export { SetlistRowV4, type SetlistRowV4Props } from './SetlistRowV4';
+export { TrackPadV4, type TrackPadV4Props } from './TrackPadV4';
+export { VolumeFaderV4, type VolumeFaderV4Props } from './VolumeFaderV4';
+export { WaveformEditorV4, type WaveformEditorV4Props } from './WaveformEditorV4';

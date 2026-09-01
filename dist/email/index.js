@@ -17,7 +17,7 @@
  * `SignatureBlock`.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SignatureBlock = exports.SnoozeRow = exports.ReadUnreadToggle = exports.MailSwipeActions = exports.InboxHeader = exports.StarButton = exports.AttachmentChip = exports.MailLabelChip = exports.FolderRowV3 = exports.FolderRowV2 = exports.FolderRow = exports.ComposeBarV3 = exports.ComposeBarV2 = exports.ComposeBar = exports.EmailThreadV3 = exports.EmailThreadV2 = exports.EmailThread = exports.MessageListRowV3 = exports.MessageListRowV2 = exports.MessageListRow = void 0;
+exports.StarButtonV4 = exports.SnoozeRowV4 = exports.SignatureBlockV4 = exports.ReadUnreadToggleV4 = exports.MessageListRowV4 = exports.MailSwipeActionsV4 = exports.MailLabelChipV4 = exports.InboxHeaderV4 = exports.FolderRowV4 = exports.EmailThreadV4 = exports.ComposeBarV4 = exports.AttachmentChipV4 = exports.SignatureBlock = exports.SnoozeRow = exports.ReadUnreadToggle = exports.MailSwipeActions = exports.InboxHeader = exports.StarButton = exports.AttachmentChip = exports.MailLabelChip = exports.FolderRowV3 = exports.FolderRowV2 = exports.FolderRow = exports.ComposeBarV3 = exports.ComposeBarV2 = exports.ComposeBar = exports.EmailThreadV3 = exports.EmailThreadV2 = exports.EmailThread = exports.MessageListRowV3 = exports.MessageListRowV2 = exports.MessageListRow = void 0;
 var MessageListRow_1 = require("./MessageListRow");
 Object.defineProperty(exports, "MessageListRow", { enumerable: true, get: function () { return MessageListRow_1.MessageListRow; } });
 var MessageListRowV2_1 = require("./MessageListRowV2");
@@ -58,4 +58,28 @@ var SnoozeRow_1 = require("./SnoozeRow");
 Object.defineProperty(exports, "SnoozeRow", { enumerable: true, get: function () { return SnoozeRow_1.SnoozeRow; } });
 var SignatureBlock_1 = require("./SignatureBlock");
 Object.defineProperty(exports, "SignatureBlock", { enumerable: true, get: function () { return SignatureBlock_1.SignatureBlock; } });
+var AttachmentChipV4_1 = require("./AttachmentChipV4");
+Object.defineProperty(exports, "AttachmentChipV4", { enumerable: true, get: function () { return AttachmentChipV4_1.AttachmentChipV4; } });
+var ComposeBarV4_1 = require("./ComposeBarV4");
+Object.defineProperty(exports, "ComposeBarV4", { enumerable: true, get: function () { return ComposeBarV4_1.ComposeBarV4; } });
+var EmailThreadV4_1 = require("./EmailThreadV4");
+Object.defineProperty(exports, "EmailThreadV4", { enumerable: true, get: function () { return EmailThreadV4_1.EmailThreadV4; } });
+var FolderRowV4_1 = require("./FolderRowV4");
+Object.defineProperty(exports, "FolderRowV4", { enumerable: true, get: function () { return FolderRowV4_1.FolderRowV4; } });
+var InboxHeaderV4_1 = require("./InboxHeaderV4");
+Object.defineProperty(exports, "InboxHeaderV4", { enumerable: true, get: function () { return InboxHeaderV4_1.InboxHeaderV4; } });
+var MailLabelChipV4_1 = require("./MailLabelChipV4");
+Object.defineProperty(exports, "MailLabelChipV4", { enumerable: true, get: function () { return MailLabelChipV4_1.MailLabelChipV4; } });
+var MailSwipeActionsV4_1 = require("./MailSwipeActionsV4");
+Object.defineProperty(exports, "MailSwipeActionsV4", { enumerable: true, get: function () { return MailSwipeActionsV4_1.MailSwipeActionsV4; } });
+var MessageListRowV4_1 = require("./MessageListRowV4");
+Object.defineProperty(exports, "MessageListRowV4", { enumerable: true, get: function () { return MessageListRowV4_1.MessageListRowV4; } });
+var ReadUnreadToggleV4_1 = require("./ReadUnreadToggleV4");
+Object.defineProperty(exports, "ReadUnreadToggleV4", { enumerable: true, get: function () { return ReadUnreadToggleV4_1.ReadUnreadToggleV4; } });
+var SignatureBlockV4_1 = require("./SignatureBlockV4");
+Object.defineProperty(exports, "SignatureBlockV4", { enumerable: true, get: function () { return SignatureBlockV4_1.SignatureBlockV4; } });
+var SnoozeRowV4_1 = require("./SnoozeRowV4");
+Object.defineProperty(exports, "SnoozeRowV4", { enumerable: true, get: function () { return SnoozeRowV4_1.SnoozeRowV4; } });
+var StarButtonV4_1 = require("./StarButtonV4");
+Object.defineProperty(exports, "StarButtonV4", { enumerable: true, get: function () { return StarButtonV4_1.StarButtonV4; } });
 //# sourceMappingURL=index.js.map

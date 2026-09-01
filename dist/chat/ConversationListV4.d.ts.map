@@ -1,0 +1,1 @@
+{"version":3,"file":"ConversationListV4.d.ts","sourceRoot":"","sources":["../../src/chat/ConversationListV4.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAI/B,OAAO,KAAK,EAAE,qBAAqB,EAAE,MAAM,oBAAoB,CAAC;AAGhE,MAAM,WAAW,uBAAwB,SAAQ,qBAAqB;IACpE,2EAA2E;IAC3E,gBAAgB,CAAC,EAAE,MAAM,CAAC;CAC3B;AAKD;;;;;;;;;;;;;GAaG;AACH,eAAO,MAAM,kBAAkB,gGAsE9B,CAAC"}

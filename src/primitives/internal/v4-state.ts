@@ -38,7 +38,7 @@
 import { STATE_LAYERS } from '../../theme/compile';
 import { hexToRgb } from '../../theme/color';
 import type { StateLayerTokens } from '../../theme/types';
-import { EASE_STANDARD, V4_MOTION } from './v4-motion';
+import { transitionCss, V4_MOTION } from './v4-motion';
 import { mixToken } from './v4-depth';
 
 /** The interaction states M3 gives a layer to. */
@@ -134,7 +134,23 @@ export const V4_STATE_CSS = `
 [data-xen-v4-state] {
   --xen-v4-state-ink: currentColor;
   --xen-v4-state-ground: transparent;
-  transition: background-color ${V4_MOTION.quick}ms ${EASE_STANDARD};
+  /*
+    border-color rides with the ground, and it has to.
+
+    A control that carries both — a filter chip is the clearest case, selected
+    being border-primary over bg-primary and unselected border-border over
+    bg-card — animates one half of its own silhouette if only the fill is
+    listed here: the ground eases while the ring snaps on the first frame, and
+    the seam is visible on every toggle. One transition list, both properties,
+    one duration.
+
+    It is safe for the controls that do NOT change their border: a transition
+    on a property that never changes costs nothing and animates nothing. And no
+    V4 control expresses focus through border-color — the line's rings are
+    outline and box-shadow, both deliberately instant — so nothing that has to
+    be immediate is slowed down by being listed here.
+  */
+  transition: ${transitionCss(['background-color', 'border-color'], V4_MOTION.quick)};
 }
 [data-xen-v4-state]:hover:not(:disabled):not([aria-disabled="true"]) {
   background-color: ${stateCss('var(--xen-v4-state-ink)', 'var(--xen-v4-state-ground)', 'hover')};

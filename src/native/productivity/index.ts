@@ -61,3 +61,52 @@ export type { NoteCardProps } from './NoteCard';
 
 export { ReminderRow } from './ReminderRow';
 export type { ReminderRowProps } from './ReminderRow';
+
+/*
+ * ── V4 "flow" (focused task-workspace) design line ──
+ * A drop-in V4 variant for each of the 13 originals: calm legible task surfaces
+ * where completing a task settles into a soft-success glow, one primary accent,
+ * soft-primary progress, and a brand gradient reserved for the focus moments
+ * (project header, today dashboard, weekly review). Base/V2/V3 untouched; V4 is
+ * additive. Token-driven, dark-mode safe, web + native.
+ */
+export { TaskRowV4 } from './TaskRowV4';
+export type { TaskRowV4Props } from './TaskRowV4';
+export { ProjectCardV4 } from './ProjectCardV4';
+export type { ProjectCardV4Props } from './ProjectCardV4';
+export { NoteCardV4 } from './NoteCardV4';
+export type { NoteCardV4Props } from './NoteCardV4';
+export { MilestoneRowV4 } from './MilestoneRowV4';
+export type { MilestoneRowV4Props } from './MilestoneRowV4';
+export { ChecklistItemV4 } from './ChecklistItemV4';
+export type { ChecklistItemV4Props } from './ChecklistItemV4';
+export { SubtaskListV4 } from './SubtaskListV4';
+export type { SubtaskListV4Props } from './SubtaskListV4';
+export { BoardColumnV4 } from './BoardColumnV4';
+export type { BoardColumnV4Props } from './BoardColumnV4';
+export { ReminderRowV4 } from './ReminderRowV4';
+export type { ReminderRowV4Props } from './ReminderRowV4';
+export { TimeTrackerV4 } from './TimeTrackerV4';
+export type { TimeTrackerV4Props } from './TimeTrackerV4';
+export { PriorityTagV4 } from './PriorityTagV4';
+export type { PriorityTagV4Props } from './PriorityTagV4';
+export { LabelChipV4 } from './LabelChipV4';
+export type { LabelChipV4Props } from './LabelChipV4';
+export { DueDatePillV4 } from './DueDatePillV4';
+export type { DueDatePillV4Props } from './DueDatePillV4';
+export { AssigneeGroupV4 } from './AssigneeGroupV4';
+export type { AssigneeGroupV4Props } from './AssigneeGroupV4';
+
+/* ── New components (V4 flow line) ── */
+export { ProjectHeader } from './ProjectHeader';
+export type { ProjectHeaderProps, ProjectStatus } from './ProjectHeader';
+export { TodayHeader } from './TodayHeader';
+export type { TodayHeaderProps } from './TodayHeader';
+export { WeeklyReview } from './WeeklyReview';
+export type { WeeklyReviewProps } from './WeeklyReview';
+export { QuickAddTask } from './QuickAddTask';
+export type { QuickAddTaskProps, QuickAddChip } from './QuickAddTask';
+export { CalendarStrip } from './CalendarStrip';
+export type { CalendarStripProps, CalendarStripDay } from './CalendarStrip';
+export { ActivityFeed } from './ActivityFeed';
+export type { ActivityFeedProps, ActivityItem, ActivityAction } from './ActivityFeed';

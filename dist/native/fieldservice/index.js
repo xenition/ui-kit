@@ -13,7 +13,7 @@
  * no SDK import).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatPct = exports.formatDuration = exports.formatMoney = exports.TechnicianCardV3 = exports.TechnicianCardV2 = exports.InspectionRowV3 = exports.InspectionRowV2 = exports.JobSiteCardV3 = exports.JobSiteCardV2 = exports.WorkOrderCardV3 = exports.WorkOrderCardV2 = exports.SafetyChecklist = exports.DispatchBar = exports.MaterialsRow = exports.SignaturePad = exports.TimeLogRow = exports.ServiceChecklist = exports.TechnicianCard = exports.EquipmentRow = exports.PunchListItem = exports.InspectionRow = exports.JobSiteCard = exports.WorkOrderCard = void 0;
+exports.WorkOrderCardV4 = exports.TimeLogRowV4 = exports.TechnicianCardV4 = exports.SignaturePadV4 = exports.ServiceChecklistV4 = exports.SafetyChecklistV4 = exports.PunchListItemV4 = exports.MaterialsRowV4 = exports.JobSiteCardV4 = exports.InspectionRowV4 = exports.EquipmentRowV4 = exports.DispatchBarV4 = exports.formatPct = exports.formatDuration = exports.formatMoney = exports.TechnicianCardV3 = exports.TechnicianCardV2 = exports.InspectionRowV3 = exports.InspectionRowV2 = exports.JobSiteCardV3 = exports.JobSiteCardV2 = exports.WorkOrderCardV3 = exports.WorkOrderCardV2 = exports.SafetyChecklist = exports.DispatchBar = exports.MaterialsRow = exports.SignaturePad = exports.TimeLogRow = exports.ServiceChecklist = exports.TechnicianCard = exports.EquipmentRow = exports.PunchListItem = exports.InspectionRow = exports.JobSiteCard = exports.WorkOrderCard = void 0;
 var WorkOrderCard_1 = require("./WorkOrderCard");
 Object.defineProperty(exports, "WorkOrderCard", { enumerable: true, get: function () { return WorkOrderCard_1.WorkOrderCard; } });
 var JobSiteCard_1 = require("./JobSiteCard");
@@ -63,4 +63,34 @@ var format_1 = require("./internal/format");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return format_1.formatMoney; } });
 Object.defineProperty(exports, "formatDuration", { enumerable: true, get: function () { return format_1.formatDuration; } });
 Object.defineProperty(exports, "formatPct", { enumerable: true, get: function () { return format_1.formatPct; } });
+// ── The V4 line ───────────────────────────────────────────────
+// The current design pattern, built against `EVENTS-FIELDSERVICE-V4-BRIEF.md`.
+// Each is a drop-in for its base — same props plus optional additions, every
+// one defaulting to the base's behaviour — so swapping `X` for `XV4` brings the
+// fixes and no surprises. `SafetyChecklistV4` is the exception worth reading:
+// clearing a blocking hazard now takes a confirming second press (§1.1).
+var DispatchBarV4_1 = require("./DispatchBarV4");
+Object.defineProperty(exports, "DispatchBarV4", { enumerable: true, get: function () { return DispatchBarV4_1.DispatchBarV4; } });
+var EquipmentRowV4_1 = require("./EquipmentRowV4");
+Object.defineProperty(exports, "EquipmentRowV4", { enumerable: true, get: function () { return EquipmentRowV4_1.EquipmentRowV4; } });
+var InspectionRowV4_1 = require("./InspectionRowV4");
+Object.defineProperty(exports, "InspectionRowV4", { enumerable: true, get: function () { return InspectionRowV4_1.InspectionRowV4; } });
+var JobSiteCardV4_1 = require("./JobSiteCardV4");
+Object.defineProperty(exports, "JobSiteCardV4", { enumerable: true, get: function () { return JobSiteCardV4_1.JobSiteCardV4; } });
+var MaterialsRowV4_1 = require("./MaterialsRowV4");
+Object.defineProperty(exports, "MaterialsRowV4", { enumerable: true, get: function () { return MaterialsRowV4_1.MaterialsRowV4; } });
+var PunchListItemV4_1 = require("./PunchListItemV4");
+Object.defineProperty(exports, "PunchListItemV4", { enumerable: true, get: function () { return PunchListItemV4_1.PunchListItemV4; } });
+var SafetyChecklistV4_1 = require("./SafetyChecklistV4");
+Object.defineProperty(exports, "SafetyChecklistV4", { enumerable: true, get: function () { return SafetyChecklistV4_1.SafetyChecklistV4; } });
+var ServiceChecklistV4_1 = require("./ServiceChecklistV4");
+Object.defineProperty(exports, "ServiceChecklistV4", { enumerable: true, get: function () { return ServiceChecklistV4_1.ServiceChecklistV4; } });
+var SignaturePadV4_1 = require("./SignaturePadV4");
+Object.defineProperty(exports, "SignaturePadV4", { enumerable: true, get: function () { return SignaturePadV4_1.SignaturePadV4; } });
+var TechnicianCardV4_1 = require("./TechnicianCardV4");
+Object.defineProperty(exports, "TechnicianCardV4", { enumerable: true, get: function () { return TechnicianCardV4_1.TechnicianCardV4; } });
+var TimeLogRowV4_1 = require("./TimeLogRowV4");
+Object.defineProperty(exports, "TimeLogRowV4", { enumerable: true, get: function () { return TimeLogRowV4_1.TimeLogRowV4; } });
+var WorkOrderCardV4_1 = require("./WorkOrderCardV4");
+Object.defineProperty(exports, "WorkOrderCardV4", { enumerable: true, get: function () { return WorkOrderCardV4_1.WorkOrderCardV4; } });
 //# sourceMappingURL=index.js.map

@@ -71,3 +71,50 @@ export { LightControlV2 } from './LightControlV2';
 export type { LightControlV2Props } from './LightControlV2';
 export { LightControlV3 } from './LightControlV3';
 export type { LightControlV3Props } from './LightControlV3';
+
+/*
+ * ── V4 "ambient" (control-panel) design line ──
+ * A drop-in V4 variant for each of the 12 originals: calm control surfaces where
+ * an active device glows (soft accent wash + glowing icon disc), big legible
+ * dials/sliders, and a brand gradient reserved for the dashboard moments (home
+ * header, room header, energy dashboard). Base/V2/V3 untouched; V4 is additive.
+ * Token-driven, dark-mode safe, web + native.
+ */
+export { DeviceTileV4 } from './DeviceTileV4';
+export type { DeviceTileV4Props } from './DeviceTileV4';
+export { LightControlV4 } from './LightControlV4';
+export type { LightControlV4Props } from './LightControlV4';
+export { ThermostatDialV4 } from './ThermostatDialV4';
+export type { ThermostatDialV4Props } from './ThermostatDialV4';
+export { SceneCardV4 } from './SceneCardV4';
+export type { SceneCardV4Props } from './SceneCardV4';
+export { DeviceToggleRowV4 } from './DeviceToggleRowV4';
+export type { DeviceToggleRowV4Props } from './DeviceToggleRowV4';
+export { LockControlV4 } from './LockControlV4';
+export type { LockControlV4Props } from './LockControlV4';
+export { CameraTileV4 } from './CameraTileV4';
+export type { CameraTileV4Props } from './CameraTileV4';
+export { RoomGroupV4 } from './RoomGroupV4';
+export type { RoomGroupV4Props } from './RoomGroupV4';
+export { AutomationRuleV4 } from './AutomationRuleV4';
+export type { AutomationRuleV4Props } from './AutomationRuleV4';
+export { ScheduleRowV4 } from './ScheduleRowV4';
+export type { ScheduleRowV4Props } from './ScheduleRowV4';
+export { SensorReadingV4 } from './SensorReadingV4';
+export type { SensorReadingV4Props } from './SensorReadingV4';
+export { EnergyUsageV4 } from './EnergyUsageV4';
+export type { EnergyUsageV4Props } from './EnergyUsageV4';
+
+/* ── New components (V4 ambient line) ── */
+export { HomeHeader } from './HomeHeader';
+export type { HomeHeaderProps, HomeStatusTone } from './HomeHeader';
+export { RoomHeader } from './RoomHeader';
+export type { RoomHeaderProps } from './RoomHeader';
+export { EnergyDashboard } from './EnergyDashboard';
+export type { EnergyDashboardProps, EnergyBreakdownTone } from './EnergyDashboard';
+export { ModeSelector, DEFAULT_MODES } from './ModeSelector';
+export type { ModeSelectorProps, ModeOption, HomeMode } from './ModeSelector';
+export { FavoritesGrid } from './FavoritesGrid';
+export type { FavoritesGridProps, FavoriteDevice } from './FavoritesGrid';
+export { AlertCard } from './AlertCard';
+export type { AlertCardProps, AlertSeverity } from './AlertCard';

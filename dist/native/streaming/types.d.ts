@@ -89,6 +89,8 @@ export interface StreamChannel {
  * against nullish / non-finite / negative input so a shell never renders `NaN`.
  */
 export declare function formatTime(totalSeconds?: number): string;
+/** Clamp a number into the `[0, 1]` range (guards scrub/progress fractions). */
+export declare function clamp01(n: number): number;
 /** Compact viewer/listener count, e.g. `1234` → `'1.2K'`, `2_000_000` → `'2M'`. */
 export declare function formatCount(n?: number): string;
 //# sourceMappingURL=types.d.ts.map

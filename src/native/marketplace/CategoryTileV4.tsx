@@ -1,0 +1,159 @@
+import * as React from 'react';
+import { Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
+import { useXenitionTheme } from '../theme';
+import { CardV4 } from '../primitives/CardV4';
+import { IconV4 } from '../primitives/IconV4';
+import { TextV4 } from '../primitives/TextV4';
+import { minTap } from '../primitives/internal/nav-v4';
+import { pressOver } from '../primitives/internal/state-v4';
+import type { IconName } from '../../primitives/icon-names';
+import type { CategoryTileProps, CategoryTileVariant } from './CategoryTile';
+
+export type { CategoryTileVariant };
+
+export interface CategoryTileV4Props extends CategoryTileProps {
+  /**
+   * A name from the kit's icon set, drawn in the **tinted circular badge**
+   * (brief §4.7 — "use one when the tile is categorical… when the leading slot
+   * names *a kind of thing*"). A category tile is the textbook case for that
+   * rule, which is why the badge is the tile's default treatment rather than
+   * an option.
+   *
+   * {@link CategoryTileProps.glyph} stays as the escape hatch for a one-off
+   * mark the named set has no name for, and takes the same badge. Passing
+   * both, `glyph` wins — the same precedence `IconV4` itself applies.
+   */
+  iconName?: IconName;
+  style?: StyleProp<ViewStyle>;
+}
+
+/**
+ * **V4 category tile** — the browse-grid entry, as a card with a badge.
+ *
+ * Six changes, each one a rule this module was breaking:
+ *
+ * 1. **The ground is `card`** (§4.2). Every card in `marketplace` painted the
+ *    colour of the page and leaned on a border to be visible at all, which is
+ *    why a browse grid in dark mode read as a flat sheet of rectangles.
+ * 2. **The glyph became the tinted circular badge** (§4.7). A category names a
+ *    kind of thing, which is the exact case the badge exists for, and the
+ *    badge is the same 44 circle the row family's leading slot uses — so a
+ *    category in a grid and a category in a list are recognisably one object.
+ * 3. **Selection is not colour alone** (rule 6). The base carried it as an
+ *    accent ring plus a tinted surface plus the a11y selected state — two
+ *    colour channels and one channel a sighted reader cannot see. V4 adds a
+ *    **checkmark**, which is M3's filter-chip behaviour and HIG's option-list
+ *    rule: a selected option shows a mark, not just a shade.
+ * 4. **The selected ground is the `selected` token**, not a hand-mixed tint.
+ *    The base composed `withAlpha(colors.primary, 0.1)`; `selected` /
+ *    `onSelected` is the pair the shadcn pass added for "the selected-row
+ *    container", and it is a *pair*, so the label on it carries a measured
+ *    contrast promise that a 10% wash of the brand does not.
+ * 5. **The tile clears the tap floor.** `minTap()` (44) on the chip, and the
+ *    tile keeps its taller block. The base's chip was `spacing.sm` around a
+ *    `sm` label, which lands around 32.
+ * 6. **Press feedback is the state layer** (§4.3). `opacity: pressed ? 0.85`
+ *    is deleted rather than translated: dimming fades the tile's own content,
+ *    which is the signal M3 spends `0.38` on to mean *disabled*. `pressOver`
+ *    is given the opaque pair the tile actually wears.
+ *
+ * Composes `CardV4`, `IconV4` and `TextV4` (rule 7). Renders **nothing** when
+ * it has neither a label nor a mark (§4.5) — never a blank bordered box.
+ */
+export function CategoryTileV4({
+  label,
+  glyph,
+  iconName,
+  count,
+  selected = false,
+  onPress,
+  variant = 'tile',
+  style,
+}: CategoryTileV4Props): React.ReactElement | null {
+  const theme = useXenitionTheme();
+  const { colors, tokens } = theme;
+  // Held in state rather than read from `Pressable`'s render-prop, for the
+  // reason `ButtonV4` already holds it: the pressed flag has to reach the
+  // card's `backgroundColor`, and a component whose feedback is observable is
+  // a component whose feedback can be tested.
+  const [pressed, setPressed] = React.useState(false);
+
+  const chip = variant === 'chip';
+  const hasLabel = label !== undefined && label !== null && label !== '';
+  const hasMark = glyph !== undefined || iconName !== undefined;
+
+  // Nothing to name and nothing to show, so nothing is drawn (§4.5).
+  if (!hasLabel && !hasMark) return null;
+
+  const countLabel = typeof count === 'number' ? `${count.toLocaleString()} items` : undefined;
+  const ground = selected ? colors.selected : colors.card;
+  const ink = selected ? colors.onSelected : colors.onCard;
+
+  /*
+    A chip is a 44-tall pill: a 44 badge inside it would leave no room for its
+    own padding, so the chip takes the bare glyph and the tile takes the badge.
+    Both are `IconV4`; only the `badge` prop differs.
+  */
+  const mark = hasMark ? (
+    <IconV4
+      glyph={glyph}
+      name={iconName}
+      size={chip ? 'base' : 'lg'}
+      color="primary"
+      badge={chip ? undefined : 'soft'}
+    />
+  ) : null;
+
+  // Rule 6: the selected state gets a mark, not only a shade.
+  const check = selected ? <IconV4 name="check" size="sm" color="primary" /> : null;
+
+  const tile = (fill: string): React.ReactElement => (
+    <CardV4
+      radius="lg"
+      padding={chip ? 'sm' : 'lg'}
+      style={[
+        {
+          flexDirection: chip ? 'row' : 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: tokens.spacing.sm,
+          minHeight: minTap(tokens.spacing),
+          paddingHorizontal: chip ? tokens.spacing.md : undefined,
+          backgroundColor: fill,
+          borderColor: selected ? colors.primary : colors.border,
+        },
+        style,
+      ]}
+    >
+      {mark}
+      <View style={{ gap: tokens.spacing.xs, alignItems: chip ? 'flex-start' : 'center' }}>
+        {hasLabel ? (
+          <TextV4 size="sm" weight="semibold" tone={selected ? 'onSelected' : 'onCard'} numberOfLines={1}>
+            {label}
+          </TextV4>
+        ) : null}
+        {countLabel !== undefined ? (
+          <TextV4 size="xs" tone="mutedText" numberOfLines={1}>
+            {countLabel}
+          </TextV4>
+        ) : null}
+      </View>
+      {check}
+    </CardV4>
+  );
+
+  if (!onPress) return tile(ground);
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ selected }}
+      accessibilityLabel={`${String(label ?? '')}${countLabel !== undefined ? `, ${countLabel}` : ''}`}
+      onPress={onPress}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+    >
+      {tile(pressed ? pressOver(theme, ground, ink) : ground)}
+    </Pressable>
+  );
+}

@@ -61,3 +61,46 @@ export type { AmenityRowProps, AmenityRowVariant, Amenity } from './AmenityRow';
 
 export { WeatherStrip } from './WeatherStrip';
 export type { WeatherStripProps, WeatherDay } from './WeatherStrip';
+
+/*
+ * ── V4 "journey" (boarding-pass) design line ──
+ * A drop-in V4 variant for each of the 13 originals: elevated clean cards with a
+ * small brand-gradient glyph disc, route rails with a plane glyph, dashed
+ * boarding-pass tear lines, and gradient heroes on the peak moments (boarding
+ * pass, trip summary, destination covers). Base/V2/V3 untouched; V4 is additive.
+ * Token-driven, dark-mode safe, web + native.
+ */
+export { FlightCardV4 } from './FlightCardV4';
+export type { FlightCardV4Props } from './FlightCardV4';
+export { HotelCardV4 } from './HotelCardV4';
+export type { HotelCardV4Props } from './HotelCardV4';
+export { ItineraryItemV4 } from './ItineraryItemV4';
+export type { ItineraryItemV4Props } from './ItineraryItemV4';
+export { DestinationCardV4 } from './DestinationCardV4';
+export type { DestinationCardV4Props } from './DestinationCardV4';
+export { TripSummaryV4 } from './TripSummaryV4';
+export type { TripSummaryV4Props } from './TripSummaryV4';
+export { BoardingPassV4 } from './BoardingPassV4';
+export type { BoardingPassV4Props } from './BoardingPassV4';
+export { SeatPickerV4 } from './SeatPickerV4';
+export type { SeatPickerV4Props } from './SeatPickerV4';
+export { PriceCalendarV4 } from './PriceCalendarV4';
+export type { PriceCalendarV4Props } from './PriceCalendarV4';
+export { AmenityRowV4 } from './AmenityRowV4';
+export type { AmenityRowV4Props } from './AmenityRowV4';
+export { BaggageRowV4 } from './BaggageRowV4';
+export type { BaggageRowV4Props } from './BaggageRowV4';
+export { MapCardV4 } from './MapCardV4';
+export type { MapCardV4Props } from './MapCardV4';
+export { ReviewStarsV4 } from './ReviewStarsV4';
+export type { ReviewStarsV4Props } from './ReviewStarsV4';
+export { WeatherStripV4 } from './WeatherStripV4';
+export type { WeatherStripV4Props } from './WeatherStripV4';
+
+/* ── New composed blocks (V4 journey line) ── */
+export { TripHeader } from './TripHeader';
+export type { TripHeaderProps, TripPlace } from './TripHeader';
+export { FlightStatusBanner } from './FlightStatusBanner';
+export type { FlightStatusBannerProps, FlightStatus } from './FlightStatusBanner';
+export { LoyaltyCard } from './LoyaltyCard';
+export type { LoyaltyCardProps } from './LoyaltyCard';

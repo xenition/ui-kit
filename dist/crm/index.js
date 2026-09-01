@@ -13,7 +13,7 @@
  * fetching, no SDK import.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.clampPct = exports.toneFillClass = exports.toneBadgeTone = exports.toneTextClass = exports.QUOTE_META = exports.ACTIVITY_META = exports.TEMPERATURE_META = exports.OUTCOME_META = exports.NextStepRow = exports.WinLossBadge = exports.TagFilterBar = exports.EmailThreadRow = exports.ContactTimeline = exports.DealForecast = exports.QuoteCard = exports.ActivityLogRow = exports.LeadRowV3 = exports.LeadRowV2 = exports.LeadRow = exports.ContactCardV3 = exports.ContactCardV2 = exports.ContactCard = exports.PipelineBoardV3 = exports.PipelineBoardV2 = exports.PipelineBoard = exports.DealCardV3 = exports.DealCardV2 = exports.DealCard = void 0;
+exports.WinLossBadgeV4 = exports.TagFilterBarV4 = exports.QuoteCardV4 = exports.PipelineBoardV4 = exports.NextStepRowV4 = exports.LeadRowV4 = exports.EmailThreadRowV4 = exports.DealForecastV4 = exports.DealCardV4 = exports.ContactTimelineV4 = exports.ContactCardV4 = exports.ActivityLogRowV4 = exports.clampPct = exports.toneFillClass = exports.toneBadgeTone = exports.toneTextClass = exports.QUOTE_META = exports.ACTIVITY_META = exports.TEMPERATURE_META = exports.OUTCOME_META = exports.NextStepRow = exports.WinLossBadge = exports.TagFilterBar = exports.EmailThreadRow = exports.ContactTimeline = exports.DealForecast = exports.QuoteCard = exports.ActivityLogRow = exports.LeadRowV3 = exports.LeadRowV2 = exports.LeadRow = exports.ContactCardV3 = exports.ContactCardV2 = exports.ContactCard = exports.PipelineBoardV3 = exports.PipelineBoardV2 = exports.PipelineBoard = exports.DealCardV3 = exports.DealCardV2 = exports.DealCard = void 0;
 var DealCard_1 = require("./DealCard");
 Object.defineProperty(exports, "DealCard", { enumerable: true, get: function () { return DealCard_1.DealCard; } });
 var DealCardV2_1 = require("./DealCardV2");
@@ -63,4 +63,33 @@ Object.defineProperty(exports, "toneTextClass", { enumerable: true, get: functio
 Object.defineProperty(exports, "toneBadgeTone", { enumerable: true, get: function () { return internal_1.toneBadgeTone; } });
 Object.defineProperty(exports, "toneFillClass", { enumerable: true, get: function () { return internal_1.toneFillClass; } });
 Object.defineProperty(exports, "clampPct", { enumerable: true, get: function () { return internal_1.clampPct; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `CONTENT-CRM-V4-BRIEF.md` §3. Each
+// is a drop-in for its base — same props plus optional additions, every one
+// defaulting to today's behaviour — so swapping `X` for `XV4` buys the fixes
+// and no surprises.
+var ActivityLogRowV4_1 = require("./ActivityLogRowV4");
+Object.defineProperty(exports, "ActivityLogRowV4", { enumerable: true, get: function () { return ActivityLogRowV4_1.ActivityLogRowV4; } });
+var ContactCardV4_1 = require("./ContactCardV4");
+Object.defineProperty(exports, "ContactCardV4", { enumerable: true, get: function () { return ContactCardV4_1.ContactCardV4; } });
+var ContactTimelineV4_1 = require("./ContactTimelineV4");
+Object.defineProperty(exports, "ContactTimelineV4", { enumerable: true, get: function () { return ContactTimelineV4_1.ContactTimelineV4; } });
+var DealCardV4_1 = require("./DealCardV4");
+Object.defineProperty(exports, "DealCardV4", { enumerable: true, get: function () { return DealCardV4_1.DealCardV4; } });
+var DealForecastV4_1 = require("./DealForecastV4");
+Object.defineProperty(exports, "DealForecastV4", { enumerable: true, get: function () { return DealForecastV4_1.DealForecastV4; } });
+var EmailThreadRowV4_1 = require("./EmailThreadRowV4");
+Object.defineProperty(exports, "EmailThreadRowV4", { enumerable: true, get: function () { return EmailThreadRowV4_1.EmailThreadRowV4; } });
+var LeadRowV4_1 = require("./LeadRowV4");
+Object.defineProperty(exports, "LeadRowV4", { enumerable: true, get: function () { return LeadRowV4_1.LeadRowV4; } });
+var NextStepRowV4_1 = require("./NextStepRowV4");
+Object.defineProperty(exports, "NextStepRowV4", { enumerable: true, get: function () { return NextStepRowV4_1.NextStepRowV4; } });
+var PipelineBoardV4_1 = require("./PipelineBoardV4");
+Object.defineProperty(exports, "PipelineBoardV4", { enumerable: true, get: function () { return PipelineBoardV4_1.PipelineBoardV4; } });
+var QuoteCardV4_1 = require("./QuoteCardV4");
+Object.defineProperty(exports, "QuoteCardV4", { enumerable: true, get: function () { return QuoteCardV4_1.QuoteCardV4; } });
+var TagFilterBarV4_1 = require("./TagFilterBarV4");
+Object.defineProperty(exports, "TagFilterBarV4", { enumerable: true, get: function () { return TagFilterBarV4_1.TagFilterBarV4; } });
+var WinLossBadgeV4_1 = require("./WinLossBadgeV4");
+Object.defineProperty(exports, "WinLossBadgeV4", { enumerable: true, get: function () { return WinLossBadgeV4_1.WinLossBadgeV4; } });
 //# sourceMappingURL=index.js.map

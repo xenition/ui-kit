@@ -10,12 +10,16 @@ import {
 import {
   CurrentWeatherV2,
   CurrentWeatherV3,
+  CurrentWeatherV4,
   ForecastStripV2,
   ForecastStripV3,
+  ForecastStripV4,
   HourlyRowV2,
   HourlyRowV3,
+  HourlyRowV4,
   AirQualityCardV2,
   AirQualityCardV3,
+  TemperatureGraphV4,
   type ForecastDay,
   type HourlyPoint,
 } from './index';
@@ -130,6 +134,56 @@ describe('AirQualityCard V2/V3 (native)', () => {
   });
 });
 
+describe('weather V4 — saturated hero line (native)', () => {
+  it('CurrentWeatherV4 renders the hero temperature + condition on the brand ground', () => {
+    const { getByText } = renderThemed(
+      <CurrentWeatherV4 location="San Francisco" temperature={23} condition="clear" feelsLike={22} high={24} low={15} />,
+      SEED_LIGHT
+    );
+    expect(getByText('23°')).toBeTruthy();
+    expect(getByText('Clear')).toBeTruthy();
+    expect(getByText('Feels 22°')).toBeTruthy();
+  });
+
+  it('CurrentWeatherV4 shows a placeholder when temperature is absent and a skeleton when loading', () => {
+    const { getByText } = renderThemed(<CurrentWeatherV4 condition="rain" />, SEED_DARK);
+    expect(getByText('—')).toBeTruthy();
+    const loading = renderThemed(<CurrentWeatherV4 loading />, SEED_LIGHT);
+    expect(loading.toJSON()).toBeTruthy();
+  });
+
+  it('ForecastStripV4 fires onSelectDay with the tapped day + index', () => {
+    const onSelectDay = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <ForecastStripV4 days={days} selectedIndex={0} onSelectDay={onSelectDay} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText(/^Tue, Rain/));
+    expect(onSelectDay).toHaveBeenCalledWith(days[1], 1);
+  });
+
+  it('HourlyRowV4 renders per-hour temperatures and fires onSelectHour', () => {
+    const onSelectHour = jest.fn();
+    const { getByText, getByLabelText } = renderThemed(
+      <HourlyRowV4 hours={hours} onSelectHour={onSelectHour} />,
+      SEED_DARK
+    );
+    expect(getByText('20°')).toBeTruthy();
+    fireEvent.press(getByLabelText(/^10 AM, Cloudy/));
+    expect(onSelectHour).toHaveBeenCalledTimes(1);
+  });
+
+  it('TemperatureGraphV4 renders its title + H/L annotation and an empty state', () => {
+    const { getByText } = renderThemed(
+      <TemperatureGraphV4 data={[14, 18, 23, 19]} labels={['6a', '12p', '3p', '9p']} title="Today" />,
+      SEED_LIGHT
+    );
+    expect(getByText('Today')).toBeTruthy();
+    const empty = renderThemed(<TemperatureGraphV4 data={[]} emptyLabel="No temp" />, SEED_DARK);
+    expect(empty.getByText('No temp')).toBeTruthy();
+  });
+});
+
 describe('token purity (native weather design variants, both seeds)', () => {
   it('every rendered hex traces to a compiled token', () => {
     [SEED_LIGHT, SEED_DARK].forEach((seed) => {
@@ -147,6 +201,12 @@ describe('token purity (native weather design variants, both seeds)', () => {
           <AirQualityCardV2 aqi={210} pollutant="PM2.5" advice="Stay indoors" />
           <AirQualityCardV2 loading />
           <AirQualityCardV3 aqi={42} pollutant="O₃" advice="Good day" />
+          <CurrentWeatherV4 location="SF" temperature={23} condition="clear" feelsLike={22} high={24} low={15} onPress={() => {}} />
+          <CurrentWeatherV4 loading />
+          <ForecastStripV4 days={days} selectedIndex={1} onSelectDay={() => {}} />
+          <ForecastStripV4 days={[]} />
+          <HourlyRowV4 hours={hours} onSelectHour={() => {}} />
+          <TemperatureGraphV4 data={[12, 18, 23, 19]} labels={['6a', '12p', '3p', '9p']} title="Today" />
         </>,
         seed
       );

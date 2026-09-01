@@ -15,6 +15,26 @@ import { SceneCardV2 } from './SceneCardV2';
 import { SceneCardV3 } from './SceneCardV3';
 import { ThermostatDialV2 } from './ThermostatDialV2';
 import { ThermostatDialV3 } from './ThermostatDialV3';
+import {
+  DeviceTileV4,
+  LightControlV4,
+  ThermostatDialV4,
+  SceneCardV4,
+  DeviceToggleRowV4,
+  LockControlV4,
+  CameraTileV4,
+  RoomGroupV4,
+  AutomationRuleV4,
+  ScheduleRowV4,
+  SensorReadingV4,
+  EnergyUsageV4,
+  HomeHeader,
+  RoomHeader,
+  EnergyDashboard,
+  ModeSelector,
+  FavoritesGrid,
+  AlertCard,
+} from './index';
 
 const inlineStyles = (root: HTMLElement): string =>
   Array.from(root.querySelectorAll<HTMLElement>('[style]'))
@@ -84,5 +104,131 @@ describe('ThermostatDial alternates (web)', () => {
     expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
     fireEvent.click(getByLabelText('Lower target temperature'));
     expect(onTargetChange).toHaveBeenCalledWith(20.5);
+  });
+});
+
+describe('smarthome V4 "ambient" line (web)', () => {
+  it('mounts every V4 variant token-pure', () => {
+    const { container } = render(
+      <>
+        <DeviceTileV4 name="Living Lamp" icon="💡" state="on" subtitle="72% brightness" />
+        <DeviceTileV4 name="Hall Plug" state="unavailable" subtitle="Offline 2m ago" />
+        <LightControlV4 name="Kitchen Ceiling" on brightness={72} colorTemp={40} />
+        <ThermostatDialV4 target={21} ambient={20} mode="heat" min={10} max={30} step={0.5} />
+        <SceneCardV4 name="Movie Night" icon="🎬" description="Dim lights" deviceCount={4} active />
+        <DeviceToggleRowV4 label="Desk Fan" icon="🌀" subtitle="Idle" checked last />
+        <LockControlV4 name="Front Door" state="locked" batteryPct={82} />
+        <CameraTileV4 name="Driveway" online recording timestamp="Live" />
+        <RoomGroupV4
+          name="Living Room"
+          icon="🛋️"
+          devices={[
+            { id: 'd1', label: 'Lamp', icon: '💡', on: true },
+            { id: 'd2', label: 'TV', icon: '📺', on: false },
+          ]}
+        />
+        <AutomationRuleV4 name="Lights off at sunset" trigger="When sunset" action="Turn off all lights" enabled />
+        <ScheduleRowV4 label="Wake-up lights" time="06:30" days={['Mon', 'Tue', 'Wed']} enabled last />
+        <SensorReadingV4 label="Temperature" value={21.4} unit="°C" icon="🌡️" status="normal" trend="↑ 2° since 1pm" />
+        <EnergyUsageV4 data={[4, 6, 3, 8, 5, 7, 6]} labels={['M', 'T', 'W', 'T', 'F', 'S', 'S']} total="39.2" unit="kWh" />
+      </>
+    );
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+  });
+
+  it('DeviceTileV4 toggles from the on (glow) state without opening details', () => {
+    const onToggle = jest.fn();
+    const onClick = jest.fn();
+    const { getByLabelText, container } = render(
+      <DeviceTileV4 name="Lamp" state="on" subtitle="On" onToggle={onToggle} onClick={onClick} />
+    );
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+    fireEvent.click(getByLabelText('Lamp power'));
+    expect(onToggle).toHaveBeenCalledWith(false);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('SceneCardV4 activates the scene', () => {
+    const onActivate = jest.fn();
+    const { getByText } = render(
+      <SceneCardV4 name="Good Morning" icon="🌅" description="Warm up" deviceCount={3} onActivate={onActivate} />
+    );
+    fireEvent.click(getByText('Good Morning'));
+    expect(onActivate).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('smarthome V4 new blocks (web)', () => {
+  it('mounts every new block token-pure', () => {
+    const { container } = render(
+      <>
+        <HomeHeader
+          homeName="Willow House"
+          greeting="Good evening"
+          statusLabel="All secure"
+          statusTone="success"
+          weather={{ temp: '72°', glyph: '☀️', condition: 'Clear' }}
+          metrics={[
+            { label: 'Devices on', value: '4' },
+            { label: 'Temperature', value: '71°' },
+          ]}
+          scenes={[{ id: 'movie', label: 'Movie', glyph: '🎬' }]}
+        />
+        <RoomHeader
+          roomName="Living Room"
+          glyph="🛋️"
+          temperature="71°"
+          humidity="44%"
+          devicesOn={3}
+          deviceCount={6}
+          lightsOn
+          onAllOff={() => {}}
+        />
+        <EnergyDashboard
+          usageLabel="24.6 kWh"
+          costLabel="$4.20 today"
+          period="Today"
+          deltaPct={12}
+          solarLabel="6.1 kWh solar"
+          breakdown={[
+            { label: 'Heating', value: 12, tone: 'primary' },
+            { label: 'Lighting', value: 5, tone: 'accent' },
+            { label: 'Other', value: 8, tone: 'warn' },
+          ]}
+        />
+        <ModeSelector value="home" />
+        <FavoritesGrid
+          devices={[
+            { id: 'f1', name: 'Living Lamp', icon: '💡', state: 'on', subtitle: 'On' },
+            { id: 'f2', name: 'Hall Plug', icon: '🔌', state: 'off', subtitle: 'Off' },
+          ]}
+        />
+        <AlertCard severity="warning" title="Front door left open" message="Since 4:12pm" deviceName="Front Door" time="2m ago" />
+      </>
+    );
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+  });
+
+  it('ModeSelector fires onChange when a mode tile is picked', () => {
+    const onChange = jest.fn();
+    const { getByLabelText } = render(<ModeSelector value="home" onChange={onChange} />);
+    fireEvent.click(getByLabelText('Away'));
+    expect(onChange).toHaveBeenCalledWith('away');
+  });
+
+  it('AlertCard fires onDismiss', () => {
+    const onDismiss = jest.fn();
+    const { getByLabelText } = render(<AlertCard severity="critical" title="Smoke detected" onDismiss={onDismiss} />);
+    fireEvent.click(getByLabelText('Dismiss alert'));
+    expect(onDismiss).toHaveBeenCalledTimes(1);
+  });
+
+  it('HomeHeader fires onScene from a quick-scene chip', () => {
+    const onScene = jest.fn();
+    const { getByLabelText } = render(
+      <HomeHeader homeName="Willow House" scenes={[{ id: 'away', label: 'Away', glyph: '🌙' }]} onScene={onScene} />
+    );
+    fireEvent.click(getByLabelText('Away'));
+    expect(onScene).toHaveBeenCalledWith('away');
   });
 });

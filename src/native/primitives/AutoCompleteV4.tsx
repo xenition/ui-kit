@@ -1,8 +1,17 @@
 import * as React from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Animated, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { useXenitionTheme } from '../theme';
 import type { AutoCompleteOption, AutoCompleteProps } from './AutoComplete';
-import { fieldSkin, pressFill, popoverSkin, ringWrap, tapTarget } from './internal/picker-v4';
+import {
+  fieldSkin,
+  pressFill,
+  popoverSkin,
+  PICKER_MOTION,
+  ringWrap,
+  tapTarget,
+} from './internal/picker-v4';
+import { EASING_ENTER } from './internal/motion-v4';
+import { useReducedMotion } from './internal/useReducedMotion';
 
 export type { AutoCompleteProps as AutoCompleteV4Props, AutoCompleteOption };
 
@@ -50,6 +59,20 @@ function splitMatch(label: string, query: string): [string, string, string] {
  * A pressed row is filled with `pressFill`, an opaque mix against the panel's
  * own surface rather than `colors.border`, so the feedback is a wash rather
  * than a slab.
+ *
+ * ## The panel arrives
+ *
+ * It used to be a bare `{showPanel ? … : null}` — the only member of the
+ * native picker line with no `Animated` in it at all, while its own web twin
+ * faded and `ComboboxV4`, `DatePickerV4` and `TimePickerV4` beside it all rose
+ * and faded over `PICKER_MOTION.popover` with `EASING_ENTER`. A list of
+ * answers that blinks into existence under the keyboard reads as a glitch, and
+ * the arrival is the cue that says *these are for what you just typed*.
+ *
+ * `EASING_ENTER` because it is an arrival, and the same `xs` rise the web
+ * sheet's `xen-v4-picker-in` keyframe uses, so the two twins move on one arc.
+ * Under `useReducedMotion()` the panel is simply there — small, anchored, and
+ * not something whose sudden presence reads as a fault (§36.10).
  */
 export function AutoCompleteV4({
   options,
@@ -65,6 +88,7 @@ export function AutoCompleteV4({
 }: AutoCompleteProps): React.ReactElement {
   const theme = useXenitionTheme();
   const { colors, tokens } = theme;
+  const reduced = useReducedMotion();
   const [focused, setFocused] = React.useState(false);
 
   const query = value.trim();
@@ -79,6 +103,26 @@ export function AutoCompleteV4({
   const showPanel = focused && query.length > 0;
   const target = tapTarget(theme);
   const press = pressFill(theme);
+
+  const enter = React.useRef(new Animated.Value(0)).current;
+  React.useEffect(() => {
+    if (!showPanel) {
+      enter.setValue(0);
+      return undefined;
+    }
+    if (reduced) {
+      enter.setValue(1);
+      return undefined;
+    }
+    const anim = Animated.timing(enter, {
+      toValue: 1,
+      duration: PICKER_MOTION.popover,
+      easing: EASING_ENTER,
+      useNativeDriver: true,
+    });
+    anim.start();
+    return () => anim.stop();
+  }, [enter, reduced, showPanel]);
 
   const choose = (opt: AutoCompleteOption): void => {
     onChange?.(opt.label);
@@ -113,11 +157,23 @@ export function AutoCompleteV4({
       </View>
 
       {showPanel ? (
-        <View
+        <Animated.View
           accessibilityLabel="Suggestions"
           style={[
             popoverSkin(theme, 'card'),
-            { marginTop: tokens.spacing.xs, overflow: 'hidden' },
+            {
+              marginTop: tokens.spacing.xs,
+              overflow: 'hidden',
+              opacity: enter,
+              transform: [
+                {
+                  translateY: enter.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [-tokens.spacing.xs, 0],
+                  }),
+                },
+              ],
+            },
           ]}
         >
           {matches.length === 0 ? (
@@ -168,7 +224,7 @@ export function AutoCompleteV4({
               })}
             </ScrollView>
           )}
-        </View>
+        </Animated.View>
       ) : null}
     </View>
   );

@@ -77,3 +77,58 @@ export { MindfulnessStreakV2 } from './MindfulnessStreakV2';
 export type { MindfulnessStreakV2Props } from './MindfulnessStreakV2';
 export { MindfulnessStreakV3 } from './MindfulnessStreakV3';
 export type { MindfulnessStreakV3Props } from './MindfulnessStreakV3';
+
+// ── New composed blocks — home, audio player, browse, progress, celebration ──
+// A gradient + glassmorphic "calm" design line; gradient/glass are used only on
+// the hero surfaces, the player and the celebration, while browse tiles get soft
+// per-category tints and lists/stats stay clean. All token-driven, no literals.
+export { WellnessHeader } from './WellnessHeader';
+export type { WellnessHeaderProps } from './WellnessHeader';
+export { AudioPlayer } from './AudioPlayer';
+export type { AudioPlayerProps, AudioPlayerVariant } from './AudioPlayer';
+export { FeaturedSessionHero } from './FeaturedSessionHero';
+export type { FeaturedSessionHeroProps } from './FeaturedSessionHero';
+export { SessionCompleteCard } from './SessionCompleteCard';
+export type { SessionCompleteCardProps } from './SessionCompleteCard';
+export { CourseCard } from './CourseCard';
+export type { CourseCardProps } from './CourseCard';
+export { AchievementBadge } from './AchievementBadge';
+export type { AchievementBadgeProps } from './AchievementBadge';
+export { CategoryGrid, CategoryTile } from './CategoryGrid';
+export type { CategoryGridProps, CategoryTileProps, WellnessCategory, WellnessCategoryTone } from './CategoryGrid';
+export { MoodTrend } from './MoodTrend';
+export type { MoodTrendProps, MoodTrendPoint } from './MoodTrend';
+export { StatsSummary } from './StatsSummary';
+export type { StatsSummaryProps, WellnessStat } from './StatsSummary';
+export { ReminderCard } from './ReminderCard';
+export type { ReminderCardProps } from './ReminderCard';
+export { TeacherCard } from './TeacherCard';
+export type { TeacherCardProps } from './TeacherCard';
+export { GoalPicker } from './GoalPicker';
+export type { GoalPickerProps, WellnessGoal } from './GoalPicker';
+
+// ── V4 "calm" line for the ORIGINAL components — gradient/glass, matching the new blocks ──
+export { MeditationSessionCardV4 } from './MeditationSessionCardV4';
+export type { MeditationSessionCardV4Props } from './MeditationSessionCardV4';
+export { SleepStoryCardV4 } from './SleepStoryCardV4';
+export type { SleepStoryCardV4Props } from './SleepStoryCardV4';
+export { DailyQuoteCardV4 } from './DailyQuoteCardV4';
+export type { DailyQuoteCardV4Props } from './DailyQuoteCardV4';
+export { MindfulnessStreakV4 } from './MindfulnessStreakV4';
+export type { MindfulnessStreakV4Props } from './MindfulnessStreakV4';
+export { BreathingGuideV4 } from './BreathingGuideV4';
+export type { BreathingGuideV4Props } from './BreathingGuideV4';
+export { SessionTimerV4 } from './SessionTimerV4';
+export type { SessionTimerV4Props } from './SessionTimerV4';
+export { MoodCheckInV4 } from './MoodCheckInV4';
+export type { MoodCheckInV4Props } from './MoodCheckInV4';
+export { GratitudeEntryV4 } from './GratitudeEntryV4';
+export type { GratitudeEntryV4Props } from './GratitudeEntryV4';
+export { JournalPromptV4 } from './JournalPromptV4';
+export type { JournalPromptV4Props } from './JournalPromptV4';
+export { WellnessGoalRingV4 } from './WellnessGoalRingV4';
+export type { WellnessGoalRingV4Props } from './WellnessGoalRingV4';
+export { ProgressCalendarV4 } from './ProgressCalendarV4';
+export type { ProgressCalendarV4Props } from './ProgressCalendarV4';
+export { SoundscapeRowV4 } from './SoundscapeRowV4';
+export type { SoundscapeRowV4Props } from './SoundscapeRowV4';

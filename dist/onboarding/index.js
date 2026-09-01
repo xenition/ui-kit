@@ -13,7 +13,8 @@
  * change restyles the entire funnel, dark mode included.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OtpVerifyV3 = exports.OtpVerifyV2 = exports.PermissionPromptV3 = exports.PermissionPromptV2 = exports.InterestPickerV3 = exports.InterestPickerV2 = exports.ProfileSetupV3 = exports.ProfileSetupV2 = exports.TrialBanner = exports.ProgressDots = exports.GetStartedButton = exports.InterestPicker = exports.ProfileSetup = exports.OtpVerify = exports.FeatureLockCard = exports.PaywallScreenV3 = exports.PaywallScreenV2 = exports.PaywallFeatureRows = exports.PaywallScreen = exports.PlanSelectorV3 = exports.PlanSelectorV2 = exports.PlanSelector = exports.PermissionPrompt = exports.SignInScreenV3 = exports.SignInScreenV2 = exports.SignInScreen = exports.WelcomeScreenV3 = exports.WelcomeScreenV2 = exports.WelcomeScreen = exports.OnboardingSlidesV3 = exports.OnboardingSlidesV2 = exports.OnboardingSlides = void 0;
+exports.PaywallFeatureRowsV3 = exports.PaywallFeatureRowsV2 = exports.ProgressDotsV3 = exports.ProgressDotsV2 = exports.SignInScreenV4 = exports.OtpVerifyV4 = exports.ProfileSetupV4 = exports.PermissionPromptV4 = exports.InterestPickerV4 = exports.OnboardingSlidesV4 = exports.WelcomeScreenV4 = exports.PaywallScreenV4 = exports.PlanSelectorV4 = exports.PaywallFeatureRowsV4 = exports.FeatureLockCardV4 = exports.TrialBannerV4 = exports.ProgressDotsV4 = exports.GetStartedButtonV4 = exports.OtpVerifyV3 = exports.OtpVerifyV2 = exports.PermissionPromptV3 = exports.PermissionPromptV2 = exports.InterestPickerV3 = exports.InterestPickerV2 = exports.ProfileSetupV3 = exports.ProfileSetupV2 = exports.TrialBanner = exports.ProgressDots = exports.GetStartedButton = exports.InterestPicker = exports.ProfileSetup = exports.OtpVerify = exports.FeatureLockCard = exports.PaywallScreenV3 = exports.PaywallScreenV2 = exports.PaywallFeatureRows = exports.PaywallScreen = exports.PlanSelectorV3 = exports.PlanSelectorV2 = exports.PlanSelector = exports.PermissionPrompt = exports.SignInScreenV3 = exports.SignInScreenV2 = exports.SignInScreen = exports.WelcomeScreenV3 = exports.WelcomeScreenV2 = exports.WelcomeScreen = exports.OnboardingSlidesV3 = exports.OnboardingSlidesV2 = exports.OnboardingSlides = void 0;
+exports.FeatureLockCardV3 = exports.FeatureLockCardV2 = void 0;
 var OnboardingSlides_1 = require("./OnboardingSlides");
 Object.defineProperty(exports, "OnboardingSlides", { enumerable: true, get: function () { return OnboardingSlides_1.OnboardingSlides; } });
 var OnboardingSlidesV2_1 = require("./OnboardingSlidesV2");
@@ -77,4 +78,53 @@ var OtpVerifyV2_1 = require("./OtpVerifyV2");
 Object.defineProperty(exports, "OtpVerifyV2", { enumerable: true, get: function () { return OtpVerifyV2_1.OtpVerifyV2; } });
 var OtpVerifyV3_1 = require("./OtpVerifyV3");
 Object.defineProperty(exports, "OtpVerifyV3", { enumerable: true, get: function () { return OtpVerifyV3_1.OtpVerifyV3; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `ONBOARDING-V4-BRIEF.md`. Each is
+// a drop-in for its base — same props plus optional additions — and each takes
+// the line's two configuration axes (`ground`, `accent`) where it is a screen.
+var GetStartedButtonV4_1 = require("./GetStartedButtonV4");
+Object.defineProperty(exports, "GetStartedButtonV4", { enumerable: true, get: function () { return GetStartedButtonV4_1.GetStartedButtonV4; } });
+var ProgressDotsV4_1 = require("./ProgressDotsV4");
+Object.defineProperty(exports, "ProgressDotsV4", { enumerable: true, get: function () { return ProgressDotsV4_1.ProgressDotsV4; } });
+var TrialBannerV4_1 = require("./TrialBannerV4");
+Object.defineProperty(exports, "TrialBannerV4", { enumerable: true, get: function () { return TrialBannerV4_1.TrialBannerV4; } });
+var FeatureLockCardV4_1 = require("./FeatureLockCardV4");
+Object.defineProperty(exports, "FeatureLockCardV4", { enumerable: true, get: function () { return FeatureLockCardV4_1.FeatureLockCardV4; } });
+var PaywallFeatureRowsV4_1 = require("./PaywallFeatureRowsV4");
+Object.defineProperty(exports, "PaywallFeatureRowsV4", { enumerable: true, get: function () { return PaywallFeatureRowsV4_1.PaywallFeatureRowsV4; } });
+var PlanSelectorV4_1 = require("./PlanSelectorV4");
+Object.defineProperty(exports, "PlanSelectorV4", { enumerable: true, get: function () { return PlanSelectorV4_1.PlanSelectorV4; } });
+var PaywallScreenV4_1 = require("./PaywallScreenV4");
+Object.defineProperty(exports, "PaywallScreenV4", { enumerable: true, get: function () { return PaywallScreenV4_1.PaywallScreenV4; } });
+var WelcomeScreenV4_1 = require("./WelcomeScreenV4");
+Object.defineProperty(exports, "WelcomeScreenV4", { enumerable: true, get: function () { return WelcomeScreenV4_1.WelcomeScreenV4; } });
+var OnboardingSlidesV4_1 = require("./OnboardingSlidesV4");
+Object.defineProperty(exports, "OnboardingSlidesV4", { enumerable: true, get: function () { return OnboardingSlidesV4_1.OnboardingSlidesV4; } });
+var InterestPickerV4_1 = require("./InterestPickerV4");
+Object.defineProperty(exports, "InterestPickerV4", { enumerable: true, get: function () { return InterestPickerV4_1.InterestPickerV4; } });
+var PermissionPromptV4_1 = require("./PermissionPromptV4");
+Object.defineProperty(exports, "PermissionPromptV4", { enumerable: true, get: function () { return PermissionPromptV4_1.PermissionPromptV4; } });
+var ProfileSetupV4_1 = require("./ProfileSetupV4");
+Object.defineProperty(exports, "ProfileSetupV4", { enumerable: true, get: function () { return ProfileSetupV4_1.ProfileSetupV4; } });
+var OtpVerifyV4_1 = require("./OtpVerifyV4");
+Object.defineProperty(exports, "OtpVerifyV4", { enumerable: true, get: function () { return OtpVerifyV4_1.OtpVerifyV4; } });
+var SignInScreenV4_1 = require("./SignInScreenV4");
+Object.defineProperty(exports, "SignInScreenV4", { enumerable: true, get: function () { return SignInScreenV4_1.SignInScreenV4; } });
+// ── Alternate design lines for the three controls that had none ────────
+// The five that shipped without a V2/V3 were not five gaps: `GetStartedButton`
+// is the one shape §5 pins so a funnel reads as one app, and `TrialBanner` is
+// small enough that the base IS its whole line (asserted from the other side
+// in `design-line-composition`). These three are the real gaps, closed.
+var ProgressDotsV2_1 = require("./ProgressDotsV2");
+Object.defineProperty(exports, "ProgressDotsV2", { enumerable: true, get: function () { return ProgressDotsV2_1.ProgressDotsV2; } });
+var ProgressDotsV3_1 = require("./ProgressDotsV3");
+Object.defineProperty(exports, "ProgressDotsV3", { enumerable: true, get: function () { return ProgressDotsV3_1.ProgressDotsV3; } });
+var PaywallFeatureRowsV2_1 = require("./PaywallFeatureRowsV2");
+Object.defineProperty(exports, "PaywallFeatureRowsV2", { enumerable: true, get: function () { return PaywallFeatureRowsV2_1.PaywallFeatureRowsV2; } });
+var PaywallFeatureRowsV3_1 = require("./PaywallFeatureRowsV3");
+Object.defineProperty(exports, "PaywallFeatureRowsV3", { enumerable: true, get: function () { return PaywallFeatureRowsV3_1.PaywallFeatureRowsV3; } });
+var FeatureLockCardV2_1 = require("./FeatureLockCardV2");
+Object.defineProperty(exports, "FeatureLockCardV2", { enumerable: true, get: function () { return FeatureLockCardV2_1.FeatureLockCardV2; } });
+var FeatureLockCardV3_1 = require("./FeatureLockCardV3");
+Object.defineProperty(exports, "FeatureLockCardV3", { enumerable: true, get: function () { return FeatureLockCardV3_1.FeatureLockCardV3; } });
 //# sourceMappingURL=index.js.map

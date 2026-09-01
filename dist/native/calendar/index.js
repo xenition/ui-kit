@@ -13,7 +13,8 @@
  * `../primitives` (Card, Button, Modal, Icon, Segmented).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resolveTone = exports.withAlpha = exports.weekdayHeader = exports.monthGrid = exports.timeRangeLabel = exports.hourLabel = exports.clockLabel = exports.minutesSinceMidnight = exports.weekDates = exports.startOfWeek = exports.addMonths = exports.addDays = exports.sameMonth = exports.sameDay = exports.monthLongLabel = exports.monthLabel = exports.weekdayLabel = exports.MONTHS_LONG = exports.MONTHS_SHORT = exports.WEEKDAYS_NARROW = exports.WEEKDAYS_SHORT = exports.TimezoneRow = exports.RecurrenceRow = exports.AllDayRow = exports.DateNavigator = exports.EventDetailSheet = exports.MiniCalendar = exports.AvailabilityPicker = exports.TimeGrid = exports.EventBlock = exports.DayAgenda = exports.AvailabilityPickerV3 = exports.AvailabilityPickerV2 = exports.EventBlockV3 = exports.EventBlockV2 = exports.DayAgendaV3 = exports.DayAgendaV2 = exports.MonthViewV3 = exports.MonthViewV2 = exports.WeekView = exports.MonthView = void 0;
+exports.RecurrenceRowV4 = exports.MonthViewV4 = exports.MiniCalendarV4 = exports.EventDetailSheetV4 = exports.EventBlockV4 = exports.DayAgendaV4 = exports.DateNavigatorV4 = exports.AvailabilityPickerV4 = exports.AllDayRowV4 = exports.resolveTone = exports.withAlpha = exports.weekdayHeader = exports.monthGrid = exports.timeRangeLabel = exports.hourLabel = exports.clockLabel = exports.minutesSinceMidnight = exports.weekDates = exports.startOfWeek = exports.addMonths = exports.addDays = exports.sameMonth = exports.sameDay = exports.monthLongLabel = exports.monthLabel = exports.weekdayLabel = exports.MONTHS_LONG = exports.MONTHS_SHORT = exports.WEEKDAYS_NARROW = exports.WEEKDAYS_SHORT = exports.TimezoneRow = exports.RecurrenceRow = exports.AllDayRow = exports.DateNavigator = exports.EventDetailSheet = exports.MiniCalendar = exports.AvailabilityPicker = exports.TimeGrid = exports.EventBlock = exports.DayAgenda = exports.AvailabilityPickerV3 = exports.AvailabilityPickerV2 = exports.EventBlockV3 = exports.EventBlockV2 = exports.DayAgendaV3 = exports.DayAgendaV2 = exports.MonthViewV3 = exports.MonthViewV2 = exports.WeekView = exports.MonthView = void 0;
+exports.WeekViewV4 = exports.TimezoneRowV4 = exports.TimeGridV4 = void 0;
 var MonthView_1 = require("./MonthView");
 Object.defineProperty(exports, "MonthView", { enumerable: true, get: function () { return MonthView_1.MonthView; } });
 var WeekView_1 = require("./WeekView");
@@ -77,4 +78,31 @@ Object.defineProperty(exports, "monthGrid", { enumerable: true, get: function ()
 Object.defineProperty(exports, "weekdayHeader", { enumerable: true, get: function () { return format_1.weekdayHeader; } });
 Object.defineProperty(exports, "withAlpha", { enumerable: true, get: function () { return format_1.withAlpha; } });
 Object.defineProperty(exports, "resolveTone", { enumerable: true, get: function () { return format_1.resolveTone; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `CALENDAR-CHAT-V4-BRIEF.md`. Each
+// is a drop-in for its base — same props plus optional additions.
+var AllDayRowV4_1 = require("./AllDayRowV4");
+Object.defineProperty(exports, "AllDayRowV4", { enumerable: true, get: function () { return AllDayRowV4_1.AllDayRowV4; } });
+var AvailabilityPickerV4_1 = require("./AvailabilityPickerV4");
+Object.defineProperty(exports, "AvailabilityPickerV4", { enumerable: true, get: function () { return AvailabilityPickerV4_1.AvailabilityPickerV4; } });
+var DateNavigatorV4_1 = require("./DateNavigatorV4");
+Object.defineProperty(exports, "DateNavigatorV4", { enumerable: true, get: function () { return DateNavigatorV4_1.DateNavigatorV4; } });
+var DayAgendaV4_1 = require("./DayAgendaV4");
+Object.defineProperty(exports, "DayAgendaV4", { enumerable: true, get: function () { return DayAgendaV4_1.DayAgendaV4; } });
+var EventBlockV4_1 = require("./EventBlockV4");
+Object.defineProperty(exports, "EventBlockV4", { enumerable: true, get: function () { return EventBlockV4_1.EventBlockV4; } });
+var EventDetailSheetV4_1 = require("./EventDetailSheetV4");
+Object.defineProperty(exports, "EventDetailSheetV4", { enumerable: true, get: function () { return EventDetailSheetV4_1.EventDetailSheetV4; } });
+var MiniCalendarV4_1 = require("./MiniCalendarV4");
+Object.defineProperty(exports, "MiniCalendarV4", { enumerable: true, get: function () { return MiniCalendarV4_1.MiniCalendarV4; } });
+var MonthViewV4_1 = require("./MonthViewV4");
+Object.defineProperty(exports, "MonthViewV4", { enumerable: true, get: function () { return MonthViewV4_1.MonthViewV4; } });
+var RecurrenceRowV4_1 = require("./RecurrenceRowV4");
+Object.defineProperty(exports, "RecurrenceRowV4", { enumerable: true, get: function () { return RecurrenceRowV4_1.RecurrenceRowV4; } });
+var TimeGridV4_1 = require("./TimeGridV4");
+Object.defineProperty(exports, "TimeGridV4", { enumerable: true, get: function () { return TimeGridV4_1.TimeGridV4; } });
+var TimezoneRowV4_1 = require("./TimezoneRowV4");
+Object.defineProperty(exports, "TimezoneRowV4", { enumerable: true, get: function () { return TimezoneRowV4_1.TimezoneRowV4; } });
+var WeekViewV4_1 = require("./WeekViewV4");
+Object.defineProperty(exports, "WeekViewV4", { enumerable: true, get: function () { return WeekViewV4_1.WeekViewV4; } });
 //# sourceMappingURL=index.js.map

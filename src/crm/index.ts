@@ -76,3 +76,33 @@ export {
   toneFillClass,
   clampPct,
 } from './internal';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `CONTENT-CRM-V4-BRIEF.md` §3. Each
+// is a drop-in for its base — same props plus optional additions, every one
+// defaulting to today's behaviour — so swapping `X` for `XV4` buys the fixes
+// and no surprises.
+export { ActivityLogRowV4 } from './ActivityLogRowV4';
+export type { ActivityLogRowV4Props } from './ActivityLogRowV4';
+export { ContactCardV4 } from './ContactCardV4';
+export type { ContactCardV4Props } from './ContactCardV4';
+export { ContactTimelineV4 } from './ContactTimelineV4';
+export type { ContactTimelineV4Props } from './ContactTimelineV4';
+export { DealCardV4 } from './DealCardV4';
+export type { DealCardV4Props } from './DealCardV4';
+export { DealForecastV4 } from './DealForecastV4';
+export type { DealForecastV4Props } from './DealForecastV4';
+export { EmailThreadRowV4 } from './EmailThreadRowV4';
+export type { EmailThreadRowV4Props } from './EmailThreadRowV4';
+export { LeadRowV4 } from './LeadRowV4';
+export type { LeadRowV4Props } from './LeadRowV4';
+export { NextStepRowV4 } from './NextStepRowV4';
+export type { NextStepRowV4Props } from './NextStepRowV4';
+export { PipelineBoardV4 } from './PipelineBoardV4';
+export type { PipelineBoardV4Props } from './PipelineBoardV4';
+export { QuoteCardV4 } from './QuoteCardV4';
+export type { QuoteCardV4Props } from './QuoteCardV4';
+export { TagFilterBarV4 } from './TagFilterBarV4';
+export type { TagFilterBarV4Props } from './TagFilterBarV4';
+export { WinLossBadgeV4 } from './WinLossBadgeV4';
+export type { WinLossBadgeV4Props } from './WinLossBadgeV4';

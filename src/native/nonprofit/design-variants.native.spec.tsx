@@ -15,6 +15,18 @@ import { CauseCardV2 } from './CauseCardV2';
 import { CauseCardV3 } from './CauseCardV3';
 import { FundraiserCardV2 } from './FundraiserCardV2';
 import { FundraiserCardV3 } from './FundraiserCardV3';
+import { CampaignProgressV4 } from './CampaignProgressV4';
+import { CauseCardV4 } from './CauseCardV4';
+import { DonationCardV4 } from './DonationCardV4';
+import { DonorRowV4 } from './DonorRowV4';
+import { EventTicketRowV4 } from './EventTicketRowV4';
+import { FundraiserCardV4 } from './FundraiserCardV4';
+import { ImpactStatV4 } from './ImpactStatV4';
+import { MatchingGiftBannerV4 } from './MatchingGiftBannerV4';
+import { PledgeRowV4 } from './PledgeRowV4';
+import { RecurringGiftRowV4 } from './RecurringGiftRowV4';
+import { ThankYouCardV4 } from './ThankYouCardV4';
+import { VolunteerShiftV4 } from './VolunteerShiftV4';
 
 const SEEDS = [SEED_LIGHT, SEED_DARK] as const;
 
@@ -160,5 +172,76 @@ describe('nonprofit design variants — token purity (both seeds)', () => {
       expect(found.length).toBeGreaterThan(0);
       found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
     });
+  });
+});
+
+/** All 12 V4 "rally" components in one tree — the celebratory ThankYouCardV4
+ * (the reserved brand-gradient moment) is intentionally included. */
+const AllV4Rally = (
+  <>
+    <CampaignProgressV4 raisedCents={5000} goalCents={10000} tone="success" donorCount={12} daysLeft={9} variant="thermometer" />
+    <CauseCardV4 title="Reforest the Ridge" description="Plant native trees." category="Environment" raisedCents={120000} goalCents={500000} variant="featured" onPress={() => undefined} />
+    <DonationCardV4 title="Support Clean Water" description="Every gift funds a well." presets={[2500, 5000, 10000]} selected={5000} variant="featured" />
+    <DonorRowV4 name="Ada Lovelace" totalCents={250000} giftCount={7} tier="platinum" rank={1} />
+    <EventTicketRowV4 name="Gala Table" priceCents={50000} deductibleCents={20000} remaining={4} description="Seats 8" />
+    <FundraiserCardV4 title="Marathon for Wells" organizerName="Grace Hopper" raisedCents={30000} goalCents={100000} donorCount={9} onShare={() => undefined} onDonate={() => undefined} />
+    <ImpactStatV4 value="12,480" label="Meals served" unit="meals" glyph="🍲" variant="tile" tone="accent" />
+    <MatchingGiftBannerV4 matcherName="Acme Foundation" multiplier={2} matchedCents={40000} capCents={100000} deadlineLabel="Ends Sep 30" actionLabel="Give now" onAction={() => undefined} variant="solid" />
+    <PledgeRowV4 donorName="Alan Turing" amountCents={15000} status="pending" dueLabel="Due Sep 1" onFulfill={() => undefined} />
+    <RecurringGiftRowV4 amountCents={2500} frequency="monthly" fund="General Fund" nextChargeLabel="Next: Sep 1" status="active" onPause={() => undefined} onCancel={() => undefined} />
+    <ThankYouCardV4 donorName="Grace" amountCents={5000} message="You made this possible." impactLabel="Funds 40 meals" variant="celebratory" onShare={() => undefined} onViewReceipt={() => undefined} />
+    <VolunteerShiftV4 role="Food Bank Sorter" date="Sat, Aug 24" time="9:00 AM – 12:00 PM" location="Downtown Depot" filled={6} capacity={10} onSignUp={() => undefined} />
+  </>
+);
+
+describe('nonprofit V4 "rally" line (native)', () => {
+  it('mounts all 12 V4 together under a light seed and renders core content', () => {
+    const { getByText } = renderThemed(AllV4Rally, SEED_LIGHT);
+    expect(getByText('Reforest the Ridge')).toBeTruthy();
+    expect(getByText('Thank you, Grace!')).toBeTruthy();
+    expect(getByText('Meals served')).toBeTruthy();
+  });
+
+  it('CauseCardV4 presses through', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <CauseCardV4 title="Reforest" raisedCents={1} goalCents={2} onPress={onPress} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('Reforest'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('DonationCardV4 selects a preset and donates the active amount', () => {
+    const onSelectAmount = jest.fn();
+    const onDonate = jest.fn();
+    const { getByLabelText, getByText } = renderThemed(
+      <DonationCardV4 title="Give" presets={[1000, 2000]} selected={1000} onSelectAmount={onSelectAmount} onDonate={onDonate} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('$20.00'));
+    expect(onSelectAmount).toHaveBeenCalledWith(2000);
+    fireEvent.press(getByText('Donate $10.00'));
+    expect(onDonate).toHaveBeenCalledWith(1000);
+  });
+
+  it('EventTicketRowV4 presses through by label', () => {
+    const onSelect = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <EventTicketRowV4 name="General Entry" priceCents={2500} remaining={20} onSelect={onSelect} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('General Entry, $25.00'));
+    expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('nonprofit V4 "rally" line — token purity (both seeds)', () => {
+  it.each(SEEDS)('every rendered hex traces to a compiled token (incl. celebratory gradient)', (seed) => {
+    const { root } = renderThemed(AllV4Rally, seed);
+    const allowed = tokenHexSet(seed);
+    const found = renderedStyleHexes(root);
+    expect(found.length).toBeGreaterThan(0);
+    found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
   });
 });

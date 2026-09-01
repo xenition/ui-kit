@@ -3,7 +3,8 @@ import { render, within } from '@testing-library/react';
 import type { ReactElement } from 'react';
 import { XenitionUIProvider } from '../provider';
 import type { ThemeSeed } from '../theme/types';
-import { ProgressV4 } from './ProgressV4';
+import { PROGRESS_V4_STYLE_ID, ProgressV4 } from './ProgressV4';
+import { transitionCss, V4_MOTION } from './internal/v4-motion';
 
 const SEED: ThemeSeed = {
   primary: '#7C3AED',
@@ -84,9 +85,52 @@ describe('ProgressV4 (web)', () => {
     expect(fill(el).className).not.toMatch(/gradient/);
   });
 
-  it('snaps instead of easing under reduced motion — §36.10', () => {
+  /*
+    The ease used to be `transition-[width] duration-200 motion-reduce:...`.
+    200 was the right number — its own comment said so — but it was a COPY of
+    the scale rather than a reference to it, and a copy drifts silently the day
+    `standard` is retuned. A Tailwind class cannot read the scale (a static
+    scanner has to see the literal), so it is a sheet now, which is also where
+    the reduced-motion relief belongs.
+  */
+  it('eases its width at the scale’s `standard`, sourced and not typed', () => {
     const el = renderThemed(<ProgressV4 data-testid="progress" value={50} />);
-    expect(fill(el).className).toContain('motion-reduce:transition-none');
+    const css = document.getElementById(PROGRESS_V4_STYLE_ID)?.textContent ?? '';
+
+    expect(css).toContain(`transition: ${transitionCss(['width'])};`);
+    expect(css).toContain(`width ${V4_MOTION.standard}ms`);
+    // No bare Tailwind duration left to drift.
+    expect(fill(el).className).not.toMatch(/duration-\d/);
+  });
+
+  it('snaps instead of easing under reduced motion — §36.10', () => {
+    renderThemed(<ProgressV4 data-testid="progress" value={50} />);
+    const css = document.getElementById(PROGRESS_V4_STYLE_ID)?.textContent ?? '';
+
+    expect(css).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(css).toContain(
+      '[data-xen-v4-progress] [data-xen-v4-progress-fill] { transition: none; }'
+    );
+  });
+
+  it('eases the width when the value changes after mount, on the same node', () => {
+    const { container, rerender } = render(
+      <XenitionUIProvider theme={SEED}>
+        <ProgressV4 data-testid="progress" value={40} />
+      </XenitionUIProvider>
+    );
+    const before = container.querySelector('[data-xen-v4-progress-fill]') as HTMLElement;
+    expect(before.style.width).toBe('40%');
+
+    rerender(
+      <XenitionUIProvider theme={SEED}>
+        <ProgressV4 data-testid="progress" value={75} />
+      </XenitionUIProvider>
+    );
+    const after = container.querySelector('[data-xen-v4-progress-fill]') as HTMLElement;
+
+    expect(after).toBe(before);
+    expect(after.style.width).toBe('75%');
   });
 
   it('reports its value to assistive tech', () => {

@@ -75,3 +75,31 @@ export {
   MONTHS_SHORT,
 } from './format';
 export type { CountdownParts } from './format';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `EVENTS-FIELDSERVICE-V4-BRIEF.md`.
+// Each is a drop-in for its base — same props plus optional additions.
+export { AgendaListV4 } from './AgendaListV4';
+export type { AgendaListV4Props } from './AgendaListV4';
+export { CalendarStripV4 } from './CalendarStripV4';
+export type { CalendarStripV4Props } from './CalendarStripV4';
+export { CheckInRowV4 } from './CheckInRowV4';
+export type { CheckInRowV4Props } from './CheckInRowV4';
+export { CountdownBadgeV4 } from './CountdownBadgeV4';
+export type { CountdownBadgeV4Props } from './CountdownBadgeV4';
+export { EventCardV4 } from './EventCardV4';
+export type { EventCardV4Props } from './EventCardV4';
+export { RSVPButtonV4 } from './RSVPButtonV4';
+export type { RSVPButtonV4Props } from './RSVPButtonV4';
+export { ScheduleRowV4 } from './ScheduleRowV4';
+export type { ScheduleRowV4Props } from './ScheduleRowV4';
+export { SessionCardV4 } from './SessionCardV4';
+export type { SessionCardV4Props } from './SessionCardV4';
+export { SpeakerCardV4 } from './SpeakerCardV4';
+export type { SpeakerCardV4Props } from './SpeakerCardV4';
+export { TicketStubV4 } from './TicketStubV4';
+export type { TicketStubV4Props } from './TicketStubV4';
+export { TicketTypeRowV4 } from './TicketTypeRowV4';
+export type { TicketTypeRowV4Props } from './TicketTypeRowV4';
+export { VenueCardV4 } from './VenueCardV4';
+export type { VenueCardV4Props } from './VenueCardV4';

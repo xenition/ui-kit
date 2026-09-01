@@ -46,4 +46,16 @@ export { WeightTracker } from './WeightTracker';
 export type { WeightTrackerProps, WeightStatus } from './WeightTracker';
 export { LostPetAlert } from './LostPetAlert';
 export type { LostPetAlertProps, LostPetStatus } from './LostPetAlert';
+export { AdoptionCardV4, type AdoptionCardV4Props } from './AdoptionCardV4';
+export { BreedCardV4, type BreedCardV4Props } from './BreedCardV4';
+export { FeedingScheduleV4, type FeedingScheduleV4Props } from './FeedingScheduleV4';
+export { GroomingCardV4, type GroomingCardV4Props } from './GroomingCardV4';
+export { LostPetAlertV4, type LostPetAlertV4Props } from './LostPetAlertV4';
+export { MedicationReminderV4, type MedicationReminderV4Props } from './MedicationReminderV4';
+export { PetActivityRingV4, type PetActivityRingV4Props } from './PetActivityRingV4';
+export { PetHealthLogV4, type PetHealthLogV4Props } from './PetHealthLogV4';
+export { PetProfileCardV4, type PetProfileCardV4Props } from './PetProfileCardV4';
+export { VaccineRecordV4, type VaccineRecordV4Props } from './VaccineRecordV4';
+export { VetAppointmentCardV4, type VetAppointmentCardV4Props } from './VetAppointmentCardV4';
+export { WeightTrackerV4, type WeightTrackerV4Props } from './WeightTrackerV4';
 //# sourceMappingURL=index.d.ts.map

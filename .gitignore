@@ -3,3 +3,6 @@ dist/
 *.tgz
 coverage/
 .DS_Store
+
+# Local preview / demo apps (not part of the published kit)
+examples/

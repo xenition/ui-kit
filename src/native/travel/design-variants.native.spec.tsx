@@ -15,6 +15,14 @@ import { DestinationCardV2 } from './DestinationCardV2';
 import { DestinationCardV3 } from './DestinationCardV3';
 import { ItineraryItemV2 } from './ItineraryItemV2';
 import { ItineraryItemV3 } from './ItineraryItemV3';
+import {
+  FlightCardV4,
+  DestinationCardV4,
+  ItineraryItemV4,
+  TripHeader,
+  FlightStatusBanner,
+  LoyaltyCard,
+} from './index';
 
 const FLIGHT = {
   airline: 'Xenition Air',
@@ -148,6 +156,33 @@ describe('travel design variants — mount + interaction (native)', () => {
   });
 });
 
+describe('travel V4 "journey" line — mount + interaction (native)', () => {
+  it('FlightCardV4 renders route and fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByText, getByLabelText } = renderThemed(
+      <FlightCardV4 {...FLIGHT} onPress={onPress} />,
+      SEED_LIGHT
+    );
+    expect(getByText('SFO')).toBeTruthy();
+    expect(getByText('NRT')).toBeTruthy();
+    fireEvent.press(getByLabelText(/Xenition Air SFO to NRT/));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('the new journey blocks mount on the brand ground', () => {
+    const { getByText } = renderThemed(
+      <>
+        <TripHeader origin={{ city: 'San Francisco', code: 'SFO' }} destination={{ city: 'Tokyo', code: 'NRT' }} startDate="Sep 3" endDate="Sep 10" travelers={2} nights={7} />
+        <FlightStatusBanner status="boarding" flightNumber="XN 482" gate="B12" seat="14C" boardingTime="3:40 PM" />
+        <LoyaltyCard program="SkyMiles" memberName="A. Rivera" tier="Gold" points={48250} nextTierPoints={60000} memberId="XN-88213" />
+      </>,
+      SEED_DARK
+    );
+    expect(getByText('San Francisco')).toBeTruthy();
+    expect(getByText('SkyMiles')).toBeTruthy();
+  });
+});
+
 describe('travel design variants — token purity (both seeds)', () => {
   it('every rendered hex traces to a compiled token', () => {
     [SEED_LIGHT, SEED_DARK].forEach((seed) => {
@@ -155,12 +190,18 @@ describe('travel design variants — token purity (both seeds)', () => {
         <>
           <FlightCardV2 {...FLIGHT} />
           <FlightCardV3 {...FLIGHT} variant="compact" />
+          <FlightCardV4 {...FLIGHT} />
           <HotelCardV2 name="Park Tower" location="Shinjuku" rating={4} reviewCount={321} priceCents={21000} tags={['Pool']} />
           <HotelCardV3 name="Park Tower" rating={4} priceCents={21000} compareAtCents={26000} tags={['Pool', 'Spa', 'Gym']} appearance="soft" />
           <DestinationCardV2 name="Kyoto" country="Japan" tagline="Temples" fromCents={49900} badge="Popular" />
           <DestinationCardV3 name="Kyoto" country="Japan" tagline="Temples" fromCents={49900} badge="Popular" appearance="outline" />
+          <DestinationCardV4 name="Kyoto" country="Japan" tagline="Temples" fromCents={49900} badge="Popular" />
           <ItineraryItemV2 kind="flight" time="09:30" title="Depart" subtitle="Gate A12" status="active" />
           <ItineraryItemV3 kind="meal" time="12:00" title="Lunch" subtitle="Ramen" status="upcoming" showConnector={false} />
+          <ItineraryItemV4 kind="flight" time="09:30" title="Depart" subtitle="Gate A12" status="active" />
+          <TripHeader origin={{ city: 'San Francisco', code: 'SFO' }} destination={{ city: 'Tokyo', code: 'NRT' }} startDate="Sep 3" endDate="Sep 10" travelers={2} nights={7} onManage={() => {}} />
+          <FlightStatusBanner status="delayed" flightNumber="XN 482" gate="B12" seat="14C" boardingTime="3:40 PM" remark="New departure 4:15 PM" />
+          <LoyaltyCard program="SkyMiles" memberName="A. Rivera" tier="Gold" points={48250} nextTierPoints={60000} memberId="XN-88213" />
         </>,
         seed
       );

@@ -16,7 +16,7 @@
  * no DOM. Native only, mobile-first.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ControllerHint = exports.InventoryItem = exports.AchievementUnlock = exports.QuestCardV3 = exports.QuestCardV2 = exports.QuestCard = exports.LevelBar = exports.MatchmakingStatus = exports.LobbyRow = exports.LeaderboardPodiumV3 = exports.LeaderboardPodiumV2 = exports.LeaderboardPodium = exports.ScoreBoard = exports.TournamentBracket = exports.PlayerStatCardV3 = exports.PlayerStatCardV2 = exports.PlayerStatCard = exports.GameCardV3 = exports.GameCardV2 = exports.GameCard = exports.formatElapsed = exports.clamp = exports.formatCount = exports.withAlpha = exports.rarityColorKey = exports.rarityRank = void 0;
+exports.TournamentBracketV4 = exports.ScoreBoardV4 = exports.QuestCardV4 = exports.PlayerStatCardV4 = exports.MatchmakingStatusV4 = exports.LobbyRowV4 = exports.LevelBarV4 = exports.LeaderboardPodiumV4 = exports.InventoryItemV4 = exports.GameCardV4 = exports.ControllerHintV4 = exports.AchievementUnlockV4 = exports.ControllerHint = exports.InventoryItem = exports.AchievementUnlock = exports.QuestCardV3 = exports.QuestCardV2 = exports.QuestCard = exports.LevelBar = exports.MatchmakingStatus = exports.LobbyRow = exports.LeaderboardPodiumV3 = exports.LeaderboardPodiumV2 = exports.LeaderboardPodium = exports.ScoreBoard = exports.TournamentBracket = exports.PlayerStatCardV3 = exports.PlayerStatCardV2 = exports.PlayerStatCard = exports.GameCardV3 = exports.GameCardV2 = exports.GameCard = exports.formatElapsed = exports.clamp = exports.formatCount = exports.withAlpha = exports.rarityColorKey = exports.rarityRank = void 0;
 var types_1 = require("./types");
 Object.defineProperty(exports, "rarityRank", { enumerable: true, get: function () { return types_1.rarityRank; } });
 Object.defineProperty(exports, "rarityColorKey", { enumerable: true, get: function () { return types_1.rarityColorKey; } });
@@ -71,4 +71,30 @@ Object.defineProperty(exports, "InventoryItem", { enumerable: true, get: functio
 // ── HUD ───────────────────────────────────────────────────────────────
 var ControllerHint_1 = require("./ControllerHint");
 Object.defineProperty(exports, "ControllerHint", { enumerable: true, get: function () { return ControllerHint_1.ControllerHint; } });
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `GAMING-GOVERNMENT-V4-BRIEF.md`.
+var AchievementUnlockV4_1 = require("./AchievementUnlockV4");
+Object.defineProperty(exports, "AchievementUnlockV4", { enumerable: true, get: function () { return AchievementUnlockV4_1.AchievementUnlockV4; } });
+var ControllerHintV4_1 = require("./ControllerHintV4");
+Object.defineProperty(exports, "ControllerHintV4", { enumerable: true, get: function () { return ControllerHintV4_1.ControllerHintV4; } });
+var GameCardV4_1 = require("./GameCardV4");
+Object.defineProperty(exports, "GameCardV4", { enumerable: true, get: function () { return GameCardV4_1.GameCardV4; } });
+var InventoryItemV4_1 = require("./InventoryItemV4");
+Object.defineProperty(exports, "InventoryItemV4", { enumerable: true, get: function () { return InventoryItemV4_1.InventoryItemV4; } });
+var LeaderboardPodiumV4_1 = require("./LeaderboardPodiumV4");
+Object.defineProperty(exports, "LeaderboardPodiumV4", { enumerable: true, get: function () { return LeaderboardPodiumV4_1.LeaderboardPodiumV4; } });
+var LevelBarV4_1 = require("./LevelBarV4");
+Object.defineProperty(exports, "LevelBarV4", { enumerable: true, get: function () { return LevelBarV4_1.LevelBarV4; } });
+var LobbyRowV4_1 = require("./LobbyRowV4");
+Object.defineProperty(exports, "LobbyRowV4", { enumerable: true, get: function () { return LobbyRowV4_1.LobbyRowV4; } });
+var MatchmakingStatusV4_1 = require("./MatchmakingStatusV4");
+Object.defineProperty(exports, "MatchmakingStatusV4", { enumerable: true, get: function () { return MatchmakingStatusV4_1.MatchmakingStatusV4; } });
+var PlayerStatCardV4_1 = require("./PlayerStatCardV4");
+Object.defineProperty(exports, "PlayerStatCardV4", { enumerable: true, get: function () { return PlayerStatCardV4_1.PlayerStatCardV4; } });
+var QuestCardV4_1 = require("./QuestCardV4");
+Object.defineProperty(exports, "QuestCardV4", { enumerable: true, get: function () { return QuestCardV4_1.QuestCardV4; } });
+var ScoreBoardV4_1 = require("./ScoreBoardV4");
+Object.defineProperty(exports, "ScoreBoardV4", { enumerable: true, get: function () { return ScoreBoardV4_1.ScoreBoardV4; } });
+var TournamentBracketV4_1 = require("./TournamentBracketV4");
+Object.defineProperty(exports, "TournamentBracketV4", { enumerable: true, get: function () { return TournamentBracketV4_1.TournamentBracketV4; } });
 //# sourceMappingURL=index.js.map

@@ -72,3 +72,50 @@ export { LiveBadge } from './LiveBadge';
 export type { LiveBadgeProps, LiveBadgeVariant } from './LiveBadge';
 export { CastButton } from './CastButton';
 export type { CastButtonProps, CastButtonVariant, CastButtonSize } from './CastButton';
+
+/*
+ * ── V4 "spotlight" (artwork-forward) design line ──
+ * A drop-in V4 variant for each of the 12 originals: artwork-forward cards, a
+ * gradient glow behind the big covers, large round primary transport controls,
+ * and a full brand gradient reserved for the immersive moments (full-screen
+ * player, album hero). Base/V2/V3 untouched; V4 is additive. Token-driven,
+ * dark-mode safe, web + native.
+ */
+export { NowPlayingV4 } from './NowPlayingV4';
+export type { NowPlayingV4Props } from './NowPlayingV4';
+export { MiniPlayerV4 } from './MiniPlayerV4';
+export type { MiniPlayerV4Props } from './MiniPlayerV4';
+export { EpisodeRowV4 } from './EpisodeRowV4';
+export type { EpisodeRowV4Props } from './EpisodeRowV4';
+export { PodcastCardV4 } from './PodcastCardV4';
+export type { PodcastCardV4Props } from './PodcastCardV4';
+export { AudioPlayerV4 } from './AudioPlayerV4';
+export type { AudioPlayerV4Props } from './AudioPlayerV4';
+export { VideoPlayerV4 } from './VideoPlayerV4';
+export type { VideoPlayerV4Props } from './VideoPlayerV4';
+export { WaveformScrubberV4 } from './WaveformScrubberV4';
+export type { WaveformScrubberV4Props } from './WaveformScrubberV4';
+export { QueueListV4 } from './QueueListV4';
+export type { QueueListV4Props } from './QueueListV4';
+export { PlaylistRowV4 } from './PlaylistRowV4';
+export type { PlaylistRowV4Props } from './PlaylistRowV4';
+export { ChannelCardV4 } from './ChannelCardV4';
+export type { ChannelCardV4Props } from './ChannelCardV4';
+export { LiveBadgeV4 } from './LiveBadgeV4';
+export type { LiveBadgeV4Props } from './LiveBadgeV4';
+export { CastButtonV4 } from './CastButtonV4';
+export type { CastButtonV4Props } from './CastButtonV4';
+
+/* ── New components (V4 spotlight line) ── */
+export { FullScreenPlayer } from './FullScreenPlayer';
+export type { FullScreenPlayerProps } from './FullScreenPlayer';
+export { AlbumHeader } from './AlbumHeader';
+export type { AlbumHeaderProps } from './AlbumHeader';
+export { LyricsView } from './LyricsView';
+export type { LyricsViewProps, LyricLine } from './LyricsView';
+export { UpNext } from './UpNext';
+export type { UpNextProps } from './UpNext';
+export { CategoryRail } from './CategoryRail';
+export type { CategoryRailProps, CategoryRailItem } from './CategoryRail';
+export { SleepTimer } from './SleepTimer';
+export type { SleepTimerProps } from './SleepTimer';

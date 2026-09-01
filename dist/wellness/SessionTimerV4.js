@@ -1,0 +1,67 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SessionTimerV4 = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const React = __importStar(require("react"));
+const cn_1 = require("../primitives/cn");
+const Icon_1 = require("../primitives/Icon");
+function fmt(totalSeconds) {
+    const s = Math.max(0, Math.floor(totalSeconds));
+    const m = Math.floor(s / 60);
+    const rem = s % 60;
+    return `${m}:${rem < 10 ? '0' : ''}${rem}`;
+}
+/**
+ * SessionTimerV4 — the "calm" restyle of {@link SessionTimer}. Same props,
+ * defaults, labels, a11y and behavior (`onToggle`/`onReset`, the `Complete`
+ * state, the clamped remaining/total); only the surface changes: a clean neutral
+ * card with a large mm:ss readout (`text-on-surface`), a slim gradient progress
+ * bar showing elapsed (inline width %), a gradient play/pause button, and a reset
+ * control. The `tone` prop is retained for parity; the calm ground is single-hue.
+ * Token-only colors.
+ */
+exports.SessionTimerV4 = React.forwardRef(function SessionTimerV4({ totalSec, remainingSec, running = false, phaseLabel, 
+// tone retained for parity; the calm ground is single-hue.
+tone = 'primary', onToggle, onReset, className, ...rest }, ref) {
+    void tone;
+    const total = Math.max(0, totalSec);
+    const remaining = Math.min(Math.max(remainingSec, 0), total || remainingSec);
+    const elapsed = Math.max(0, total - remaining);
+    const complete = total > 0 && remaining <= 0;
+    const pct = total > 0 ? Math.max(0, Math.min(1, elapsed / total)) * 100 : 0;
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, "data-xen-session-timer": "", "aria-label": `Session timer, ${fmt(remaining)} remaining${phaseLabel ? `, ${phaseLabel}` : ''}${complete ? ', complete' : running ? ', running' : ', paused'}`, className: (0, cn_1.cn)('flex flex-col items-center gap-[var(--xen-space-md)] rounded-[var(--xen-radius-lg)] bg-surface border border-border shadow-sm p-[var(--xen-space-lg)] text-on-surface', className), ...rest, children: [phaseLabel ? ((0, jsx_runtime_1.jsx)("span", { className: "text-xs font-bold uppercase tracking-wide text-muted", children: phaseLabel })) : null, (0, jsx_runtime_1.jsx)("span", { className: (0, cn_1.cn)('font-heading text-3xl font-extrabold', complete ? 'text-success' : 'text-on-surface'), children: fmt(remaining) }), total > 0 ? ((0, jsx_runtime_1.jsx)("div", { className: "h-1.5 w-full overflow-hidden rounded-full bg-neutral-200", children: (0, jsx_runtime_1.jsx)("div", { className: "h-1.5 rounded-full bg-gradient-to-r from-primary-400 to-primary-700", style: { width: `${pct}%` } }) })) : null, (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-[var(--xen-space-md)]", children: [complete ? ((0, jsx_runtime_1.jsx)("span", { className: "text-base font-bold text-success", children: "\u2713 Complete" })) : ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-pressed": running, "aria-label": running ? 'Pause' : 'Play', onClick: () => onToggle?.(!running), className: (0, cn_1.cn)('flex h-14 w-14 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary-400 to-primary-700 transition-opacity', 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300'), children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { glyph: running ? '⏸' : '▶', size: "lg", color: "onPrimary" }) })), onReset ? ((0, jsx_runtime_1.jsx)("button", { type: "button", "aria-label": "Reset", onClick: onReset, className: (0, cn_1.cn)('flex h-11 w-11 items-center justify-center rounded-full border border-border bg-muted/10 text-base text-on-surface transition-opacity', 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300'), children: "\u21BA" })) : null] })] }));
+});
+//# sourceMappingURL=SessionTimerV4.js.map

@@ -64,3 +64,27 @@ export type { TriageLevelProps, TriageLevelValue } from './TriageLevel';
 
 export { HealthRecordRow } from './HealthRecordRow';
 export type { HealthRecordRowProps, HealthRecordType } from './HealthRecordRow';
+
+/*
+ * ── V4 "clinic" (calm, trustworthy clinical) design line ──
+ * A drop-in V4 variant for each of the 12 originals: elevated calm cards,
+ * panels, and rows with clear status by glyph + labelled badge + tone (never
+ * color alone) and big legible tabular-nums vitals. Five card/row V4s add an
+ * optional `variant` (`full` | `compact`); every V4 keeps its base props (all
+ * status values honored). The brand gradient is reserved for the clinic moment —
+ * the `VisitSummary` header hero. Base/V2/V3 untouched; V4 is additive.
+ * Token-driven, dark-mode safe, web + native. Informational UI only — not a
+ * medical device.
+ */
+export { AppointmentCardV4, type AppointmentCardV4Props } from './AppointmentCardV4';
+export { DoctorCardV4, type DoctorCardV4Props } from './DoctorCardV4';
+export { HealthRecordRowV4, type HealthRecordRowV4Props } from './HealthRecordRowV4';
+export { LabResultRowV4, type LabResultRowV4Props } from './LabResultRowV4';
+export { MedicationScheduleV4, type MedicationScheduleV4Props } from './MedicationScheduleV4';
+export { PatientCardV4, type PatientCardV4Props } from './PatientCardV4';
+export { PrescriptionRowV4, type PrescriptionRowV4Props } from './PrescriptionRowV4';
+export { SymptomSelectorV4, type SymptomSelectorV4Props } from './SymptomSelectorV4';
+export { TelehealthCallBarV4, type TelehealthCallBarV4Props } from './TelehealthCallBarV4';
+export { TriageLevelV4, type TriageLevelV4Props } from './TriageLevelV4';
+export { VisitSummaryV4, type VisitSummaryV4Props } from './VisitSummaryV4';
+export { VitalsPanelV4, type VitalsPanelV4Props } from './VitalsPanelV4';

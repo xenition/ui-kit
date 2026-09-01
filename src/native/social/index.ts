@@ -75,3 +75,54 @@ export { StoryBarV2 } from './StoryBarV2';
 export type { StoryBarV2Props } from './StoryBarV2';
 export { StoryBarV3 } from './StoryBarV3';
 export type { StoryBarV3Props } from './StoryBarV3';
+
+/*
+ * ── V4 "feed" (clean social) design line ──
+ * A drop-in V4 variant for each of the 14 originals: clean airy elevated cards,
+ * larger rounded avatars, a primary verified tick, soft-primary action states,
+ * gradient story rings, and a brand gradient reserved for the identity moments
+ * (profile header, story viewer). Base/V2/V3 untouched; V4 is additive.
+ * Token-driven, dark-mode safe, web + native.
+ */
+export { PostCardV4 } from './PostCardV4';
+export type { PostCardV4Props } from './PostCardV4';
+export { CommentItemV4 } from './CommentItemV4';
+export type { CommentItemV4Props } from './CommentItemV4';
+export { StoryBarV4 } from './StoryBarV4';
+export type { StoryBarV4Props } from './StoryBarV4';
+export { UserCardV4 } from './UserCardV4';
+export type { UserCardV4Props } from './UserCardV4';
+export { EngagementBarV4 } from './EngagementBarV4';
+export type { EngagementBarV4Props } from './EngagementBarV4';
+export { ReactionBarV4 } from './ReactionBarV4';
+export type { ReactionBarV4Props } from './ReactionBarV4';
+export { FollowButtonV4 } from './FollowButtonV4';
+export type { FollowButtonV4Props } from './FollowButtonV4';
+export { HashtagChipV4 } from './HashtagChipV4';
+export type { HashtagChipV4Props } from './HashtagChipV4';
+export { MentionTextV4 } from './MentionTextV4';
+export type { MentionTextV4Props } from './MentionTextV4';
+export { PollV4 } from './PollV4';
+export type { PollV4Props } from './PollV4';
+export { ProfileStatsV4 } from './ProfileStatsV4';
+export type { ProfileStatsV4Props } from './ProfileStatsV4';
+export { ShareSheetV4 } from './ShareSheetV4';
+export type { ShareSheetV4Props } from './ShareSheetV4';
+export { StoryRingV4 } from './StoryRingV4';
+export type { StoryRingV4Props } from './StoryRingV4';
+export { FeedListV4 } from './FeedListV4';
+export type { FeedListV4Props } from './FeedListV4';
+
+/* ── New components (V4 feed line) ── */
+export { ProfileHeader } from './ProfileHeader';
+export type { ProfileHeaderProps, ProfileStat as ProfileHeaderStat } from './ProfileHeader';
+export { StoryViewer } from './StoryViewer';
+export type { StoryViewerProps, StoryAuthor } from './StoryViewer';
+export { PostComposer } from './PostComposer';
+export type { PostComposerProps } from './PostComposer';
+export { NotificationRow } from './NotificationRow';
+export type { NotificationRowProps, NotificationKind, NotificationActor } from './NotificationRow';
+export { TrendingCard } from './TrendingCard';
+export type { TrendingCardProps } from './TrendingCard';
+export { SuggestedUsers } from './SuggestedUsers';
+export type { SuggestedUsersProps, SuggestedUser } from './SuggestedUsers';

@@ -1,0 +1,33 @@
+import * as React from 'react';
+import type { StylistCardProps } from './StylistCard';
+export interface StylistCardV4Props extends StylistCardProps {
+    /** Copy on the fully-booked chip. Default `'Fully booked'`. */
+    fullyBookedLabel?: string;
+    /** Prefix on the from-price. Default `'from'`. */
+    fromLabel?: string;
+    /** Build the review count. Default `'128 reviews'`. */
+    formatReviewCount?: (count: number) => string;
+    /** At most this many specialty chips are drawn. Default `3`. */
+    maxSpecialties?: number;
+}
+/**
+ * **V4 stylist card** — same props as {@link StylistCard} plus
+ * `fullyBookedLabel`, `fromLabel`, `formatReviewCount` and `maxSpecialties`.
+ *
+ * ## Five changes
+ *
+ * 1. **The rating carries its number and its count.** A stylist list is
+ *    exactly where a client compares 4.9 against 4.6, and the base drew five
+ *    glyphs at `sm` and left the count as loose muted text.
+ * 2. **Fully booked disables the CTA.** The base showed the chip and left
+ *    "Book" live, so a client could tap through to a stylist with no slots.
+ * 3. **The specialty chips are capped and wrap.** Seven specialties pushed the
+ *    price off the row; §7 says chips wrap and are never clipped.
+ * 4. **The from-price is tabular** with its prefix as a separate muted
+ *    element, so a column of stylists lines up.
+ * 5. **The skeleton is opaque** and press is a state layer.
+ *
+ * **Renders nothing without a `name`** (§4.5).
+ */
+export declare function StylistCardV4({ name, role, specialties, avatarUrl, rating, reviewCount, priceFromCents, currency, formatMoney, availability, fullyBooked, variant, loading, bookLabel, fullyBookedLabel, fromLabel, formatReviewCount, maxSpecialties, onBook, onPress, style, }: StylistCardV4Props): React.ReactElement | null;
+//# sourceMappingURL=StylistCardV4.d.ts.map

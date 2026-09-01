@@ -1,9 +1,39 @@
 import * as React from 'react';
+import { injectStyleOnce } from '../motion/internal/inject';
 import { cn } from './cn';
 import { TONE_SLOTS, tintArbitrary } from './internal/feedback-v4';
+import { transitionCss } from './internal/v4-motion';
 import type { ProgressProps, ProgressTone } from './Progress';
 
 export type { ProgressProps as ProgressV4Props, ProgressTone };
+
+/** The one `<style>` id this component injects from. Idempotent. */
+export const PROGRESS_V4_STYLE_ID = 'xen-v4-progress-styles';
+
+/**
+ * The width ease, sourced from the scale rather than typed.
+ *
+ * This was `transition-[width] duration-200 motion-reduce:transition-none`.
+ * The number was right — its own comment said so, "200ms is M3 `standard`" —
+ * but it was a *copy* of the scale's value rather than a reference to it, and
+ * a copy is the thing `internal/v4-motion.ts` exists to stop: retune
+ * `standard` and this bar silently keeps the old number.
+ *
+ * It cannot stay a utility class and still read the scale, because a Tailwind
+ * class has to be legible to a static scanner and `duration-[${…}ms]` is not.
+ * So it becomes a sheet, which is what the rest of the V4 line does with any
+ * declaration a class bound to a token cannot express — and which is also how
+ * §36.10 is honoured here: the reduced-motion relief is a media block rather
+ * than a variant class, so the two live in one place.
+ */
+export const PROGRESS_V4_CSS = `
+[data-xen-v4-progress] [data-xen-v4-progress-fill] {
+  transition: ${transitionCss(['width'])};
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-xen-v4-progress] [data-xen-v4-progress-fill] { transition: none; }
+}
+`;
 
 /**
  * Track and fill per tone. The track is the fill's OWN tone at 10% — one colour
@@ -67,14 +97,16 @@ const TONE: Record<ProgressTone, { track: string; fill: string }> = {
  *
  * ## Motion
  *
- * The width eases over 300ms so a jump reads as movement rather than as a
- * repaint (§36.6, animate state changes). Under `prefers-reduced-motion` it
- * snaps — the number is in the DOM either way, so nothing is lost (§36.10).
+ * The width eases at the scale's `standard` so a jump reads as movement rather
+ * than as a repaint (§36.6, animate state changes). Under
+ * `prefers-reduced-motion` it snaps — the number is in the DOM either way, so
+ * nothing is lost (§36.10). Both live in {@link PROGRESS_V4_CSS}.
  */
 export const ProgressV4 = React.forwardRef<HTMLDivElement, ProgressProps>(function ProgressV4(
   { className, value, max = 100, tone = 'primary', size = 'md', ...rest },
   ref
 ) {
+  injectStyleOnce(PROGRESS_V4_STYLE_ID, PROGRESS_V4_CSS);
   const t = TONE[tone];
   const pct = Math.max(0, Math.min(100, max > 0 ? (value / max) * 100 : 0));
   // Thickness from the spacing scale, so a denser theme gets a finer bar.
@@ -101,12 +133,9 @@ export const ProgressV4 = React.forwardRef<HTMLDivElement, ProgressProps>(functi
     >
       <div
         data-xen-v4-progress-fill=""
-        className={cn(
-          'h-full rounded-[var(--xen-radius-full)]',
-          // 200ms is M3 `standard`; 300 was a stock Tailwind step nobody chose.
-          'transition-[width] duration-200 motion-reduce:transition-none',
-          t.fill
-        )}
+        // The width ease and its reduced-motion relief are `PROGRESS_V4_CSS`,
+        // so the duration is the scale's `standard` rather than a copy of it.
+        className={cn('h-full rounded-[var(--xen-radius-full)]', t.fill)}
         // A floor, not a scale — see the docstring.
         style={{ width: `${pct}%`, minWidth: pct > 0 ? thickness : 0 }}
       />

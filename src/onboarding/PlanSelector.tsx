@@ -102,9 +102,17 @@ export function PlanCard({
             : 'border border-border bg-surface'
       )}
     >
-      {/* Name left, badge top-right of its own card. */}
-      <span className="flex items-start justify-between gap-1">
-        <Text size="base" weight="semibold" tone={fg} className="min-w-0">
+      {/*
+        Name left, badge top-right — and the row WRAPS.
+
+        Two-up on a 390pt phone leaves roughly 150pt per card, and a badge that
+        refuses to move takes its width out of the name: "Coached" rendered as
+        "Coache". A plan's name is the thing being chosen, so it is the one
+        element on the card that must never be shortened to make room for an
+        ornament. When both do not fit, the badge takes its own line.
+      */}
+      <span className="flex flex-wrap items-start justify-between gap-1">
+        <Text size="base" weight="semibold" tone={fg}>
           {plan.name}
         </Text>
         {plan.badge ? (

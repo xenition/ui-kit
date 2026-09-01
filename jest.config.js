@@ -13,8 +13,12 @@ module.exports = {
       // `@jest-environment jsdom` docblock at the top of the file.
       testEnvironment: 'node',
       testMatch: ['<rootDir>/src/**/*.spec.ts', '<rootDir>/src/**/*.spec.tsx'],
-      // Native specs share the `.spec.tsx` suffix; keep them out of the web run.
-      testPathIgnorePatterns: ['/node_modules/', '\\.native\\.spec\\.tsx$'],
+      // Native specs share the `.spec.ts(x)` suffix; keep them out of the web
+      // run. The `x` is optional on purpose: the pattern used to require it, so
+      // a `*.native.spec.ts` was swept into the WEB project and failed on
+      // `react-native`'s ESM with an error that reads like a build problem
+      // rather than a misfiled test.
+      testPathIgnorePatterns: ['/node_modules/', '\\.native\\.spec\\.tsx?$'],
     },
     {
       displayName: 'native',

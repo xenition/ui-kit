@@ -15,6 +15,20 @@ import { SetlistRowV2 } from './SetlistRowV2';
 import { SetlistRowV3 } from './SetlistRowV3';
 import { TrackPadV2 } from './TrackPadV2';
 import { TrackPadV3 } from './TrackPadV3';
+import {
+  BPMControlV4,
+  ChordChipV4,
+  LoopControlV4,
+  MetronomeBarV4,
+  MixerV4,
+  PianoKeysV4,
+  RecordButtonV4,
+  SamplePadV4,
+  SetlistRowV4,
+  TrackPadV4,
+  VolumeFaderV4,
+  WaveformEditorV4,
+} from './index';
 
 const HEX_LITERAL = /#[0-9a-fA-F]{3,8}\b/;
 const inlineStyles = (root: HTMLElement): string =>
@@ -91,5 +105,77 @@ describe('TrackPad alternates (web)', () => {
     const { getAllByText, container } = render(<TrackPadV3 pads={PADS} activePadIds={['p1']} />);
     expect(getAllByText('Kick').length).toBeGreaterThan(0);
     expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+  });
+});
+
+describe('music V4 "session" line (web)', () => {
+  it('mounts all 12 V4 components token-pure and renders their content', () => {
+    const { getByText, getByLabelText, container } = render(
+      <div>
+        <BPMControlV4 value={128} variant="tap" playing onChange={() => {}} onTap={() => {}} />
+        <ChordChipV4 chord={{ root: 'C', quality: 'min7' }} variant="solid" size="lg" selected />
+        <LoopControlV4 enabled start={2} end={5} totalBars={8} onToggle={() => {}} onRegionChange={() => {}} />
+        <MetronomeBarV4 beatsPerBar={4} currentBeat={2} playing bpm={128} variant="bars" onToggle={() => {}} />
+        <MixerV4 channels={CHANNELS} title="Console" variant="full" onVolumeChange={() => {}} onToggleMute={() => {}} onToggleSolo={() => {}} />
+        <PianoKeysV4 startOctave={4} highlightedNotes={['C4', 'E4']} variant="full" onKeyPress={() => {}} />
+        <RecordButtonV4 recording variant="labeled" elapsedSeconds={12} onToggle={() => {}} />
+        <SamplePadV4 name="Kick" detail="Vinyl" glyph="🥁" variant="row" playing onClick={() => {}} />
+        <SetlistRowV4 song={SONG} index={1} playing variant="full" onClick={() => {}} onPlay={() => {}} />
+        <TrackPadV4 pads={PADS} label="Kit" activePadIds={['p1']} onPadPress={() => {}} />
+        <VolumeFaderV4 value={70} label="Master" unit="dB" variant="labeled" onChange={() => {}} />
+        <WaveformEditorV4 peaks={[0.2, 0.6, 0.9, 0.4]} progress={0.5} variant="full" onSeek={() => {}} />
+      </div>
+    );
+
+    // A few content assertions across the line.
+    expect(getByText('Cm7')).toBeTruthy();
+    expect(getByText('Console')).toBeTruthy();
+    expect(getByLabelText('Increase tempo')).toBeTruthy();
+    // The row is `playing`, so its play control reads "Pause".
+    expect(getByLabelText('Pause Nightfall')).toBeTruthy();
+    expect(getByLabelText('Stop recording')).toBeTruthy();
+
+    // Token purity: no literal color hex in any inline style (only geometric
+    // left/width/height positioning is allowed inline).
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+  });
+
+  it('SamplePadV4 fires onClick with the sample name', () => {
+    const onClick = jest.fn();
+    const { getByLabelText, container } = render(
+      <SamplePadV4 name="Snare" glyph="🥁" variant="tile" onClick={onClick} />
+    );
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+    fireEvent.click(getByLabelText('Snare'));
+    expect(onClick).toHaveBeenCalledWith('Snare');
+  });
+
+  it('SetlistRowV4 fires onClick (row) and onPlay (play button)', () => {
+    const onClick = jest.fn();
+    const onPlay = jest.fn();
+    const { getByLabelText, container } = render(
+      <SetlistRowV4 song={SONG} index={1} onClick={onClick} onPlay={onPlay} />
+    );
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+    fireEvent.click(getByLabelText(/Position 1, Nightfall/));
+    expect(onClick).toHaveBeenCalledTimes(1);
+    fireEvent.click(getByLabelText('Play Nightfall'));
+    expect(onPlay).toHaveBeenCalledTimes(1);
+  });
+
+  it('BPMControlV4 stepper fires onChange and TrackPadV4 fires onPadPress', () => {
+    const onChange = jest.fn();
+    const onPadPress = jest.fn();
+    const { getByLabelText, container } = render(
+      <div>
+        <BPMControlV4 value={120} variant="stepper" onChange={onChange} />
+        <TrackPadV4 pads={PADS} onPadPress={onPadPress} />
+      </div>
+    );
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+    fireEvent.click(getByLabelText('Increase tempo'));
+    expect(onChange).toHaveBeenCalledWith(121);
+    fireEvent.click(getByLabelText('Kick'));
+    expect(onPadPress).toHaveBeenCalledTimes(1);
   });
 });

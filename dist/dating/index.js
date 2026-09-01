@@ -13,7 +13,7 @@
  * loading states, and a11y roles/labels.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WhoLikedYouRow = exports.BoostBanner = exports.PhotoCarousel = exports.DistanceBadge = exports.ProfilePrompt = exports.IcebreakerChip = exports.CompatibilityMeterV3 = exports.CompatibilityMeterV2 = exports.CompatibilityMeter = exports.MatchCelebrationV3 = exports.MatchCelebrationV2 = exports.MatchCelebration = exports.LikePassButtons = exports.SwipeDeck = exports.SwipeCardV3 = exports.SwipeCardV2 = exports.SwipeCard = exports.ProfileCardV3 = exports.ProfileCardV2 = exports.ProfileCard = void 0;
+exports.WhoLikedYouRowV4 = exports.SwipeDeckV4 = exports.SwipeCardV4 = exports.ProfilePromptV4 = exports.ProfileCardV4 = exports.PhotoCarouselV4 = exports.MatchCelebrationV4 = exports.LikePassButtonsV4 = exports.IcebreakerChipV4 = exports.DistanceBadgeV4 = exports.CompatibilityMeterV4 = exports.BoostBannerV4 = exports.WhoLikedYouRow = exports.BoostBanner = exports.PhotoCarousel = exports.DistanceBadge = exports.ProfilePrompt = exports.IcebreakerChip = exports.CompatibilityMeterV3 = exports.CompatibilityMeterV2 = exports.CompatibilityMeter = exports.MatchCelebrationV3 = exports.MatchCelebrationV2 = exports.MatchCelebration = exports.LikePassButtons = exports.SwipeDeck = exports.SwipeCardV3 = exports.SwipeCardV2 = exports.SwipeCard = exports.ProfileCardV3 = exports.ProfileCardV2 = exports.ProfileCard = void 0;
 var ProfileCard_1 = require("./ProfileCard");
 Object.defineProperty(exports, "ProfileCard", { enumerable: true, get: function () { return ProfileCard_1.ProfileCard; } });
 var ProfileCardV2_1 = require("./ProfileCardV2");
@@ -54,4 +54,28 @@ var BoostBanner_1 = require("./BoostBanner");
 Object.defineProperty(exports, "BoostBanner", { enumerable: true, get: function () { return BoostBanner_1.BoostBanner; } });
 var WhoLikedYouRow_1 = require("./WhoLikedYouRow");
 Object.defineProperty(exports, "WhoLikedYouRow", { enumerable: true, get: function () { return WhoLikedYouRow_1.WhoLikedYouRow; } });
+var BoostBannerV4_1 = require("./BoostBannerV4");
+Object.defineProperty(exports, "BoostBannerV4", { enumerable: true, get: function () { return BoostBannerV4_1.BoostBannerV4; } });
+var CompatibilityMeterV4_1 = require("./CompatibilityMeterV4");
+Object.defineProperty(exports, "CompatibilityMeterV4", { enumerable: true, get: function () { return CompatibilityMeterV4_1.CompatibilityMeterV4; } });
+var DistanceBadgeV4_1 = require("./DistanceBadgeV4");
+Object.defineProperty(exports, "DistanceBadgeV4", { enumerable: true, get: function () { return DistanceBadgeV4_1.DistanceBadgeV4; } });
+var IcebreakerChipV4_1 = require("./IcebreakerChipV4");
+Object.defineProperty(exports, "IcebreakerChipV4", { enumerable: true, get: function () { return IcebreakerChipV4_1.IcebreakerChipV4; } });
+var LikePassButtonsV4_1 = require("./LikePassButtonsV4");
+Object.defineProperty(exports, "LikePassButtonsV4", { enumerable: true, get: function () { return LikePassButtonsV4_1.LikePassButtonsV4; } });
+var MatchCelebrationV4_1 = require("./MatchCelebrationV4");
+Object.defineProperty(exports, "MatchCelebrationV4", { enumerable: true, get: function () { return MatchCelebrationV4_1.MatchCelebrationV4; } });
+var PhotoCarouselV4_1 = require("./PhotoCarouselV4");
+Object.defineProperty(exports, "PhotoCarouselV4", { enumerable: true, get: function () { return PhotoCarouselV4_1.PhotoCarouselV4; } });
+var ProfileCardV4_1 = require("./ProfileCardV4");
+Object.defineProperty(exports, "ProfileCardV4", { enumerable: true, get: function () { return ProfileCardV4_1.ProfileCardV4; } });
+var ProfilePromptV4_1 = require("./ProfilePromptV4");
+Object.defineProperty(exports, "ProfilePromptV4", { enumerable: true, get: function () { return ProfilePromptV4_1.ProfilePromptV4; } });
+var SwipeCardV4_1 = require("./SwipeCardV4");
+Object.defineProperty(exports, "SwipeCardV4", { enumerable: true, get: function () { return SwipeCardV4_1.SwipeCardV4; } });
+var SwipeDeckV4_1 = require("./SwipeDeckV4");
+Object.defineProperty(exports, "SwipeDeckV4", { enumerable: true, get: function () { return SwipeDeckV4_1.SwipeDeckV4; } });
+var WhoLikedYouRowV4_1 = require("./WhoLikedYouRowV4");
+Object.defineProperty(exports, "WhoLikedYouRowV4", { enumerable: true, get: function () { return WhoLikedYouRowV4_1.WhoLikedYouRowV4; } });
 //# sourceMappingURL=index.js.map

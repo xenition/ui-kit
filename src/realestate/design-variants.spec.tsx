@@ -15,6 +15,27 @@ import { ListingGalleryV2 } from './ListingGalleryV2';
 import { ListingGalleryV3 } from './ListingGalleryV3';
 import { PropertyCardV2 } from './PropertyCardV2';
 import { PropertyCardV3 } from './PropertyCardV3';
+import {
+  PropertyCardV4,
+  AgentCardV4,
+  ComparableRowV4,
+  ListingGalleryV4,
+  AmenityGridV4,
+  FloorPlanViewV4,
+  MapPinCardV4,
+  MortgageCalcV4,
+  NeighborhoodStatV4,
+  PriceHistoryV4,
+  OpenHouseBadgeV4,
+  SavedSearchRowV4,
+  TourSchedulerV4,
+  ListingHero,
+  AgentProfileHeader,
+  MortgageSummary,
+  PropertyFactsBar,
+  SchoolCard,
+  ContactAgentBar,
+} from './index';
 
 const inlineStyles = (root: HTMLElement): string =>
   Array.from(root.querySelectorAll<HTMLElement>('[style]'))
@@ -84,5 +105,135 @@ describe('PropertyCard alternates (web)', () => {
     const { getByText, container } = render(<PropertyCardV3 address="7 Bay St" priceCents={250000} variant="rent" beds={1} />);
     expect(getByText('7 Bay St')).toBeTruthy();
     expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+  });
+});
+
+describe('realestate V4 "listing" line (web)', () => {
+  const TOUR_SLOTS = [
+    { id: 's1', label: '10:00 AM' },
+    { id: 's2', label: '11:30 AM' },
+    { id: 's3', label: '2:00 PM', available: false },
+  ];
+  const PRICE_POINTS = [
+    { label: 'Jan', cents: 68000000 },
+    { label: 'Apr', cents: 70500000 },
+    { label: 'Jul', cents: 72000000 },
+  ];
+
+  it('mounts all 13 V4 variants token-pure', () => {
+    const { container, getByText } = render(
+      <>
+        <PropertyCardV4 address="123 Elm St" locality="Brooklyn, NY" priceCents={72500000} beds={3} baths={2} sqft={1450} status="new" imageUrl="hero.jpg" />
+        <AgentCardV4 name="Dana Reyes" title="Listing Agent" agency="Xen Realty" rating={4.8} reviewCount={87} onContact={() => {}} />
+        <ComparableRowV4 address="10 Oak Ave" priceCents={68000000} sqft={1400} beds={3} baths={2} distance="0.3 mi" status="sold" />
+        <ListingGalleryV4 images={IMAGES} />
+        <AmenityGridV4 amenities={[{ label: 'In-unit laundry', glyph: '🧺' }, { label: 'Parking', available: false }]} />
+        <FloorPlanViewV4 title="Floor 1" rooms={[{ label: 'Bedroom', x: 0.05, y: 0.05, w: 0.4, h: 0.4 }, { label: 'Kitchen', x: 0.5, y: 0.5, w: 0.4, h: 0.4 }]} />
+        <MapPinCardV4 address="88 Map Pl" caption="Brooklyn, NY" pin={{ x: 0.4, y: 0.6 }} />
+        <MortgageCalcV4 priceCents={72500000} downPercent={20} ratePercent={6.5} termYears={30} />
+        <NeighborhoodStatV4 label="Walk Score" value="92" suffix="/100" delta={4} glyph="🚶" caption="Very walkable" />
+        <PriceHistoryV4 points={PRICE_POINTS} />
+        <OpenHouseBadgeV4 dateLabel="Sat, Aug 24" startTime="1:00 PM" endTime="3:00 PM" status="upcoming" />
+        <SavedSearchRowV4 name="2BR under $600k" summary="Brooklyn · 2+ bd" newCount={3} alertsOn onToggleAlerts={() => {}} />
+        <TourSchedulerV4 dateLabel="Sat, Aug 24" slots={TOUR_SLOTS} />
+      </>
+    );
+    expect(getByText('123 Elm St')).toBeTruthy();
+    expect(getByText('Dana Reyes')).toBeTruthy();
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+  });
+
+  it('PropertyCardV4 fires onClick', () => {
+    const onClick = jest.fn();
+    const { getByText } = render(<PropertyCardV4 address="5 Pine Rd" locality="Brooklyn" priceCents={72000000} beds={4} baths={3} status="new" onClick={onClick} />);
+    fireEvent.click(getByText('5 Pine Rd'));
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('TourSchedulerV4 fires onSelectSlot', () => {
+    const onSelectSlot = jest.fn();
+    const { getByText } = render(<TourSchedulerV4 dateLabel="Sat, Aug 24" slots={TOUR_SLOTS} onSelectSlot={onSelectSlot} />);
+    fireEvent.click(getByText('11:30 AM'));
+    expect(onSelectSlot).toHaveBeenCalledTimes(1);
+    expect(onSelectSlot).toHaveBeenCalledWith(expect.objectContaining({ id: 's2' }));
+  });
+});
+
+describe('realestate V4 new blocks (web)', () => {
+  it('mounts all 6 new components token-pure', () => {
+    const { container, getByText } = render(
+      <>
+        <ListingHero
+          imageUrl="hero.jpg"
+          priceCents={72500000}
+          address="123 Elm St"
+          locality="Brooklyn, NY"
+          status="new"
+          beds={3}
+          baths={2}
+          sqft={1450}
+          photoCount={24}
+          saved={false}
+          onSave={() => {}}
+          onShare={() => {}}
+          onTour={() => {}}
+        />
+        <AgentProfileHeader
+          name="Dana Reyes"
+          title="Listing Agent"
+          agency="Xen Realty"
+          rating={4.8}
+          verified
+          stats={[{ label: 'Sales', value: '128' }, { label: 'Years', value: '9' }, { label: 'Reviews', value: '87' }]}
+          onCall={() => {}}
+          onMessage={() => {}}
+        />
+        <MortgageSummary
+          monthlyCents={358000}
+          breakdown={[
+            { label: 'Principal & interest', cents: 290000, tone: 'primary' },
+            { label: 'Property tax', cents: 45000, tone: 'accent' },
+            { label: 'Insurance', cents: 23000, tone: 'warn' },
+          ]}
+          downLabel="20% down · $145,000"
+          rateLabel="6.5% APR"
+          termLabel="30-yr fixed"
+        />
+        <PropertyFactsBar
+          facts={[
+            { glyph: '🛏', label: 'Beds', value: '3' },
+            { glyph: '🛁', label: 'Baths', value: '2' },
+            { glyph: '📐', label: 'Sqft', value: '1,450' },
+            { glyph: '🏠', label: 'Type', value: 'Condo' },
+          ]}
+        />
+        <SchoolCard name="Lincoln Elementary" rating={8} level="Elementary" distanceLabel="0.4 mi" gradesLabel="K–5" />
+        <ContactAgentBar agentName="Dana Reyes" agentSubtitle="Listing agent · Xen Realty" onCall={() => {}} onMessage={() => {}} onTour={() => {}} />
+      </>
+    );
+    expect(getByText('123 Elm St')).toBeTruthy();
+    expect(getByText('Lincoln Elementary')).toBeTruthy();
+    expect(inlineStyles(container)).not.toMatch(COLOR_HEX);
+  });
+
+  it('ContactAgentBar fires onTour', () => {
+    const onTour = jest.fn();
+    const { getByLabelText } = render(<ContactAgentBar agentName="Dana Reyes" onTour={onTour} />);
+    fireEvent.click(getByLabelText('Tour'));
+    expect(onTour).toHaveBeenCalledTimes(1);
+  });
+
+  it('ListingHero fires onSave', () => {
+    const onSave = jest.fn();
+    const { getByLabelText } = render(<ListingHero priceCents={72500000} address="123 Elm St" onSave={onSave} />);
+    fireEvent.click(getByLabelText('Save listing'));
+    expect(onSave).toHaveBeenCalledTimes(1);
+  });
+
+  it('SchoolCard fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByText } = render(<SchoolCard name="Lincoln Elementary" rating={8} level="Elementary" onPress={onPress} />);
+    fireEvent.click(getByText('Lincoln Elementary'));
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

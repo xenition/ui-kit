@@ -16,7 +16,7 @@
  * `QuickReplies`, `AttachmentBar`, `VoiceNoteBubble`, and `PresenceDot`.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PresenceDot = exports.UnreadDivider = exports.QuickReplies = exports.VoiceNoteBubble = exports.AttachmentBar = exports.ReadReceipt = exports.DateSeparator = exports.MessageGroupV3 = exports.MessageGroupV2 = exports.MessageGroup = exports.TypingIndicator = exports.MessageComposerV3 = exports.MessageComposerV2 = exports.MessageComposer = exports.ChatHeaderV3 = exports.ChatHeaderV2 = exports.ChatHeader = exports.ConversationRowV3 = exports.ConversationRowV2 = exports.ConversationRow = exports.ConversationList = void 0;
+exports.VoiceNoteBubbleV4 = exports.UnreadDividerV4 = exports.TypingIndicatorV4 = exports.ReadReceiptV4 = exports.QuickRepliesV4 = exports.PresenceDotV4 = exports.MessageGroupV4 = exports.MessageComposerV4 = exports.DateSeparatorV4 = exports.ConversationRowV4 = exports.ConversationListV4 = exports.ChatHeaderV4 = exports.AttachmentBarV4 = exports.PresenceDot = exports.UnreadDivider = exports.QuickReplies = exports.VoiceNoteBubble = exports.AttachmentBar = exports.ReadReceipt = exports.DateSeparator = exports.MessageGroupV3 = exports.MessageGroupV2 = exports.MessageGroup = exports.TypingIndicator = exports.MessageComposerV3 = exports.MessageComposerV2 = exports.MessageComposer = exports.ChatHeaderV3 = exports.ChatHeaderV2 = exports.ChatHeader = exports.ConversationRowV3 = exports.ConversationRowV2 = exports.ConversationRow = exports.ConversationList = void 0;
 var ConversationList_1 = require("./ConversationList");
 Object.defineProperty(exports, "ConversationList", { enumerable: true, get: function () { return ConversationList_1.ConversationList; } });
 var ConversationRow_1 = require("./ConversationRow");
@@ -59,4 +59,30 @@ var UnreadDivider_1 = require("./UnreadDivider");
 Object.defineProperty(exports, "UnreadDivider", { enumerable: true, get: function () { return UnreadDivider_1.UnreadDivider; } });
 var PresenceDot_1 = require("./PresenceDot");
 Object.defineProperty(exports, "PresenceDot", { enumerable: true, get: function () { return PresenceDot_1.PresenceDot; } });
+var AttachmentBarV4_1 = require("./AttachmentBarV4");
+Object.defineProperty(exports, "AttachmentBarV4", { enumerable: true, get: function () { return AttachmentBarV4_1.AttachmentBarV4; } });
+var ChatHeaderV4_1 = require("./ChatHeaderV4");
+Object.defineProperty(exports, "ChatHeaderV4", { enumerable: true, get: function () { return ChatHeaderV4_1.ChatHeaderV4; } });
+var ConversationListV4_1 = require("./ConversationListV4");
+Object.defineProperty(exports, "ConversationListV4", { enumerable: true, get: function () { return ConversationListV4_1.ConversationListV4; } });
+var ConversationRowV4_1 = require("./ConversationRowV4");
+Object.defineProperty(exports, "ConversationRowV4", { enumerable: true, get: function () { return ConversationRowV4_1.ConversationRowV4; } });
+var DateSeparatorV4_1 = require("./DateSeparatorV4");
+Object.defineProperty(exports, "DateSeparatorV4", { enumerable: true, get: function () { return DateSeparatorV4_1.DateSeparatorV4; } });
+var MessageComposerV4_1 = require("./MessageComposerV4");
+Object.defineProperty(exports, "MessageComposerV4", { enumerable: true, get: function () { return MessageComposerV4_1.MessageComposerV4; } });
+var MessageGroupV4_1 = require("./MessageGroupV4");
+Object.defineProperty(exports, "MessageGroupV4", { enumerable: true, get: function () { return MessageGroupV4_1.MessageGroupV4; } });
+var PresenceDotV4_1 = require("./PresenceDotV4");
+Object.defineProperty(exports, "PresenceDotV4", { enumerable: true, get: function () { return PresenceDotV4_1.PresenceDotV4; } });
+var QuickRepliesV4_1 = require("./QuickRepliesV4");
+Object.defineProperty(exports, "QuickRepliesV4", { enumerable: true, get: function () { return QuickRepliesV4_1.QuickRepliesV4; } });
+var ReadReceiptV4_1 = require("./ReadReceiptV4");
+Object.defineProperty(exports, "ReadReceiptV4", { enumerable: true, get: function () { return ReadReceiptV4_1.ReadReceiptV4; } });
+var TypingIndicatorV4_1 = require("./TypingIndicatorV4");
+Object.defineProperty(exports, "TypingIndicatorV4", { enumerable: true, get: function () { return TypingIndicatorV4_1.TypingIndicatorV4; } });
+var UnreadDividerV4_1 = require("./UnreadDividerV4");
+Object.defineProperty(exports, "UnreadDividerV4", { enumerable: true, get: function () { return UnreadDividerV4_1.UnreadDividerV4; } });
+var VoiceNoteBubbleV4_1 = require("./VoiceNoteBubbleV4");
+Object.defineProperty(exports, "VoiceNoteBubbleV4", { enumerable: true, get: function () { return VoiceNoteBubbleV4_1.VoiceNoteBubbleV4; } });
 //# sourceMappingURL=index.js.map

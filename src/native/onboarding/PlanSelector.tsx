@@ -125,9 +125,18 @@ function PlanCard({
         borderColor: selected ? colors.primary : plan.highlighted ? colors.accent : colors.border,
       }}
     >
-      {/* Name left, badge top-right of its own card. */}
-      <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: tokens.spacing.xs }}>
-        <Text size="base" weight="semibold" tone={fg} style={{ flexShrink: 1 }}>
+      {/*
+        Name left, badge top-right — and the row WRAPS.
+
+        Two-up on a 390pt phone leaves roughly 150pt per card, and a badge that
+        refuses to move takes its width out of the name: "Coached" rendered as
+        "Coache" on the web twin. A plan's name is the thing being chosen, so
+        it is the one element on the card that must never be shortened to make
+        room for an ornament. When both do not fit, the badge takes its own
+        line.
+      */}
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: tokens.spacing.xs }}>
+        <Text size="base" weight="semibold" tone={fg}>
           {plan.name}
         </Text>
         {plan.badge ? (

@@ -41,6 +41,7 @@ const v4_state_1 = require("./internal/v4-state");
 const cn_1 = require("./cn");
 const useDismiss_1 = require("./useDismiss");
 const field_v4_1 = require("./internal/field-v4");
+const picker_v4_1 = require("./internal/picker-v4");
 /** How much brand a chip carries. Chosen, not filled. */
 const CHIP_MIX = 14;
 const MULTISELECT_V4_CSS = `
@@ -93,6 +94,7 @@ const MULTISELECT_V4_CSS = `
  */
 function MultiSelectV4({ options, value = [], onChange, placeholder = 'Select…', invalid = false, disabled = false, accessibilityLabel, className, }) {
     (0, inject_1.injectStyleOnce)(field_v4_1.FIELD_V4_STYLE_ID, field_v4_1.FIELD_V4_CSS);
+    (0, inject_1.injectStyleOnce)('xen-v4-picker-styles', picker_v4_1.PICKER_V4_CSS);
     (0, inject_1.injectStyleOnce)('xen-v4-multiselect-styles', MULTISELECT_V4_CSS);
     const [open, setOpen] = React.useState(false);
     const ref = (0, useDismiss_1.useDismiss)(open, () => setOpen(false));
@@ -100,7 +102,7 @@ function MultiSelectV4({ options, value = [], onChange, placeholder = 'Select…
     const toggle = (v) => {
         onChange?.(value.includes(v) ? value.filter((x) => x !== v) : [...value, v]);
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('relative w-full', className), children: [(0, jsx_runtime_1.jsxs)("button", { type: "button", "data-xen-v4-field": "", "aria-label": accessibilityLabel, "aria-haspopup": "listbox", "aria-expanded": open, "aria-invalid": invalid || undefined, disabled: disabled, onClick: () => setOpen((o) => !o), className: (0, cn_1.cn)(field_v4_1.FIELD_V4_SHELL, (0, field_v4_1.fieldBorderClass)(invalid), 'flex items-center justify-between gap-sm py-xs text-left'), style: (0, field_v4_1.fieldRingVars)(invalid), children: [chosen.length === 0 ? ((0, jsx_runtime_1.jsx)("span", { className: "text-muted-text", children: placeholder })) : ((0, jsx_runtime_1.jsx)("span", { className: "flex flex-1 flex-wrap gap-xs", children: chosen.map((o) => ((0, jsx_runtime_1.jsx)("span", { "data-xen-v4-chip": "", className: "rounded-[var(--xen-radius-sm)] px-sm text-sm font-medium", children: o.label }, o.value))) })), (0, jsx_runtime_1.jsx)("span", { "aria-hidden": true, className: "text-sm text-muted-text", children: "\u25BE" })] }), open ? ((0, jsx_runtime_1.jsx)("div", { role: "listbox", "aria-multiselectable": true, "data-xen-v4-listbox": "", className: (0, cn_1.cn)('absolute z-50 mt-xs max-h-60 w-full overflow-auto', 'rounded-[var(--xen-radius-lg)] border border-border py-xs'), children: options.map((opt) => {
+    return ((0, jsx_runtime_1.jsxs)("div", { ref: ref, className: (0, cn_1.cn)('relative w-full', className), children: [(0, jsx_runtime_1.jsxs)("button", { type: "button", "data-xen-v4-field": "", "aria-label": accessibilityLabel, "aria-haspopup": "listbox", "aria-expanded": open, "aria-invalid": invalid || undefined, disabled: disabled, onClick: () => setOpen((o) => !o), className: (0, cn_1.cn)(field_v4_1.FIELD_V4_SHELL, (0, field_v4_1.fieldBorderClass)(invalid), 'flex items-center justify-between gap-sm py-xs text-left'), style: (0, field_v4_1.fieldRingVars)(invalid), children: [chosen.length === 0 ? ((0, jsx_runtime_1.jsx)("span", { className: "text-muted-text", children: placeholder })) : ((0, jsx_runtime_1.jsx)("span", { className: "flex flex-1 flex-wrap gap-xs", children: chosen.map((o) => ((0, jsx_runtime_1.jsx)("span", { "data-xen-v4-chip": "", className: "rounded-[var(--xen-radius-sm)] px-sm text-sm font-medium", children: o.label }, o.value))) })), (0, jsx_runtime_1.jsx)("span", { "aria-hidden": true, className: "text-sm text-muted-text", children: "\u25BE" })] }), open ? ((0, jsx_runtime_1.jsx)("div", { role: "listbox", "aria-multiselectable": true, "data-xen-v4-listbox": "", "data-xen-v4-pop": "sheet", className: (0, cn_1.cn)('absolute z-50 mt-xs max-h-60 w-full overflow-auto', 'rounded-[var(--xen-radius-lg)] border border-border py-xs'), children: options.map((opt) => {
                     const active = value.includes(opt.value);
                     return ((0, jsx_runtime_1.jsxs)("button", { type: "button", role: "option", "data-xen-v4-option": "", "aria-selected": active, onClick: () => toggle(opt.value), className: (0, cn_1.cn)('flex min-h-[var(--xen-space-2xl)] w-full items-center justify-between gap-sm', 'px-md text-left text-base', active ? 'font-semibold text-primary-text' : 'text-on-surface'), children: [(0, jsx_runtime_1.jsx)("span", { children: opt.label }), (0, jsx_runtime_1.jsx)("span", { "aria-hidden": true, className: "text-primary-text", children: active ? '✓' : '' })] }, opt.value));
                 }) })) : null] }));

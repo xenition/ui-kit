@@ -52,4 +52,16 @@ export { ShotListItem } from './ShotListItem';
 export type { ShotListItemProps, ShotPriority } from './ShotListItem';
 export { PricePackageRow } from './PricePackageRow';
 export type { PricePackageRowProps } from './PricePackageRow';
+export { AlbumCardV4, type AlbumCardV4Props } from './AlbumCardV4';
+export { ClientProofRowV4, type ClientProofRowV4Props } from './ClientProofRowV4';
+export { EquipmentRowV4, type EquipmentRowV4Props } from './EquipmentRowV4';
+export { GalleryHeaderV4, type GalleryHeaderV4Props } from './GalleryHeaderV4';
+export { LightboxThumbV4, type LightboxThumbV4Props } from './LightboxThumbV4';
+export { PackageCardV4, type PackageCardV4Props } from './PackageCardV4';
+export { PhotoTileV4, type PhotoTileV4Props } from './PhotoTileV4';
+export { PortfolioGridV4, type PortfolioGridV4Props } from './PortfolioGridV4';
+export { PricePackageRowV4, type PricePackageRowV4Props } from './PricePackageRowV4';
+export { PrintOrderRowV4, type PrintOrderRowV4Props } from './PrintOrderRowV4';
+export { ShootBookingCardV4, type ShootBookingCardV4Props } from './ShootBookingCardV4';
+export { ShotListItemV4, type ShotListItemV4Props } from './ShotListItemV4';
 //# sourceMappingURL=index.d.ts.map

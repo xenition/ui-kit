@@ -1,5 +1,7 @@
+import '../spec-support/real-animations';
 import * as React from 'react';
-import { fireEvent } from '@testing-library/react-native';
+import { act, fireEvent } from '@testing-library/react-native';
+import { AccessibilityInfo } from 'react-native';
 import type { ReactTestInstance } from 'react-test-renderer';
 import { SEED_BOTH, SEED_LIGHT, renderThemed } from '../spec-support/render-native';
 import { compileTheme } from '../../theme/compile';
@@ -147,5 +149,47 @@ describe('AutoCompleteV4 (native)', () => {
     };
     expect(read('light')).toBe(theme.light.ring);
     expect(read('dark')).toBe(theme.dark.ring);
+  });
+
+  // ── §36: the panel arrives ─────────────────────────────────────────
+
+  /*
+    This was the one member of the native picker line with no `Animated` in it
+    at all — a bare `{showPanel ? … : null}` — while its own web twin faded and
+    `ComboboxV4`, `DatePickerV4` and `TimePickerV4` beside it all rose and
+    faded over `PICKER_MOTION.popover`.
+  */
+  it('rises and fades its suggestion panel in, like every other native picker', () => {
+    const { getByLabelText } = renderThemed(
+      <AutoCompleteV4 options={OPTIONS} value="dam" />,
+      SEED_LIGHT
+    );
+    fireEvent(getByLabelText('Autocomplete'), 'focus');
+    const panel = getByLabelText('Suggestions');
+    const style = Object.assign({}, ...[panel.props.style].flat(2)) as Record<string, unknown>;
+
+    // Frame zero of an entrance, not a panel that is simply there.
+    expect(style.opacity).toBe(0);
+    // The same `xs` rise the web sheet's `xen-v4-picker-in` keyframe uses, so
+    // the two twins move on one arc.
+    const shift = (style.transform as { translateY: number }[])[0]?.translateY;
+    expect(shift).toBe(-THEME.spacing.xs);
+  });
+
+  it('drops the panel’s entrance under reduced motion — §36.10', async () => {
+    (AccessibilityInfo.isReduceMotionEnabled as jest.Mock).mockResolvedValue(true);
+    const { getByLabelText } = renderThemed(
+      <AutoCompleteV4 options={OPTIONS} value="dam" />,
+      SEED_LIGHT
+    );
+    fireEvent(getByLabelText('Autocomplete'), 'focus');
+    // The preference resolves on a promise, so the reduced path lands on the
+    // render after it.
+    await act(async () => {});
+
+    const panel = getByLabelText('Suggestions');
+    const style = Object.assign({}, ...[panel.props.style].flat(2)) as Record<string, unknown>;
+    expect(style.opacity).toBe(1);
+    expect((style.transform as { translateY: number }[])[0]?.translateY).toBe(0);
   });
 });

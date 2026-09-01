@@ -6,10 +6,10 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProgressV4 = exports.Progress = exports.AlertV4 = exports.Alert = exports.MessageListV4 = exports.MessageList = exports.ChatBubbleV4 = exports.ChatBubble = exports.TableV4 = exports.Table = exports.ModalV4 = exports.Modal = exports.TabsV4 = exports.Tabs = exports.SpinnerV4 = exports.Spinner = exports.SwitchV4 = exports.Switch = exports.AvatarV4 = exports.Avatar = exports.BadgeV4 = exports.Badge = exports.StatusMessageV4 = exports.StatusMessage = exports.RatingV4 = exports.Rating = exports.StatusDotV4 = exports.StatusDot = exports.GlassPanel = exports.EyebrowV4 = exports.Eyebrow = exports.GradientText = exports.StackV4 = exports.Stack = exports.FieldV4 = exports.Field = exports.LabelV4 = exports.Label = exports.SelectV4 = exports.Select = exports.CheckboxV4 = exports.Checkbox = exports.TextareaV4 = exports.Textarea = exports.InputV4 = exports.Input = exports.CardV4 = exports.Card = exports.ButtonV4 = exports.Button = void 0;
-exports.AUTH_CONTROL_HEIGHT = exports.AuthCard = exports.useForm = exports.FormV4 = exports.Form = exports.PinInputV4 = exports.PinInput = exports.NumberInputV4 = exports.NumberInput = exports.SliderV4 = exports.Slider = exports.RadioGroupV4 = exports.RadioGroup = exports.StepList = exports.StepsV4 = exports.Steps = exports.SegmentedV4 = exports.Segmented = exports.AvatarGroupV4 = exports.AvatarGroup = exports.DescriptionsV4 = exports.Descriptions = exports.TimelineV4 = exports.Timeline = exports.BreadcrumbV4 = exports.Breadcrumb = exports.ListV4 = exports.List = exports.PaginationV4 = exports.Pagination = exports.TagV4 = exports.Tag = exports.PopconfirmV4 = exports.Popconfirm = exports.DrawerV4 = exports.Drawer = exports.AccordionV4 = exports.Accordion = exports.MenuV4 = exports.Menu = exports.PopoverV4 = exports.Popover = exports.TooltipV4 = exports.Tooltip = exports.useToast = exports.ToastProvider = exports.EmptyStateV4 = exports.EmptyState = exports.SkeletonV4 = exports.Skeleton = void 0;
-exports.PhoneInput = exports.ToggleGroupV4 = exports.ToggleGroup = exports.RangeSliderV4 = exports.RangeSlider = exports.AutoCompleteV4 = exports.AutoComplete = exports.TagInputV4 = exports.TagInput = exports.MultiSelectV4 = exports.MultiSelect = exports.DateRangePickerV4 = exports.DateRangePicker = exports.TimePickerV4 = exports.TimePicker = exports.PasswordInputV4 = exports.PasswordInput = exports.SearchInputV4 = exports.SearchInput = exports.WordmarkV4 = exports.Wordmark = exports.SidebarV4 = exports.Sidebar = exports.AppShellV4 = exports.AppShell = exports.cn = exports.DatePickerV4 = exports.DatePicker = exports.UploadV4 = exports.Upload = exports.ComboboxV4 = exports.Combobox = exports.CrudTableV4 = exports.CrudTable = exports.DataTableV4 = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.AuthTermsCard = exports.AuthSwitchFooter = exports.AuthSubmitButton = exports.AuthStickyFooter = exports.AuthProviderButton = exports.AuthHeading = exports.AuthField = exports.AuthDivider = exports.AuthBrandTile = exports.AUTH_DEFAULT_TERMS_LINKS = exports.AUTH_TAP_TARGET = void 0;
-exports.SplitButtonV4 = exports.SplitButton = exports.ToolbarV4 = exports.Toolbar = exports.JsonViewerV4 = exports.JsonViewer = exports.CodeBlockV4 = exports.CodeBlock = exports.VirtualListV4 = exports.VirtualList = exports.KanbanV4 = exports.Kanban = exports.CalendarV4 = exports.Calendar = exports.StatisticV4 = exports.Statistic = exports.TreeV4 = exports.Tree = exports.WatermarkV4 = exports.Watermark = exports.ButtonGroupV4 = exports.ButtonGroup = exports.LoadingOverlayV4 = exports.LoadingOverlay = exports.ResultV4 = exports.Result = exports.CalloutV4 = exports.Callout = exports.BannerV4 = exports.Banner = exports.BottomSheetV4 = exports.BottomSheet = exports.ActionSheetV4 = exports.ActionSheet = exports.ContextMenuV4 = exports.ContextMenu = exports.BottomNavV4 = exports.BottomNav = exports.FloatButtonV4 = exports.FloatButton = exports.resolveIconGlyph = exports.isIconName = exports.ICON_GLYPHS = exports.Icon = exports.Text = exports.ColorPickerV4 = exports.ColorPicker = exports.CurrencyInputV4 = exports.CurrencyInput = exports.PhoneInputV4 = void 0;
-exports.ScrollableTabsV4 = exports.ScrollableTabs = void 0;
+exports.FormV4 = exports.Form = exports.PinInputV4 = exports.PinInput = exports.NumberInputV4 = exports.NumberInput = exports.SliderV4 = exports.Slider = exports.RadioGroupV4 = exports.RadioGroup = exports.RAIL_MIN_ROWS = exports.StepListV4 = exports.StepList = exports.StepsV4 = exports.Steps = exports.SegmentedV4 = exports.Segmented = exports.AvatarGroupV4 = exports.AvatarGroup = exports.DescriptionsV4 = exports.Descriptions = exports.TimelineV4 = exports.Timeline = exports.BreadcrumbV4 = exports.Breadcrumb = exports.ListV4 = exports.List = exports.PaginationV4 = exports.Pagination = exports.TagV4 = exports.Tag = exports.PopconfirmV4 = exports.Popconfirm = exports.DrawerV4 = exports.Drawer = exports.AccordionV4 = exports.Accordion = exports.MenuV4 = exports.Menu = exports.PopoverV4 = exports.Popover = exports.TooltipV4 = exports.Tooltip = exports.ToastProviderV4 = exports.useToast = exports.ToastProvider = exports.EmptyStateV4 = exports.EmptyState = exports.SkeletonV4 = exports.Skeleton = void 0;
+exports.SearchInputV4 = exports.SearchInput = exports.WordmarkV4 = exports.Wordmark = exports.SidebarV4 = exports.Sidebar = exports.AppShellV4 = exports.AppShell = exports.cn = exports.DatePickerV4 = exports.DatePicker = exports.UploadV4 = exports.Upload = exports.ComboboxV4 = exports.Combobox = exports.CrudTableV4 = exports.CrudTable = exports.DataTableV4 = exports.DataTable = exports.ForgotPasswordForm = exports.SignupForm = exports.LoginForm = exports.LoginFormV4 = exports.SignupFormV4 = exports.ForgotPasswordFormV4 = exports.AuthCardV4 = exports.AuthHeadingV4 = exports.AuthBrandTileV4 = exports.AuthProviderButtonV4 = exports.AuthDividerV4 = exports.AUTH_SUBMIT_HEIGHT_V4 = exports.AuthSubmitButtonV4 = exports.AuthStickyFooterV4 = exports.AuthSwitchFooterV4 = exports.AuthTermsCardV4 = exports.AuthFieldV4 = exports.AuthTermsCard = exports.AuthSwitchFooter = exports.AuthSubmitButton = exports.AuthStickyFooter = exports.AuthProviderButton = exports.AuthHeading = exports.AuthField = exports.AuthDivider = exports.AuthBrandTile = exports.AUTH_DEFAULT_TERMS_LINKS = exports.AUTH_TAP_TARGET = exports.AUTH_CONTROL_HEIGHT = exports.AuthCard = exports.useForm = void 0;
+exports.Watermark = exports.ButtonGroupV4 = exports.ButtonGroup = exports.LoadingOverlayV4 = exports.LoadingOverlay = exports.ResultV4 = exports.Result = exports.CalloutV4 = exports.Callout = exports.BannerV4 = exports.Banner = exports.BottomSheetV4 = exports.BottomSheet = exports.ActionSheetV4 = exports.ActionSheet = exports.ContextMenuV4 = exports.ContextMenu = exports.BottomNavV4 = exports.BottomNav = exports.FloatButtonV4 = exports.FloatButton = exports.resolveIconGlyph = exports.isIconName = exports.ICON_GLYPHS = exports.IconV4 = exports.Icon = exports.TextV4 = exports.Text = exports.ColorPickerV4 = exports.ColorPicker = exports.CurrencyInputV4 = exports.CurrencyInput = exports.PhoneInputV4 = exports.PhoneInput = exports.ToggleGroupV4 = exports.ToggleGroup = exports.RangeSliderV4 = exports.RangeSlider = exports.AutoCompleteV4 = exports.AutoComplete = exports.TagInputV4 = exports.TagInput = exports.MultiSelectV4 = exports.MultiSelect = exports.DateRangePickerV4 = exports.DateRangePicker = exports.TimePickerV4 = exports.TimePicker = exports.PasswordInputV4 = exports.PasswordInput = void 0;
+exports.ScrollableTabsV4 = exports.ScrollableTabs = exports.SplitButtonV4 = exports.SplitButton = exports.ToolbarV4 = exports.Toolbar = exports.JsonViewerV4 = exports.JsonViewer = exports.CodeBlockV4 = exports.CodeBlock = exports.VirtualListV4 = exports.VirtualList = exports.KanbanV4 = exports.Kanban = exports.CalendarV4 = exports.Calendar = exports.StatisticV4 = exports.Statistic = exports.TreeV4 = exports.Tree = exports.WatermarkV4 = void 0;
 var Button_1 = require("./Button");
 Object.defineProperty(exports, "Button", { enumerable: true, get: function () { return Button_1.Button; } });
 // V4 design line — same props as `Button`, a different design.
@@ -149,6 +149,8 @@ Object.defineProperty(exports, "EmptyStateV4", { enumerable: true, get: function
 var Toast_1 = require("./Toast");
 Object.defineProperty(exports, "ToastProvider", { enumerable: true, get: function () { return Toast_1.ToastProvider; } });
 Object.defineProperty(exports, "useToast", { enumerable: true, get: function () { return Toast_1.useToast; } });
+var ToastProviderV4_1 = require("./ToastProviderV4");
+Object.defineProperty(exports, "ToastProviderV4", { enumerable: true, get: function () { return ToastProviderV4_1.ToastProviderV4; } });
 var Tooltip_1 = require("./Tooltip");
 Object.defineProperty(exports, "Tooltip", { enumerable: true, get: function () { return Tooltip_1.Tooltip; } });
 // V4 design line — same props as `Tooltip`, a different design.
@@ -229,6 +231,9 @@ Object.defineProperty(exports, "StepsV4", { enumerable: true, get: function () {
 // "where am I in this flow" vs "here are the instructions".
 var StepList_1 = require("./StepList");
 Object.defineProperty(exports, "StepList", { enumerable: true, get: function () { return StepList_1.StepList; } });
+var StepListV4_1 = require("./StepListV4");
+Object.defineProperty(exports, "StepListV4", { enumerable: true, get: function () { return StepListV4_1.StepListV4; } });
+Object.defineProperty(exports, "RAIL_MIN_ROWS", { enumerable: true, get: function () { return StepListV4_1.RAIL_MIN_ROWS; } });
 var RadioGroup_1 = require("./RadioGroup");
 Object.defineProperty(exports, "RadioGroup", { enumerable: true, get: function () { return RadioGroup_1.RadioGroup; } });
 // V4 design line — same props as `RadioGroup`, a different design.
@@ -275,6 +280,33 @@ Object.defineProperty(exports, "AuthStickyFooter", { enumerable: true, get: func
 Object.defineProperty(exports, "AuthSubmitButton", { enumerable: true, get: function () { return AuthCard_2.AuthSubmitButton; } });
 Object.defineProperty(exports, "AuthSwitchFooter", { enumerable: true, get: function () { return AuthCard_2.AuthSwitchFooter; } });
 Object.defineProperty(exports, "AuthTermsCard", { enumerable: true, get: function () { return AuthCard_2.AuthTermsCard; } });
+var AuthFieldV4_1 = require("./AuthFieldV4");
+Object.defineProperty(exports, "AuthFieldV4", { enumerable: true, get: function () { return AuthFieldV4_1.AuthFieldV4; } });
+var AuthTermsCardV4_1 = require("./AuthTermsCardV4");
+Object.defineProperty(exports, "AuthTermsCardV4", { enumerable: true, get: function () { return AuthTermsCardV4_1.AuthTermsCardV4; } });
+var AuthSwitchFooterV4_1 = require("./AuthSwitchFooterV4");
+Object.defineProperty(exports, "AuthSwitchFooterV4", { enumerable: true, get: function () { return AuthSwitchFooterV4_1.AuthSwitchFooterV4; } });
+var AuthStickyFooterV4_1 = require("./AuthStickyFooterV4");
+Object.defineProperty(exports, "AuthStickyFooterV4", { enumerable: true, get: function () { return AuthStickyFooterV4_1.AuthStickyFooterV4; } });
+var AuthSubmitButtonV4_1 = require("./AuthSubmitButtonV4");
+Object.defineProperty(exports, "AuthSubmitButtonV4", { enumerable: true, get: function () { return AuthSubmitButtonV4_1.AuthSubmitButtonV4; } });
+Object.defineProperty(exports, "AUTH_SUBMIT_HEIGHT_V4", { enumerable: true, get: function () { return AuthSubmitButtonV4_1.AUTH_SUBMIT_HEIGHT_V4; } });
+var AuthDividerV4_1 = require("./AuthDividerV4");
+Object.defineProperty(exports, "AuthDividerV4", { enumerable: true, get: function () { return AuthDividerV4_1.AuthDividerV4; } });
+var AuthProviderButtonV4_1 = require("./AuthProviderButtonV4");
+Object.defineProperty(exports, "AuthProviderButtonV4", { enumerable: true, get: function () { return AuthProviderButtonV4_1.AuthProviderButtonV4; } });
+var AuthBrandTileV4_1 = require("./AuthBrandTileV4");
+Object.defineProperty(exports, "AuthBrandTileV4", { enumerable: true, get: function () { return AuthBrandTileV4_1.AuthBrandTileV4; } });
+var AuthHeadingV4_1 = require("./AuthHeadingV4");
+Object.defineProperty(exports, "AuthHeadingV4", { enumerable: true, get: function () { return AuthHeadingV4_1.AuthHeadingV4; } });
+var AuthCardV4_1 = require("./AuthCardV4");
+Object.defineProperty(exports, "AuthCardV4", { enumerable: true, get: function () { return AuthCardV4_1.AuthCardV4; } });
+var ForgotPasswordFormV4_1 = require("./ForgotPasswordFormV4");
+Object.defineProperty(exports, "ForgotPasswordFormV4", { enumerable: true, get: function () { return ForgotPasswordFormV4_1.ForgotPasswordFormV4; } });
+var SignupFormV4_1 = require("./SignupFormV4");
+Object.defineProperty(exports, "SignupFormV4", { enumerable: true, get: function () { return SignupFormV4_1.SignupFormV4; } });
+var LoginFormV4_1 = require("./LoginFormV4");
+Object.defineProperty(exports, "LoginFormV4", { enumerable: true, get: function () { return LoginFormV4_1.LoginFormV4; } });
 var LoginForm_1 = require("./LoginForm");
 Object.defineProperty(exports, "LoginForm", { enumerable: true, get: function () { return LoginForm_1.LoginForm; } });
 var SignupForm_1 = require("./SignupForm");
@@ -391,8 +423,12 @@ Object.defineProperty(exports, "ColorPickerV4", { enumerable: true, get: functio
 // instead of a hand-assembled class string. A raw `fontSize` in an app is a bug.
 var Text_1 = require("./Text");
 Object.defineProperty(exports, "Text", { enumerable: true, get: function () { return Text_1.Text; } });
+var TextV4_1 = require("./TextV4");
+Object.defineProperty(exports, "TextV4", { enumerable: true, get: function () { return TextV4_1.TextV4; } });
 var Icon_1 = require("./Icon");
 Object.defineProperty(exports, "Icon", { enumerable: true, get: function () { return Icon_1.Icon; } });
+var IconV4_1 = require("./IconV4");
+Object.defineProperty(exports, "IconV4", { enumerable: true, get: function () { return IconV4_1.IconV4; } });
 // The named icon set behind `Icon`'s `name` — a stable semantic vocabulary so
 // two screens never pick different glyphs for the same idea.
 var icon_names_1 = require("./icon-names");
