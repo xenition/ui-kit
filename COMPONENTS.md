@@ -21,7 +21,7 @@ design pattern.
 
 | | meaning |
 |---|---|
-| ✅ **0.9.0 – 0.21.0** | on the current design pattern — `onboarding` is the reference for the *shell* and, since 0.13.0, is itself on the V4 line; `booking`, `media` and `agriculture` joined at 0.14.0, `automotive` and `beauty` at 0.15.0, `calendar` and `chat` at 0.16.0, `content` and `crm` at 0.17.0, `crypto`, `dating` and `email` at 0.18.0, `events` and `fieldservice` at 0.19.0, `finance` and `food` at 0.20.0, `gaming` and `government` at 0.21.0 |
+| ✅ **0.9.0 – 0.21.0** | on the current design pattern — `onboarding` is the reference for the *shell* and, since 0.13.0, is itself on the V4 line; `booking`, `media` and `agriculture` joined at 0.14.0, `automotive` and `beauty` at 0.15.0, `calendar` and `chat` at 0.16.0, `content` and `crm` at 0.17.0, `crypto`, `dating` and `email` at 0.18.0, `events` and `fieldservice` at 0.19.0, `finance` and `food` at 0.20.0, `gaming` and `government` at 0.21.0, `health` and `hr` at 0.22.0, `insurance`, `jobs` and `kids` at 0.23.0 |
 | ⚠️ **0.8.0** | V2/V3 composition fixed, but predates the 0.9.0 shell |
 | ❌ **0.7.0** | last touched at the V2/V3 rollout — **needs the pattern applied** |
 
@@ -1120,155 +1120,209 @@ pass does not touch.
 
 *helpers:* `FORM_STATUS`, `PERMIT_STAGES`, `PERMIT_STATUS`, `formatMoney`
 
-### `health` — 13 components, 4 with variants · last updated **0.7.0** ❌
+### `health` — 13 components, 4 with variants · last updated **0.22.0** ✅
+
+**Progress: 13 / 13 upgraded, plus 2 new.** See `HEALTH-HR-V4-BRIEF.md` §1 and §3.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `ActivityRings` | — | ⬜ |
-| 2 | `BodyMetricCard` | — | ⬜ |
-| 3 | `ExerciseRow` | — | ⬜ |
-| 4 | `GoalCard` | `GoalCardV2` · `GoalCardV3` | ⬜ |
-| 5 | `HabitRow` | `HabitRowV2` · `HabitRowV3` | ⬜ |
-| 6 | `MealCard` | `MealCardV2` · `MealCardV3` | ⬜ |
-| 7 | `MetricRing` | — | ⬜ |
-| 8 | `MoodPicker` | — | ⬜ |
-| 9 | `SleepBar` | — | ⬜ |
-| 10 | `StreakCounter` | — | ⬜ |
-| 11 | `VitalStat` | — | ⬜ |
-| 12 | `WaterTracker` | — | ⬜ |
-| 13 | `WorkoutCard` | `WorkoutCardV2` · `WorkoutCardV3` | ⬜ |
+| 1 | `ActivityRings` | `ActivityRingsV4` | ✅ |
+| 2 | `BodyMetricCard` | `BodyMetricCardV4` | ✅ |
+| 3 | `ExerciseRow` | `ExerciseRowV4` | ✅ |
+| 4 | `GoalCard` | `GoalCardV2` · `GoalCardV3` · `GoalCardV4` | ✅ |
+| 5 | `HabitRow` | `HabitRowV2` · `HabitRowV3` · `HabitRowV4` | ✅ |
+| 6 | `MealCard` | `MealCardV2` · `MealCardV3` · `MealCardV4` | ✅ |
+| 7 | `MetricRing` | `MetricRingV4` | ✅ |
+| 8 | `MoodPicker` | `MoodPickerV4` | ✅ |
+| 9 | `SleepBar` | `SleepBarV4` | ✅ |
+| 10 | `StreakCounter` | `StreakCounterV4` | ✅ |
+| 11 | `VitalStat` | `VitalStatV4` | ✅ |
+| 12 | `WaterTracker` | `WaterTrackerV4` | ✅ |
+| 13 | `WorkoutCard` | `WorkoutCardV2` · `WorkoutCardV3` · `WorkoutCardV4` | ✅ |
+| + | `HealthRangeBarV4` | *new in 0.22.0* | ✅ |
+| + | `SleepStagesV4` | *new in 0.22.0* | ✅ |
 
-### `hr` — 13 components, 4 with variants · last updated **0.7.0** ❌
+### `hr` — 13 components, 4 with variants · last updated **0.22.0** ✅
+
+**Progress: 13 / 13 upgraded, plus 2 new.** See `HEALTH-HR-V4-BRIEF.md` §2 and §4.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `BenefitsEnrollment` | — | ⬜ |
-| 2 | `DirectoryRow` | — | ⬜ |
-| 3 | `EmployeeCard` | `EmployeeCardV2` · `EmployeeCardV3` | ⬜ |
-| 4 | `ExpenseClaim` | — | ⬜ |
-| 5 | `LeaveRequest` | `LeaveRequestV2` · `LeaveRequestV3` | ⬜ |
-| 6 | `OnboardingTask` | — | ⬜ |
-| 7 | `OrgChartNode` | — | ⬜ |
-| 8 | `PayslipRow` | `PayslipRowV2` · `PayslipRowV3` | ⬜ |
-| 9 | `PerformanceReview` | `PerformanceReviewV2` · `PerformanceReviewV3` | ⬜ |
-| 10 | `PolicyAcknowledge` | — | ⬜ |
-| 11 | `ShiftSchedule` | — | ⬜ |
-| 12 | `StatusPill` | — | ⬜ |
-| 13 | `TimesheetRow` | — | ⬜ |
+| 1 | `BenefitsEnrollment` | `BenefitsEnrollmentV4` | ✅ |
+| 2 | `DirectoryRow` | `DirectoryRowV4` | ✅ |
+| 3 | `EmployeeCard` | `EmployeeCardV2` · `EmployeeCardV3` · `EmployeeCardV4` | ✅ |
+| 4 | `ExpenseClaim` | `ExpenseClaimV4` | ✅ |
+| 5 | `LeaveRequest` | `LeaveRequestV2` · `LeaveRequestV3` · `LeaveRequestV4` | ✅ |
+| 6 | `OnboardingTask` | `OnboardingTaskV4` | ✅ |
+| 7 | `OrgChartNode` | `OrgChartNodeV4` | ✅ |
+| 8 | `PayslipRow` | `PayslipRowV2` · `PayslipRowV3` · `PayslipRowV4` | ✅ |
+| 9 | `PerformanceReview` | `PerformanceReviewV2` · `PerformanceReviewV3` · `PerformanceReviewV4` | ✅ |
+| 10 | `PolicyAcknowledge` | `PolicyAcknowledgeV4` | ✅ |
+| 11 | `ShiftSchedule` | `ShiftScheduleV4` | ✅ |
+| 12 | `StatusPill` | `StatusPillV4` | ✅ |
+| 13 | `TimesheetRow` | `TimesheetRowV4` | ✅ |
+| + | `LeaveBalanceV4` | *new in 0.22.0* | ✅ |
+| + | `ApprovalQueueV4` | *new in 0.22.0* | ✅ |
 
 *helpers:* `BENEFIT_STATUS_META`, `BENEFIT_TYPE_META`, `EMPLOYEE_STATUS_META`, `EMPLOYMENT_META`, `EXPENSE_CATEGORY_META`, `EXPENSE_STATUS_META`, `LEAVE_STATUS_META`, `LEAVE_TYPE_META`, `PAYSLIP_STATUS_META`, `POLICY_STATUS_META`, `PRESENCE_META`, `REVIEW_STATUS_META`, `SHIFT_STATUS_META`, `TASK_STATUS_META`, `TIMESHEET_STATUS_META`, `clampPct`, `clampRating`, `formatHours`, `formatMoney`, `toneColor`, `toneSlot`
 
-### `insurance` — 12 components, 4 with variants · last updated **0.7.0** ❌
+### `insurance` — 12 components, 4 with variants · last updated **0.23.0** ✅
+
+**Progress: 12 / 12 upgraded, plus 2 new.** See `INSURANCE-JOBS-KIDS-V4-BRIEF.md §1 and §4`.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `AgentContactCard` | — | ⬜ |
-| 2 | `BeneficiaryRow` | — | ⬜ |
-| 3 | `ClaimRow` | `ClaimRowV2` · `ClaimRowV3` | ⬜ |
-| 4 | `ClaimStatusTracker` | — | ⬜ |
-| 5 | `CoverageItem` | `CoverageItemV2` · `CoverageItemV3` | ⬜ |
-| 6 | `DeductibleBar` | — | ⬜ |
-| 7 | `PolicyCard` | `PolicyCardV2` · `PolicyCardV3` | ⬜ |
-| 8 | `PolicyDocumentRow` | — | ⬜ |
-| 9 | `PremiumSummary` | `PremiumSummaryV2` · `PremiumSummaryV3` | ⬜ |
-| 10 | `QuoteForm` | — | ⬜ |
-| 11 | `RenewalBanner` | — | ⬜ |
-| 12 | `RiskScore` | — | ⬜ |
+| 1 | `AgentContactCard` | `AgentContactCardV4` | ✅ |
+| 2 | `BeneficiaryRow` | `BeneficiaryRowV4` | ✅ |
+| 3 | `ClaimRow` | `ClaimRowV2` · `ClaimRowV3` · `ClaimRowV4` | ✅ |
+| 4 | `ClaimStatusTracker` | `ClaimStatusTrackerV4` | ✅ |
+| 5 | `CoverageItem` | `CoverageItemV2` · `CoverageItemV3` · `CoverageItemV4` | ✅ |
+| 6 | `DeductibleBar` | `DeductibleBarV4` | ✅ |
+| 7 | `PolicyCard` | `PolicyCardV2` · `PolicyCardV3` · `PolicyCardV4` | ✅ |
+| 8 | `PolicyDocumentRow` | `PolicyDocumentRowV4` | ✅ |
+| 9 | `PremiumSummary` | `PremiumSummaryV2` · `PremiumSummaryV3` · `PremiumSummaryV4` | ✅ |
+| 10 | `QuoteForm` | `QuoteFormV4` | ✅ |
+| 11 | `RenewalBanner` | `RenewalBannerV4` | ✅ |
+| 12 | `RiskScore` | `RiskScoreV4` | ✅ |
+| + | `InsuranceIdCardV4` | *new in 0.23.0* | ✅ |
+| + | `ClaimTimelineV4` | *new in 0.23.0* | ✅ |
 
 *helpers:* `CLAIM_STATUS`, `POLICY_VARIANT`, `formatMoney`
 
-### `jobs` — 12 components, 4 with variants · last updated **0.7.0** ❌
+### `jobs` — 12 components, 4 with variants · last updated **0.23.0** ✅
+
+**Progress: 12 / 12 upgraded, plus 2 new.** See `INSURANCE-JOBS-KIDS-V4-BRIEF.md §2 and §5`.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `ApplicationRow` | `ApplicationRowV2` · `ApplicationRowV3` | ⬜ |
-| 2 | `ApplyButton` | — | ⬜ |
-| 3 | `CompanyCard` | `CompanyCardV2` · `CompanyCardV3` | ⬜ |
-| 4 | `InterviewSlot` | — | ⬜ |
-| 5 | `JobCard` | `JobCardV2` · `JobCardV3` | ⬜ |
-| 6 | `JobFilterBar` | — | ⬜ |
-| 7 | `RecruiterMessage` | — | ⬜ |
-| 8 | `ResumeRow` | — | ⬜ |
-| 9 | `SalaryRange` | — | ⬜ |
-| 10 | `SavedJobRow` | — | ⬜ |
-| 11 | `SkillTag` | — | ⬜ |
-| 12 | `StatusPipeline` | `StatusPipelineV2` · `StatusPipelineV3` | ⬜ |
+| 1 | `ApplicationRow` | `ApplicationRowV2` · `ApplicationRowV3` · `ApplicationRowV4` | ✅ |
+| 2 | `ApplyButton` | `ApplyButtonV4` | ✅ |
+| 3 | `CompanyCard` | `CompanyCardV2` · `CompanyCardV3` · `CompanyCardV4` | ✅ |
+| 4 | `InterviewSlot` | `InterviewSlotV4` | ✅ |
+| 5 | `JobCard` | `JobCardV2` · `JobCardV3` · `JobCardV4` | ✅ |
+| 6 | `JobFilterBar` | `JobFilterBarV4` | ✅ |
+| 7 | `RecruiterMessage` | `RecruiterMessageV4` | ✅ |
+| 8 | `ResumeRow` | `ResumeRowV4` | ✅ |
+| 9 | `SalaryRange` | `SalaryRangeV4` | ✅ |
+| 10 | `SavedJobRow` | `SavedJobRowV4` | ✅ |
+| 11 | `SkillTag` | `SkillTagV4` | ✅ |
+| 12 | `StatusPipeline` | `StatusPipelineV2` · `StatusPipelineV3` · `StatusPipelineV4` | ✅ |
+| + | `JobListV4` | *new in 0.23.0* | ✅ |
+| + | `OfferCardV4` | *new in 0.23.0* | ✅ |
 
 *helpers:* `APPLICATION_STAGES`, `EMPLOYMENT_LABEL`, `EMPLOYMENT_TYPES`, `STAGE_LABEL`, `formatCompactMoney`, `formatRelative`, `formatSalary`, `formatShortDate`, `formatTime`
 
-### `kids` — 12 components, 4 with variants · last updated **0.7.0** ❌
+### `kids` — 12 components, 4 with variants · last updated **0.23.0** ✅
+
+**Progress: 12 / 12 upgraded, plus 2 new.** See `INSURANCE-JOBS-KIDS-V4-BRIEF.md §3 and §6`.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `AllowanceTracker` | `AllowanceTrackerV2` · `AllowanceTrackerV3` | ⬜ |
-| 2 | `BehaviorBadge` | — | ⬜ |
-| 3 | `ChildProfileCard` | `ChildProfileCardV2` · `ChildProfileCardV3` | ⬜ |
-| 4 | `ChoreCard` | `ChoreCardV2` · `ChoreCardV3` | ⬜ |
-| 5 | `FamilyMemberRow` | — | ⬜ |
-| 6 | `GrowthChart` | — | ⬜ |
-| 7 | `MilestoneCard` | — | ⬜ |
-| 8 | `RewardStar` | `RewardStarV2` · `RewardStarV3` | ⬜ |
-| 9 | `RoutineRow` | — | ⬜ |
-| 10 | `SchoolEventRow` | — | ⬜ |
-| 11 | `ScreenTimeBar` | — | ⬜ |
-| 12 | `StickerReward` | — | ⬜ |
+| 1 | `AllowanceTracker` | `AllowanceTrackerV2` · `AllowanceTrackerV3` · `AllowanceTrackerV4` | ✅ |
+| 2 | `BehaviorBadge` | `BehaviorBadgeV4` | ✅ |
+| 3 | `ChildProfileCard` | `ChildProfileCardV2` · `ChildProfileCardV3` · `ChildProfileCardV4` | ✅ |
+| 4 | `ChoreCard` | `ChoreCardV2` · `ChoreCardV3` · `ChoreCardV4` | ✅ |
+| 5 | `FamilyMemberRow` | `FamilyMemberRowV4` | ✅ |
+| 6 | `GrowthChart` | `GrowthChartV4` | ✅ |
+| 7 | `MilestoneCard` | `MilestoneCardV4` | ✅ |
+| 8 | `RewardStar` | `RewardStarV2` · `RewardStarV3` · `RewardStarV4` | ✅ |
+| 9 | `RoutineRow` | `RoutineRowV4` | ✅ |
+| 10 | `SchoolEventRow` | `SchoolEventRowV4` | ✅ |
+| 11 | `ScreenTimeBar` | `ScreenTimeBarV4` | ✅ |
+| 12 | `StickerReward` | `StickerRewardV4` | ✅ |
+| + | `ChoreListV4` | *new in 0.23.0* | ✅ |
+| + | `ChildSwitcherV4` | *new in 0.23.0* | ✅ |
 
-### `learning` — 13 components, 4 with variants · last updated **0.7.0** ❌
+### `learning` — 13 components, 4 with variants · last updated **0.16.0** ✅
 
-| # | component | variants | done |
-|--:|---|---|:--:|
-| 1 | `AchievementBadge` | — | ⬜ |
-| 2 | `CertificateCard` | — | ⬜ |
-| 3 | `CourseCard` | `CourseCardV2` · `CourseCardV3` | ⬜ |
-| 4 | `EnrollButton` | — | ⬜ |
-| 5 | `FlashCard` | — | ⬜ |
-| 6 | `LeaderboardRow` | `LeaderboardRowV2` · `LeaderboardRowV3` | ⬜ |
-| 7 | `LessonRow` | `LessonRowV2` · `LessonRowV3` | ⬜ |
-| 8 | `ModuleAccordion` | — | ⬜ |
-| 9 | `ProgressTracker` | — | ⬜ |
-| 10 | `QuizOption` | — | ⬜ |
-| 11 | `QuizQuestion` | `QuizQuestionV2` · `QuizQuestionV3` | ⬜ |
-| 12 | `StreakBadge` | — | ⬜ |
-| 13 | `VideoLessonRow` | — | ⬜ |
-
-### `legal` — 13 components, 4 with variants · last updated **0.7.0** ❌
+All 13 originals now ship a **V4 "campus" design line** — a bright, modern
+learning-platform language: elevated cards, panels and rows with state by glyph +
+tone (never color alone) and big legible tabular-nums counts / scores /
+percentages. Four entity card/rows (`CourseCard`, `LessonRow`, `VideoLessonRow`,
+`LeaderboardRow`) add an optional `variant` (`full` / `compact`);
+`CertificateCard` / `ProgressTracker` reuse their base `variant`; the rest are
+pure drop-ins (`XxxV4Props = XxxProps`). The brand gradient is reserved for the
+campus moment — the `CertificateCard` award hero. No new components. Base/V2/V3
+untouched; V4 is additive. Token-driven, dark-mode safe, web + native.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `BillableTimeRow` | — | ⬜ |
-| 2 | `CaseCard` | `CaseCardV2` · `CaseCardV3` | ⬜ |
-| 3 | `ClientIntakeRow` | — | ⬜ |
-| 4 | `ContractClause` | — | ⬜ |
-| 5 | `CourtDateCard` | — | ⬜ |
-| 6 | `DisclaimerBanner` | — | ⬜ |
-| 7 | `DocumentRow` | `DocumentRowV2` · `DocumentRowV3` | ⬜ |
-| 8 | `EvidenceRow` | — | ⬜ |
-| 9 | `LegalAppointment` | `LegalAppointmentV2` · `LegalAppointmentV3` | ⬜ |
-| 10 | `MatterStatus` | — | ⬜ |
-| 11 | `RetainerBalance` | `RetainerBalanceV2` · `RetainerBalanceV3` | ⬜ |
-| 12 | `SignatureRequest` | — | ⬜ |
-| 13 | `StatusPill` | — | ⬜ |
+| 1 | `AchievementBadge` | `AchievementBadgeV4` | ✅ |
+| 2 | `CertificateCard` | `CertificateCardV4` | ✅ |
+| 3 | `CourseCard` | `CourseCardV2` · `CourseCardV3` · `CourseCardV4` | ✅ |
+| 4 | `EnrollButton` | `EnrollButtonV4` | ✅ |
+| 5 | `FlashCard` | `FlashCardV4` | ✅ |
+| 6 | `LeaderboardRow` | `LeaderboardRowV2` · `LeaderboardRowV3` · `LeaderboardRowV4` | ✅ |
+| 7 | `LessonRow` | `LessonRowV2` · `LessonRowV3` · `LessonRowV4` | ✅ |
+| 8 | `ModuleAccordion` | `ModuleAccordionV4` | ✅ |
+| 9 | `ProgressTracker` | `ProgressTrackerV4` | ✅ |
+| 10 | `QuizOption` | `QuizOptionV4` | ✅ |
+| 11 | `QuizQuestion` | `QuizQuestionV2` · `QuizQuestionV3` · `QuizQuestionV4` | ✅ |
+| 12 | `StreakBadge` | `StreakBadgeV4` | ✅ |
+| 13 | `VideoLessonRow` | `VideoLessonRowV4` | ✅ |
+
+*internal (native):* `GradientSurface` (optional `expo-linear-gradient`, solid fallback), `campus` palette helper
+
+### `legal` — 13 components, 4 with variants · last updated **0.16.0** ✅
+
+All 13 originals now ship a **V4 "chambers" design line** — a distinguished,
+calm law-office language: elevated cards, panels and rows with status by glyph +
+labelled `StatusPill` + tone (never color alone) and big legible tabular-nums
+money / figures. Every V4 is a pure drop-in (`XxxV4Props = XxxProps`) that reuses
+its base `variant` (all status values honored). The brand gradient is reserved
+for the chambers moment — the `MatterStatus` header hero. No new components.
+Base/V2/V3 untouched; V4 is additive. Token-driven, dark-mode safe, web + native.
+
+| # | component | variants | done |
+|--:|---|---|:--:|
+| 1 | `BillableTimeRow` | `BillableTimeRowV4` | ✅ |
+| 2 | `CaseCard` | `CaseCardV2` · `CaseCardV3` · `CaseCardV4` | ✅ |
+| 3 | `ClientIntakeRow` | `ClientIntakeRowV4` | ✅ |
+| 4 | `ContractClause` | `ContractClauseV4` | ✅ |
+| 5 | `CourtDateCard` | `CourtDateCardV4` | ✅ |
+| 6 | `DisclaimerBanner` | `DisclaimerBannerV4` | ✅ |
+| 7 | `DocumentRow` | `DocumentRowV2` · `DocumentRowV3` · `DocumentRowV4` | ✅ |
+| 8 | `EvidenceRow` | `EvidenceRowV4` | ✅ |
+| 9 | `LegalAppointment` | `LegalAppointmentV2` · `LegalAppointmentV3` · `LegalAppointmentV4` | ✅ |
+| 10 | `MatterStatus` | `MatterStatusV4` | ✅ |
+| 11 | `RetainerBalance` | `RetainerBalanceV2` · `RetainerBalanceV3` · `RetainerBalanceV4` | ✅ |
+| 12 | `SignatureRequest` | `SignatureRequestV4` | ✅ |
+| 13 | `StatusPill` | `StatusPillV4` | ✅ |
 
 *helpers:* `APPOINTMENT_STATUS_META`, `APPOINTMENT_TYPE_META`, `BILLABLE_STATUS_META`, `CASE_PRIORITY_META`, `CASE_STATUS_META`, `CLAUSE_RISK_META`, `CLAUSE_STATUS_META`, `CONFLICT_CHECK_META`, `COURT_EVENT_META`, `COURT_URGENCY_META`, `DISCLAIMER_META`, `DOCUMENT_KIND_META`, `DOCUMENT_STATUS_META`, `EVIDENCE_KIND_META`, `EVIDENCE_STATUS_META`, `INTAKE_STATUS_META`, `MATTER_STAGE_META`, `MATTER_STAGE_ORDER`, `PRACTICE_AREA_META`, `RETAINER_STATUS_META`, `SIGNATURE_STATUS_META`, `billableCents`, `clampPct`, `formatHours`, `formatMoney`, `onToneSlot`, `toneColor`, `toneSlot`
 
-### `logistics` — 12 components, 4 with variants · last updated **0.7.0** ❌
+*internal (native):* `GradientSurface` (optional `expo-linear-gradient`, solid fallback), `chambers` palette helper
+
+### `logistics` — 12 components, 4 with variants · last updated **0.16.0** ✅
+
+All 12 originals now ship a **V4 "dispatch" design line** — a confident,
+operations-desk language: elevated cards, panels, rows and bars with status by
+glyph + labelled badge + tone (never color alone) and big legible tabular-nums
+figures. Every V4 is a drop-in (`XxxV4Props = XxxProps`); five entity card/rows
+carry a two-density `variant` — `PackageRow` / `RouteStop` / `ScanRow` /
+`ManifestRow` add `full` / `compact`, and `ShipmentCard` reuses its base
+`default` / `compact`. The brand gradient is reserved for the dispatch moment —
+the `TrackingTimeline` hero header. No new components. Base/V2/V3 untouched; V4 is
+additive. Token-driven, dark-mode safe, web + native.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `CarrierBadge` | — | ⬜ |
-| 2 | `DeliveryProof` | — | ⬜ |
-| 3 | `DockSchedule` | — | ⬜ |
-| 4 | `ETABar` | — | ⬜ |
-| 5 | `LoadPlanBar` | — | ⬜ |
-| 6 | `ManifestRow` | — | ⬜ |
-| 7 | `PackageRow` | `PackageRowV2` · `PackageRowV3` | ⬜ |
-| 8 | `RouteStop` | `RouteStopV2` · `RouteStopV3` | ⬜ |
-| 9 | `ScanRow` | — | ⬜ |
-| 10 | `ShipmentCard` | `ShipmentCardV2` · `ShipmentCardV3` | ⬜ |
-| 11 | `TrackingTimeline` | `TrackingTimelineV2` · `TrackingTimelineV3` | ⬜ |
-| 12 | `WarehouseBin` | — | ⬜ |
+| 1 | `CarrierBadge` | `CarrierBadgeV4` | ✅ |
+| 2 | `DeliveryProof` | `DeliveryProofV4` | ✅ |
+| 3 | `DockSchedule` | `DockScheduleV4` | ✅ |
+| 4 | `ETABar` | `ETABarV4` | ✅ |
+| 5 | `LoadPlanBar` | `LoadPlanBarV4` | ✅ |
+| 6 | `ManifestRow` | `ManifestRowV4` | ✅ |
+| 7 | `PackageRow` | `PackageRowV2` · `PackageRowV3` · `PackageRowV4` | ✅ |
+| 8 | `RouteStop` | `RouteStopV2` · `RouteStopV3` · `RouteStopV4` | ✅ |
+| 9 | `ScanRow` | `ScanRowV4` | ✅ |
+| 10 | `ShipmentCard` | `ShipmentCardV2` · `ShipmentCardV3` · `ShipmentCardV4` | ✅ |
+| 11 | `TrackingTimeline` | `TrackingTimelineV2` · `TrackingTimelineV3` · `TrackingTimelineV4` | ✅ |
+| 12 | `WarehouseBin` | `WarehouseBinV4` | ✅ |
 
 *helpers:* `CARRIER_META`, `DOCK_META`, `PROOF_META`, `SCAN_META`, `SHIPMENT_META`, `STOP_META`, `TRACKING_META`, `TRACKING_ORDER`, `clampPct`, `formatWeight`, `toneColor`, `trackingIndex`, `withAlpha`
+
+*internal (native):* `GradientSurface` (optional `expo-linear-gradient`, solid fallback), `dispatch` palette helper
 
 ### `marketing` — 37 components · last updated **0.9.0** ✅
 

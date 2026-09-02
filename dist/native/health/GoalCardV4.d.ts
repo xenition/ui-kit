@@ -1,0 +1,45 @@
+import * as React from 'react';
+import type { GoalCardProps } from './GoalCard';
+export interface GoalCardV4Props extends GoalCardProps {
+    /** Shown in place of the meter when there is no usable target. Default `'No target set'`. */
+    noGoalLabel?: string;
+    /** The note shown once the target is reached. Default `'Goal met'`. */
+    metLabel?: string;
+    /** Format the measurement. Default `'12400 steps'`. */
+    formatValue?: (value: number, unit?: string) => string;
+}
+/**
+ * **V4 goal card** — same props as {@link GoalCard} plus `noGoalLabel`,
+ * `metLabel` and `formatValue`.
+ *
+ * ## Five changes
+ *
+ * 1. **A walk of 12 400 steps against a 10 000 target is no longer three
+ *    different walks.** The base clamped the measurement itself, so the card
+ *    showed 12 400, announced "12 400 of 10 000, 100%" and handed the bar a
+ *    value of 10 000 — three mutually inconsistent readings of one day.
+ *    `goalParts` keeps the measurement, the drawing fraction and the overshoot
+ *    as three separate numbers, and the card now says how far past the target
+ *    the user actually got.
+ * 2. **The meter is a real meter.** `MiniBar` hard-codes
+ *    `accessibilityRole="image"`, so the progress this card exists to show was
+ *    announced as a picture with no value at all. It is wrapped in a
+ *    `progressbar` that carries the percentage, and the bar itself is hidden
+ *    from the reader so the number is stated once.
+ * 3. **The meter is a *sibling* of the card's activation, not a descendant.**
+ *    A `Pressable` is `accessible` by default and flattens everything under
+ *    it, so on iOS the meter was pruned outright — inside a button, a
+ *    progressbar's value is presentational. The container is now a plain
+ *    `View`, the activation wraps only the title and the readout, and the
+ *    meter sits beside it.
+ * 4. **`MiniBar` is handed a fraction, not a pair.** It rescales any `max`
+ *    below 1 to 1, so a half-hour meditation against a half-hour target drew a
+ *    half-full bar under the words "Goal met". It is given `ratio` against 1,
+ *    which is the one opinion the card already formed.
+ * 5. **Press is a state layer.** `opacity: pressed ? 0.85 : 1` sits inside
+ *    M3's disabled band, so a pressed card read as an unavailable one.
+ *
+ * **Renders nothing without a `title`.**
+ */
+export declare function GoalCardV4({ title, value, target, unit, color, icon, noGoalLabel, metLabel, formatValue, onPress, appearance, style, }: GoalCardV4Props): React.ReactElement | null;
+//# sourceMappingURL=GoalCardV4.d.ts.map

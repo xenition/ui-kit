@@ -29,6 +29,20 @@ import { DockSchedule, type DockSlot } from './DockSchedule';
 import { LoadPlanBar } from './LoadPlanBar';
 import { ScanRow } from './ScanRow';
 import { ETABar } from './ETABar';
+import {
+  ShipmentCardV4,
+  PackageRowV4,
+  RouteStopV4,
+  ScanRowV4,
+  ManifestRowV4,
+  DeliveryProofV4,
+  WarehouseBinV4,
+  TrackingTimelineV4,
+  CarrierBadgeV4,
+  DockScheduleV4,
+  LoadPlanBarV4,
+  ETABarV4,
+} from './index';
 
 const HEX_LITERAL = /#[0-9a-fA-F]{3,8}\b/;
 
@@ -137,5 +151,75 @@ describe('logistics (web)', () => {
     const ref = createRef<HTMLSpanElement>();
     render(<CarrierBadge carrier="dhl" ref={ref} />);
     expect(ref.current?.tagName).toBe('SPAN');
+  });
+});
+
+describe('logistics V4 "dispatch" line (web)', () => {
+  it('mounts all 12 V4 blocks (variants + gradient hero) with no inline hex', () => {
+    const { getByText, getAllByText, container } = render(
+      <div>
+        <ShipmentCardV4 trackingNumber="1Z999" status="in-transit" origin="LA" destination="NY" eta="Tue" carrier="ups" pieces={2} />
+        <ShipmentCardV4 trackingNumber="1Z000" status="delivered" variant="compact" onClick={() => {}} />
+        <PackageRowV4 packageId="PKG-1" contents="Books" weight={2.4} dimensions="30×20×15" status="in-transit" />
+        <PackageRowV4 packageId="PKG-2" status="delivered" variant="compact" selected onClick={() => {}} />
+        <RouteStopV4 sequence={1} address="10 Main St" status="completed" eta="9:00" packages={2} />
+        <RouteStopV4 sequence={2} address="20 Oak Ave" status="en-route" variant="compact" eta="9:30" />
+        <ScanRowV4 code="X123456" kind="inbound" location="Bay 2" time="10:42" operator="D-7" />
+        <ScanRowV4 code="Y987654" kind="delivery" variant="compact" time="11:01" />
+        <ManifestRowV4 item="Widget" sku="SKU-9" quantity={10} scanned={10} state="checked" />
+        <ManifestRowV4 item="Gadget" quantity={4} scanned={2} state="pending" variant="compact" />
+        <DeliveryProofV4 kind="signature" outcome="delivered" recipient="A. Smith" time="10:04" location="Porch" />
+        <WarehouseBinV4 code="A-12-03" zone="Aisle A" fill={62} itemCount={8} state="partial" />
+        <TrackingTimelineV4 current="out-for-delivery" events={[{ stage: 'picked', time: 'Mon', detail: 'Origin' }]} />
+        <CarrierBadgeV4 carrier="fedex" service="2-Day" />
+        <DockScheduleV4 dock="Dock 4" slots={SLOTS} />
+        <LoadPlanBarV4 segments={[{ id: 'a', pct: 40 }, { id: 'b', pct: 30, emphasis: 'soft' }]} caption="14 / 24" />
+        <ETABarV4 progress={65} status="on-time" eta="12:40 PM" origin="Depot" destination="Hub" />
+      </div>
+    );
+    expect(getByText('1Z999')).toBeTruthy();
+    // Gradient hero + rail both surface the current stage word.
+    expect(getAllByText('Out for delivery').length).toBeGreaterThan(0);
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+  });
+
+  it('ShipmentCardV4 (compact) is a keyboard-operable button and fires onClick', () => {
+    const onClick = jest.fn();
+    const { getByLabelText } = render(
+      <ShipmentCardV4 trackingNumber="1Z999" status="delivered" variant="compact" onClick={onClick} />
+    );
+    const card = getByLabelText('Shipment 1Z999, Delivered');
+    expect(card.getAttribute('role')).toBe('button');
+    card.click();
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('ManifestRowV4 toggles pending → checked through the check control', () => {
+    const onToggle = jest.fn();
+    const { getByRole } = render(<ManifestRowV4 item="Widget" state="pending" onToggle={onToggle} />);
+    const box = getByRole('checkbox');
+    expect(box.getAttribute('aria-checked')).toBe('false');
+    box.click();
+    expect(onToggle).toHaveBeenCalledWith('checked');
+  });
+
+  it('WarehouseBinV4 announces fullness through a progressbar value', () => {
+    const { getByRole } = render(<WarehouseBinV4 code="B-1" fill={62} state="partial" />);
+    expect(getByRole('progressbar').getAttribute('aria-valuenow')).toBe('62');
+  });
+
+  it('ETABarV4 clamps progress and exposes an accessible value', () => {
+    const { getByRole } = render(<ETABarV4 progress={140} status="ahead" />);
+    expect(getByRole('progressbar').getAttribute('aria-valuenow')).toBe('100');
+  });
+
+  it('TrackingTimelineV4 flags an exception in the gradient hero', () => {
+    const { getByText } = render(<TrackingTimelineV4 current="exception" />);
+    expect(getByText('⚠ Exception')).toBeTruthy();
+  });
+
+  it('DockScheduleV4 shows an empty state when no slots are scheduled', () => {
+    const { getByText } = render(<DockScheduleV4 dock="Dock 9" slots={[]} />);
+    expect(getByText('No slots scheduled')).toBeTruthy();
   });
 });

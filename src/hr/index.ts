@@ -115,3 +115,52 @@ export type {
   ExpenseCategory,
   PolicyStatus,
 } from './internal';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `HR-V4-SPEC.md`. Each is a drop-in
+// for its base — same props plus optional additions, every one defaulting to
+// today's behaviour — so swapping `X` for `XV4` buys the fixes and no
+// surprises. `LeaveBalanceV4` and `ApprovalQueueV4` have no base: they are the
+// entitlement context and the list shell the other thirteen presuppose.
+export { BenefitsEnrollmentV4 } from './BenefitsEnrollmentV4';
+export type { BenefitsEnrollmentV4Props } from './BenefitsEnrollmentV4';
+export { DirectoryRowV4 } from './DirectoryRowV4';
+export type { DirectoryRowV4Props } from './DirectoryRowV4';
+export { EmployeeCardV4 } from './EmployeeCardV4';
+export type { EmployeeCardV4Props } from './EmployeeCardV4';
+export { ExpenseClaimV4 } from './ExpenseClaimV4';
+export type { ExpenseClaimV4Props } from './ExpenseClaimV4';
+export { LeaveRequestV4 } from './LeaveRequestV4';
+export type { LeaveRequestV4Props } from './LeaveRequestV4';
+export { OnboardingTaskV4 } from './OnboardingTaskV4';
+export type { OnboardingTaskV4Props } from './OnboardingTaskV4';
+export { OrgChartNodeV4 } from './OrgChartNodeV4';
+export type { OrgChartNodeV4Props } from './OrgChartNodeV4';
+export { PayslipRowV4 } from './PayslipRowV4';
+export type { PayslipRowV4Props } from './PayslipRowV4';
+export { PerformanceReviewV4 } from './PerformanceReviewV4';
+export type { PerformanceReviewV4Props } from './PerformanceReviewV4';
+export { PolicyAcknowledgeV4 } from './PolicyAcknowledgeV4';
+export type { PolicyAcknowledgeV4Props } from './PolicyAcknowledgeV4';
+export { ShiftScheduleV4 } from './ShiftScheduleV4';
+export type { ShiftScheduleV4Props } from './ShiftScheduleV4';
+export { StatusPillV4 } from './StatusPillV4';
+export type { StatusPillV4Props } from './StatusPillV4';
+export { TimesheetRowV4 } from './TimesheetRowV4';
+export type { TimesheetRowV4Props } from './TimesheetRowV4';
+
+export { LeaveBalanceV4 } from './LeaveBalanceV4';
+export type { LeaveBalanceV4Props, LeaveBalanceV4Variant } from './LeaveBalanceV4';
+export { ApprovalQueueV4 } from './ApprovalQueueV4';
+export type { ApprovalQueueV4Props } from './ApprovalQueueV4';
+
+// The module's shared V4 arithmetic and vocabulary — pure, and imported by the
+// native twin as `../../hr/workforce-v4` so the two cannot drift.
+export {
+  ratingParts,
+  hoursParts,
+  deductionParts,
+  isAdverse,
+  pluralizeCount,
+} from './workforce-v4';
+export type { RatingParts, HoursParts, AmountParts, AmountDirection } from './workforce-v4';

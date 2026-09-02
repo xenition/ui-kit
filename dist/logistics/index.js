@@ -13,7 +13,7 @@
  * `@xenition/ui/native/logistics`.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RouteStopV3 = exports.RouteStopV2 = exports.TrackingTimelineV3 = exports.TrackingTimelineV2 = exports.PackageRowV3 = exports.PackageRowV2 = exports.ShipmentCardV3 = exports.ShipmentCardV2 = exports.CARRIER_META = exports.DOCK_META = exports.SCAN_META = exports.PROOF_META = exports.STOP_META = exports.SHIPMENT_META = exports.TRACKING_META = exports.TRACKING_ORDER = exports.trackingIndex = exports.formatWeight = exports.clampPct = exports.TONE_BORDER = exports.TONE_SOFT_STRONG_BG = exports.TONE_SOFT_BG = exports.TONE_ON_TEXT = exports.TONE_BG = exports.TONE_TEXT = exports.ETABar = exports.ScanRow = exports.LoadPlanBar = exports.DockSchedule = exports.ManifestRow = exports.CarrierBadge = exports.TrackingTimeline = exports.WarehouseBin = exports.DeliveryProof = exports.RouteStop = exports.PackageRow = exports.ShipmentCard = void 0;
+exports.ETABarV4 = exports.LoadPlanBarV4 = exports.DockScheduleV4 = exports.CarrierBadgeV4 = exports.TrackingTimelineV4 = exports.WarehouseBinV4 = exports.DeliveryProofV4 = exports.ManifestRowV4 = exports.ScanRowV4 = exports.RouteStopV4 = exports.PackageRowV4 = exports.ShipmentCardV4 = exports.RouteStopV3 = exports.RouteStopV2 = exports.TrackingTimelineV3 = exports.TrackingTimelineV2 = exports.PackageRowV3 = exports.PackageRowV2 = exports.ShipmentCardV3 = exports.ShipmentCardV2 = exports.CARRIER_META = exports.DOCK_META = exports.SCAN_META = exports.PROOF_META = exports.STOP_META = exports.SHIPMENT_META = exports.TRACKING_META = exports.TRACKING_ORDER = exports.trackingIndex = exports.formatWeight = exports.clampPct = exports.TONE_BORDER = exports.TONE_SOFT_STRONG_BG = exports.TONE_SOFT_BG = exports.TONE_ON_TEXT = exports.TONE_BG = exports.TONE_TEXT = exports.ETABar = exports.ScanRow = exports.LoadPlanBar = exports.DockSchedule = exports.ManifestRow = exports.CarrierBadge = exports.TrackingTimeline = exports.WarehouseBin = exports.DeliveryProof = exports.RouteStop = exports.PackageRow = exports.ShipmentCard = void 0;
 var ShipmentCard_1 = require("./ShipmentCard");
 Object.defineProperty(exports, "ShipmentCard", { enumerable: true, get: function () { return ShipmentCard_1.ShipmentCard; } });
 var PackageRow_1 = require("./PackageRow");
@@ -74,4 +74,40 @@ var RouteStopV2_1 = require("./RouteStopV2");
 Object.defineProperty(exports, "RouteStopV2", { enumerable: true, get: function () { return RouteStopV2_1.RouteStopV2; } });
 var RouteStopV3_1 = require("./RouteStopV3");
 Object.defineProperty(exports, "RouteStopV3", { enumerable: true, get: function () { return RouteStopV3_1.RouteStopV3; } });
+/*
+ * ── V4 "dispatch" (confident operations-desk) design line ──
+ * A drop-in V4 variant for each of the 12 originals: elevated calm cards, panels,
+ * rows and bars with clear status by glyph + labelled badge + tone (never color
+ * alone) and big legible tabular-nums figures. Five entity card/rows carry a
+ * two-density `variant`: `PackageRow` / `RouteStop` / `ScanRow` / `ManifestRow`
+ * add `full` | `compact`, and `ShipmentCard` reuses its base `default` | `compact`.
+ * Every V4 keeps its base props (all status values honored). The brand gradient
+ * is reserved for the dispatch
+ * moment — the `TrackingTimeline` hero header. Base/V2/V3 untouched; V4 is
+ * additive. Token-driven, dark-mode safe, web + native.
+ */
+var ShipmentCardV4_1 = require("./ShipmentCardV4");
+Object.defineProperty(exports, "ShipmentCardV4", { enumerable: true, get: function () { return ShipmentCardV4_1.ShipmentCardV4; } });
+var PackageRowV4_1 = require("./PackageRowV4");
+Object.defineProperty(exports, "PackageRowV4", { enumerable: true, get: function () { return PackageRowV4_1.PackageRowV4; } });
+var RouteStopV4_1 = require("./RouteStopV4");
+Object.defineProperty(exports, "RouteStopV4", { enumerable: true, get: function () { return RouteStopV4_1.RouteStopV4; } });
+var ScanRowV4_1 = require("./ScanRowV4");
+Object.defineProperty(exports, "ScanRowV4", { enumerable: true, get: function () { return ScanRowV4_1.ScanRowV4; } });
+var ManifestRowV4_1 = require("./ManifestRowV4");
+Object.defineProperty(exports, "ManifestRowV4", { enumerable: true, get: function () { return ManifestRowV4_1.ManifestRowV4; } });
+var DeliveryProofV4_1 = require("./DeliveryProofV4");
+Object.defineProperty(exports, "DeliveryProofV4", { enumerable: true, get: function () { return DeliveryProofV4_1.DeliveryProofV4; } });
+var WarehouseBinV4_1 = require("./WarehouseBinV4");
+Object.defineProperty(exports, "WarehouseBinV4", { enumerable: true, get: function () { return WarehouseBinV4_1.WarehouseBinV4; } });
+var TrackingTimelineV4_1 = require("./TrackingTimelineV4");
+Object.defineProperty(exports, "TrackingTimelineV4", { enumerable: true, get: function () { return TrackingTimelineV4_1.TrackingTimelineV4; } });
+var CarrierBadgeV4_1 = require("./CarrierBadgeV4");
+Object.defineProperty(exports, "CarrierBadgeV4", { enumerable: true, get: function () { return CarrierBadgeV4_1.CarrierBadgeV4; } });
+var DockScheduleV4_1 = require("./DockScheduleV4");
+Object.defineProperty(exports, "DockScheduleV4", { enumerable: true, get: function () { return DockScheduleV4_1.DockScheduleV4; } });
+var LoadPlanBarV4_1 = require("./LoadPlanBarV4");
+Object.defineProperty(exports, "LoadPlanBarV4", { enumerable: true, get: function () { return LoadPlanBarV4_1.LoadPlanBarV4; } });
+var ETABarV4_1 = require("./ETABarV4");
+Object.defineProperty(exports, "ETABarV4", { enumerable: true, get: function () { return ETABarV4_1.ETABarV4; } });
 //# sourceMappingURL=index.js.map

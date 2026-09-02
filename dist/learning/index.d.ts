@@ -47,4 +47,17 @@ export { LeaderboardRow } from './LeaderboardRow';
 export type { LeaderboardRowProps } from './LeaderboardRow';
 export { AchievementBadge } from './AchievementBadge';
 export type { AchievementBadgeProps, AchievementTier, AchievementBadgeSize } from './AchievementBadge';
+export { CourseCardV4, type CourseCardV4Props, type CourseCardLayout } from './CourseCardV4';
+export { LessonRowV4, type LessonRowV4Props, type LessonRowLayout } from './LessonRowV4';
+export { VideoLessonRowV4, type VideoLessonRowV4Props, type VideoLessonRowLayout } from './VideoLessonRowV4';
+export { LeaderboardRowV4, type LeaderboardRowV4Props, type LeaderboardRowLayout } from './LeaderboardRowV4';
+export { CertificateCardV4, type CertificateCardV4Props } from './CertificateCardV4';
+export { ProgressTrackerV4, type ProgressTrackerV4Props } from './ProgressTrackerV4';
+export { QuizQuestionV4, type QuizQuestionV4Props } from './QuizQuestionV4';
+export { QuizOptionV4, type QuizOptionV4Props } from './QuizOptionV4';
+export { FlashCardV4, type FlashCardV4Props } from './FlashCardV4';
+export { ModuleAccordionV4, type ModuleAccordionV4Props } from './ModuleAccordionV4';
+export { EnrollButtonV4, type EnrollButtonV4Props } from './EnrollButtonV4';
+export { StreakBadgeV4, type StreakBadgeV4Props } from './StreakBadgeV4';
+export { AchievementBadgeV4, type AchievementBadgeV4Props } from './AchievementBadgeV4';
 //# sourceMappingURL=index.d.ts.map

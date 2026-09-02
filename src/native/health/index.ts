@@ -70,3 +70,55 @@ export type { MoodPickerProps, Mood } from './MoodPicker';
 
 export { BodyMetricCard } from './BodyMetricCard';
 export type { BodyMetricCardProps, BodyMetricVariant } from './BodyMetricCard';
+
+// ── V4 line ─────────────────────────────────────────────────────────────
+// A sibling `XV4` for each block above, plus two components with no base.
+// Same props with the same defaults, so swapping `X` for `XV4` is a drop-in
+// that brings the fixes and no surprises. The arithmetic is shared with the
+// web twin through `src/health/goal-v4.ts`.
+
+export { ActivityRingsV4 } from './ActivityRingsV4';
+export type { ActivityRingsV4Props } from './ActivityRingsV4';
+
+export { BodyMetricCardV4 } from './BodyMetricCardV4';
+export type { BodyMetricCardV4Props } from './BodyMetricCardV4';
+
+export { ExerciseRowV4 } from './ExerciseRowV4';
+export type { ExerciseRowV4Props } from './ExerciseRowV4';
+
+export { GoalCardV4 } from './GoalCardV4';
+export type { GoalCardV4Props } from './GoalCardV4';
+
+export { HabitRowV4 } from './HabitRowV4';
+export type { HabitRowV4Props } from './HabitRowV4';
+
+export { MealCardV4 } from './MealCardV4';
+export type { MealCardV4Props, Macro } from './MealCardV4';
+
+export { MetricRingV4 } from './MetricRingV4';
+export type { MetricRingV4Props } from './MetricRingV4';
+
+export { MoodPickerV4 } from './MoodPickerV4';
+export type { MoodPickerV4Props } from './MoodPickerV4';
+
+export { SleepBarV4 } from './SleepBarV4';
+export type { SleepBarV4Props } from './SleepBarV4';
+
+export { StreakCounterV4 } from './StreakCounterV4';
+export type { StreakCounterV4Props } from './StreakCounterV4';
+
+export { VitalStatV4 } from './VitalStatV4';
+export type { VitalStatV4Props } from './VitalStatV4';
+
+export { WaterTrackerV4 } from './WaterTrackerV4';
+export type { WaterTrackerV4Props } from './WaterTrackerV4';
+
+export { WorkoutCardV4 } from './WorkoutCardV4';
+export type { WorkoutCardV4Props } from './WorkoutCardV4';
+
+// New in V4 — no base component.
+export { HealthRangeBarV4 } from './HealthRangeBarV4';
+export type { HealthRangeBarV4Props } from './HealthRangeBarV4';
+
+export { SleepStagesV4 } from './SleepStagesV4';
+export type { SleepStagesV4Props, SleepStage, SleepStageSegment } from './SleepStagesV4';

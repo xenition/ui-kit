@@ -13,7 +13,7 @@
  * import).
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatMoney = exports.POLICY_VARIANT = exports.CLAIM_STATUS = exports.AgentContactCard = exports.RenewalBanner = exports.RiskScore = exports.PolicyDocumentRow = exports.ClaimStatusTracker = exports.BeneficiaryRow = exports.DeductibleBar = exports.QuoteForm = exports.PremiumSummaryV3 = exports.PremiumSummaryV2 = exports.CoverageItemV3 = exports.CoverageItemV2 = exports.ClaimRowV3 = exports.ClaimRowV2 = exports.PolicyCardV3 = exports.PolicyCardV2 = exports.PremiumSummary = exports.CoverageItem = exports.ClaimRow = exports.PolicyCard = void 0;
+exports.RiskScoreV4 = exports.RenewalBannerV4 = exports.QuoteFormV4 = exports.PremiumSummaryV4 = exports.PolicyDocumentRowV4 = exports.PolicyCardV4 = exports.InsuranceIdCardV4 = exports.DeductibleBarV4 = exports.CoverageItemV4 = exports.ClaimTimelineV4 = exports.ClaimStatusTrackerV4 = exports.ClaimRowV4 = exports.BeneficiaryRowV4 = exports.AgentContactCardV4 = exports.formatMoney = exports.POLICY_VARIANT = exports.CLAIM_STATUS = exports.AgentContactCard = exports.RenewalBanner = exports.RiskScore = exports.PolicyDocumentRow = exports.ClaimStatusTracker = exports.BeneficiaryRow = exports.DeductibleBar = exports.QuoteForm = exports.PremiumSummaryV3 = exports.PremiumSummaryV2 = exports.CoverageItemV3 = exports.CoverageItemV2 = exports.ClaimRowV3 = exports.ClaimRowV2 = exports.PolicyCardV3 = exports.PolicyCardV2 = exports.PremiumSummary = exports.CoverageItem = exports.ClaimRow = exports.PolicyCard = void 0;
 var PolicyCard_1 = require("./PolicyCard");
 Object.defineProperty(exports, "PolicyCard", { enumerable: true, get: function () { return PolicyCard_1.PolicyCard; } });
 var ClaimRow_1 = require("./ClaimRow");
@@ -65,4 +65,41 @@ Object.defineProperty(exports, "CLAIM_STATUS", { enumerable: true, get: function
 Object.defineProperty(exports, "POLICY_VARIANT", { enumerable: true, get: function () { return status_1.POLICY_VARIANT; } });
 var format_1 = require("./internal/format");
 Object.defineProperty(exports, "formatMoney", { enumerable: true, get: function () { return format_1.formatMoney; } });
+// ── The V4 line ───────────────────────────────────────────────
+// The current design pattern, built against `INSURANCE-V4-SPEC.md`. Each is a
+// drop-in for its base — same props plus optional additions, every one
+// defaulting to the base's behaviour — so swapping `X` for `XV4` brings the
+// fixes and no surprises. The two worth reading first are
+// `ClaimStatusTrackerV4`, which stops inventing a denial reason the caller
+// never supplied, and `PolicyDocumentRowV4`, whose Download button was not
+// reachable by any gesture. `InsuranceIdCardV4` and `ClaimTimelineV4` are new:
+// there is no base for either.
+var AgentContactCardV4_1 = require("./AgentContactCardV4");
+Object.defineProperty(exports, "AgentContactCardV4", { enumerable: true, get: function () { return AgentContactCardV4_1.AgentContactCardV4; } });
+var BeneficiaryRowV4_1 = require("./BeneficiaryRowV4");
+Object.defineProperty(exports, "BeneficiaryRowV4", { enumerable: true, get: function () { return BeneficiaryRowV4_1.BeneficiaryRowV4; } });
+var ClaimRowV4_1 = require("./ClaimRowV4");
+Object.defineProperty(exports, "ClaimRowV4", { enumerable: true, get: function () { return ClaimRowV4_1.ClaimRowV4; } });
+var ClaimStatusTrackerV4_1 = require("./ClaimStatusTrackerV4");
+Object.defineProperty(exports, "ClaimStatusTrackerV4", { enumerable: true, get: function () { return ClaimStatusTrackerV4_1.ClaimStatusTrackerV4; } });
+var ClaimTimelineV4_1 = require("./ClaimTimelineV4");
+Object.defineProperty(exports, "ClaimTimelineV4", { enumerable: true, get: function () { return ClaimTimelineV4_1.ClaimTimelineV4; } });
+var CoverageItemV4_1 = require("./CoverageItemV4");
+Object.defineProperty(exports, "CoverageItemV4", { enumerable: true, get: function () { return CoverageItemV4_1.CoverageItemV4; } });
+var DeductibleBarV4_1 = require("./DeductibleBarV4");
+Object.defineProperty(exports, "DeductibleBarV4", { enumerable: true, get: function () { return DeductibleBarV4_1.DeductibleBarV4; } });
+var InsuranceIdCardV4_1 = require("./InsuranceIdCardV4");
+Object.defineProperty(exports, "InsuranceIdCardV4", { enumerable: true, get: function () { return InsuranceIdCardV4_1.InsuranceIdCardV4; } });
+var PolicyCardV4_1 = require("./PolicyCardV4");
+Object.defineProperty(exports, "PolicyCardV4", { enumerable: true, get: function () { return PolicyCardV4_1.PolicyCardV4; } });
+var PolicyDocumentRowV4_1 = require("./PolicyDocumentRowV4");
+Object.defineProperty(exports, "PolicyDocumentRowV4", { enumerable: true, get: function () { return PolicyDocumentRowV4_1.PolicyDocumentRowV4; } });
+var PremiumSummaryV4_1 = require("./PremiumSummaryV4");
+Object.defineProperty(exports, "PremiumSummaryV4", { enumerable: true, get: function () { return PremiumSummaryV4_1.PremiumSummaryV4; } });
+var QuoteFormV4_1 = require("./QuoteFormV4");
+Object.defineProperty(exports, "QuoteFormV4", { enumerable: true, get: function () { return QuoteFormV4_1.QuoteFormV4; } });
+var RenewalBannerV4_1 = require("./RenewalBannerV4");
+Object.defineProperty(exports, "RenewalBannerV4", { enumerable: true, get: function () { return RenewalBannerV4_1.RenewalBannerV4; } });
+var RiskScoreV4_1 = require("./RiskScoreV4");
+Object.defineProperty(exports, "RiskScoreV4", { enumerable: true, get: function () { return RiskScoreV4_1.RiskScoreV4; } });
 //# sourceMappingURL=index.js.map

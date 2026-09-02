@@ -12,7 +12,7 @@
  * fetching, no navigation, no global state.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RecruiterMessage = exports.SavedJobRow = exports.StatusPipelineV3 = exports.StatusPipelineV2 = exports.StatusPipeline = exports.InterviewSlot = exports.ResumeRow = exports.JobFilterBar = exports.ApplyButton = exports.SkillTag = exports.SalaryRange = exports.ApplicationRowV3 = exports.ApplicationRowV2 = exports.ApplicationRow = exports.CompanyCardV3 = exports.CompanyCardV2 = exports.CompanyCard = exports.JobCardV3 = exports.JobCardV2 = exports.JobCard = exports.formatRelative = exports.formatTime = exports.formatShortDate = exports.formatCompactMoney = exports.formatSalary = exports.STAGE_LABEL = exports.APPLICATION_STAGES = exports.EMPLOYMENT_TYPES = exports.EMPLOYMENT_LABEL = void 0;
+exports.isAdverse = exports.relativeParts = exports.stageParts = exports.salaryParts = exports.OfferCardV4 = exports.RecruiterMessageV4 = exports.SavedJobRowV4 = exports.StatusPipelineV4 = exports.InterviewSlotV4 = exports.ResumeRowV4 = exports.JobFilterBarV4 = exports.ApplyButtonV4 = exports.SkillTagV4 = exports.SalaryRangeV4 = exports.ApplicationRowV4 = exports.CompanyCardV4 = exports.JobListV4 = exports.JobCardV4 = exports.RecruiterMessage = exports.SavedJobRow = exports.StatusPipelineV3 = exports.StatusPipelineV2 = exports.StatusPipeline = exports.InterviewSlot = exports.ResumeRow = exports.JobFilterBar = exports.ApplyButton = exports.SkillTag = exports.SalaryRange = exports.ApplicationRowV3 = exports.ApplicationRowV2 = exports.ApplicationRow = exports.CompanyCardV3 = exports.CompanyCardV2 = exports.CompanyCard = exports.JobCardV3 = exports.JobCardV2 = exports.JobCard = exports.formatRelative = exports.formatTime = exports.formatShortDate = exports.formatCompactMoney = exports.formatSalary = exports.STAGE_LABEL = exports.APPLICATION_STAGES = exports.EMPLOYMENT_TYPES = exports.EMPLOYMENT_LABEL = void 0;
 var types_1 = require("./types");
 Object.defineProperty(exports, "EMPLOYMENT_LABEL", { enumerable: true, get: function () { return types_1.EMPLOYMENT_LABEL; } });
 Object.defineProperty(exports, "EMPLOYMENT_TYPES", { enumerable: true, get: function () { return types_1.EMPLOYMENT_TYPES; } });
@@ -66,4 +66,39 @@ var SavedJobRow_1 = require("./SavedJobRow");
 Object.defineProperty(exports, "SavedJobRow", { enumerable: true, get: function () { return SavedJobRow_1.SavedJobRow; } });
 var RecruiterMessage_1 = require("./RecruiterMessage");
 Object.defineProperty(exports, "RecruiterMessage", { enumerable: true, get: function () { return RecruiterMessage_1.RecruiterMessage; } });
+// ── the V4 line ───────────────────────────────────────────────────────
+var JobCardV4_1 = require("./JobCardV4");
+Object.defineProperty(exports, "JobCardV4", { enumerable: true, get: function () { return JobCardV4_1.JobCardV4; } });
+var JobListV4_1 = require("./JobListV4");
+Object.defineProperty(exports, "JobListV4", { enumerable: true, get: function () { return JobListV4_1.JobListV4; } });
+var CompanyCardV4_1 = require("./CompanyCardV4");
+Object.defineProperty(exports, "CompanyCardV4", { enumerable: true, get: function () { return CompanyCardV4_1.CompanyCardV4; } });
+var ApplicationRowV4_1 = require("./ApplicationRowV4");
+Object.defineProperty(exports, "ApplicationRowV4", { enumerable: true, get: function () { return ApplicationRowV4_1.ApplicationRowV4; } });
+var SalaryRangeV4_1 = require("./SalaryRangeV4");
+Object.defineProperty(exports, "SalaryRangeV4", { enumerable: true, get: function () { return SalaryRangeV4_1.SalaryRangeV4; } });
+var SkillTagV4_1 = require("./SkillTagV4");
+Object.defineProperty(exports, "SkillTagV4", { enumerable: true, get: function () { return SkillTagV4_1.SkillTagV4; } });
+var ApplyButtonV4_1 = require("./ApplyButtonV4");
+Object.defineProperty(exports, "ApplyButtonV4", { enumerable: true, get: function () { return ApplyButtonV4_1.ApplyButtonV4; } });
+var JobFilterBarV4_1 = require("./JobFilterBarV4");
+Object.defineProperty(exports, "JobFilterBarV4", { enumerable: true, get: function () { return JobFilterBarV4_1.JobFilterBarV4; } });
+var ResumeRowV4_1 = require("./ResumeRowV4");
+Object.defineProperty(exports, "ResumeRowV4", { enumerable: true, get: function () { return ResumeRowV4_1.ResumeRowV4; } });
+var InterviewSlotV4_1 = require("./InterviewSlotV4");
+Object.defineProperty(exports, "InterviewSlotV4", { enumerable: true, get: function () { return InterviewSlotV4_1.InterviewSlotV4; } });
+var StatusPipelineV4_1 = require("./StatusPipelineV4");
+Object.defineProperty(exports, "StatusPipelineV4", { enumerable: true, get: function () { return StatusPipelineV4_1.StatusPipelineV4; } });
+var SavedJobRowV4_1 = require("./SavedJobRowV4");
+Object.defineProperty(exports, "SavedJobRowV4", { enumerable: true, get: function () { return SavedJobRowV4_1.SavedJobRowV4; } });
+var RecruiterMessageV4_1 = require("./RecruiterMessageV4");
+Object.defineProperty(exports, "RecruiterMessageV4", { enumerable: true, get: function () { return RecruiterMessageV4_1.RecruiterMessageV4; } });
+var OfferCardV4_1 = require("./OfferCardV4");
+Object.defineProperty(exports, "OfferCardV4", { enumerable: true, get: function () { return OfferCardV4_1.OfferCardV4; } });
+// The module's shared V4 arithmetic — imported verbatim by the native twin.
+var hiring_v4_1 = require("./hiring-v4");
+Object.defineProperty(exports, "salaryParts", { enumerable: true, get: function () { return hiring_v4_1.salaryParts; } });
+Object.defineProperty(exports, "stageParts", { enumerable: true, get: function () { return hiring_v4_1.stageParts; } });
+Object.defineProperty(exports, "relativeParts", { enumerable: true, get: function () { return hiring_v4_1.relativeParts; } });
+Object.defineProperty(exports, "isAdverse", { enumerable: true, get: function () { return hiring_v4_1.isAdverse; } });
 //# sourceMappingURL=index.js.map
