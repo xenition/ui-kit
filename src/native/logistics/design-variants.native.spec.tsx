@@ -23,7 +23,20 @@ import {
   TrackingTimelineV3,
   RouteStopV2,
   RouteStopV3,
+  ShipmentCardV4,
+  PackageRowV4,
+  RouteStopV4,
+  ScanRowV4,
+  ManifestRowV4,
+  DeliveryProofV4,
+  WarehouseBinV4,
+  TrackingTimelineV4,
+  CarrierBadgeV4,
+  DockScheduleV4,
+  LoadPlanBarV4,
+  ETABarV4,
 } from './index';
+import type { DockSlot } from './index';
 
 describe('ShipmentCard V2/V3 (native)', () => {
   it('ShipmentCardV2 mounts with tracking number, status word, ETA', () => {
@@ -219,5 +232,90 @@ describe('token purity (native logistics design variants, both seeds)', () => {
       expect(found.length).toBeGreaterThan(0);
       found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
     });
+  });
+});
+
+/** All 12 V4 "dispatch" components in ONE tree — the gradient TrackingTimelineV4
+ * hero is always present, plus compact variants and exception/near-capacity
+ * tones. Shared by the mount test and the both-seeds token-purity block. */
+const V4_SLOTS: DockSlot[] = [
+  { id: '1', window: '08:00–09:00', status: 'booked', carrier: 'ups', reference: 'APPT-1' },
+  { id: '2', window: '09:00–10:00', status: 'loading' },
+];
+
+const AllLogisticsV4 = (
+  <>
+    <ShipmentCardV4 trackingNumber="1Z999" status="in-transit" origin="LA" destination="NY" eta="Tue" carrier="ups" pieces={2} />
+    <ShipmentCardV4 trackingNumber="1Z000" status="delivered" variant="compact" onPress={() => {}} />
+    <PackageRowV4 packageId="PKG-1" contents="Books" weight={2.4} dimensions="30×20×15" status="in-transit" />
+    <PackageRowV4 packageId="PKG-2" status="returned" variant="compact" selected onPress={() => {}} />
+    <RouteStopV4 sequence={1} address="10 Main St" status="completed" eta="9:00" packages={2} />
+    <RouteStopV4 sequence={2} address="20 Oak Ave" status="failed" variant="compact" eta="9:30" onPress={() => {}} />
+    <ScanRowV4 code="X123456" kind="inbound" location="Bay 2" time="10:42" operator="D-7" />
+    <ScanRowV4 code="Y987654" kind="exception" variant="compact" time="11:01" onPress={() => {}} />
+    <ManifestRowV4 item="Widget" sku="SKU-9" quantity={10} scanned={10} state="checked" onToggle={() => {}} />
+    <ManifestRowV4 item="Gadget" quantity={4} scanned={2} state="missing" variant="compact" />
+    <DeliveryProofV4 kind="signature" outcome="delivered" recipient="A. Smith" time="10:04" location="Porch" />
+    <WarehouseBinV4 code="A-12-03" zone="Aisle A" fill={62} itemCount={8} state="partial" onPress={() => {}} />
+    <TrackingTimelineV4 current="out-for-delivery" events={[{ stage: 'picked', time: 'Mon', detail: 'Origin' }]} />
+    <CarrierBadgeV4 carrier="fedex" service="2-Day" variant="solid" />
+    <DockScheduleV4 dock="Dock 4" slots={V4_SLOTS} onSelectSlot={() => {}} />
+    <LoadPlanBarV4 segments={[{ id: 'a', pct: 60 }, { id: 'b', pct: 35, emphasis: 'soft' }]} caption="24 / 24" />
+    <ETABarV4 progress={65} status="on-time" eta="12:40 PM" origin="Depot" destination="Hub" />
+  </>
+);
+
+describe('logistics V4 "dispatch" line (native)', () => {
+  it('mounts all 12 V4 together (SEED_LIGHT) with the gradient hero + statuses', () => {
+    const { getByText, getAllByText } = renderThemed(AllLogisticsV4, SEED_LIGHT);
+    expect(getByText('1Z999')).toBeTruthy();
+    // Gradient hero + rail both surface the current stage word.
+    expect(getAllByText('Out for delivery').length).toBeGreaterThan(0);
+    expect(getByText('Dock 4')).toBeTruthy();
+  });
+
+  it('ShipmentCardV4 (compact) fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <ShipmentCardV4 trackingNumber="1Z999" status="delivered" variant="compact" onPress={onPress} />,
+      SEED_DARK
+    );
+    fireEvent.press(getByLabelText('Shipment 1Z999, Delivered'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('ManifestRowV4 toggles pending → checked via the check control', () => {
+    const onToggle = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <ManifestRowV4 item="Widget" state="pending" onToggle={onToggle} />,
+      SEED_LIGHT
+    );
+    fireEvent.press(getByLabelText('Pending: Widget'));
+    expect(onToggle).toHaveBeenCalledWith('checked');
+  });
+
+  it('TrackingTimelineV4 flags an exception in the gradient hero', () => {
+    const { getByText } = renderThemed(<TrackingTimelineV4 current="exception" />, SEED_DARK);
+    expect(getByText('⚠ Exception')).toBeTruthy();
+  });
+
+  it('DockScheduleV4 shows an empty state when no slots are scheduled', () => {
+    const { getByText } = renderThemed(<DockScheduleV4 dock="Dock 9" slots={[]} />, SEED_LIGHT);
+    expect(getByText('No slots scheduled')).toBeTruthy();
+  });
+
+  it('both TrackingTimeline + ETABar V4 render loading states', () => {
+    expect(renderThemed(<TrackingTimelineV4 current="picked" loading />, SEED_LIGHT).getByLabelText('Loading tracking')).toBeTruthy();
+    expect(renderThemed(<ETABarV4 progress={140} status="ahead" loading />, SEED_DARK).getByLabelText('ETA loading')).toBeTruthy();
+  });
+});
+
+describe('token purity — logistics V4 "dispatch" line (both seeds)', () => {
+  it.each([SEED_LIGHT, SEED_DARK])('every rendered V4 style hex traces to a compiled token (%s)', (seed) => {
+    const { root } = renderThemed(AllLogisticsV4, seed);
+    const allowed = tokenHexSet(seed);
+    const found = renderedStyleHexes(root);
+    expect(found.length).toBeGreaterThan(0);
+    found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
   });
 });

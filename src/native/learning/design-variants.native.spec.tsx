@@ -10,6 +10,19 @@ import {
   QuizQuestionV3,
   LeaderboardRowV2,
   LeaderboardRowV3,
+  CourseCardV4,
+  LessonRowV4,
+  VideoLessonRowV4,
+  LeaderboardRowV4,
+  CertificateCardV4,
+  ProgressTrackerV4,
+  QuizQuestionV4,
+  QuizOptionV4,
+  FlashCardV4,
+  ModuleAccordionV4,
+  EnrollButtonV4,
+  StreakBadgeV4,
+  AchievementBadgeV4,
 } from './index';
 
 /** All alternate designs rendered together, exercising rich + empty/edge props. */
@@ -122,5 +135,79 @@ describe('learning design variants (native)', () => {
     expect(four.props.accessibilityRole).toBe('radio');
     fireEvent.press(four);
     expect(onSelect).toHaveBeenCalledWith('b');
+  });
+});
+
+/** All 13 V4 "campus" components in ONE tree — the gradient CertificateCardV4
+ * award hero is always present, plus compact variants and review/locked states.
+ * Shared by the mount test and the both-seeds token-purity block. */
+const AllLearningV4 = (
+  <>
+    <CourseCardV4 title="Intro to TS" instructor="Ada" level="beginner" category="Web" lessonCount={12} durationLabel="4h" rating={4.5} ratingCount={210} progress={40} price="$49" onPress={() => {}} />
+    <CourseCardV4 title="Go Deep" level="advanced" variant="compact" onPress={() => {}} />
+    <LessonRowV4 title="Variables" index={1} status="available" kind="Video" durationLabel="12 min" onPress={() => {}} />
+    <LessonRowV4 title="Locked" status="locked" variant="compact" />
+    <VideoLessonRowV4 title="Lecture 1" durationLabel="12:30" watchProgress={30} playing meta="3.2" onPlay={() => {}} />
+    <VideoLessonRowV4 title="Lecture 2" watched variant="compact" onPlay={() => {}} />
+    <LeaderboardRowV4 rank={1} name="Ada" score={980} trend="▲2" highlighted onPress={() => {}} />
+    <LeaderboardRowV4 rank={4} empty variant="compact" />
+    <CertificateCardV4 courseTitle="React 101" recipient="Ada Lovelace" issuer="Xen Academy" issuedOn="May 2026" credentialId="XA-2026-001" variant="honors" onAction={() => {}} />
+    <ProgressTrackerV4 steps={[{ id: '1', label: 'A', completed: true }, { id: '2', label: 'B' }]} showList />
+    <QuizQuestionV4 prompt="2 + 2 = ?" questionNumber={1} totalQuestions={3} choices={[{ id: 'a', label: '3' }, { id: 'b', label: '4', correct: true }]} onSelect={() => {}} />
+    <QuizQuestionV4 prompt="Review" review selectedId="a" choices={[{ id: 'a', label: 'Wrong' }, { id: 'b', label: 'Right', correct: true }]} />
+    <QuizOptionV4 label="4" marker="B" state="correct" />
+    <FlashCardV4 front="Photosynthesis" back="Light to energy" />
+    <ModuleAccordionV4 modules={[{ id: 'm1', title: 'Basics', lessons: [{ id: 'l1', title: 'Intro', status: 'completed' }] }]} onLessonPress={() => {}} />
+    <EnrollButtonV4 state="enrolled" />
+    <StreakBadgeV4 count={5} tone="primary" />
+    <AchievementBadgeV4 title="First Step" tier="gold" unlocked />
+    <AchievementBadgeV4 title="Locked" tier="platinum" unlocked={false} />
+  </>
+);
+
+describe('learning V4 "campus" line (native)', () => {
+  it('mounts all 13 V4 together (SEED_LIGHT) with the gradient hero + statuses', () => {
+    const { getByText } = renderThemed(AllLearningV4, SEED_LIGHT);
+    expect(getByText('Intro to TS')).toBeTruthy();
+    // Gradient award hero surfaces the recipient.
+    expect(getByText('Ada Lovelace')).toBeTruthy();
+    expect(getByText('First Step')).toBeTruthy();
+  });
+
+  it('CourseCardV4 (compact) fires the CTA', () => {
+    const onPress = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <CourseCardV4 title="React 101" level="beginner" variant="compact" onPress={onPress} />,
+      SEED_DARK
+    );
+    fireEvent.press(getByLabelText('Enroll: React 101'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('QuizOptionV4 renders a radio and fires onSelect', () => {
+    const onSelect = jest.fn();
+    const { getByLabelText } = renderThemed(<QuizOptionV4 label="Four" marker="B" onSelect={onSelect} />, SEED_LIGHT);
+    const opt = getByLabelText('B. Four');
+    expect(opt.props.accessibilityRole).toBe('radio');
+    fireEvent.press(opt);
+    expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it('LeaderboardRowV4 shows a medal for rank 1 and fires onPress', () => {
+    const onPress = jest.fn();
+    const { getByText, getByLabelText } = renderThemed(<LeaderboardRowV4 rank={1} name="Ada" score={99} onPress={onPress} />, SEED_LIGHT);
+    expect(getByText('🥇')).toBeTruthy();
+    fireEvent.press(getByLabelText(/Rank 1, Ada/));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('token purity — learning V4 "campus" line (both seeds)', () => {
+  it.each([SEED_LIGHT, SEED_DARK])('every rendered V4 style hex traces to a compiled token (%s)', (seed) => {
+    const { root } = renderThemed(AllLearningV4, seed);
+    const allowed = tokenHexSet(seed);
+    const found = renderedStyleHexes(root);
+    expect(found.length).toBeGreaterThan(0);
+    found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
   });
 });

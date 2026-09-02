@@ -18,6 +18,22 @@ import { CaseCardV2, CaseCardV3 } from './CaseCardVariants';
 import { DocumentRowV2, DocumentRowV3 } from './DocumentRowVariants';
 import { LegalAppointmentV2, LegalAppointmentV3 } from './LegalAppointmentVariants';
 import { RetainerBalanceV2, RetainerBalanceV3 } from './RetainerBalanceVariants';
+import {
+  StatusPillV4,
+  CaseCardV4,
+  MatterStatusV4,
+  DocumentRowV4,
+  EvidenceRowV4,
+  BillableTimeRowV4,
+  ContractClauseV4,
+  ClientIntakeRowV4,
+  LegalAppointmentV4,
+  CourtDateCardV4,
+  RetainerBalanceV4,
+  SignatureRequestV4,
+  DisclaimerBannerV4,
+  CASE_STATUS_META,
+} from './index';
 
 describe('CaseCard alternate designs (native)', () => {
   it('V2 mounts with status word and fires open-case', () => {
@@ -158,5 +174,85 @@ describe('token purity (native legal alternate designs, both seeds)', () => {
       expect(found.length).toBeGreaterThan(0);
       found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
     });
+  });
+});
+
+/** All 13 V4 "chambers" components in ONE tree — the gradient MatterStatusV4 hero
+ * is always present, plus compact/detailed variants and critical-status tones.
+ * Shared by the mount test and the both-seeds token-purity block. */
+const AllLegalV4 = (
+  <>
+    <StatusPillV4 meta={CASE_STATUS_META.appealed} />
+    <CaseCardV4 caseNumber="2026-CV-01184" title="Acme v. Globex" client="Acme Corp." practiceArea="litigation" status="open" priority="high" variant="detailed" leadAttorney="R. Vance" nextEvent="Hearing Sep 14" onPress={() => {}} />
+    <CaseCardV4 caseNumber="2026-CV-2" title="Doe v. Roe" status="closed" variant="compact" onOpen={() => {}} />
+    <MatterStatusV4 title="Estate of Smith" stage="discovery" opened="Opened Jan 3" attorney="R. Vance" />
+    <DocumentRowV4 title="Complaint.pdf" kind="pleading" status="filed" version="v3" size="1.2 MB" onDownload={() => {}} onPress={() => {}} />
+    <EvidenceRowV4 exhibit="Exhibit A-12" title="Security footage" kind="video" status="admitted" custodyVerified />
+    <BillableTimeRowV4 date="Aug 24" description="Draft motion to dismiss" hours={1.5} rateCents={40000} status="unbilled" actionable onLog={() => {}} />
+    <ContractClauseV4 number="§ 7.2" title="Limitation of liability" body="Neither party shall…" status="flagged" risk="high" expanded onToggle={() => {}} />
+    <ClientIntakeRowV4 name="Pat Prospect" practiceArea="family" status="new" conflict="conflict" actionable onAccept={() => {}} onDecline={() => {}} />
+    <LegalAppointmentV4 type="deposition" date="Mon, Aug 24" time="10:00 AM" status="scheduled" actionable onConfirm={() => {}} onCancel={() => {}} />
+    <CourtDateCardV4 type="hearing" date="Sep 14, 2026" urgency="today" court="Dept 21" countdown="Today" />
+    <RetainerBalanceV4 balanceCents={5000} initialCents={100000} lowThresholdCents={10000} label="Doe matter" onReplenish={() => {}} />
+    <SignatureRequestV4 document="Engagement letter" signer="Jane Client" signerRole="Client" status="draft" onRequest={() => {}} />
+    <DisclaimerBannerV4 tone="critical" variant="solid" message="This is not legal advice." onDismiss={() => {}} />
+  </>
+);
+
+describe('legal V4 "chambers" line (native)', () => {
+  it('mounts all 13 V4 together (SEED_LIGHT) with the gradient hero + statuses', () => {
+    const { getByText, getAllByText } = renderThemed(AllLegalV4, SEED_LIGHT);
+    expect(getByText('Acme v. Globex')).toBeTruthy();
+    expect(getByText('Estate of Smith')).toBeTruthy();
+    // Gradient hero chip + body caption both surface "Stage N of 6".
+    expect(getAllByText(/Stage 3 of 6/).length).toBeGreaterThan(0);
+    expect(getByText('$50.00')).toBeTruthy();
+  });
+
+  it('CaseCardV4 fires onOpen', () => {
+    const onOpen = jest.fn();
+    const { getByLabelText } = renderThemed(
+      <CaseCardV4 caseNumber="2026-CV-9" title="Doe v. Roe" status="open" onOpen={onOpen} />,
+      SEED_DARK
+    );
+    fireEvent.press(getByLabelText('Open case 2026-CV-9'));
+    expect(onOpen).toHaveBeenCalledTimes(1);
+  });
+
+  it('BillableTimeRowV4 formats money from integer cents and logs time', () => {
+    const onLog = jest.fn();
+    const { getByText } = renderThemed(
+      <BillableTimeRowV4 date="Aug 24" description="Draft motion" hours={1.5} rateCents={40000} status="unbilled" actionable onLog={onLog} />,
+      SEED_LIGHT
+    );
+    expect(getByText('$600.00')).toBeTruthy();
+    fireEvent.press(getByText('Log time'));
+    expect(onLog).toHaveBeenCalledTimes(1);
+  });
+
+  it('RetainerBalanceV4 fires onReplenish when low', () => {
+    const onReplenish = jest.fn();
+    const { getByText } = renderThemed(
+      <RetainerBalanceV4 balanceCents={5000} initialCents={100000} lowThresholdCents={10000} label="Doe matter" onReplenish={onReplenish} />,
+      SEED_LIGHT
+    );
+    expect(getByText('Running low')).toBeTruthy();
+    fireEvent.press(getByText('Replenish'));
+    expect(onReplenish).toHaveBeenCalledTimes(1);
+  });
+
+  it('DisclaimerBannerV4 exposes an alert role', () => {
+    const { getByLabelText } = renderThemed(<DisclaimerBannerV4 tone="warning" message="Not legal advice." />, SEED_DARK);
+    expect(getByLabelText(/Not legal advice/)).toBeTruthy();
+  });
+});
+
+describe('token purity — legal V4 "chambers" line (both seeds)', () => {
+  it.each([SEED_LIGHT, SEED_DARK])('every rendered V4 style hex traces to a compiled token (%s)', (seed) => {
+    const { root } = renderThemed(AllLegalV4, seed);
+    const allowed = tokenHexSet(seed);
+    const found = renderedStyleHexes(root);
+    expect(found.length).toBeGreaterThan(0);
+    found.forEach((hex) => expect(allowed.has(hex)).toBe(true));
   });
 });

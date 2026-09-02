@@ -1233,62 +1233,96 @@ pass does not touch.
 | + | `ChoreListV4` | *new in 0.23.0* | ✅ |
 | + | `ChildSwitcherV4` | *new in 0.23.0* | ✅ |
 
-### `learning` — 13 components, 4 with variants · last updated **0.7.0** ❌
+### `learning` — 13 components, 4 with variants · last updated **0.16.0** ✅
+
+All 13 originals now ship a **V4 "campus" design line** — a bright, modern
+learning-platform language: elevated cards, panels and rows with state by glyph +
+tone (never color alone) and big legible tabular-nums counts / scores /
+percentages. Four entity card/rows (`CourseCard`, `LessonRow`, `VideoLessonRow`,
+`LeaderboardRow`) add an optional `variant` (`full` / `compact`);
+`CertificateCard` / `ProgressTracker` reuse their base `variant`; the rest are
+pure drop-ins (`XxxV4Props = XxxProps`). The brand gradient is reserved for the
+campus moment — the `CertificateCard` award hero. No new components. Base/V2/V3
+untouched; V4 is additive. Token-driven, dark-mode safe, web + native.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `AchievementBadge` | — | ⬜ |
-| 2 | `CertificateCard` | — | ⬜ |
-| 3 | `CourseCard` | `CourseCardV2` · `CourseCardV3` | ⬜ |
-| 4 | `EnrollButton` | — | ⬜ |
-| 5 | `FlashCard` | — | ⬜ |
-| 6 | `LeaderboardRow` | `LeaderboardRowV2` · `LeaderboardRowV3` | ⬜ |
-| 7 | `LessonRow` | `LessonRowV2` · `LessonRowV3` | ⬜ |
-| 8 | `ModuleAccordion` | — | ⬜ |
-| 9 | `ProgressTracker` | — | ⬜ |
-| 10 | `QuizOption` | — | ⬜ |
-| 11 | `QuizQuestion` | `QuizQuestionV2` · `QuizQuestionV3` | ⬜ |
-| 12 | `StreakBadge` | — | ⬜ |
-| 13 | `VideoLessonRow` | — | ⬜ |
+| 1 | `AchievementBadge` | `AchievementBadgeV4` | ✅ |
+| 2 | `CertificateCard` | `CertificateCardV4` | ✅ |
+| 3 | `CourseCard` | `CourseCardV2` · `CourseCardV3` · `CourseCardV4` | ✅ |
+| 4 | `EnrollButton` | `EnrollButtonV4` | ✅ |
+| 5 | `FlashCard` | `FlashCardV4` | ✅ |
+| 6 | `LeaderboardRow` | `LeaderboardRowV2` · `LeaderboardRowV3` · `LeaderboardRowV4` | ✅ |
+| 7 | `LessonRow` | `LessonRowV2` · `LessonRowV3` · `LessonRowV4` | ✅ |
+| 8 | `ModuleAccordion` | `ModuleAccordionV4` | ✅ |
+| 9 | `ProgressTracker` | `ProgressTrackerV4` | ✅ |
+| 10 | `QuizOption` | `QuizOptionV4` | ✅ |
+| 11 | `QuizQuestion` | `QuizQuestionV2` · `QuizQuestionV3` · `QuizQuestionV4` | ✅ |
+| 12 | `StreakBadge` | `StreakBadgeV4` | ✅ |
+| 13 | `VideoLessonRow` | `VideoLessonRowV4` | ✅ |
 
-### `legal` — 13 components, 4 with variants · last updated **0.7.0** ❌
+*internal (native):* `GradientSurface` (optional `expo-linear-gradient`, solid fallback), `campus` palette helper
+
+### `legal` — 13 components, 4 with variants · last updated **0.16.0** ✅
+
+All 13 originals now ship a **V4 "chambers" design line** — a distinguished,
+calm law-office language: elevated cards, panels and rows with status by glyph +
+labelled `StatusPill` + tone (never color alone) and big legible tabular-nums
+money / figures. Every V4 is a pure drop-in (`XxxV4Props = XxxProps`) that reuses
+its base `variant` (all status values honored). The brand gradient is reserved
+for the chambers moment — the `MatterStatus` header hero. No new components.
+Base/V2/V3 untouched; V4 is additive. Token-driven, dark-mode safe, web + native.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `BillableTimeRow` | — | ⬜ |
-| 2 | `CaseCard` | `CaseCardV2` · `CaseCardV3` | ⬜ |
-| 3 | `ClientIntakeRow` | — | ⬜ |
-| 4 | `ContractClause` | — | ⬜ |
-| 5 | `CourtDateCard` | — | ⬜ |
-| 6 | `DisclaimerBanner` | — | ⬜ |
-| 7 | `DocumentRow` | `DocumentRowV2` · `DocumentRowV3` | ⬜ |
-| 8 | `EvidenceRow` | — | ⬜ |
-| 9 | `LegalAppointment` | `LegalAppointmentV2` · `LegalAppointmentV3` | ⬜ |
-| 10 | `MatterStatus` | — | ⬜ |
-| 11 | `RetainerBalance` | `RetainerBalanceV2` · `RetainerBalanceV3` | ⬜ |
-| 12 | `SignatureRequest` | — | ⬜ |
-| 13 | `StatusPill` | — | ⬜ |
+| 1 | `BillableTimeRow` | `BillableTimeRowV4` | ✅ |
+| 2 | `CaseCard` | `CaseCardV2` · `CaseCardV3` · `CaseCardV4` | ✅ |
+| 3 | `ClientIntakeRow` | `ClientIntakeRowV4` | ✅ |
+| 4 | `ContractClause` | `ContractClauseV4` | ✅ |
+| 5 | `CourtDateCard` | `CourtDateCardV4` | ✅ |
+| 6 | `DisclaimerBanner` | `DisclaimerBannerV4` | ✅ |
+| 7 | `DocumentRow` | `DocumentRowV2` · `DocumentRowV3` · `DocumentRowV4` | ✅ |
+| 8 | `EvidenceRow` | `EvidenceRowV4` | ✅ |
+| 9 | `LegalAppointment` | `LegalAppointmentV2` · `LegalAppointmentV3` · `LegalAppointmentV4` | ✅ |
+| 10 | `MatterStatus` | `MatterStatusV4` | ✅ |
+| 11 | `RetainerBalance` | `RetainerBalanceV2` · `RetainerBalanceV3` · `RetainerBalanceV4` | ✅ |
+| 12 | `SignatureRequest` | `SignatureRequestV4` | ✅ |
+| 13 | `StatusPill` | `StatusPillV4` | ✅ |
 
 *helpers:* `APPOINTMENT_STATUS_META`, `APPOINTMENT_TYPE_META`, `BILLABLE_STATUS_META`, `CASE_PRIORITY_META`, `CASE_STATUS_META`, `CLAUSE_RISK_META`, `CLAUSE_STATUS_META`, `CONFLICT_CHECK_META`, `COURT_EVENT_META`, `COURT_URGENCY_META`, `DISCLAIMER_META`, `DOCUMENT_KIND_META`, `DOCUMENT_STATUS_META`, `EVIDENCE_KIND_META`, `EVIDENCE_STATUS_META`, `INTAKE_STATUS_META`, `MATTER_STAGE_META`, `MATTER_STAGE_ORDER`, `PRACTICE_AREA_META`, `RETAINER_STATUS_META`, `SIGNATURE_STATUS_META`, `billableCents`, `clampPct`, `formatHours`, `formatMoney`, `onToneSlot`, `toneColor`, `toneSlot`
 
-### `logistics` — 12 components, 4 with variants · last updated **0.7.0** ❌
+*internal (native):* `GradientSurface` (optional `expo-linear-gradient`, solid fallback), `chambers` palette helper
+
+### `logistics` — 12 components, 4 with variants · last updated **0.16.0** ✅
+
+All 12 originals now ship a **V4 "dispatch" design line** — a confident,
+operations-desk language: elevated cards, panels, rows and bars with status by
+glyph + labelled badge + tone (never color alone) and big legible tabular-nums
+figures. Every V4 is a drop-in (`XxxV4Props = XxxProps`); five entity card/rows
+carry a two-density `variant` — `PackageRow` / `RouteStop` / `ScanRow` /
+`ManifestRow` add `full` / `compact`, and `ShipmentCard` reuses its base
+`default` / `compact`. The brand gradient is reserved for the dispatch moment —
+the `TrackingTimeline` hero header. No new components. Base/V2/V3 untouched; V4 is
+additive. Token-driven, dark-mode safe, web + native.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `CarrierBadge` | — | ⬜ |
-| 2 | `DeliveryProof` | — | ⬜ |
-| 3 | `DockSchedule` | — | ⬜ |
-| 4 | `ETABar` | — | ⬜ |
-| 5 | `LoadPlanBar` | — | ⬜ |
-| 6 | `ManifestRow` | — | ⬜ |
-| 7 | `PackageRow` | `PackageRowV2` · `PackageRowV3` | ⬜ |
-| 8 | `RouteStop` | `RouteStopV2` · `RouteStopV3` | ⬜ |
-| 9 | `ScanRow` | — | ⬜ |
-| 10 | `ShipmentCard` | `ShipmentCardV2` · `ShipmentCardV3` | ⬜ |
-| 11 | `TrackingTimeline` | `TrackingTimelineV2` · `TrackingTimelineV3` | ⬜ |
-| 12 | `WarehouseBin` | — | ⬜ |
+| 1 | `CarrierBadge` | `CarrierBadgeV4` | ✅ |
+| 2 | `DeliveryProof` | `DeliveryProofV4` | ✅ |
+| 3 | `DockSchedule` | `DockScheduleV4` | ✅ |
+| 4 | `ETABar` | `ETABarV4` | ✅ |
+| 5 | `LoadPlanBar` | `LoadPlanBarV4` | ✅ |
+| 6 | `ManifestRow` | `ManifestRowV4` | ✅ |
+| 7 | `PackageRow` | `PackageRowV2` · `PackageRowV3` · `PackageRowV4` | ✅ |
+| 8 | `RouteStop` | `RouteStopV2` · `RouteStopV3` · `RouteStopV4` | ✅ |
+| 9 | `ScanRow` | `ScanRowV4` | ✅ |
+| 10 | `ShipmentCard` | `ShipmentCardV2` · `ShipmentCardV3` · `ShipmentCardV4` | ✅ |
+| 11 | `TrackingTimeline` | `TrackingTimelineV2` · `TrackingTimelineV3` · `TrackingTimelineV4` | ✅ |
+| 12 | `WarehouseBin` | `WarehouseBinV4` | ✅ |
 
 *helpers:* `CARRIER_META`, `DOCK_META`, `PROOF_META`, `SCAN_META`, `SHIPMENT_META`, `STOP_META`, `TRACKING_META`, `TRACKING_ORDER`, `clampPct`, `formatWeight`, `toneColor`, `trackingIndex`, `withAlpha`
+
+*internal (native):* `GradientSurface` (optional `expo-linear-gradient`, solid fallback), `dispatch` palette helper
 
 ### `marketing` — 37 components · last updated **0.9.0** ✅
 

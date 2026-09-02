@@ -14,6 +14,21 @@ import { LessonRowV2 } from './LessonRowV2';
 import { LessonRowV3 } from './LessonRowV3';
 import { QuizQuestionV2 } from './QuizQuestionV2';
 import { QuizQuestionV3 } from './QuizQuestionV3';
+import {
+  CourseCardV4,
+  LessonRowV4,
+  VideoLessonRowV4,
+  LeaderboardRowV4,
+  CertificateCardV4,
+  ProgressTrackerV4,
+  QuizQuestionV4,
+  QuizOptionV4,
+  FlashCardV4,
+  ModuleAccordionV4,
+  EnrollButtonV4,
+  StreakBadgeV4,
+  AchievementBadgeV4,
+} from './index';
 
 const HEX_LITERAL = /#[0-9a-fA-F]{3,8}\b/;
 const inlineStyles = (root: HTMLElement): string =>
@@ -106,5 +121,76 @@ describe('QuizQuestion alternates (web)', () => {
     expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
     fireEvent.click(getByText('Rome'));
     expect(onSelect).toHaveBeenCalledWith('b');
+  });
+});
+
+describe('learning V4 "campus" line (web)', () => {
+  it('mounts all 13 V4 blocks (variants + gradient hero) with no inline hex', () => {
+    const { getByText, container } = render(
+      <div>
+        <CourseCardV4 title="Intro to TS" instructor="Ada" level="beginner" lessonCount={12} durationLabel="4h" rating={4.5} progress={40} price="$49" onCtaClick={() => {}} />
+        <CourseCardV4 title="Go Deep" level="advanced" variant="compact" onCtaClick={() => {}} />
+        <LessonRowV4 title="Variables" index={1} status="available" kind="Video" durationLabel="12 min" onSelect={() => {}} />
+        <LessonRowV4 title="Locked" status="locked" variant="compact" />
+        <VideoLessonRowV4 title="Lecture 1" durationLabel="12:30" watchProgress={30} playing meta="3.2" onPlay={() => {}} />
+        <VideoLessonRowV4 title="Lecture 2" watched variant="compact" onPlay={() => {}} />
+        <LeaderboardRowV4 rank={1} name="Ada" score={980} trend="▲2" highlighted onSelect={() => {}} />
+        <LeaderboardRowV4 rank={4} empty variant="compact" />
+        <CertificateCardV4 courseTitle="React 101" recipient="Ada Lovelace" issuer="Xen Academy" issuedOn="May 2026" credentialId="XA-2026-001" variant="honors" onAction={() => {}} />
+        <ProgressTrackerV4 steps={[{ id: '1', label: 'A', completed: true }, { id: '2', label: 'B' }]} showList />
+        <QuizQuestionV4 prompt="2 + 2 = ?" questionNumber={1} totalQuestions={3} choices={[{ id: 'a', label: '3' }, { id: 'b', label: '4', correct: true }]} onSelect={() => {}} />
+        <QuizOptionV4 label="4" marker="B" state="correct" />
+        <FlashCardV4 front="Photosynthesis" back="Light to energy" />
+        <ModuleAccordionV4 modules={[{ id: 'm1', title: 'Basics', lessons: [{ id: 'l1', title: 'Intro', status: 'completed' }] }]} onLessonSelect={() => {}} />
+        <EnrollButtonV4 state="enrolled" />
+        <StreakBadgeV4 count={5} tone="primary" />
+        <AchievementBadgeV4 title="First Step" tier="gold" unlocked />
+      </div>
+    );
+    expect(getByText('Intro to TS')).toBeTruthy();
+    // Gradient award hero surfaces the recipient.
+    expect(getByText('Ada Lovelace')).toBeTruthy();
+    expect(inlineStyles(container)).not.toMatch(HEX_LITERAL);
+  });
+
+  it('CourseCardV4 (compact) fires the CTA', () => {
+    const onCtaClick = jest.fn();
+    const { getByText } = render(<CourseCardV4 title="React 101" level="beginner" variant="compact" onCtaClick={onCtaClick} />);
+    fireEvent.click(getByText('Enroll'));
+    expect(onCtaClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('LessonRowV4 is a keyboard-activable button when available, inert when locked', () => {
+    const onSelect = jest.fn();
+    const { getByRole, rerender, queryByRole } = render(<LessonRowV4 title="Variables" status="available" onSelect={onSelect} />);
+    fireEvent.keyDown(getByRole('button'), { key: 'Enter' });
+    expect(onSelect).toHaveBeenCalledTimes(1);
+    rerender(<LessonRowV4 title="Advanced" status="locked" onSelect={onSelect} />);
+    expect(queryByRole('button')).toBeNull();
+  });
+
+  it('QuizQuestionV4 renders a radiogroup and selects a choice', () => {
+    const onSelect = jest.fn();
+    const { getAllByRole } = render(
+      <QuizQuestionV4 prompt="2 + 2 = ?" choices={[{ id: 'a', label: '3' }, { id: 'b', label: '4' }]} onSelect={onSelect} />
+    );
+    const options = getAllByRole('radio');
+    expect(options).toHaveLength(2);
+    fireEvent.click(options[1] as HTMLElement);
+    expect(onSelect).toHaveBeenCalledWith('b');
+  });
+
+  it('EnrollButtonV4 enrolled reads as a success confirmation with a token class', () => {
+    const { getByLabelText } = render(<EnrollButtonV4 state="enrolled" />);
+    expect(getByLabelText('Enrolled').firstElementChild?.className).toContain('bg-success/10');
+  });
+
+  it('LeaderboardRowV4 shows a medal glyph for rank 1 and fires onSelect', () => {
+    const onSelect = jest.fn();
+    const { getByRole } = render(<LeaderboardRowV4 rank={1} name="Ada" score={99} onSelect={onSelect} />);
+    const row = getByRole('button');
+    expect(row.textContent).toContain('🥇');
+    fireEvent.click(row);
+    expect(onSelect).toHaveBeenCalledTimes(1);
   });
 });

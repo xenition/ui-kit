@@ -16,8 +16,8 @@
  * action affordances are real `<button>`s.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EVIDENCE_STATUS_META = exports.EVIDENCE_KIND_META = exports.SIGNATURE_STATUS_META = exports.RETAINER_STATUS_META = exports.COURT_URGENCY_META = exports.COURT_EVENT_META = exports.CONFLICT_CHECK_META = exports.INTAKE_STATUS_META = exports.BILLABLE_STATUS_META = exports.APPOINTMENT_STATUS_META = exports.APPOINTMENT_TYPE_META = exports.CLAUSE_RISK_META = exports.CLAUSE_STATUS_META = exports.DOCUMENT_KIND_META = exports.DOCUMENT_STATUS_META = exports.MATTER_STAGE_ORDER = exports.MATTER_STAGE_META = exports.PRACTICE_AREA_META = exports.CASE_PRIORITY_META = exports.CASE_STATUS_META = exports.activateOnKey = exports.toneSoftBgClass = exports.toneBgClass = exports.toneTextClass = exports.clampPct = exports.billableCents = exports.formatHours = exports.formatMoney = exports.EmptyState = exports.StatusPill = exports.SignatureRequest = exports.EvidenceRow = exports.DisclaimerBanner = exports.RetainerBalanceV3 = exports.RetainerBalanceV2 = exports.RetainerBalance = exports.CourtDateCard = exports.ClientIntakeRow = exports.MatterStatus = exports.BillableTimeRow = exports.LegalAppointmentV3 = exports.LegalAppointmentV2 = exports.LegalAppointment = exports.ContractClause = exports.DocumentRowV3 = exports.DocumentRowV2 = exports.DocumentRow = exports.CaseCardV3 = exports.CaseCardV2 = exports.CaseCard = void 0;
-exports.DISCLAIMER_META = void 0;
+exports.DOCUMENT_KIND_META = exports.DOCUMENT_STATUS_META = exports.MATTER_STAGE_ORDER = exports.MATTER_STAGE_META = exports.PRACTICE_AREA_META = exports.CASE_PRIORITY_META = exports.CASE_STATUS_META = exports.activateOnKey = exports.toneSoftBgClass = exports.toneBgClass = exports.toneTextClass = exports.clampPct = exports.billableCents = exports.formatHours = exports.formatMoney = exports.EmptyState = exports.DisclaimerBannerV4 = exports.SignatureRequestV4 = exports.RetainerBalanceV4 = exports.CourtDateCardV4 = exports.LegalAppointmentV4 = exports.ClientIntakeRowV4 = exports.ContractClauseV4 = exports.BillableTimeRowV4 = exports.EvidenceRowV4 = exports.DocumentRowV4 = exports.MatterStatusV4 = exports.CaseCardV4 = exports.StatusPillV4 = exports.StatusPill = exports.SignatureRequest = exports.EvidenceRow = exports.DisclaimerBanner = exports.RetainerBalanceV3 = exports.RetainerBalanceV2 = exports.RetainerBalance = exports.CourtDateCard = exports.ClientIntakeRow = exports.MatterStatus = exports.BillableTimeRow = exports.LegalAppointmentV3 = exports.LegalAppointmentV2 = exports.LegalAppointment = exports.ContractClause = exports.DocumentRowV3 = exports.DocumentRowV2 = exports.DocumentRow = exports.CaseCardV3 = exports.CaseCardV2 = exports.CaseCard = void 0;
+exports.DISCLAIMER_META = exports.EVIDENCE_STATUS_META = exports.EVIDENCE_KIND_META = exports.SIGNATURE_STATUS_META = exports.RETAINER_STATUS_META = exports.COURT_URGENCY_META = exports.COURT_EVENT_META = exports.CONFLICT_CHECK_META = exports.INTAKE_STATUS_META = exports.BILLABLE_STATUS_META = exports.APPOINTMENT_STATUS_META = exports.APPOINTMENT_TYPE_META = exports.CLAUSE_RISK_META = exports.CLAUSE_STATUS_META = void 0;
 var CaseCard_1 = require("./CaseCard");
 Object.defineProperty(exports, "CaseCard", { enumerable: true, get: function () { return CaseCard_1.CaseCard; } });
 var CaseCardV2_1 = require("./CaseCardV2");
@@ -61,6 +61,42 @@ Object.defineProperty(exports, "SignatureRequest", { enumerable: true, get: func
 // ── shared status vocabulary + reusable pill ──────────────────────────────
 var StatusPill_1 = require("./StatusPill");
 Object.defineProperty(exports, "StatusPill", { enumerable: true, get: function () { return StatusPill_1.StatusPill; } });
+/*
+ * ── V4 "chambers" (distinguished law-office) design line ──
+ * A drop-in V4 variant for each of the 13 originals: elevated calm cards, panels
+ * and rows with status by glyph + labelled StatusPill + tone (never color alone)
+ * and big legible tabular-nums money / figures. Every V4 is a pure drop-in
+ * (`XxxV4Props = XxxProps`) that reuses its base `variant` (all status values
+ * honored). The brand gradient is reserved for the chambers moment — the
+ * `MatterStatus` hero header. Base/V2/V3 untouched; V4 is additive. Token-driven,
+ * dark-mode safe, web + native.
+ */
+var StatusPillV4_1 = require("./StatusPillV4");
+Object.defineProperty(exports, "StatusPillV4", { enumerable: true, get: function () { return StatusPillV4_1.StatusPillV4; } });
+var CaseCardV4_1 = require("./CaseCardV4");
+Object.defineProperty(exports, "CaseCardV4", { enumerable: true, get: function () { return CaseCardV4_1.CaseCardV4; } });
+var MatterStatusV4_1 = require("./MatterStatusV4");
+Object.defineProperty(exports, "MatterStatusV4", { enumerable: true, get: function () { return MatterStatusV4_1.MatterStatusV4; } });
+var DocumentRowV4_1 = require("./DocumentRowV4");
+Object.defineProperty(exports, "DocumentRowV4", { enumerable: true, get: function () { return DocumentRowV4_1.DocumentRowV4; } });
+var EvidenceRowV4_1 = require("./EvidenceRowV4");
+Object.defineProperty(exports, "EvidenceRowV4", { enumerable: true, get: function () { return EvidenceRowV4_1.EvidenceRowV4; } });
+var BillableTimeRowV4_1 = require("./BillableTimeRowV4");
+Object.defineProperty(exports, "BillableTimeRowV4", { enumerable: true, get: function () { return BillableTimeRowV4_1.BillableTimeRowV4; } });
+var ContractClauseV4_1 = require("./ContractClauseV4");
+Object.defineProperty(exports, "ContractClauseV4", { enumerable: true, get: function () { return ContractClauseV4_1.ContractClauseV4; } });
+var ClientIntakeRowV4_1 = require("./ClientIntakeRowV4");
+Object.defineProperty(exports, "ClientIntakeRowV4", { enumerable: true, get: function () { return ClientIntakeRowV4_1.ClientIntakeRowV4; } });
+var LegalAppointmentV4_1 = require("./LegalAppointmentV4");
+Object.defineProperty(exports, "LegalAppointmentV4", { enumerable: true, get: function () { return LegalAppointmentV4_1.LegalAppointmentV4; } });
+var CourtDateCardV4_1 = require("./CourtDateCardV4");
+Object.defineProperty(exports, "CourtDateCardV4", { enumerable: true, get: function () { return CourtDateCardV4_1.CourtDateCardV4; } });
+var RetainerBalanceV4_1 = require("./RetainerBalanceV4");
+Object.defineProperty(exports, "RetainerBalanceV4", { enumerable: true, get: function () { return RetainerBalanceV4_1.RetainerBalanceV4; } });
+var SignatureRequestV4_1 = require("./SignatureRequestV4");
+Object.defineProperty(exports, "SignatureRequestV4", { enumerable: true, get: function () { return SignatureRequestV4_1.SignatureRequestV4; } });
+var DisclaimerBannerV4_1 = require("./DisclaimerBannerV4");
+Object.defineProperty(exports, "DisclaimerBannerV4", { enumerable: true, get: function () { return DisclaimerBannerV4_1.DisclaimerBannerV4; } });
 // Generic empty / no-results state re-used from commerce (domain-agnostic).
 var commerce_1 = require("../commerce");
 Object.defineProperty(exports, "EmptyState", { enumerable: true, get: function () { return commerce_1.EmptyState; } });
