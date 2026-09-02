@@ -50,4 +50,24 @@ export { MoodPicker } from './MoodPicker';
 export type { MoodPickerProps, Mood } from './MoodPicker';
 export { BodyMetricCard } from './BodyMetricCard';
 export type { BodyMetricCardProps, BodyMetricVariant } from './BodyMetricCard';
+export { ActivityRingsV4, type ActivityRingsV4Props } from './ActivityRingsV4';
+export { BodyMetricCardV4, type BodyMetricCardV4Props } from './BodyMetricCardV4';
+export { ExerciseRowV4, type ExerciseRowV4Props } from './ExerciseRowV4';
+export { GoalCardV4, type GoalCardV4Props } from './GoalCardV4';
+export { HabitRowV4, type HabitRowV4Props } from './HabitRowV4';
+export { HealthRangeBarV4, type HealthRangeBarV4Props } from './HealthRangeBarV4';
+export { MealCardV4, type MealCardV4Props, type Macro } from './MealCardV4';
+export { MetricRingV4, type MetricRingV4Props } from './MetricRingV4';
+export { MoodPickerV4, type MoodPickerV4Props } from './MoodPickerV4';
+export { SleepBarV4, type SleepBarV4Props } from './SleepBarV4';
+export { SleepStagesV4, type SleepStagesV4Props, type SleepStage, type SleepStageSegment, } from './SleepStagesV4';
+export { StreakCounterV4, type StreakCounterV4Props } from './StreakCounterV4';
+export { VitalStatV4, type VitalStatV4Props } from './VitalStatV4';
+export { WaterTrackerV4, type WaterTrackerV4Props } from './WaterTrackerV4';
+export { WorkoutCardV4, type WorkoutCardV4Props } from './WorkoutCardV4';
+/** The health V4 line's arithmetic, shared with the native twin. */
+export { goalParts, rangeVerdict, pluralizeUnit } from './goal-v4';
+export type { GoalParts, HealthRange, RangeVerdict } from './goal-v4';
+/** The surface presets the 15 V4 components take, matching the native twin. */
+export type { Appearance } from './internal/tone-v4';
 //# sourceMappingURL=index.d.ts.map

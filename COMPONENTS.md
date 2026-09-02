@@ -21,7 +21,7 @@ design pattern.
 
 | | meaning |
 |---|---|
-| ✅ **0.9.0 – 0.21.0** | on the current design pattern — `onboarding` is the reference for the *shell* and, since 0.13.0, is itself on the V4 line; `booking`, `media` and `agriculture` joined at 0.14.0, `automotive` and `beauty` at 0.15.0, `calendar` and `chat` at 0.16.0, `content` and `crm` at 0.17.0, `crypto`, `dating` and `email` at 0.18.0, `events` and `fieldservice` at 0.19.0, `finance` and `food` at 0.20.0, `gaming` and `government` at 0.21.0 |
+| ✅ **0.9.0 – 0.21.0** | on the current design pattern — `onboarding` is the reference for the *shell* and, since 0.13.0, is itself on the V4 line; `booking`, `media` and `agriculture` joined at 0.14.0, `automotive` and `beauty` at 0.15.0, `calendar` and `chat` at 0.16.0, `content` and `crm` at 0.17.0, `crypto`, `dating` and `email` at 0.18.0, `events` and `fieldservice` at 0.19.0, `finance` and `food` at 0.20.0, `gaming` and `government` at 0.21.0, `health` and `hr` at 0.22.0 |
 | ⚠️ **0.8.0** | V2/V3 composition fixed, but predates the 0.9.0 shell |
 | ❌ **0.7.0** | last touched at the V2/V3 rollout — **needs the pattern applied** |
 
@@ -1120,41 +1120,49 @@ pass does not touch.
 
 *helpers:* `FORM_STATUS`, `PERMIT_STAGES`, `PERMIT_STATUS`, `formatMoney`
 
-### `health` — 13 components, 4 with variants · last updated **0.7.0** ❌
+### `health` — 13 components, 4 with variants · last updated **0.22.0** ✅
+
+**Progress: 13 / 13 upgraded, plus 2 new.** See `HEALTH-HR-V4-BRIEF.md` §1 and §3.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `ActivityRings` | — | ⬜ |
-| 2 | `BodyMetricCard` | — | ⬜ |
-| 3 | `ExerciseRow` | — | ⬜ |
-| 4 | `GoalCard` | `GoalCardV2` · `GoalCardV3` | ⬜ |
-| 5 | `HabitRow` | `HabitRowV2` · `HabitRowV3` | ⬜ |
-| 6 | `MealCard` | `MealCardV2` · `MealCardV3` | ⬜ |
-| 7 | `MetricRing` | — | ⬜ |
-| 8 | `MoodPicker` | — | ⬜ |
-| 9 | `SleepBar` | — | ⬜ |
-| 10 | `StreakCounter` | — | ⬜ |
-| 11 | `VitalStat` | — | ⬜ |
-| 12 | `WaterTracker` | — | ⬜ |
-| 13 | `WorkoutCard` | `WorkoutCardV2` · `WorkoutCardV3` | ⬜ |
+| 1 | `ActivityRings` | `ActivityRingsV4` | ✅ |
+| 2 | `BodyMetricCard` | `BodyMetricCardV4` | ✅ |
+| 3 | `ExerciseRow` | `ExerciseRowV4` | ✅ |
+| 4 | `GoalCard` | `GoalCardV2` · `GoalCardV3` · `GoalCardV4` | ✅ |
+| 5 | `HabitRow` | `HabitRowV2` · `HabitRowV3` · `HabitRowV4` | ✅ |
+| 6 | `MealCard` | `MealCardV2` · `MealCardV3` · `MealCardV4` | ✅ |
+| 7 | `MetricRing` | `MetricRingV4` | ✅ |
+| 8 | `MoodPicker` | `MoodPickerV4` | ✅ |
+| 9 | `SleepBar` | `SleepBarV4` | ✅ |
+| 10 | `StreakCounter` | `StreakCounterV4` | ✅ |
+| 11 | `VitalStat` | `VitalStatV4` | ✅ |
+| 12 | `WaterTracker` | `WaterTrackerV4` | ✅ |
+| 13 | `WorkoutCard` | `WorkoutCardV2` · `WorkoutCardV3` · `WorkoutCardV4` | ✅ |
+| + | `HealthRangeBarV4` | *new in 0.22.0* | ✅ |
+| + | `SleepStagesV4` | *new in 0.22.0* | ✅ |
 
-### `hr` — 13 components, 4 with variants · last updated **0.7.0** ❌
+### `hr` — 13 components, 4 with variants · last updated **0.22.0** ✅
+
+**Progress: 13 / 13 upgraded, plus 2 new.** See `HEALTH-HR-V4-BRIEF.md` §2 and §4.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `BenefitsEnrollment` | — | ⬜ |
-| 2 | `DirectoryRow` | — | ⬜ |
-| 3 | `EmployeeCard` | `EmployeeCardV2` · `EmployeeCardV3` | ⬜ |
-| 4 | `ExpenseClaim` | — | ⬜ |
-| 5 | `LeaveRequest` | `LeaveRequestV2` · `LeaveRequestV3` | ⬜ |
-| 6 | `OnboardingTask` | — | ⬜ |
-| 7 | `OrgChartNode` | — | ⬜ |
-| 8 | `PayslipRow` | `PayslipRowV2` · `PayslipRowV3` | ⬜ |
-| 9 | `PerformanceReview` | `PerformanceReviewV2` · `PerformanceReviewV3` | ⬜ |
-| 10 | `PolicyAcknowledge` | — | ⬜ |
-| 11 | `ShiftSchedule` | — | ⬜ |
-| 12 | `StatusPill` | — | ⬜ |
-| 13 | `TimesheetRow` | — | ⬜ |
+| 1 | `BenefitsEnrollment` | `BenefitsEnrollmentV4` | ✅ |
+| 2 | `DirectoryRow` | `DirectoryRowV4` | ✅ |
+| 3 | `EmployeeCard` | `EmployeeCardV2` · `EmployeeCardV3` · `EmployeeCardV4` | ✅ |
+| 4 | `ExpenseClaim` | `ExpenseClaimV4` | ✅ |
+| 5 | `LeaveRequest` | `LeaveRequestV2` · `LeaveRequestV3` · `LeaveRequestV4` | ✅ |
+| 6 | `OnboardingTask` | `OnboardingTaskV4` | ✅ |
+| 7 | `OrgChartNode` | `OrgChartNodeV4` | ✅ |
+| 8 | `PayslipRow` | `PayslipRowV2` · `PayslipRowV3` · `PayslipRowV4` | ✅ |
+| 9 | `PerformanceReview` | `PerformanceReviewV2` · `PerformanceReviewV3` · `PerformanceReviewV4` | ✅ |
+| 10 | `PolicyAcknowledge` | `PolicyAcknowledgeV4` | ✅ |
+| 11 | `ShiftSchedule` | `ShiftScheduleV4` | ✅ |
+| 12 | `StatusPill` | `StatusPillV4` | ✅ |
+| 13 | `TimesheetRow` | `TimesheetRowV4` | ✅ |
+| + | `LeaveBalanceV4` | *new in 0.22.0* | ✅ |
+| + | `ApprovalQueueV4` | *new in 0.22.0* | ✅ |
 
 *helpers:* `BENEFIT_STATUS_META`, `BENEFIT_TYPE_META`, `EMPLOYEE_STATUS_META`, `EMPLOYMENT_META`, `EXPENSE_CATEGORY_META`, `EXPENSE_STATUS_META`, `LEAVE_STATUS_META`, `LEAVE_TYPE_META`, `PAYSLIP_STATUS_META`, `POLICY_STATUS_META`, `PRESENCE_META`, `REVIEW_STATUS_META`, `SHIFT_STATUS_META`, `TASK_STATUS_META`, `TIMESHEET_STATUS_META`, `clampPct`, `clampRating`, `formatHours`, `formatMoney`, `toneColor`, `toneSlot`
 

@@ -75,6 +75,8 @@ const AUDITED = [
   'food',
   'gaming',
   'government',
+  'health',
+  'hr',
   'media',
   'onboarding',
 ] as const;
