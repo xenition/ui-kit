@@ -83,3 +83,45 @@ export { CLAIM_STATUS, POLICY_VARIANT } from './internal/status';
 export type { StatusDescriptor } from './internal/status';
 export { formatMoney } from './internal/format';
 export type { MoneyFormatter } from './internal/format';
+
+// ── The V4 line ───────────────────────────────────────────────
+// The current design pattern, built against `INSURANCE-V4-SPEC.md`. Each is a
+// drop-in for its base — same props plus optional additions, every one
+// defaulting to the base's behaviour — so swapping `X` for `XV4` brings the
+// fixes and no surprises. The two worth reading first are
+// `ClaimStatusTrackerV4`, which stops inventing a denial reason the caller
+// never supplied, and `PolicyDocumentRowV4`, whose Download button was not
+// reachable by any gesture. `InsuranceIdCardV4` and `ClaimTimelineV4` are new:
+// there is no base for either.
+export { AgentContactCardV4 } from './AgentContactCardV4';
+export type { AgentContactCardV4Props } from './AgentContactCardV4';
+export { BeneficiaryRowV4 } from './BeneficiaryRowV4';
+export type { BeneficiaryRowV4Props } from './BeneficiaryRowV4';
+export { ClaimRowV4 } from './ClaimRowV4';
+export type { ClaimRowV4Props } from './ClaimRowV4';
+export { ClaimStatusTrackerV4 } from './ClaimStatusTrackerV4';
+export type { ClaimStatusTrackerV4Props, ClaimStage } from './ClaimStatusTrackerV4';
+export { ClaimTimelineV4 } from './ClaimTimelineV4';
+export type {
+  ClaimTimelineV4Props,
+  ClaimTimelineEntry,
+  ClaimTimelineKind,
+} from './ClaimTimelineV4';
+export { CoverageItemV4 } from './CoverageItemV4';
+export type { CoverageItemV4Props } from './CoverageItemV4';
+export { DeductibleBarV4 } from './DeductibleBarV4';
+export type { DeductibleBarV4Props } from './DeductibleBarV4';
+export { InsuranceIdCardV4 } from './InsuranceIdCardV4';
+export type { InsuranceIdCardV4Props, InsuranceIdCardV4Labels } from './InsuranceIdCardV4';
+export { PolicyCardV4 } from './PolicyCardV4';
+export type { PolicyCardV4Props, PolicyCardV4Labels } from './PolicyCardV4';
+export { PolicyDocumentRowV4 } from './PolicyDocumentRowV4';
+export type { PolicyDocumentRowV4Props } from './PolicyDocumentRowV4';
+export { PremiumSummaryV4 } from './PremiumSummaryV4';
+export type { PremiumSummaryV4Props } from './PremiumSummaryV4';
+export { QuoteFormV4 } from './QuoteFormV4';
+export type { QuoteFormV4Props } from './QuoteFormV4';
+export { RenewalBannerV4 } from './RenewalBannerV4';
+export type { RenewalBannerV4Props } from './RenewalBannerV4';
+export { RiskScoreV4 } from './RiskScoreV4';
+export type { RiskScoreV4Props } from './RiskScoreV4';

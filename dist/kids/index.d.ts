@@ -46,4 +46,21 @@ export { FamilyMemberRow } from './FamilyMemberRow';
 export type { FamilyMemberRowProps, FamilyRole } from './FamilyMemberRow';
 export { StickerReward } from './StickerReward';
 export type { StickerRewardProps, Sticker } from './StickerReward';
+export { AllowanceTrackerV4, type AllowanceTrackerV4Props } from './AllowanceTrackerV4';
+export { BehaviorBadgeV4, type BehaviorBadgeV4Props } from './BehaviorBadgeV4';
+export { ChildProfileCardV4, type ChildProfileCardV4Props } from './ChildProfileCardV4';
+export { ChildSwitcherV4, type ChildSwitcherV4Props, type ChildSwitcherItem, } from './ChildSwitcherV4';
+export { ChoreCardV4, type ChoreCardV4Props } from './ChoreCardV4';
+export { ChoreListV4, type ChoreListV4Props, type ChoreListItem } from './ChoreListV4';
+export { FamilyMemberRowV4, type FamilyMemberRowV4Props } from './FamilyMemberRowV4';
+export { GrowthChartV4, type GrowthChartV4Props, type GrowthPoint } from './GrowthChartV4';
+export { MilestoneCardV4, type MilestoneCardV4Props, type MilestoneStatus, } from './MilestoneCardV4';
+export { RewardStarV4, type RewardStarV4Props } from './RewardStarV4';
+export { RoutineRowV4, type RoutineRowV4Props } from './RoutineRowV4';
+export { SchoolEventRowV4, type SchoolEventRowV4Props } from './SchoolEventRowV4';
+export { ScreenTimeBarV4, type ScreenTimeBarV4Props } from './ScreenTimeBarV4';
+export { StickerRewardV4, type StickerRewardV4Props } from './StickerRewardV4';
+/** The kids V4 line's arithmetic, shared with the native twin. */
+export { meterParts, starParts, nextAward, needsExplanation } from './family-v4';
+export type { MeterParts, StarParts } from './family-v4';
 //# sourceMappingURL=index.d.ts.map

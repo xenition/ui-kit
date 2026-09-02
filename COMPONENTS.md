@@ -21,7 +21,7 @@ design pattern.
 
 | | meaning |
 |---|---|
-| ✅ **0.9.0 – 0.21.0** | on the current design pattern — `onboarding` is the reference for the *shell* and, since 0.13.0, is itself on the V4 line; `booking`, `media` and `agriculture` joined at 0.14.0, `automotive` and `beauty` at 0.15.0, `calendar` and `chat` at 0.16.0, `content` and `crm` at 0.17.0, `crypto`, `dating` and `email` at 0.18.0, `events` and `fieldservice` at 0.19.0, `finance` and `food` at 0.20.0, `gaming` and `government` at 0.21.0, `health` and `hr` at 0.22.0 |
+| ✅ **0.9.0 – 0.21.0** | on the current design pattern — `onboarding` is the reference for the *shell* and, since 0.13.0, is itself on the V4 line; `booking`, `media` and `agriculture` joined at 0.14.0, `automotive` and `beauty` at 0.15.0, `calendar` and `chat` at 0.16.0, `content` and `crm` at 0.17.0, `crypto`, `dating` and `email` at 0.18.0, `events` and `fieldservice` at 0.19.0, `finance` and `food` at 0.20.0, `gaming` and `government` at 0.21.0, `health` and `hr` at 0.22.0, `insurance`, `jobs` and `kids` at 0.23.0 |
 | ⚠️ **0.8.0** | V2/V3 composition fixed, but predates the 0.9.0 shell |
 | ❌ **0.7.0** | last touched at the V2/V3 rollout — **needs the pattern applied** |
 
@@ -1166,60 +1166,72 @@ pass does not touch.
 
 *helpers:* `BENEFIT_STATUS_META`, `BENEFIT_TYPE_META`, `EMPLOYEE_STATUS_META`, `EMPLOYMENT_META`, `EXPENSE_CATEGORY_META`, `EXPENSE_STATUS_META`, `LEAVE_STATUS_META`, `LEAVE_TYPE_META`, `PAYSLIP_STATUS_META`, `POLICY_STATUS_META`, `PRESENCE_META`, `REVIEW_STATUS_META`, `SHIFT_STATUS_META`, `TASK_STATUS_META`, `TIMESHEET_STATUS_META`, `clampPct`, `clampRating`, `formatHours`, `formatMoney`, `toneColor`, `toneSlot`
 
-### `insurance` — 12 components, 4 with variants · last updated **0.7.0** ❌
+### `insurance` — 12 components, 4 with variants · last updated **0.23.0** ✅
+
+**Progress: 12 / 12 upgraded, plus 2 new.** See `INSURANCE-JOBS-KIDS-V4-BRIEF.md §1 and §4`.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `AgentContactCard` | — | ⬜ |
-| 2 | `BeneficiaryRow` | — | ⬜ |
-| 3 | `ClaimRow` | `ClaimRowV2` · `ClaimRowV3` | ⬜ |
-| 4 | `ClaimStatusTracker` | — | ⬜ |
-| 5 | `CoverageItem` | `CoverageItemV2` · `CoverageItemV3` | ⬜ |
-| 6 | `DeductibleBar` | — | ⬜ |
-| 7 | `PolicyCard` | `PolicyCardV2` · `PolicyCardV3` | ⬜ |
-| 8 | `PolicyDocumentRow` | — | ⬜ |
-| 9 | `PremiumSummary` | `PremiumSummaryV2` · `PremiumSummaryV3` | ⬜ |
-| 10 | `QuoteForm` | — | ⬜ |
-| 11 | `RenewalBanner` | — | ⬜ |
-| 12 | `RiskScore` | — | ⬜ |
+| 1 | `AgentContactCard` | `AgentContactCardV4` | ✅ |
+| 2 | `BeneficiaryRow` | `BeneficiaryRowV4` | ✅ |
+| 3 | `ClaimRow` | `ClaimRowV2` · `ClaimRowV3` · `ClaimRowV4` | ✅ |
+| 4 | `ClaimStatusTracker` | `ClaimStatusTrackerV4` | ✅ |
+| 5 | `CoverageItem` | `CoverageItemV2` · `CoverageItemV3` · `CoverageItemV4` | ✅ |
+| 6 | `DeductibleBar` | `DeductibleBarV4` | ✅ |
+| 7 | `PolicyCard` | `PolicyCardV2` · `PolicyCardV3` · `PolicyCardV4` | ✅ |
+| 8 | `PolicyDocumentRow` | `PolicyDocumentRowV4` | ✅ |
+| 9 | `PremiumSummary` | `PremiumSummaryV2` · `PremiumSummaryV3` · `PremiumSummaryV4` | ✅ |
+| 10 | `QuoteForm` | `QuoteFormV4` | ✅ |
+| 11 | `RenewalBanner` | `RenewalBannerV4` | ✅ |
+| 12 | `RiskScore` | `RiskScoreV4` | ✅ |
+| + | `InsuranceIdCardV4` | *new in 0.23.0* | ✅ |
+| + | `ClaimTimelineV4` | *new in 0.23.0* | ✅ |
 
 *helpers:* `CLAIM_STATUS`, `POLICY_VARIANT`, `formatMoney`
 
-### `jobs` — 12 components, 4 with variants · last updated **0.7.0** ❌
+### `jobs` — 12 components, 4 with variants · last updated **0.23.0** ✅
+
+**Progress: 12 / 12 upgraded, plus 2 new.** See `INSURANCE-JOBS-KIDS-V4-BRIEF.md §2 and §5`.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `ApplicationRow` | `ApplicationRowV2` · `ApplicationRowV3` | ⬜ |
-| 2 | `ApplyButton` | — | ⬜ |
-| 3 | `CompanyCard` | `CompanyCardV2` · `CompanyCardV3` | ⬜ |
-| 4 | `InterviewSlot` | — | ⬜ |
-| 5 | `JobCard` | `JobCardV2` · `JobCardV3` | ⬜ |
-| 6 | `JobFilterBar` | — | ⬜ |
-| 7 | `RecruiterMessage` | — | ⬜ |
-| 8 | `ResumeRow` | — | ⬜ |
-| 9 | `SalaryRange` | — | ⬜ |
-| 10 | `SavedJobRow` | — | ⬜ |
-| 11 | `SkillTag` | — | ⬜ |
-| 12 | `StatusPipeline` | `StatusPipelineV2` · `StatusPipelineV3` | ⬜ |
+| 1 | `ApplicationRow` | `ApplicationRowV2` · `ApplicationRowV3` · `ApplicationRowV4` | ✅ |
+| 2 | `ApplyButton` | `ApplyButtonV4` | ✅ |
+| 3 | `CompanyCard` | `CompanyCardV2` · `CompanyCardV3` · `CompanyCardV4` | ✅ |
+| 4 | `InterviewSlot` | `InterviewSlotV4` | ✅ |
+| 5 | `JobCard` | `JobCardV2` · `JobCardV3` · `JobCardV4` | ✅ |
+| 6 | `JobFilterBar` | `JobFilterBarV4` | ✅ |
+| 7 | `RecruiterMessage` | `RecruiterMessageV4` | ✅ |
+| 8 | `ResumeRow` | `ResumeRowV4` | ✅ |
+| 9 | `SalaryRange` | `SalaryRangeV4` | ✅ |
+| 10 | `SavedJobRow` | `SavedJobRowV4` | ✅ |
+| 11 | `SkillTag` | `SkillTagV4` | ✅ |
+| 12 | `StatusPipeline` | `StatusPipelineV2` · `StatusPipelineV3` · `StatusPipelineV4` | ✅ |
+| + | `JobListV4` | *new in 0.23.0* | ✅ |
+| + | `OfferCardV4` | *new in 0.23.0* | ✅ |
 
 *helpers:* `APPLICATION_STAGES`, `EMPLOYMENT_LABEL`, `EMPLOYMENT_TYPES`, `STAGE_LABEL`, `formatCompactMoney`, `formatRelative`, `formatSalary`, `formatShortDate`, `formatTime`
 
-### `kids` — 12 components, 4 with variants · last updated **0.7.0** ❌
+### `kids` — 12 components, 4 with variants · last updated **0.23.0** ✅
+
+**Progress: 12 / 12 upgraded, plus 2 new.** See `INSURANCE-JOBS-KIDS-V4-BRIEF.md §3 and §6`.
 
 | # | component | variants | done |
 |--:|---|---|:--:|
-| 1 | `AllowanceTracker` | `AllowanceTrackerV2` · `AllowanceTrackerV3` | ⬜ |
-| 2 | `BehaviorBadge` | — | ⬜ |
-| 3 | `ChildProfileCard` | `ChildProfileCardV2` · `ChildProfileCardV3` | ⬜ |
-| 4 | `ChoreCard` | `ChoreCardV2` · `ChoreCardV3` | ⬜ |
-| 5 | `FamilyMemberRow` | — | ⬜ |
-| 6 | `GrowthChart` | — | ⬜ |
-| 7 | `MilestoneCard` | — | ⬜ |
-| 8 | `RewardStar` | `RewardStarV2` · `RewardStarV3` | ⬜ |
-| 9 | `RoutineRow` | — | ⬜ |
-| 10 | `SchoolEventRow` | — | ⬜ |
-| 11 | `ScreenTimeBar` | — | ⬜ |
-| 12 | `StickerReward` | — | ⬜ |
+| 1 | `AllowanceTracker` | `AllowanceTrackerV2` · `AllowanceTrackerV3` · `AllowanceTrackerV4` | ✅ |
+| 2 | `BehaviorBadge` | `BehaviorBadgeV4` | ✅ |
+| 3 | `ChildProfileCard` | `ChildProfileCardV2` · `ChildProfileCardV3` · `ChildProfileCardV4` | ✅ |
+| 4 | `ChoreCard` | `ChoreCardV2` · `ChoreCardV3` · `ChoreCardV4` | ✅ |
+| 5 | `FamilyMemberRow` | `FamilyMemberRowV4` | ✅ |
+| 6 | `GrowthChart` | `GrowthChartV4` | ✅ |
+| 7 | `MilestoneCard` | `MilestoneCardV4` | ✅ |
+| 8 | `RewardStar` | `RewardStarV2` · `RewardStarV3` · `RewardStarV4` | ✅ |
+| 9 | `RoutineRow` | `RoutineRowV4` | ✅ |
+| 10 | `SchoolEventRow` | `SchoolEventRowV4` | ✅ |
+| 11 | `ScreenTimeBar` | `ScreenTimeBarV4` | ✅ |
+| 12 | `StickerReward` | `StickerRewardV4` | ✅ |
+| + | `ChoreListV4` | *new in 0.23.0* | ✅ |
+| + | `ChildSwitcherV4` | *new in 0.23.0* | ✅ |
 
 ### `learning` — 13 components, 4 with variants · last updated **0.7.0** ❌
 

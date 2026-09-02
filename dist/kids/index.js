@@ -8,7 +8,7 @@
  * utility class — no literal colors.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StickerReward = exports.FamilyMemberRow = exports.SchoolEventRow = exports.BehaviorBadge = exports.RoutineRow = exports.GrowthChart = exports.ScreenTimeBar = exports.RewardStarV3 = exports.RewardStarV2 = exports.RewardStar = exports.MilestoneCard = exports.AllowanceTrackerV3 = exports.AllowanceTrackerV2 = exports.AllowanceTracker = exports.ChoreCardV3 = exports.ChoreCardV2 = exports.ChoreCard = exports.ChildProfileCardV3 = exports.ChildProfileCardV2 = exports.ChildProfileCard = void 0;
+exports.needsExplanation = exports.nextAward = exports.starParts = exports.meterParts = exports.StickerRewardV4 = exports.ScreenTimeBarV4 = exports.SchoolEventRowV4 = exports.RoutineRowV4 = exports.RewardStarV4 = exports.MilestoneCardV4 = exports.GrowthChartV4 = exports.FamilyMemberRowV4 = exports.ChoreListV4 = exports.ChoreCardV4 = exports.ChildSwitcherV4 = exports.ChildProfileCardV4 = exports.BehaviorBadgeV4 = exports.AllowanceTrackerV4 = exports.StickerReward = exports.FamilyMemberRow = exports.SchoolEventRow = exports.BehaviorBadge = exports.RoutineRow = exports.GrowthChart = exports.ScreenTimeBar = exports.RewardStarV3 = exports.RewardStarV2 = exports.RewardStar = exports.MilestoneCard = exports.AllowanceTrackerV3 = exports.AllowanceTrackerV2 = exports.AllowanceTracker = exports.ChoreCardV3 = exports.ChoreCardV2 = exports.ChoreCard = exports.ChildProfileCardV3 = exports.ChildProfileCardV2 = exports.ChildProfileCard = void 0;
 var ChildProfileCard_1 = require("./ChildProfileCard");
 Object.defineProperty(exports, "ChildProfileCard", { enumerable: true, get: function () { return ChildProfileCard_1.ChildProfileCard; } });
 var ChildProfileCardV2_1 = require("./ChildProfileCardV2");
@@ -49,4 +49,38 @@ var FamilyMemberRow_1 = require("./FamilyMemberRow");
 Object.defineProperty(exports, "FamilyMemberRow", { enumerable: true, get: function () { return FamilyMemberRow_1.FamilyMemberRow; } });
 var StickerReward_1 = require("./StickerReward");
 Object.defineProperty(exports, "StickerReward", { enumerable: true, get: function () { return StickerReward_1.StickerReward; } });
+var AllowanceTrackerV4_1 = require("./AllowanceTrackerV4");
+Object.defineProperty(exports, "AllowanceTrackerV4", { enumerable: true, get: function () { return AllowanceTrackerV4_1.AllowanceTrackerV4; } });
+var BehaviorBadgeV4_1 = require("./BehaviorBadgeV4");
+Object.defineProperty(exports, "BehaviorBadgeV4", { enumerable: true, get: function () { return BehaviorBadgeV4_1.BehaviorBadgeV4; } });
+var ChildProfileCardV4_1 = require("./ChildProfileCardV4");
+Object.defineProperty(exports, "ChildProfileCardV4", { enumerable: true, get: function () { return ChildProfileCardV4_1.ChildProfileCardV4; } });
+var ChildSwitcherV4_1 = require("./ChildSwitcherV4");
+Object.defineProperty(exports, "ChildSwitcherV4", { enumerable: true, get: function () { return ChildSwitcherV4_1.ChildSwitcherV4; } });
+var ChoreCardV4_1 = require("./ChoreCardV4");
+Object.defineProperty(exports, "ChoreCardV4", { enumerable: true, get: function () { return ChoreCardV4_1.ChoreCardV4; } });
+var ChoreListV4_1 = require("./ChoreListV4");
+Object.defineProperty(exports, "ChoreListV4", { enumerable: true, get: function () { return ChoreListV4_1.ChoreListV4; } });
+var FamilyMemberRowV4_1 = require("./FamilyMemberRowV4");
+Object.defineProperty(exports, "FamilyMemberRowV4", { enumerable: true, get: function () { return FamilyMemberRowV4_1.FamilyMemberRowV4; } });
+var GrowthChartV4_1 = require("./GrowthChartV4");
+Object.defineProperty(exports, "GrowthChartV4", { enumerable: true, get: function () { return GrowthChartV4_1.GrowthChartV4; } });
+var MilestoneCardV4_1 = require("./MilestoneCardV4");
+Object.defineProperty(exports, "MilestoneCardV4", { enumerable: true, get: function () { return MilestoneCardV4_1.MilestoneCardV4; } });
+var RewardStarV4_1 = require("./RewardStarV4");
+Object.defineProperty(exports, "RewardStarV4", { enumerable: true, get: function () { return RewardStarV4_1.RewardStarV4; } });
+var RoutineRowV4_1 = require("./RoutineRowV4");
+Object.defineProperty(exports, "RoutineRowV4", { enumerable: true, get: function () { return RoutineRowV4_1.RoutineRowV4; } });
+var SchoolEventRowV4_1 = require("./SchoolEventRowV4");
+Object.defineProperty(exports, "SchoolEventRowV4", { enumerable: true, get: function () { return SchoolEventRowV4_1.SchoolEventRowV4; } });
+var ScreenTimeBarV4_1 = require("./ScreenTimeBarV4");
+Object.defineProperty(exports, "ScreenTimeBarV4", { enumerable: true, get: function () { return ScreenTimeBarV4_1.ScreenTimeBarV4; } });
+var StickerRewardV4_1 = require("./StickerRewardV4");
+Object.defineProperty(exports, "StickerRewardV4", { enumerable: true, get: function () { return StickerRewardV4_1.StickerRewardV4; } });
+/** The kids V4 line's arithmetic, shared with the native twin. */
+var family_v4_1 = require("./family-v4");
+Object.defineProperty(exports, "meterParts", { enumerable: true, get: function () { return family_v4_1.meterParts; } });
+Object.defineProperty(exports, "starParts", { enumerable: true, get: function () { return family_v4_1.starParts; } });
+Object.defineProperty(exports, "nextAward", { enumerable: true, get: function () { return family_v4_1.nextAward; } });
+Object.defineProperty(exports, "needsExplanation", { enumerable: true, get: function () { return family_v4_1.needsExplanation; } });
 //# sourceMappingURL=index.js.map

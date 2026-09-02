@@ -98,3 +98,36 @@ export { StatusPipelineV2 } from './StatusPipelineV2';
 export type { StatusPipelineV2Props } from './StatusPipelineV2';
 export { StatusPipelineV3 } from './StatusPipelineV3';
 export type { StatusPipelineV3Props } from './StatusPipelineV3';
+
+// ── The V4 line ────────────────────────────────────────────────────────
+// The current design pattern, built against `JOBS-V4-SPEC.md`. Each is a
+// drop-in for its base — same props plus optional additions — except
+// `JobListV4` and `OfferCardV4`, which are new and have no base.
+export { ApplicationRowV4 } from './ApplicationRowV4';
+export type { ApplicationRowV4Props } from './ApplicationRowV4';
+export { ApplyButtonV4 } from './ApplyButtonV4';
+export type { ApplyButtonV4Props } from './ApplyButtonV4';
+export { CompanyCardV4 } from './CompanyCardV4';
+export type { CompanyCardV4Props } from './CompanyCardV4';
+export { InterviewSlotV4 } from './InterviewSlotV4';
+export type { InterviewSlotV4Props, InterviewSlotStatus } from './InterviewSlotV4';
+export { JobCardV4 } from './JobCardV4';
+export type { JobCardV4Props } from './JobCardV4';
+export { JobFilterBarV4 } from './JobFilterBarV4';
+export type { JobFilterBarV4Props } from './JobFilterBarV4';
+export { JobListV4 } from './JobListV4';
+export type { JobListV4Props } from './JobListV4';
+export { OfferCardV4 } from './OfferCardV4';
+export type { OfferCardV4Props, OfferStatus, OfferV4 } from './OfferCardV4';
+export { RecruiterMessageV4 } from './RecruiterMessageV4';
+export type { RecruiterMessageV4Props } from './RecruiterMessageV4';
+export { ResumeRowV4 } from './ResumeRowV4';
+export type { ResumeRowV4Props } from './ResumeRowV4';
+export { SalaryRangeV4 } from './SalaryRangeV4';
+export type { SalaryRangeV4Props } from './SalaryRangeV4';
+export { SavedJobRowV4 } from './SavedJobRowV4';
+export type { SavedJobRowV4Props } from './SavedJobRowV4';
+export { SkillTagV4 } from './SkillTagV4';
+export type { SkillTagV4Props } from './SkillTagV4';
+export { StatusPipelineV4 } from './StatusPipelineV4';
+export type { StatusPipelineV4Props } from './StatusPipelineV4';
